@@ -356,3 +356,11 @@ blockquote{
   max-width:56ch; margin:0.4rem auto 2rem; padding-bottom:1.4rem;
   border-bottom:1px solid var(--edge-soft);
 }
+
+/* editorial footnote (small, muted, set off below the narrative) */
+.footnote{
+  font-family:var(--fell); font-style:italic; color:var(--bone-2);
+  font-size:0.85rem; line-height:1.5;
+  max-width:60ch; margin:2.2rem auto 0; padding-top:1rem;
+  border-top:1px solid var(--edge-soft);
+}
