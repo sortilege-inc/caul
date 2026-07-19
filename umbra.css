@@ -357,6 +357,22 @@ blockquote{
   border-bottom:1px solid var(--edge-soft);
 }
 
+/* chronicle tabs — Chronicle / Entities (no-JS, radio-driven) */
+.chron-tabs > input[type="radio"]{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+.tab-labels{ display:flex; gap:0.4rem; margin:0 0 1.6rem; border-bottom:1px solid var(--edge-soft); }
+.tab-labels label{
+  cursor:pointer; padding:0.5rem 1.05rem 0.6rem; margin-bottom:-1px;
+  font-family:var(--caps); font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--bone-2); border-bottom:2px solid transparent; transition:color .15s, border-color .15s;
+}
+.tab-labels label:hover{ color:var(--bone); }
+.chron-tabs > .tab-panel{ display:none; }
+#ct-chr:checked ~ .tab-panel.tp-chr,
+#ct-ent:checked ~ .tab-panel.tp-ent{ display:block; }
+#ct-chr:checked ~ .tab-labels label[for="ct-chr"],
+#ct-ent:checked ~ .tab-labels label[for="ct-ent"]{ color:var(--bone); border-bottom-color:var(--gilt-soft); }
+.chron-tabs input:focus-visible ~ .tab-labels label{ outline:1px dotted var(--edge-hair); outline-offset:2px; }
+
 /* editorial footnote (small, muted, set off below the narrative) */
 .footnote{
   font-family:var(--fell); font-style:italic; color:var(--bone-2);
