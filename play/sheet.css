@@ -252,3 +252,4 @@
 .beast-active { background: rgba(159,180,194,0.1); border: 1px solid var(--moon); border-radius: 7px; padding: 0.6rem; }
 .beast-active-name { font-family: var(--caps); letter-spacing: 0.04em; color: var(--moon-lit); font-size: 0.95rem; }
 .beast-active-stats { font-size: 0.82rem; color: var(--bone-2); margin: 0.3rem 0 0.5rem; }
+.weapon.beast-wp { border-left: 3px solid var(--moon); }

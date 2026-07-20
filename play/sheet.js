@@ -112,7 +112,39 @@
       return { name: "⟡ " + ft.name, text: ft.text, costs: costs, hasRoll: /make an?\b.*\broll/i.test(ft.text), uses: null, passive: costs.length === 0 };
     });
   }
-  function setBeastform(name) { state.beastform = name; save(); build(); }
+  function beastformCost() {
+    for (var i = 0; i < S.features.length; i++) {
+      if (S.features[i].name === "Beastform") {
+        var c = (S.features[i].costs || []).filter(function (x) { return x.key === "stress"; })[0];
+        return c ? c.value : 1;
+      }
+    }
+    return 1;
+  }
+  function beastformWeapon() {
+    var bf = activeBeastform();
+    if (!bf || !bf.attack) return null;
+    var dmg = bf.attack.damage || "d6 phy";
+    var dm = dmg.match(/d(\d+)/), bm = dmg.match(/\+(\d+)/);
+    return {
+      name: "⟡ " + bf.name, trait: (bf.attack.trait || "").toLowerCase(),
+      range: bf.attack.range || "Melee", dice: dm ? "d" + dm[1] : "d6",
+      bonus: bm ? parseInt(bm[1], 10) : 0, multiplier: "prof",
+      damageType: [/mag/i.test(dmg) ? "magical" : "physical"], feature: "Beastform attack", beast: true
+    };
+  }
+  function setBeastform(name) {
+    var msg;
+    if (name) {
+      var cost = beastformCost();
+      if (state.stress + cost > S.stressMax) { notify("Not enough Stress slots to transform (" + cost + " Stress)."); return; }
+      if (cost) addStress(cost);
+      msg = '<span class="lg-label">Beastform: ' + esc(name) + '</span> <span class="lg-eff">→ marked ' + cost + " Stress</span>";
+    } else {
+      msg = '<span class="lg-label">Dropped out of Beastform</span>';
+    }
+    state.beastform = name; save(); build(); logRoll(msg);   // log after build() rebuilds the (empty) log
+  }
   function beastformBox() {
     var bf = activeBeastform();
     var box = el("div", "beast-box");
@@ -274,19 +306,22 @@
 
   /* ---------- equipment (Equipped / Inventory tabs) ---------- */
   function weaponRow(w) {
-    var equipped = !!state.equip.weapons[w.name];
-    var row = el("div", "weapon" + (equipped ? " is-eq" : ""));
+    var equipped = w.beast ? true : !!state.equip.weapons[w.name];
+    var row = el("div", "weapon" + (equipped ? " is-eq" : "") + (w.beast ? " beast-wp" : ""));
     var dmg = ((w.multiplier === "prof") ? S.proficiency : 1) + w.dice + (w.bonus ? "+" + w.bonus : "");
     row.appendChild(el("div", "wp-name", esc(w.name) +
       '<span class="wp-meta">' + cap(w.trait || "—") + " · " + prettyRange(w.range) + " · " + dmg + " " +
       esc((w.damageType || []).join("/")) + (w.secondary ? " · secondary" : "") + "</span>"));
     var acts = el("div", "wp-acts");
-    var eq = el("button", "mini eq-toggle" + (equipped ? " on" : ""), equipped ? "Equipped" : "Equip");
-    eq.addEventListener("click", function () { state.equip.weapons[w.name] = !state.equip.weapons[w.name]; save(); renderEquipment(); });
+    if (!w.beast) {
+      var eq = el("button", "mini eq-toggle" + (equipped ? " on" : ""), equipped ? "Equipped" : "Equip");
+      eq.addEventListener("click", function () { state.equip.weapons[w.name] = !state.equip.weapons[w.name]; save(); renderEquipment(); });
+      acts.appendChild(eq);
+    }
     var atk = el("button", "mini", "Attack"); atk.addEventListener("click", function () { attackWith(w); });
     var dm = el("button", "mini", "Damage"); dm.addEventListener("click", function () { damageRoll(w, false, rollMount); rollResult.textContent = ""; });
     var dmc = el("button", "mini ghost", "Crit"); dmc.addEventListener("click", function () { damageRoll(w, true, rollMount); rollResult.textContent = ""; });
-    acts.appendChild(eq); acts.appendChild(atk); acts.appendChild(dm); acts.appendChild(dmc);
+    acts.appendChild(atk); acts.appendChild(dm); acts.appendChild(dmc);
     row.appendChild(acts);
     if (w.feature) row.appendChild(el("div", "wp-feat", esc(w.feature)));
     return row;
@@ -319,9 +354,11 @@
     equipHost.appendChild(tabs);
     var panel = el("div", "eq-panel");
     if (equipTab === "equipped") {
+      var bw = beastformWeapon();
       var eqW = S.weapons.filter(function (w) { return state.equip.weapons[w.name]; });
       var eqA = S.armor.filter(function (a) { return a.name === state.equip.armor; });
-      if (eqW.length || eqA.length) {
+      if (bw) panel.appendChild(weaponRow(bw));
+      if (bw || eqW.length || eqA.length) {
         eqW.forEach(function (w) { panel.appendChild(weaponRow(w)); });
         eqA.forEach(function (a) { panel.appendChild(armorRow(a)); });
       } else panel.appendChild(el("p", "hint", "Nothing equipped. Open Inventory to equip weapons and armor."));
