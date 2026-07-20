@@ -10,7 +10,7 @@
   if (!S) return;
   var ROOT = document.getElementById("sheet");
   var STORE = "caul.play." + S.id;
-  var STATE_V = 3;
+  var STATE_V = 4;
 
   /* ---------- tiny DOM helper ---------- */
   function el(tag, cls, html) {
@@ -50,6 +50,7 @@
       cond: { Hidden: false, Restrained: false, Vulnerable: false },
       loc: {},                       // cardName -> "loadout" | "vault" (override)
       equip: initEquip(),            // { armor: name|null, weapons: {name:bool} }
+      uses: {},                      // featureName -> marked uses
       gold: { coins: S.gold.coins, handfuls: S.gold.handfuls, bags: S.gold.bags, chests: S.gold.chests }
     };
   }
@@ -59,6 +60,7 @@
     if (!st || st.v !== STATE_V) st = blankState();
     if (!st.cond) st.cond = { Hidden: false, Restrained: false, Vulnerable: false };
     if (!st.loc) st.loc = {};
+    if (!st.uses) st.uses = {};
     if (!st.equip || !st.equip.weapons) st.equip = initEquip();
     if (!st.gold) st.gold = blankState().gold;
     return st;
@@ -83,8 +85,9 @@
     };
   }
   var CUR = derivedStats();
-  var statEls = {}, armorTrackHost, equipHost;
+  var statEls = {}, armorTrackHost, equipHost, restHost;
   var cardsTab = "loadout", equipTab = "equipped";
+  function tier() { return S.level <= 1 ? 1 : S.level <= 4 ? 2 : S.level <= 7 ? 3 : 4; }
 
   /* ---------- card loadout/vault ---------- */
   function cardLoc(card) { return state.loc[card.name] || (card.inVault ? "vault" : "loadout"); }
@@ -287,6 +290,10 @@
         panel.appendChild(el("div", "eq-sub", "Items"));
         S.inventory.forEach(function (i) { panel.appendChild(lootRow(i)); });
       }
+      panel.appendChild(el("div", "eq-sub", "Gold"));
+      var goldStr = ["chests", "bags", "handfuls", "coins"].filter(function (k) { return state.gold[k]; })
+        .map(function (k) { return state.gold[k] + " " + k; }).join(" · ") || "empty purse";
+      panel.appendChild(el("div", "gold", goldStr));
     }
     equipHost.appendChild(panel);
   }
@@ -307,6 +314,72 @@
     if (statEls.major) statEls.major.textContent = CUR.thresholds.major;
     if (statEls.severe) statEls.severe.textContent = CUR.thresholds.severe;
     rebuildArmorTrack();
+  }
+
+  /* ---------- rest (short / long) ---------- */
+  function renderRest() {
+    if (!restHost) return;
+    restHost.innerHTML = "";
+    var row = el("div", "rest-row");
+    var sr = el("button", "mini", "Short Rest"); sr.addEventListener("click", function () { beginRest("short"); });
+    var lr = el("button", "mini", "Long Rest"); lr.addEventListener("click", function () { beginRest("long"); });
+    var rs = el("button", "mini ghost", "Reset");
+    var armed = false, armTimer;
+    rs.addEventListener("click", function () {
+      if (!armed) { armed = true; rs.textContent = "Really reset?"; rs.classList.add("armed"); notify("Click again to reset all trackers.");
+        armTimer = setTimeout(function () { armed = false; rs.textContent = "Reset"; rs.classList.remove("armed"); }, 3500); return; }
+      clearTimeout(armTimer); state = blankState(); save(); build();
+    });
+    row.appendChild(sr); row.appendChild(lr); row.appendChild(rs);
+    restHost.appendChild(row);
+  }
+  function beginRest(kind) {
+    restHost.innerHTML = "";
+    var t = tier(), picks = 2;
+    var panel = el("div", "rest-panel");
+    panel.appendChild(el("div", "rest-h", (kind === "short" ? "Short Rest" : "Long Rest") + " — choose 2 moves (repeatable)"));
+    var remEl = el("div", "rest-rem"); panel.appendChild(remEl);
+    function setRem() { remEl.textContent = "Moves left: " + picks; }
+    setRem();
+    var moves = kind === "short" ? [
+      ["Tend to Wounds", "clear 1d4+" + t + " HP", function () { var v = d(4) + t; addHP(-v); return "cleared " + v + " HP"; }],
+      ["Clear Stress", "clear 1d4+" + t + " Stress", function () { var v = d(4) + t; addStress(-v); return "cleared " + v + " Stress"; }],
+      ["Repair Armor", "clear 1d4+" + t + " Armor", function () { var v = d(4) + t; state.armor = clamp(state.armor - v, 0, CUR.armorScore); save(); return "repaired " + Math.min(v, CUR.armorScore) + " Armor"; }],
+      ["Prepare", "gain 1 Hope", function () { addHope(1); return "gained 1 Hope"; }]
+    ] : [
+      ["Tend to All Wounds", "clear all HP", function () { state.hp = 0; save(); return "cleared all HP"; }],
+      ["Clear All Stress", "clear all Stress", function () { state.stress = 0; save(); return "cleared all Stress"; }],
+      ["Repair All Armor", "clear all Armor", function () { state.armor = 0; save(); return "repaired all Armor"; }],
+      ["Prepare", "gain 1 Hope", function () { addHope(1); return "gained 1 Hope"; }],
+      ["Work on a Project", "downtime", function () { return "worked on a project"; }]
+    ];
+    var list = el("div", "rest-moves");
+    moves.forEach(function (m) {
+      var b = el("button", "mini rest-move", m[0] + " — " + m[1]);
+      b.addEventListener("click", function () {
+        if (picks <= 0) { notify("No moves left — finish the rest."); return; }
+        var msg = m[2](); picks--; setRem(); renderResources();
+        logRoll('<span class="lg-label">' + esc(m[0]) + '</span> <span class="lg-eff">→ ' + esc(msg) + "</span>");
+      });
+      list.appendChild(b);
+    });
+    panel.appendChild(list);
+    var act = el("div", "rest-row");
+    var fin = el("button", "mini", "Finish Rest"); fin.addEventListener("click", function () { finishRest(kind); });
+    var can = el("button", "mini ghost", "Cancel"); can.addEventListener("click", renderRest);
+    act.appendChild(fin); act.appendChild(can);
+    panel.appendChild(act);
+    restHost.appendChild(panel);
+  }
+  function finishRest(kind) {
+    var periods = kind === "long" ? ["short", "long", "rest", "session"] : ["short", "rest"];
+    S.features.forEach(function (f) {
+      if (f.uses && periods.indexOf(f.uses.period) !== -1) state.uses[f.name] = 0;
+    });
+    save();
+    logRoll('<span class="lg-label">' + (kind === "long" ? "Long" : "Short") + " Rest complete</span>" +
+      '<span class="lg-eff">→ ' + (kind === "long" ? "long-rest" : "short-rest") + " features reset · GM gains Fear</span>");
+    renderResources(); renderCards(); renderRest();
   }
 
   function build() {
@@ -470,19 +543,11 @@
     });
     c3.appendChild(condW);
 
-    // rest + reset
-    var restW = el("div", "rest-row");
-    var lr = el("button", "mini", "Long Rest");
-    lr.addEventListener("click", function () { state.hp = 0; state.stress = 0; state.armor = 0; save(); renderResources(); logRoll('<span class="lg-label">Long Rest</span> <span class="lg-eff">→ cleared HP, Stress, Armor</span>'); });
-    var rs = el("button", "mini ghost", "Reset sheet");
-    var armed = false, armTimer;
-    rs.addEventListener("click", function () {
-      if (!armed) { armed = true; rs.textContent = "Really reset?"; rs.classList.add("armed"); notify("Click again to reset all trackers.");
-        armTimer = setTimeout(function () { armed = false; rs.textContent = "Reset sheet"; rs.classList.remove("armed"); }, 3500); return; }
-      clearTimeout(armTimer); state = blankState(); save(); build();
-    });
-    restW.appendChild(lr); restW.appendChild(rs);
-    c3.appendChild(restW);
+    // rest (short / long) — between Conditions and the Roll Log
+    c3.appendChild(el("div", "col-h", "Rest"));
+    restHost = el("div", "rest-host");
+    c3.appendChild(restHost);
+    renderRest();
 
     // roll log
     c3.appendChild(el("div", "col-h", "Roll Log"));
@@ -490,99 +555,113 @@
 
     grid.appendChild(c3);
 
-    /* ===== DOMAIN CARDS ===== */
+    /* ===== ABILITIES & DOMAIN CARDS (Passive | Features | Loadout | Vault) ===== */
     var cardsSec = el("section", "cards-sec");
-    cardsHeader = el("div", "col-h cards-h");
+    cardsHeader = el("div", "col-h cards-h", "Abilities &amp; Cards");
     cardsSec.appendChild(cardsHeader);
     cardsBody = el("div", "cards-body");
     cardsSec.appendChild(cardsBody);
     ROOT.appendChild(cardsSec);
     renderCards();
-
-    /* ===== FEATURES / INVENTORY (reference tabs) ===== */
-    var ref = el("section", "ref-sec");
-    var tabs = el("div", "ref-tabs");
-    var panels = el("div", "ref-panels");
-    var defs = [
-      ["Features", S.features, function (f) { return '<div class="ref-item"><b>' + esc(f.name) + "</b><p>" + esc(f.text) + "</p></div>"; }]
-    ];
-    defs.forEach(function (dfn, di) {
-      var t = el("button", "ref-tab" + (di === 0 ? " on" : ""), dfn[0] + " (" + dfn[1].length + ")");
-      var p = el("div", "ref-panel" + (di === 0 ? " on" : ""));
-      p.innerHTML = dfn[1].length ? dfn[1].map(dfn[2]).join("") : '<p class="hint">None.</p>';
-      t.addEventListener("click", function () {
-        [].forEach.call(tabs.children, function (x) { x.className = "ref-tab"; });
-        [].forEach.call(panels.children, function (x) { x.className = "ref-panel"; });
-        t.className = "ref-tab on"; p.className = "ref-panel on";
-      });
-      tabs.appendChild(t); panels.appendChild(p);
-    });
-    // gold line
-    var goldStr = ["chests", "bags", "handfuls", "coins"].filter(function (k) { return state.gold[k]; })
-      .map(function (k) { return state.gold[k] + " " + k; }).join(" · ") || "empty purse";
-    ref.appendChild(el("div", "gold", "Gold: " + goldStr));
-    ref.appendChild(tabs); ref.appendChild(panels);
-    ROOT.appendChild(ref);
-
     renderResources();
   }
 
-  /* ---------- domain cards render ---------- */
+  /* ---------- abilities & cards: Passive | Features | Loadout | Vault ---------- */
   var cardsHeader, cardsBody;
+  function usesWidget(f) {
+    var wrap = el("div", "uses");
+    var per = { short: "short rest", long: "long rest", rest: "rest", session: "session" }[f.uses.period] || f.uses.period;
+    wrap.appendChild(el("span", "uses-l", f.uses.n + " per " + per));
+    var boxes = el("span", "uses-boxes");
+    var marked = state.uses[f.name] || 0;
+    for (var i = 0; i < f.uses.n; i++) {
+      (function (idx) {
+        var b = el("span", "upip" + (idx < marked ? " on" : ""));
+        b.addEventListener("click", function () {
+          var cur = state.uses[f.name] || 0;
+          state.uses[f.name] = (idx < cur ? idx : idx + 1);
+          save(); renderCards();
+        });
+        boxes.appendChild(b);
+      })(i);
+    }
+    wrap.appendChild(boxes);
+    return wrap;
+  }
+  function featureCard(f) {
+    var card = el("div", "dcard feat");
+    card.appendChild(el("div", "dc-head",
+      '<span class="dc-name">' + esc(f.name) + "</span>" +
+      (f.cost ? '<span class="dc-tags feat-cost">' + esc(f.cost) + "</span>" : "")));
+    if (f.uses) card.appendChild(usesWidget(f));
+    card.appendChild(el("div", "dc-text", esc(f.text)));
+    return card;
+  }
+  function domainCard(c) {
+    var inLoad = cardLoc(c) === "loadout";
+    var card = el("div", "dcard " + c.domain + (inLoad ? " in-load" : " in-vault"));
+    card.appendChild(el("div", "dc-head",
+      '<span class="dc-name">' + esc(c.name) + "</span>" +
+      '<span class="dc-tags">' + cap(c.domain) + " · Lv" + c.level + " · " + cap(c.type) +
+      (c.recallCost ? ' · Recall ' + c.recallCost : "") + "</span>"));
+    if (c.spells && c.spells.length) {
+      var sp = el("div", "dc-spells");
+      c.spells.forEach(function (s) {
+        var row = el("div", "spell");
+        var b = el("button", "mini spell-btn", esc(s.name));
+        if (inLoad) { b.addEventListener("click", function () { castSpell(s, c); }); }
+        else { b.disabled = true; b.className = "mini spell-btn disabled"; b.title = "In the Vault — recall this Book to prepare it"; }
+        row.appendChild(b);
+        if (s.text) row.appendChild(el("div", "spell-text", esc(s.text)));
+        sp.appendChild(row);
+      });
+      card.appendChild(sp);
+    } else {
+      card.appendChild(el("div", "dc-text", esc(c.text)));
+    }
+    var act = el("div", "dc-act");
+    if (inLoad) {
+      var v = el("button", "mini ghost", "→ Vault");
+      v.addEventListener("click", function () { state.loc[c.name] = "vault"; save(); renderCards(); });
+      act.appendChild(v);
+    } else {
+      var r = el("button", "mini", c.recallCost ? "Recall (mark " + c.recallCost + " Stress)" : "Recall");
+      r.addEventListener("click", function () {
+        if (loadoutCount() >= 5) { notify("Loadout is full (5) — move a card to the Vault first."); return; }
+        if (c.recallCost && state.stress + c.recallCost > S.stressMax) { notify("Not enough Stress slots to pay the Recall Cost."); return; }
+        if (c.recallCost) addStress(c.recallCost);
+        state.loc[c.name] = "loadout"; save(); renderCards(); renderResources();
+        logRoll('<span class="lg-label">Recall ' + esc(c.name) + "</span>" + (c.recallCost ? '<span class="lg-eff">→ marked ' + c.recallCost + " Stress</span>" : ""));
+      });
+      act.appendChild(r);
+    }
+    card.appendChild(act);
+    return card;
+  }
   function renderCards() {
     var lc = loadoutCount();
-    cardsHeader.innerHTML = "Domain Cards";
+    var passive = S.features.filter(function (f) { return f.passive; });
+    var active = S.features.filter(function (f) { return !f.passive; });
     cardsBody.innerHTML = "";
     var tabs = el("div", "card-tabs");
-    var tL = el("button", "card-tab" + (cardsTab === "loadout" ? " on" : ""), "Loadout " + lc + "/5");
-    var tV = el("button", "card-tab" + (cardsTab === "vault" ? " on" : ""), "Vault " + (S.cards.length - lc));
-    tL.addEventListener("click", function () { cardsTab = "loadout"; renderCards(); });
-    tV.addEventListener("click", function () { cardsTab = "vault"; renderCards(); });
-    tabs.appendChild(tL); tabs.appendChild(tV);
+    [["passive", "Passive " + passive.length], ["features", "Features " + active.length],
+     ["loadout", "Loadout " + lc + "/5"], ["vault", "Vault " + (S.cards.length - lc)]].forEach(function (t) {
+      var b = el("button", "card-tab" + (cardsTab === t[0] ? " on" : ""), t[1]);
+      b.addEventListener("click", function () { cardsTab = t[0]; renderCards(); });
+      tabs.appendChild(b);
+    });
     cardsBody.appendChild(tabs);
     var list = el("div", "card-list");
-    S.cards.filter(function (c) { return cardLoc(c) === cardsTab; }).forEach(function (c) {
-      var inLoad = cardLoc(c) === "loadout";
-      var card = el("div", "dcard " + c.domain + (inLoad ? " in-load" : " in-vault"));
-      card.appendChild(el("div", "dc-head",
-        '<span class="dc-name">' + esc(c.name) + "</span>" +
-        '<span class="dc-tags">' + cap(c.domain) + " · Lv" + c.level + " · " + cap(c.type) +
-        (c.recallCost ? ' · Recall ' + c.recallCost : "") + "</span>"));
-      if (c.spells && c.spells.length) {
-        var sp = el("div", "dc-spells");
-        c.spells.forEach(function (s) {
-          var row = el("div", "spell");
-          var b = el("button", "mini spell-btn", esc(s.name));
-          if (inLoad) { b.addEventListener("click", function () { castSpell(s, c); }); }
-          else { b.disabled = true; b.className = "mini spell-btn disabled"; b.title = "In the Vault — recall this Book to prepare it"; }
-          row.appendChild(b);
-          if (s.text) row.appendChild(el("div", "spell-text", esc(s.text)));
-          sp.appendChild(row);
-        });
-        card.appendChild(sp);
-      } else {
-        card.appendChild(el("div", "dc-text", esc(c.text)));
-      }
-      var act = el("div", "dc-act");
-      if (inLoad) {
-        var v = el("button", "mini ghost", "→ Vault");
-        v.addEventListener("click", function () { state.loc[c.name] = "vault"; save(); renderCards(); });
-        act.appendChild(v);
-      } else {
-        var r = el("button", "mini", c.recallCost ? "Recall (mark " + c.recallCost + " Stress)" : "Recall");
-        r.addEventListener("click", function () {
-          if (loadoutCount() >= 5) { notify("Loadout is full (5) — move a card to the Vault first."); return; }
-          if (c.recallCost && state.stress + c.recallCost > S.stressMax) { notify("Not enough Stress slots to pay the Recall Cost."); return; }
-          if (c.recallCost) addStress(c.recallCost);
-          state.loc[c.name] = "loadout"; save(); renderCards(); renderResources();
-          logRoll('<span class="lg-label">Recall ' + esc(c.name) + "</span>" + (c.recallCost ? '<span class="lg-eff">→ marked ' + c.recallCost + " Stress</span>" : ""));
-        });
-        act.appendChild(r);
-      }
-      card.appendChild(act);
-      list.appendChild(card);
-    });
-    if (!list.children.length) list.appendChild(el("p", "hint", cardsTab === "loadout" ? "No cards in the loadout." : "The vault is empty."));
+    if (cardsTab === "passive") {
+      passive.forEach(function (f) { list.appendChild(featureCard(f)); });
+      if (!passive.length) list.appendChild(el("p", "hint", "No passive features."));
+    } else if (cardsTab === "features") {
+      active.forEach(function (f) { list.appendChild(featureCard(f)); });
+      if (!active.length) list.appendChild(el("p", "hint", "No activated features."));
+    } else {
+      S.cards.filter(function (c) { return cardLoc(c) === cardsTab; }).forEach(function (c) { list.appendChild(domainCard(c)); });
+      if (!list.children.length) list.appendChild(el("p", "hint", cardsTab === "loadout" ? "No cards in the loadout." : "The vault is empty."));
+    }
     cardsBody.appendChild(list);
   }
 
