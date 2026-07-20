@@ -382,6 +382,57 @@
     renderResources(); renderCards(); renderRest();
   }
 
+  /* ---------- movable blocks: Hope tracker, Take-Damage ---------- */
+  function hopeTracker() {
+    var hopeW = el("div", "hope-track");
+    hopeW.appendChild(el("div", "track-label", 'Hope <span class="track-count" id="hopeCount">' + state.hope + "/" + S.hopeMax + "</span>"));
+    hopeBoxes = el("div", "hope-boxes");
+    for (var h = 0; h < S.hopeMax; h++) {
+      (function (idx) {
+        var b = el("span", "hope-pip");
+        b.addEventListener("click", function () { state.hope = (idx < state.hope ? idx : idx + 1); save(); renderResources(); });
+        hopeBoxes.appendChild(b);
+      })(h);
+    }
+    hopeW.appendChild(hopeBoxes);
+    hopeCount = hopeW.querySelector("#hopeCount");
+    var hopeBtns = el("div", "hope-btns");
+    var hf = el("button", "mini ghost", "Spend 3 (Hope feature)");
+    hf.addEventListener("click", function () { if (state.hope >= 3) { addHope(-3); renderResources(); logRoll('<span class="lg-label">Hope feature</span> <span class="lg-eff">−3 Hope</span>'); } });
+    hopeBtns.appendChild(hf);
+    hopeW.appendChild(hopeBtns);
+    return hopeW;
+  }
+  function takeDamageBlock() {
+    var wrap = el("div", "take-dmg-block");
+    wrap.appendChild(el("div", "col-h", "Take Damage"));
+    var dmgWrap = el("div", "dmg-take");
+    var dmgIn = numInput("", 4); dmgIn.placeholder = "amount";
+    var useArmor = el("label", "armchk"); var acb = el("input"); acb.type = "checkbox";
+    useArmor.appendChild(acb); useArmor.appendChild(el("span", "", "spend Armor Slot"));
+    var takeBtn = el("button", "mini", "Apply");
+    var dmgOut = el("span", "dmg-out");
+    takeBtn.addEventListener("click", function () {
+      var amt = parseInt(dmgIn.value, 10); if (isNaN(amt)) return;
+      var t = amt >= 2 * CUR.thresholds.severe ? 4 : amt >= CUR.thresholds.severe ? 3 : amt >= CUR.thresholds.major ? 2 : 1;
+      if (acb.checked && state.armor < CUR.armorScore && t > 1) { t -= 1; state.armor += 1; acb.checked = false; }
+      addHP(t); renderResources();
+      dmgOut.textContent = "marked " + t + " HP";
+      logRoll('<span class="lg-label">Took ' + amt + " damage</span> <span class=\"lg-eff\">→ marked " + t + " HP</span>");
+    });
+    dmgWrap.appendChild(dmgIn); dmgWrap.appendChild(useArmor); dmgWrap.appendChild(takeBtn); dmgWrap.appendChild(dmgOut);
+    wrap.appendChild(dmgWrap);
+    var thr = el("div", "thresholds");
+    var mj = el("b", "", CUR.thresholds.major), sv = el("b", "", CUR.thresholds.severe);
+    statEls.major = mj; statEls.severe = sv;
+    thr.appendChild(document.createTextNode("Minor < ")); thr.appendChild(mj);
+    thr.appendChild(document.createTextNode(" Major < ")); thr.appendChild(sv);
+    thr.appendChild(document.createTextNode(" Severe"));
+    wrap.appendChild(thr);
+    wrap.appendChild(el("p", "hint", "Below Major → 1 HP · ≥ Major → 2 HP · ≥ Severe → 3 HP · ≥ 2× Severe → 4 HP. An Armor Slot reduces a hit by one threshold."));
+    return wrap;
+  }
+
   function build() {
     ROOT.innerHTML = "";
 
@@ -404,8 +455,7 @@
     CUR = derivedStats();
     statEls = {};
     var stats = el("div", "statline");
-    [["Evasion", CUR.evasion, "evasion"], ["Proficiency", S.proficiency, null],
-     ["Major", CUR.thresholds.major, "major"], ["Severe", CUR.thresholds.severe, "severe"]].forEach(function (p) {
+    [["Evasion", CUR.evasion, "evasion"], ["Proficiency", S.proficiency, null]].forEach(function (p) {
       var b = el("div", "stat");
       var v = el("div", "stat-v", p[1]);
       b.appendChild(v);
@@ -414,7 +464,6 @@
       stats.appendChild(b);
     });
     c1.appendChild(stats);
-    c1.appendChild(el("p", "hint", "Damage ≥ Major marks 2 HP · ≥ Severe marks 3 HP · ≥ 2× Severe marks 4 HP · otherwise 1 HP. An Armor Slot reduces a hit by one threshold."));
 
     var traitWrap = el("div", "traits");
     ["agility", "strength", "finesse", "instinct", "presence", "knowledge"].forEach(function (k) {
@@ -427,6 +476,10 @@
     });
     c1.appendChild(el("div", "col-h", "Traits"));
     c1.appendChild(traitWrap);
+
+    // hope — between Traits and Experiences
+    c1.appendChild(el("div", "col-h", "Hope"));
+    c1.appendChild(hopeTracker());
 
     // experiences
     if (S.experiences.length) {
@@ -470,51 +523,14 @@
     c2.appendChild(equipHost);
     renderEquipment();
 
-    // damage intake helper
-    c2.appendChild(el("div", "col-h", "Take Damage"));
-    var dmgWrap = el("div", "dmg-take");
-    var dmgIn = numInput("", 4); dmgIn.placeholder = "amount";
-    var useArmor = el("label", "armchk"); var acb = el("input"); acb.type = "checkbox";
-    useArmor.appendChild(acb); useArmor.appendChild(el("span", "", "spend Armor Slot"));
-    var takeBtn = el("button", "mini", "Apply");
-    var dmgOut = el("span", "dmg-out");
-    takeBtn.addEventListener("click", function () {
-      var amt = parseInt(dmgIn.value, 10); if (isNaN(amt)) return;
-      var tier = amt >= 2 * CUR.thresholds.severe ? 4 : amt >= CUR.thresholds.severe ? 3 : amt >= CUR.thresholds.major ? 2 : 1;
-      if (acb.checked && state.armor < CUR.armorScore && tier > 1) { tier -= 1; state.armor += 1; acb.checked = false; }
-      addHP(tier);
-      renderResources();
-      dmgOut.textContent = "marked " + tier + " HP";
-      logRoll('<span class="lg-label">Took ' + amt + " damage</span> <span class=\"lg-eff\">→ marked " + tier + " HP</span>");
-    });
-    dmgWrap.appendChild(dmgIn); dmgWrap.appendChild(useArmor); dmgWrap.appendChild(takeBtn); dmgWrap.appendChild(dmgOut);
-    c2.appendChild(dmgWrap);
-
     grid.appendChild(c2);
 
     /* ===== COLUMN 3: resources ===== */
     var c3 = el("section", "col col-res");
     c3.appendChild(el("div", "col-h", "Resources"));
 
-    // Hope
-    var hopeW = el("div", "hope-track");
-    hopeW.appendChild(el("div", "track-label", 'Hope <span class="track-count" id="hopeCount">' + state.hope + "/" + S.hopeMax + "</span>"));
-    hopeBoxes = el("div", "hope-boxes");
-    for (var h = 0; h < S.hopeMax; h++) {
-      (function (idx) {
-        var b = el("span", "hope-pip");
-        b.addEventListener("click", function () { state.hope = (idx < state.hope ? idx : idx + 1); save(); renderResources(); });
-        hopeBoxes.appendChild(b);
-      })(h);
-    }
-    hopeW.appendChild(hopeBoxes);
-    hopeCount = hopeW.querySelector("#hopeCount");
-    var hopeBtns = el("div", "hope-btns");
-    var hf = el("button", "mini ghost", "Spend 3 (Hope feature)");
-    hf.addEventListener("click", function () { if (state.hope >= 3) { addHope(-3); renderResources(); logRoll('<span class="lg-label">Hope feature</span> <span class="lg-eff">−3 Hope</span>'); } });
-    hopeBtns.appendChild(hf);
-    hopeW.appendChild(hopeBtns);
-    c3.appendChild(hopeW);
+    // Take Damage -> thresholds + help -> Hit Points
+    c3.appendChild(takeDamageBlock());
 
     // HP / Stress / Armor tracks
     hpWrap = trackWidget("Hit Points", function () { return state.hp; }, S.hpMax, function (v) { state.hp = clamp(v, 0, S.hpMax); save(); renderResources(); }, "hp");
@@ -582,12 +598,40 @@
     wrap.appendChild(boxes);
     return wrap;
   }
+  function costLabel(k) { return { hope: "Hope", stress: "Stress", hitpoints: "HP", hitpoint: "HP", armor: "Armor" }[k] || cap(k); }
+  function applyCost(c, name) {
+    var v = c.value;
+    if (c.key === "hope") { if (state.hope < v) { notify("Not enough Hope."); return; } addHope(-v); }
+    else if (c.key === "stress") { if (state.stress + v > S.stressMax) { notify("Not enough Stress slots."); return; } addStress(v); }
+    else if (c.key === "hitpoints" || c.key === "hitpoint") { addHP(v); }
+    else if (c.key === "armor") { state.armor = clamp(state.armor + v, 0, CUR.armorScore); save(); }
+    renderResources();
+    logRoll('<span class="lg-label">' + esc(name) + '</span> <span class="lg-eff">→ ' +
+      (c.key === "hope" ? "spent " : "marked ") + v + " " + costLabel(c.key) + "</span>");
+  }
+  function rollFeature(f) {
+    var tr = f.rollTrait || (/spellcast/i.test(f.text) ? S.spellcastTrait : "");
+    actionRoll(rollMods({ trait: tr ? tTrait(tr) : 0, traitName: cap(tr || ""), label: f.name }), rollMount);
+    rollResult.innerHTML = "<b>" + esc(f.name) + "</b> — " + esc(f.text);
+  }
   function featureCard(f) {
     var card = el("div", "dcard feat");
-    card.appendChild(el("div", "dc-head",
-      '<span class="dc-name">' + esc(f.name) + "</span>" +
-      (f.cost ? '<span class="dc-tags feat-cost">' + esc(f.cost) + "</span>" : "")));
+    card.appendChild(el("div", "dc-head", '<span class="dc-name">' + esc(f.name) + "</span>"));
     if (f.uses) card.appendChild(usesWidget(f));
+    if ((f.costs && f.costs.length) || f.hasRoll) {
+      var ctl = el("div", "feat-ctl");
+      (f.costs || []).forEach(function (c) {
+        var b = el("button", "mini feat-cost-btn", (c.key === "hope" ? "Spend " : "Mark ") + c.value + " " + costLabel(c.key));
+        b.addEventListener("click", function () { applyCost(c, f.name); });
+        ctl.appendChild(b);
+      });
+      if (f.hasRoll) {
+        var rb = el("button", "mini roll-btn", "Roll");
+        rb.addEventListener("click", function () { rollFeature(f); });
+        ctl.appendChild(rb);
+      }
+      card.appendChild(ctl);
+    }
     card.appendChild(el("div", "dc-text", esc(f.text)));
     return card;
   }

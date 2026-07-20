@@ -37,7 +37,7 @@
 .hint { font-size: 0.78rem; color: var(--ash-dim); font-style: italic; line-height: 1.4; margin: 0.4rem 0 0.2rem; }
 
 /* stat line */
-.statline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.statline { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
 .stat { text-align: center; background: rgba(9,11,14,0.5); border: 1px solid var(--edge-soft); border-radius: 6px; padding: 0.45rem 0.2rem; }
 .stat-v { font-family: var(--caps); font-size: 1.5rem; color: var(--pewter-lit); line-height: 1; }
 .stat-k { font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ash); margin-top: 0.2rem; }
@@ -229,3 +229,13 @@
 .rest-moves { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.55rem; }
 .rest-move { text-align: left; }
 .eq-panel .gold { font-family: var(--fell); font-style: italic; color: var(--gilt); }
+
+/* --- feature controls (cost/roll buttons), thresholds, take-damage block --- */
+.feat-ctl { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.35rem 0; }
+.feat-cost-btn { border-color: var(--gilt-soft); color: var(--gilt); }
+.feat-cost-btn:hover { background: rgba(179,154,99,0.2); color: var(--pewter-lit); }
+.roll-btn { border-color: var(--moon); color: var(--moon-lit); }
+.take-dmg-block { margin-bottom: 1rem; }
+.thresholds { font-size: 0.82rem; color: var(--ash); margin: 0.4rem 0 0.2rem; text-align: center; }
+.thresholds b { color: var(--pewter-lit); font-family: var(--caps); }
+.hope-track .track-label { font-size: 0.7rem; }
