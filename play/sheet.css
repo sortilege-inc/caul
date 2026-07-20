@@ -37,7 +37,7 @@
 .hint { font-size: 0.78rem; color: var(--ash-dim); font-style: italic; line-height: 1.4; margin: 0.4rem 0 0.2rem; }
 
 /* stat line */
-.statline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; }
+.statline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
 .stat { text-align: center; background: rgba(9,11,14,0.5); border: 1px solid var(--edge-soft); border-radius: 6px; padding: 0.45rem 0.2rem; }
 .stat-v { font-family: var(--caps); font-size: 1.5rem; color: var(--pewter-lit); line-height: 1; }
 .stat-k { font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ash); margin-top: 0.2rem; }

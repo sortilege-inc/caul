@@ -404,9 +404,8 @@
     CUR = derivedStats();
     statEls = {};
     var stats = el("div", "statline");
-    [["Evasion", CUR.evasion, "evasion"], ["Armor", CUR.armorScore, "armorScore"],
-     ["Proficiency", S.proficiency, null], ["Major", CUR.thresholds.major, "major"],
-     ["Severe", CUR.thresholds.severe, "severe"]].forEach(function (p) {
+    [["Evasion", CUR.evasion, "evasion"], ["Proficiency", S.proficiency, null],
+     ["Major", CUR.thresholds.major, "major"], ["Severe", CUR.thresholds.severe, "severe"]].forEach(function (p) {
       var b = el("div", "stat");
       var v = el("div", "stat-v", p[1]);
       b.appendChild(v);
@@ -423,7 +422,7 @@
       t.appendChild(el("div", "tr-k", cap(k)));
       t.appendChild(el("div", "tr-v", fmt(tTrait(k))));
       t.title = "Roll " + cap(k);
-      t.addEventListener("click", function () { setRollTrait(k); });
+      t.addEventListener("click", function () { rollTrait(k); });
       traitWrap.appendChild(t);
     });
     c1.appendChild(el("div", "col-h", "Traits"));
@@ -452,22 +451,17 @@
     var stage = el("div", "dice-mount"); c2.appendChild(stage); rollMount = stage;
     var result = el("div", "roll-result"); c2.appendChild(result); rollResult = result;
 
-    // controls
+    // controls — Advantage + Mod (roll by clicking a Trait above, or a weapon/spell)
     var ctl = el("div", "roll-ctl");
-    // trait selector
-    traitSelect = el("select", "sel-trait");
-    ["agility", "strength", "finesse", "instinct", "presence", "knowledge"].forEach(function (k) {
-      var o = el("option"); o.value = k; o.textContent = cap(k) + " (" + fmt(tTrait(k)) + ")"; traitSelect.appendChild(o);
-    });
-    ctl.appendChild(field("Trait", traitSelect));
     advCtl = advWidget();
     ctl.appendChild(field("Advantage", advCtl.node));
     modStep = stepper(0, -20, 20);
     ctl.appendChild(field("Mod", modStep.node, "field-mod"));
     c2.appendChild(ctl);
+    c2.appendChild(el("p", "hint", "Set Advantage &amp; Mod, then click a Trait (or a weapon/spell) to roll."));
 
-    var rollBtn = el("button", "big-btn", "Roll the Dice");
-    rollBtn.addEventListener("click", doRoll);
+    var rollBtn = el("button", "big-btn", "Roll — no Trait");
+    rollBtn.addEventListener("click", rollPlain);
     c2.appendChild(rollBtn);
 
     // arms & armor — Equipped tab (default) vs Inventory tab
@@ -666,8 +660,7 @@
   }
 
   /* ---------- roll controls ---------- */
-  var rollMount, rollResult, traitSelect, advCtl, modStep, expInputs;
-  function setRollTrait(k) { traitSelect.value = k; doRoll(); }
+  var rollMount, rollResult, advCtl, modStep, expInputs;
   function currentExps() {
     if (!expInputs) return [];
     return [].slice.call(expInputs.querySelectorAll("input:checked")).map(function (i) { return i.dataset.exp; });
@@ -679,10 +672,13 @@
       trait: extra.trait, traitName: extra.traitName, label: extra.label
     };
   }
-  function doRoll() {
-    var k = traitSelect.value, exps = currentExps();
-    actionRoll(rollMods({ trait: tTrait(k), traitName: cap(k),
-      label: cap(k) + (exps.length ? " +" + (exps.length * 2) + " exp" : "") }), rollMount);
+  function expTag() { var n = currentExps().length; return n ? " +" + (n * 2) + " exp" : ""; }
+  function rollTrait(k) {
+    actionRoll(rollMods({ trait: tTrait(k), traitName: cap(k), label: cap(k) + expTag() }), rollMount);
+    rollResult.textContent = "";
+  }
+  function rollPlain() {
+    actionRoll(rollMods({ trait: 0, traitName: "", label: "Duality" + expTag() }), rollMount);
     rollResult.textContent = "";
   }
   function castSpell(spell, card) {
