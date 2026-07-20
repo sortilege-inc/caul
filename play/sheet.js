@@ -10,7 +10,7 @@
   if (!S) return;
   var ROOT = document.getElementById("sheet");
   var STORE = "caul.play." + S.id;
-  var STATE_V = 4;
+  var STATE_V = 5;
 
   /* ---------- tiny DOM helper ---------- */
   function el(tag, cls, html) {
@@ -51,6 +51,7 @@
       loc: {},                       // cardName -> "loadout" | "vault" (override)
       equip: initEquip(),            // { armor: name|null, weapons: {name:bool} }
       uses: {},                      // featureName -> marked uses
+      beastform: null,               // active Druid Beastform name | null
       gold: { coins: S.gold.coins, handfuls: S.gold.handfuls, bags: S.gold.bags, chests: S.gold.chests }
     };
   }
@@ -68,17 +69,24 @@
   function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
   var state = load();
 
-  /* ---------- equipment-derived defensive stats ---------- */
+  /* ---------- equipment / beastform derived stats ---------- */
   function equippedArmor() {
     for (var i = 0; i < (S.armor || []).length; i++) {
       if (S.armor[i].name === state.equip.armor) return S.armor[i];
     }
     return null;
   }
+  function activeBeastform() {
+    if (!state.beastform) return null;
+    for (var i = 0; i < (S.beastforms || []).length; i++) {
+      if (S.beastforms[i].name === state.beastform) return S.beastforms[i];
+    }
+    return null;
+  }
   function derivedStats() {
-    var a = equippedArmor();
+    var a = equippedArmor(), bf = activeBeastform();
     return {
-      evasion: S.evasionBase + (a ? a.evasionBonus : 0),
+      evasion: S.evasionBase + (a ? a.evasionBonus : 0) + (bf ? bf.evasionBonus : 0),
       armorScore: a ? a.score : 0,
       thresholds: a ? { major: a.major + S.level, severe: a.severe + S.level }
                     : { major: S.level, severe: S.level }
@@ -86,8 +94,41 @@
   }
   var CUR = derivedStats();
   var statEls = {}, armorTrackHost, equipHost, restHost;
-  var cardsTab = "loadout", equipTab = "equipped";
+  var cardsTab = "loadout", equipTab = "equipped", beastTier = null;
   function tier() { return S.level <= 1 ? 1 : S.level <= 4 ? 2 : S.level <= 7 ? 3 : 4; }
+  function textCosts(t) {
+    var costs = [], seen = {}, m;
+    var re1 = /spend (a|an|one|\d+)\s+hope/ig;
+    while ((m = re1.exec(t))) { var n = /^(a|an|one)$/i.test(m[1]) ? 1 : parseInt(m[1], 10); if (!seen["h" + n]) { seen["h" + n] = 1; costs.push({ key: "hope", value: n }); } }
+    var re2 = /mark (a|an|one|\d+)\s+stress/ig;
+    while ((m = re2.exec(t))) { var s = /^(a|an|one)$/i.test(m[1]) ? 1 : parseInt(m[1], 10); if (!seen["s" + s]) { seen["s" + s] = 1; costs.push({ key: "stress", value: s }); } }
+    return costs;
+  }
+  function beastFeatures() {
+    var bf = activeBeastform();
+    if (!bf) return [];
+    return bf.features.map(function (ft) {
+      var costs = textCosts(ft.text);
+      return { name: "⟡ " + ft.name, text: ft.text, costs: costs, hasRoll: /make an?\b.*\broll/i.test(ft.text), uses: null, passive: costs.length === 0 };
+    });
+  }
+  function setBeastform(name) { state.beastform = name; save(); build(); }
+  function beastformBox() {
+    var bf = activeBeastform();
+    var box = el("div", "beast-box");
+    if (!bf) { box.style.display = "none"; return box; }
+    box.appendChild(el("div", "col-h", "Beastform"));
+    var inner = el("div", "beast-active");
+    inner.appendChild(el("div", "beast-active-name", esc(bf.name)));
+    inner.appendChild(el("div", "beast-active-stats",
+      "Evasion +" + bf.evasionBonus + (bf.traitBonus ? " · " + esc(bf.traitBonus.trait) + " +" + bf.traitBonus.bonus : "") +
+      (bf.attack ? " · Attack " + esc(bf.attack.damage) + " (" + esc(bf.attack.trait) + ", " + esc(bf.attack.range) + ")" : "")));
+    var deact = el("button", "mini ghost", "Drop out of Beastform");
+    deact.addEventListener("click", function () { setBeastform(null); });
+    inner.appendChild(deact);
+    box.appendChild(inner);
+    return box;
+  }
 
   /* ---------- card loadout/vault ---------- */
   function cardLoc(card) { return state.loc[card.name] || (card.inVault ? "vault" : "loadout"); }
@@ -184,7 +225,11 @@
   /* ============================================================
      UI
      ============================================================ */
-  function tTrait(k) { return S.traits[k]; }
+  function tTrait(k) {
+    var v = S.traits[k], bf = activeBeastform();
+    if (bf && bf.traitBonus && bf.traitBonus.trait.toLowerCase() === k) v += bf.traitBonus.bonus;
+    return v;
+  }
   function fmt(n) { return (n >= 0 ? "+" : "") + n; }
 
   // -- track of clickable pips (HP/Stress/Armor) --
@@ -495,6 +540,8 @@
       c1.appendChild(exW);
       expInputs = exW;
     }
+    // beastform box — shows the active form's automatic stat changes
+    c1.appendChild(beastformBox());
     grid.appendChild(c1);
 
     /* ===== COLUMN 2: the dice / actions ===== */
@@ -676,19 +723,52 @@
     card.appendChild(act);
     return card;
   }
+  function renderBeastform(host) {
+    var forms = S.beastforms || [];
+    var tiers = []; forms.forEach(function (f) { if (tiers.indexOf(f.tier) < 0) tiers.push(f.tier); });
+    tiers.sort();
+    if (beastTier === null || tiers.indexOf(beastTier) < 0) beastTier = tiers[0];
+    var bar = el("div", "beast-tiers");
+    tiers.forEach(function (t) {
+      var b = el("button", "beast-tier" + (beastTier === t ? " on" : ""), "Tier " + t);
+      b.addEventListener("click", function () { beastTier = t; renderCards(); });
+      bar.appendChild(b);
+    });
+    host.appendChild(bar);
+    var grid = el("div", "card-list");
+    forms.filter(function (f) { return f.tier === beastTier; }).forEach(function (f) {
+      var active = state.beastform === f.name;
+      var card = el("div", "dcard beast" + (active ? " active" : ""));
+      card.appendChild(el("div", "dc-head",
+        '<span class="dc-name">' + esc(f.name) + '</span><span class="dc-tags">' + esc(f.examples.join(", ")) + "</span>"));
+      card.appendChild(el("div", "beast-stats",
+        "Evasion +" + f.evasionBonus + (f.traitBonus ? " · " + f.traitBonus.trait + " +" + f.traitBonus.bonus : "") +
+        (f.attack ? " · " + f.attack.range + " " + f.attack.damage : "")));
+      f.features.forEach(function (ft) { card.appendChild(el("div", "beast-feat", "<b>" + esc(ft.name) + "</b> " + esc(ft.text))); });
+      var btn = el("button", "mini" + (active ? " eq-toggle on" : ""), active ? "Deactivate" : "Activate");
+      btn.addEventListener("click", function () { setBeastform(active ? null : f.name); });
+      card.appendChild(btn);
+      grid.appendChild(card);
+    });
+    host.appendChild(grid);
+  }
   function renderCards() {
     var lc = loadoutCount();
     var passive = S.features.filter(function (f) { return f.passive; });
     var active = S.features.filter(function (f) { return !f.passive; });
+    beastFeatures().forEach(function (f) { (f.passive ? passive : active).push(f); });
     cardsBody.innerHTML = "";
+    var tabList = [["passive", "Passive " + passive.length], ["features", "Features " + active.length]];
+    if (S.beastforms && S.beastforms.length) tabList.push(["beastform", "Beastform"]);
+    tabList.push(["loadout", "Loadout " + lc + "/5"], ["vault", "Vault " + (S.cards.length - lc)]);
     var tabs = el("div", "card-tabs");
-    [["passive", "Passive " + passive.length], ["features", "Features " + active.length],
-     ["loadout", "Loadout " + lc + "/5"], ["vault", "Vault " + (S.cards.length - lc)]].forEach(function (t) {
+    tabList.forEach(function (t) {
       var b = el("button", "card-tab" + (cardsTab === t[0] ? " on" : ""), t[1]);
       b.addEventListener("click", function () { cardsTab = t[0]; renderCards(); });
       tabs.appendChild(b);
     });
     cardsBody.appendChild(tabs);
+    if (cardsTab === "beastform") { renderBeastform(cardsBody); return; }
     var list = el("div", "card-list");
     if (cardsTab === "passive") {
       passive.forEach(function (f) { list.appendChild(featureCard(f)); });

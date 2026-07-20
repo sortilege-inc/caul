@@ -239,3 +239,16 @@
 .thresholds { font-size: 0.82rem; color: var(--ash); margin: 0.4rem 0 0.2rem; text-align: center; }
 .thresholds b { color: var(--pewter-lit); font-family: var(--caps); }
 .hope-track .track-label { font-size: 0.7rem; }
+
+/* --- Beastform --- */
+.beast-tiers { display: flex; gap: 0.4rem; margin-bottom: 0.8rem; }
+.beast-tier { border: 1px solid var(--edge); background: transparent; color: var(--ash); border-radius: 5px; padding: 0.3rem 0.8rem; font-family: var(--caps); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.62rem; cursor: pointer; }
+.beast-tier.on { color: var(--moon-lit); border-color: var(--moon); background: rgba(159,180,194,0.16); }
+.dcard.beast.active { border-left: 3px solid var(--moon); box-shadow: 0 0 12px rgba(159,180,194,0.25); }
+.beast-stats { font-size: 0.82rem; color: var(--moon-lit); margin: 0.35rem 0; font-family: var(--serif); }
+.beast-feat { font-size: 0.8rem; color: var(--bone-2); line-height: 1.42; margin: 0.25rem 0; }
+.beast-feat b { color: var(--pewter-lit); }
+.beast-box { margin-top: 0.4rem; }
+.beast-active { background: rgba(159,180,194,0.1); border: 1px solid var(--moon); border-radius: 7px; padding: 0.6rem; }
+.beast-active-name { font-family: var(--caps); letter-spacing: 0.04em; color: var(--moon-lit); font-size: 0.95rem; }
+.beast-active-stats { font-size: 0.82rem; color: var(--bone-2); margin: 0.3rem 0 0.5rem; }
