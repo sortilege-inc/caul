@@ -83,7 +83,8 @@
     };
   }
   var CUR = derivedStats();
-  var statEls = {}, armorTrackHost, armorListHost;
+  var statEls = {}, armorTrackHost, equipHost;
+  var cardsTab = "loadout", equipTab = "equipped";
 
   /* ---------- card loadout/vault ---------- */
   function cardLoc(card) { return state.loc[card.name] || (card.inVault ? "vault" : "loadout"); }
@@ -101,12 +102,13 @@
   /* ============================================================
      RULES ENGINE
      ============================================================ */
-  // Duality action roll. mods = { trait, traitName, flat, exps:[names], adv, dis, difficulty, label }
+  // Duality action roll. mods = { trait, traitName, flat, exps:[names], advState:'adv'|'off'|'dis', advDie, label }
   function actionRoll(mods, mount) {
     var hopeV = d(12), fearV = d(12);
-    var advNet = (mods.adv || 0) - (mods.dis || 0);   // net to a single d6
-    var advV = advNet ? d(6) : 0;
-    var advContribution = advNet > 0 ? advV : (advNet < 0 ? -advV : 0);
+    var advDie = mods.advDie || 6;
+    var useAdv = mods.advState === "adv", useDis = mods.advState === "dis";
+    var advV = (useAdv || useDis) ? d(advDie) : 0;
+    var advContribution = useAdv ? advV : (useDis ? -advV : 0);
     var expBonus = (mods.exps || []).length * 2;
     var flat = (mods.trait || 0) + (mods.flat || 0) + expBonus + advContribution;
     var total = hopeV + fearV + flat;
@@ -118,7 +120,7 @@
       { sides: 12, value: hopeV, tag: "hope", shape: "d12" },
       { sides: 12, value: fearV, tag: "fear", shape: "d12" }
     ];
-    if (advNet) dice.push({ sides: 6, value: advV, tag: advNet > 0 ? "adv" : "dis", shape: "square" });
+    if (useAdv || useDis) dice.push({ sides: advDie, value: advV, tag: useAdv ? "adv" : "dis", shape: "square" });
 
     Dice.roll({
       mount: mount, dice: dice,
@@ -132,23 +134,19 @@
     });
 
     function finishRoll() {
-      // apply metacurrency
       var applied = [];
       if (crit) { addHope(1); addStress(-1); applied.push("gain a Hope", "clear a Stress"); }
       else if (withHope) { addHope(1); applied.push("gain a Hope"); }
       else if (withFear) { applied.push("GM gains a Fear"); }
 
       var outcome = crit ? "Critical Success" : (withHope ? "with Hope" : "with Fear");
-      var vsTxt = "";
-      if (mods.difficulty !== "" && mods.difficulty != null) {
-        var succ = crit || total >= mods.difficulty;
-        vsTxt = ' <b class="' + (succ ? "ok" : "no") + '">' + (succ ? "SUCCESS" : "FAILURE") + "</b> vs " + mods.difficulty;
-      }
-      var breakdown = hopeV + " + " + fearV + (flat ? (flat > 0 ? " + " + flat : " − " + (-flat)) : "");
+      var advTxt = useAdv ? " + adv d" + advDie : (useDis ? " − dis d" + advDie : "");
+      var baseFlat = flat - advContribution;
+      var breakdown = hopeV + " + " + fearV + (baseFlat ? (baseFlat > 0 ? " + " + baseFlat : " − " + (-baseFlat)) : "") + advTxt;
       logRoll('<span class="lg-label">' + esc(mods.label || "Roll") + "</span> " +
         '<b class="' + (crit ? "crit" : withHope ? "hope" : "fear") + '">' + total + "</b> " +
         '<span class="lg-out ' + (crit ? "crit" : withHope ? "hope" : "fear") + '">' + outcome + "</span>" +
-        vsTxt + '<span class="lg-bd">(' + breakdown + ")</span>" +
+        '<span class="lg-bd">(' + breakdown + ")</span>" +
         (applied.length ? '<span class="lg-eff">→ ' + applied.join(" · ") + "</span>" : ""));
       renderResources();
     }
@@ -226,22 +224,71 @@
     if (vulnFlag) vulnFlag.style.display = (state.stress >= S.stressMax) ? "" : "none";
   }
 
-  function renderArmorList() {
-    if (!armorListHost) return;
-    armorListHost.innerHTML = "";
-    if (!(S.armor && S.armor.length)) { armorListHost.appendChild(el("p", "hint", "No armor owned.")); return; }
-    S.armor.forEach(function (a) {
-      var eqd = state.equip.armor === a.name;
-      var row = el("div", "armor-row" + (eqd ? " is-eq" : ""));
-      row.appendChild(el("div", "wp-name", esc(a.name) +
-        '<span class="wp-meta">Thresholds ' + (a.major + S.level) + "/" + (a.severe + S.level) +
-        " · Score " + a.score + (a.evasionBonus ? " · Evasion " + fmt(a.evasionBonus) : "") + "</span>"));
-      var eq = el("button", "mini eq-toggle" + (eqd ? " on" : ""), eqd ? "Equipped" : "Equip");
-      eq.addEventListener("click", function () { state.equip.armor = eqd ? null : a.name; save(); refreshDerived(); });
-      row.appendChild(eq);
-      if (a.feature) row.appendChild(el("div", "wp-feat", esc(a.feature)));
-      armorListHost.appendChild(row);
-    });
+  /* ---------- equipment (Equipped / Inventory tabs) ---------- */
+  function weaponRow(w) {
+    var equipped = !!state.equip.weapons[w.name];
+    var row = el("div", "weapon" + (equipped ? " is-eq" : ""));
+    var dmg = ((w.multiplier === "prof") ? S.proficiency : 1) + w.dice + (w.bonus ? "+" + w.bonus : "");
+    row.appendChild(el("div", "wp-name", esc(w.name) +
+      '<span class="wp-meta">' + cap(w.trait || "—") + " · " + prettyRange(w.range) + " · " + dmg + " " +
+      esc((w.damageType || []).join("/")) + (w.secondary ? " · secondary" : "") + "</span>"));
+    var acts = el("div", "wp-acts");
+    var eq = el("button", "mini eq-toggle" + (equipped ? " on" : ""), equipped ? "Equipped" : "Equip");
+    eq.addEventListener("click", function () { state.equip.weapons[w.name] = !state.equip.weapons[w.name]; save(); renderEquipment(); });
+    var atk = el("button", "mini", "Attack"); atk.addEventListener("click", function () { attackWith(w); });
+    var dm = el("button", "mini", "Damage"); dm.addEventListener("click", function () { damageRoll(w, false, rollMount); rollResult.textContent = ""; });
+    var dmc = el("button", "mini ghost", "Crit"); dmc.addEventListener("click", function () { damageRoll(w, true, rollMount); rollResult.textContent = ""; });
+    acts.appendChild(eq); acts.appendChild(atk); acts.appendChild(dm); acts.appendChild(dmc);
+    row.appendChild(acts);
+    if (w.feature) row.appendChild(el("div", "wp-feat", esc(w.feature)));
+    return row;
+  }
+  function armorRow(a) {
+    var eqd = state.equip.armor === a.name;
+    var row = el("div", "armor-row" + (eqd ? " is-eq" : ""));
+    row.appendChild(el("div", "wp-name", esc(a.name) +
+      '<span class="wp-meta">Thresholds ' + (a.major + S.level) + "/" + (a.severe + S.level) +
+      " · Score " + a.score + (a.evasionBonus ? " · Evasion " + fmt(a.evasionBonus) : "") + "</span>"));
+    var eq = el("button", "mini eq-toggle" + (eqd ? " on" : ""), eqd ? "Equipped" : "Equip");
+    eq.addEventListener("click", function () { state.equip.armor = eqd ? null : a.name; save(); refreshDerived(); renderEquipment(); });
+    row.appendChild(eq);
+    if (a.feature) row.appendChild(el("div", "wp-feat", esc(a.feature)));
+    return row;
+  }
+  function lootRow(i) {
+    return el("div", "loot-row", "<b>" + esc(i.name) + (i.qty > 1 ? " ×" + i.qty : "") + '</b> <span class="tag">' + i.kind + "</span>" +
+      (i.text ? '<div class="spell-text">' + esc(i.text) + "</div>" : ""));
+  }
+  function renderEquipment() {
+    if (!equipHost) return;
+    equipHost.innerHTML = "";
+    var tabs = el("div", "eq-tabs");
+    var tE = el("button", "eq-tab" + (equipTab === "equipped" ? " on" : ""), "Equipped");
+    var tI = el("button", "eq-tab" + (equipTab === "inventory" ? " on" : ""), "Inventory");
+    tE.addEventListener("click", function () { equipTab = "equipped"; renderEquipment(); });
+    tI.addEventListener("click", function () { equipTab = "inventory"; renderEquipment(); });
+    tabs.appendChild(tE); tabs.appendChild(tI);
+    equipHost.appendChild(tabs);
+    var panel = el("div", "eq-panel");
+    if (equipTab === "equipped") {
+      var eqW = S.weapons.filter(function (w) { return state.equip.weapons[w.name]; });
+      var eqA = S.armor.filter(function (a) { return a.name === state.equip.armor; });
+      if (eqW.length || eqA.length) {
+        eqW.forEach(function (w) { panel.appendChild(weaponRow(w)); });
+        eqA.forEach(function (a) { panel.appendChild(armorRow(a)); });
+      } else panel.appendChild(el("p", "hint", "Nothing equipped. Open Inventory to equip weapons and armor."));
+    } else {
+      panel.appendChild(el("div", "eq-sub", "Weapons"));
+      S.weapons.forEach(function (w) { panel.appendChild(weaponRow(w)); });
+      panel.appendChild(el("div", "eq-sub", "Armor"));
+      if (S.armor.length) S.armor.forEach(function (a) { panel.appendChild(armorRow(a)); });
+      else panel.appendChild(el("p", "hint", "No armor owned."));
+      if (S.inventory.length) {
+        panel.appendChild(el("div", "eq-sub", "Items"));
+        S.inventory.forEach(function (i) { panel.appendChild(lootRow(i)); });
+      }
+    }
+    equipHost.appendChild(panel);
   }
   function rebuildArmorTrack() {
     if (!armorTrackHost) return;
@@ -260,7 +307,6 @@
     if (statEls.major) statEls.major.textContent = CUR.thresholds.major;
     if (statEls.severe) statEls.severe.textContent = CUR.thresholds.severe;
     rebuildArmorTrack();
-    renderArmorList();
   }
 
   function build() {
@@ -341,56 +387,21 @@
       var o = el("option"); o.value = k; o.textContent = cap(k) + " (" + fmt(tTrait(k)) + ")"; traitSelect.appendChild(o);
     });
     ctl.appendChild(field("Trait", traitSelect));
-    diffInput = numInput("", 3); diffInput.placeholder = "—";
-    ctl.appendChild(field("Difficulty", diffInput));
-    modInput = numInput("0", 3);
-    ctl.appendChild(field("Modifier", modInput));
-    advInput = stepper(0, 0, 5); ctl.appendChild(field("Advantage", advInput.node));
-    disInput = stepper(0, 0, 5); ctl.appendChild(field("Disadvantage", disInput.node));
+    advCtl = advWidget();
+    ctl.appendChild(field("Advantage", advCtl.node));
+    modStep = stepper(0, -20, 20);
+    ctl.appendChild(field("Mod", modStep.node, "field-mod"));
     c2.appendChild(ctl);
 
     var rollBtn = el("button", "big-btn", "Roll the Dice");
     rollBtn.addEventListener("click", doRoll);
     c2.appendChild(rollBtn);
 
-    // weapons — all owned, with an equip toggle
-    if (S.weapons.length) {
-      c2.appendChild(el("div", "col-h", "Weapons <span class='sub'>(toggle equipped)</span>"));
-      var wl = el("div", "weapons");
-      S.weapons.forEach(function (w) {
-        var equipped = !!state.equip.weapons[w.name];
-        var row = el("div", "weapon" + (equipped ? " is-eq" : ""));
-        var dmg = ((w.multiplier === "prof") ? S.proficiency : 1) + w.dice + (w.bonus ? "+" + w.bonus : "");
-        row.appendChild(el("div", "wp-name", esc(w.name) +
-          '<span class="wp-meta">' + cap(w.trait || "—") + " · " + prettyRange(w.range) + " · " + dmg + " " +
-          esc((w.damageType || []).join("/")) + (w.secondary ? " · secondary" : "") + "</span>"));
-        var acts = el("div", "wp-acts");
-        var eq = el("button", "mini eq-toggle" + (equipped ? " on" : ""), equipped ? "Equipped" : "Equip");
-        eq.addEventListener("click", function () {
-          var now = !state.equip.weapons[w.name];
-          state.equip.weapons[w.name] = now; save();
-          eq.className = "mini eq-toggle" + (now ? " on" : ""); eq.textContent = now ? "Equipped" : "Equip";
-          row.className = "weapon" + (now ? " is-eq" : "");
-        });
-        var atk = el("button", "mini", "Attack");
-        atk.addEventListener("click", function () { attackWith(w); });
-        var dm = el("button", "mini", "Damage");
-        dm.addEventListener("click", function () { damageRoll(w, false, rollMount); rollResult.textContent = ""; });
-        var dmc = el("button", "mini ghost", "Crit dmg");
-        dmc.addEventListener("click", function () { damageRoll(w, true, rollMount); rollResult.textContent = ""; });
-        acts.appendChild(eq); acts.appendChild(atk); acts.appendChild(dm); acts.appendChild(dmc);
-        row.appendChild(acts);
-        if (w.feature) row.appendChild(el("div", "wp-feat", esc(w.feature)));
-        wl.appendChild(row);
-      });
-      c2.appendChild(wl);
-    }
-
-    // armor — all owned; equipping one sets Evasion / Armor / thresholds
-    c2.appendChild(el("div", "col-h", "Armor <span class='sub'>(equip to set thresholds)</span>"));
-    armorListHost = el("div", "armor-list");
-    c2.appendChild(armorListHost);
-    renderArmorList();
+    // arms & armor — Equipped tab (default) vs Inventory tab
+    c2.appendChild(el("div", "col-h", "Arms &amp; Armor"));
+    equipHost = el("div", "equip-host");
+    c2.appendChild(equipHost);
+    renderEquipment();
 
     // damage intake helper
     c2.appendChild(el("div", "col-h", "Take Damage"));
@@ -493,8 +504,7 @@
     var tabs = el("div", "ref-tabs");
     var panels = el("div", "ref-panels");
     var defs = [
-      ["Features", S.features, function (f) { return '<div class="ref-item"><b>' + esc(f.name) + "</b><p>" + esc(f.text) + "</p></div>"; }],
-      ["Inventory", S.inventory, function (i) { return '<div class="ref-item"><b>' + esc(i.name) + (i.qty > 1 ? " ×" + i.qty : "") + '</b> <span class="tag">' + i.kind + "</span>" + (i.text ? "<p>" + esc(i.text) + "</p>" : "") + "</div>"; }]
+      ["Features", S.features, function (f) { return '<div class="ref-item"><b>' + esc(f.name) + "</b><p>" + esc(f.text) + "</p></div>"; }]
     ];
     defs.forEach(function (dfn, di) {
       var t = el("button", "ref-tab" + (di === 0 ? " on" : ""), dfn[0] + " (" + dfn[1].length + ")");
@@ -521,11 +531,17 @@
   var cardsHeader, cardsBody;
   function renderCards() {
     var lc = loadoutCount();
-    cardsHeader.innerHTML = "Domain Cards — <span class='sub'>Loadout " + lc + "/5 · Vault " + (S.cards.length - lc) + "</span>";
+    cardsHeader.innerHTML = "Domain Cards";
     cardsBody.innerHTML = "";
-    var loadCol = el("div", "card-col"); loadCol.appendChild(el("div", "card-col-h", "Loadout"));
-    var vaultCol = el("div", "card-col"); vaultCol.appendChild(el("div", "card-col-h", "Vault"));
-    S.cards.forEach(function (c) {
+    var tabs = el("div", "card-tabs");
+    var tL = el("button", "card-tab" + (cardsTab === "loadout" ? " on" : ""), "Loadout " + lc + "/5");
+    var tV = el("button", "card-tab" + (cardsTab === "vault" ? " on" : ""), "Vault " + (S.cards.length - lc));
+    tL.addEventListener("click", function () { cardsTab = "loadout"; renderCards(); });
+    tV.addEventListener("click", function () { cardsTab = "vault"; renderCards(); });
+    tabs.appendChild(tL); tabs.appendChild(tV);
+    cardsBody.appendChild(tabs);
+    var list = el("div", "card-list");
+    S.cards.filter(function (c) { return cardLoc(c) === cardsTab; }).forEach(function (c) {
       var inLoad = cardLoc(c) === "loadout";
       var card = el("div", "dcard " + c.domain + (inLoad ? " in-load" : " in-vault"));
       card.appendChild(el("div", "dc-head",
@@ -564,55 +580,66 @@
         act.appendChild(r);
       }
       card.appendChild(act);
-      (inLoad ? loadCol : vaultCol).appendChild(card);
+      list.appendChild(card);
     });
-    cardsBody.appendChild(loadCol); cardsBody.appendChild(vaultCol);
+    if (!list.children.length) list.appendChild(el("p", "hint", cardsTab === "loadout" ? "No cards in the loadout." : "The vault is empty."));
+    cardsBody.appendChild(list);
   }
 
   /* ---------- roll controls ---------- */
-  var rollMount, rollResult, traitSelect, diffInput, modInput, advInput, disInput, expInputs;
+  var rollMount, rollResult, traitSelect, advCtl, modStep, expInputs;
   function setRollTrait(k) { traitSelect.value = k; doRoll(); }
   function currentExps() {
     if (!expInputs) return [];
     return [].slice.call(expInputs.querySelectorAll("input:checked")).map(function (i) { return i.dataset.exp; });
   }
+  function rollMods(extra) {
+    return {
+      flat: modStep.get(), exps: currentExps(),
+      advState: advCtl.getState(), advDie: advCtl.getDie(),
+      trait: extra.trait, traitName: extra.traitName, label: extra.label
+    };
+  }
   function doRoll() {
-    var k = traitSelect.value;
-    var exps = currentExps();
-    actionRoll({
-      trait: tTrait(k), traitName: cap(k),
-      flat: parseInt(modInput.value, 10) || 0,
-      exps: exps,
-      adv: advInput.get(), dis: disInput.get(),
-      difficulty: diffInput.value === "" ? "" : (parseInt(diffInput.value, 10)),
-      label: cap(k) + (exps.length ? " +" + (exps.length * 2) + " exp" : "")
-    }, rollMount);
+    var k = traitSelect.value, exps = currentExps();
+    actionRoll(rollMods({ trait: tTrait(k), traitName: cap(k),
+      label: cap(k) + (exps.length ? " +" + (exps.length * 2) + " exp" : "") }), rollMount);
     rollResult.textContent = "";
   }
   function castSpell(spell, card) {
     var tr = S.spellcastTrait || "knowledge";
-    actionRoll({
-      trait: tTrait(tr), traitName: cap(tr),
-      flat: parseInt(modInput.value, 10) || 0, exps: currentExps(),
-      adv: advInput.get(), dis: disInput.get(),
-      difficulty: diffInput.value === "" ? "" : parseInt(diffInput.value, 10),
-      label: card.name + " · " + spell.name
-    }, rollMount);
+    actionRoll(rollMods({ trait: tTrait(tr), traitName: cap(tr), label: card.name + " · " + spell.name }), rollMount);
     rollResult.innerHTML = "<b>" + esc(spell.name) + "</b> — Spellcast (" + cap(tr) + "). " + esc(spell.text);
   }
   function attackWith(w) {
-    actionRoll({
-      trait: tTrait(w.trait || "finesse"), traitName: cap(w.trait),
-      flat: parseInt(modInput.value, 10) || 0, exps: currentExps(),
-      adv: advInput.get(), dis: disInput.get(),
-      difficulty: diffInput.value === "" ? "" : parseInt(diffInput.value, 10),
-      label: w.name + " attack"
-    }, rollMount);
+    actionRoll(rollMods({ trait: tTrait(w.trait || "finesse"), traitName: cap(w.trait), label: w.name + " attack" }), rollMount);
     rollResult.innerHTML = 'On a hit, roll <b>' + ((w.multiplier === "prof") ? S.proficiency : 1) + w.dice + (w.bonus ? "+" + w.bonus : "") + "</b> damage.";
   }
 
+  /* advantage: 3-way toggle (Adv/Off/Dis) + a cyclable die size (d6 default) */
+  function advWidget() {
+    var node = el("div", "adv-ctl");
+    var st = "off", dies = [4, 6, 8, 10, 12], di = 1;
+    var seg = el("div", "adv-seg");
+    var bA = el("button", "adv-b", "Adv"), bO = el("button", "adv-b on", "Off"), bD = el("button", "adv-b", "Dis");
+    var dieBtn = el("button", "die-btn", "d6");
+    function paint() {
+      bA.className = "adv-b" + (st === "adv" ? " on adv" : "");
+      bO.className = "adv-b" + (st === "off" ? " on" : "");
+      bD.className = "adv-b" + (st === "dis" ? " on dis" : "");
+      dieBtn.style.visibility = st === "off" ? "hidden" : "visible";
+    }
+    bA.addEventListener("click", function () { st = "adv"; paint(); });
+    bO.addEventListener("click", function () { st = "off"; paint(); });
+    bD.addEventListener("click", function () { st = "dis"; paint(); });
+    dieBtn.addEventListener("click", function () { di = (di + 1) % dies.length; dieBtn.textContent = "d" + dies[di]; });
+    seg.appendChild(bA); seg.appendChild(bO); seg.appendChild(bD);
+    node.appendChild(seg); node.appendChild(dieBtn); paint();
+    return { node: node, getState: function () { return st; }, getDie: function () { return dies[di]; } };
+  }
+
   /* ---------- small form helpers ---------- */
-  function field(label, node) { var f = el("label", "field"); f.appendChild(el("span", "field-l", label)); f.appendChild(node); return f; }
+  function field(label, node, cls) { var f = el("label", "field" + (cls ? " " + cls : "")); f.appendChild(el("span", "field-l", label)); f.appendChild(node); return f; }
   function numInput(val, size) { var i = el("input", "num"); i.type = "number"; i.value = val; if (size) i.size = size; return i; }
   function stepper(val, lo, hi) {
     var node = el("div", "stepper"); var cur = val;
