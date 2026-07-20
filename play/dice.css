@@ -43,7 +43,7 @@
 }
 .dice-die.shape-d12 .dice-facet { fill: none; stroke: var(--edge, #3b4653); stroke-width: 1.4; opacity: 0.4; }
 .dice-die.shape-d12 .dice-num {
-  position: absolute; left: 0; right: 0; top: 54%; transform: translateY(-50%);
+  position: absolute; left: 0; right: 0; top: 60%; transform: translateY(-50%);
   text-align: center; line-height: 1;
 }
 
