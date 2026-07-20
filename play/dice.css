@@ -33,7 +33,9 @@
 .dice-die.high { box-shadow: 0 0 14px rgba(150,180,200,0.35); }
 
 /* ---- d12 (pentagon) shape --------------------------------- */
-.dice-die.shape-d12 { background: transparent !important; border: none !important; overflow: visible; }
+/* transparent box + no box-shadow: the die's glow comes from a drop-shadow
+   on the polygon (which follows the pentagon), not a square box-shadow. */
+.dice-die.shape-d12 { background: transparent !important; border: none !important; box-shadow: none !important; overflow: visible; }
 .dice-die.shape-d12 .dice-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .dice-die.shape-d12 .dice-poly {
   fill: var(--slate-2, #1c242e); stroke: var(--edge, #3b4653);
@@ -41,21 +43,19 @@
 }
 .dice-die.shape-d12 .dice-facet { fill: none; stroke: var(--edge, #3b4653); stroke-width: 1.4; opacity: 0.4; }
 .dice-die.shape-d12 .dice-num {
-  position: absolute; left: 0; right: 0; top: 44%; transform: translateY(-50%);
+  position: absolute; left: 0; right: 0; top: 54%; transform: translateY(-50%);
   text-align: center; line-height: 1;
 }
 
 /* Hope die — gilt/gold */
 .dice-die.hope.shape-d12 .dice-poly { fill: rgba(179,154,99,0.20); stroke: var(--gilt, #b39a63); }
 .dice-die.hope { color: var(--gilt, #b39a63); }
-.dice-die.hope.high.shape-d12 .dice-poly { fill: rgba(179,154,99,0.34); }
-.dice-die.hope.high { box-shadow: 0 0 16px rgba(179,154,99,0.5); }
+.dice-die.hope.high.shape-d12 .dice-poly { fill: rgba(179,154,99,0.34); filter: drop-shadow(0 0 4px rgba(179,154,99,0.9)); }
 
 /* Fear die — umbral violet */
 .dice-die.fear.shape-d12 .dice-poly { fill: rgba(109,111,154,0.22); stroke: var(--umbra, #6d6f9a); }
 .dice-die.fear { color: #b9bae0; }
-.dice-die.fear.high.shape-d12 .dice-poly { fill: rgba(109,111,154,0.40); }
-.dice-die.fear.high { box-shadow: 0 0 16px rgba(109,111,154,0.55); }
+.dice-die.fear.high.shape-d12 .dice-poly { fill: rgba(109,111,154,0.40); filter: drop-shadow(0 0 4px rgba(159,161,214,0.9)); }
 
 /* crit — matched dice */
 .dice-die.crit.shape-d12 .dice-poly { stroke: var(--moon-lit, #d2e2ec); stroke-width: 6; }
