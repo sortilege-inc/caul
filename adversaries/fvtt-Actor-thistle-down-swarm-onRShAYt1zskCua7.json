@@ -75,7 +75,7 @@
   "attack": {
    "name": "Biting Cloud",
    "roll": {
-    "bonus": 1,
+    "bonus": 3,
     "type": "attack",
     "trait": null,
     "difficulty": null,
@@ -100,7 +100,7 @@
        },
        "flatMultiplier": 3,
        "dice": "d6",
-       "bonus": 6,
+       "bonus": 8,
        "multiplier": "flat"
       },
       "applyTo": "hitPoints",
@@ -315,7 +315,7 @@
    "name": "Sweet Nothings",
    "type": "feature",
    "system": {
-    "description": "<p>Spend a Fear: each PC within Close range must succeed on a Presence Reaction Roll or become Charmed, drifting toward the lights and laughter, until the swarm harms them.</p>",
+    "description": "<p>Spend a Fear: each PC within Close range must succeed on an Instinct Reaction Roll or be drawn toward the lights and laughter — moved to Melee of the swarm. They may still act.</p>",
     "resource": null,
     "actions": {
      "LYRoGeG0viKZSFmJ": {
@@ -362,7 +362,7 @@
        "useDefault": false
       },
       "save": {
-       "trait": "presence",
+       "trait": "instinct",
        "difficulty": null,
        "damageMod": "none"
       },

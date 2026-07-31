@@ -6,8 +6,8 @@
  "system": {
   "difficulty": 17,
   "damageThresholds": {
-   "major": 22,
-   "severe": 40
+   "major": 20,
+   "severe": 34
   },
   "resources": {
    "hitPoints": {

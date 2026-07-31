@@ -6,13 +6,13 @@
  "system": {
   "difficulty": 15,
   "damageThresholds": {
-   "major": 24,
-   "severe": 38
+   "major": 18,
+   "severe": 30
   },
   "resources": {
    "hitPoints": {
     "value": 0,
-    "max": 8,
+    "max": 5,
     "isReversed": true
    },
    "stress": {
@@ -80,7 +80,7 @@
   "attack": {
    "name": "Drowning Glow",
    "roll": {
-    "bonus": 4,
+    "bonus": 3,
     "type": "attack",
     "trait": null,
     "difficulty": null,
@@ -104,8 +104,8 @@
         "formula": ""
        },
        "flatMultiplier": 3,
-       "dice": "d10",
-       "bonus": 6,
+       "dice": "d8",
+       "bonus": 3,
        "multiplier": "flat"
       },
       "applyTo": "hitPoints",
@@ -289,7 +289,7 @@
    "name": "False Warmth",
    "type": "feature",
    "system": {
-    "description": "<p>Spend a Fear: a PC within Far range who can see the light must succeed on a Presence Reaction Roll or move their full Speed toward it, ignoring hazards, on their next turn.</p>",
+    "description": "<p>Spend a Fear: a PC within Far range who can see the light must succeed on an Agility Reaction Roll or be drawn a full move toward it — into the cold of its Undertow. They keep their action.</p>",
     "resource": null,
     "actions": {
      "q7YdPc2VmzKGI83N": {
@@ -336,7 +336,7 @@
        "useDefault": false
       },
       "save": {
-       "trait": "presence",
+       "trait": "agility",
        "difficulty": null,
        "damageMod": "none"
       },

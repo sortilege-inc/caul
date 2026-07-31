@@ -6,8 +6,8 @@
  "system": {
   "difficulty": 17,
   "damageThresholds": {
-   "major": 22,
-   "severe": 42
+   "major": 18,
+   "severe": 32
   },
   "resources": {
    "hitPoints": {
@@ -378,7 +378,7 @@
    "name": "False Hope",
    "type": "feature",
    "system": {
-    "description": "<p>Mark a Stress: a PC within Close range must succeed on a Presence Reaction Roll or be unable to spend Hope until the start of their next turn, lulled by the gentle light.</p>",
+    "description": "<p>Mark a Stress: a PC within Close range must succeed on a Knowledge Reaction Roll or, steadied by false hope, act with disadvantage on their next roll. (A moment's hesitation — never a lost turn or a locked resource.)</p>",
     "resource": null,
     "actions": {
      "cAIcUbYJVqHBNpjI": {
@@ -425,7 +425,7 @@
        "useDefault": false
       },
       "save": {
-       "trait": "presence",
+       "trait": "knowledge",
        "difficulty": null,
        "damageMod": "none"
       },
@@ -467,7 +467,7 @@
    "name": "The Shadow Obeys",
    "type": "feature",
    "system": {
-    "description": "<p>While the Moonshadow Sprite lives, its cast Shadow gains +2 to attack rolls and cannot be reduced below 1 HP.</p>",
+    "description": "<p>While the Moonshadow Sprite lives, the light it casts commands its Cast Shadow — the Shadow attacks with advantage and moves with the Sprite's cunning. Put out the light (defeat the Sprite) and the Shadow is only a dumb, flailing beast that any blow can end.</p>",
     "resource": null,
     "actions": {},
     "originItemType": null,

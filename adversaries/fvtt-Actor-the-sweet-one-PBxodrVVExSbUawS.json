@@ -289,7 +289,7 @@
    "name": "Glamour",
    "type": "feature",
    "system": {
-    "description": "<p>The Sweet One appears as the loveliest thing each viewer can imagine. A PC who ends their turn within Close range must succeed on a Presence Reaction Roll or become Charmed, unwilling to attack it, until it harms them or an ally.</p>",
+    "description": "<p>The Sweet One appears as the loveliest thing each viewer can imagine. The first time a PC attacks it in a scene, they must succeed on an Instinct Reaction Roll or the glamour turns the blow aside — that attack is made with disadvantage. Not a lasting charm, and never a lost turn.</p>",
     "resource": null,
     "actions": {},
     "originItemType": null,
@@ -320,7 +320,7 @@
    "name": "Honeyed Words",
    "type": "feature",
    "system": {
-    "description": "<p>Spend a Fear: choose a PC within Close range. They must succeed on a Presence Reaction Roll or spend their next action moving toward and protecting the Sweet One.</p>",
+    "description": "<p>Spend a Fear: a PC within Close range must succeed on a Presence Reaction Roll or be drawn to Melee of the Sweet One and unable to willingly move away from it until it or an ally harms them. They may still act and attack freely.</p>",
     "resource": null,
     "actions": {
      "F9YuKEomYsmt2Yjr": {
