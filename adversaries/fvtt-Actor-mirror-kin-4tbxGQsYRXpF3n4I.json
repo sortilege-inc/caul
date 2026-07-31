@@ -1,0 +1,468 @@
+{
+ "name": "Mirror-Kin",
+ "img": "icons/svg/mystery-man.svg",
+ "type": "adversary",
+ "folder": null,
+ "system": {
+  "difficulty": 16,
+  "damageThresholds": {
+   "major": 18,
+   "severe": 35
+  },
+  "resources": {
+   "hitPoints": {
+    "value": 0,
+    "max": 6,
+    "isReversed": true
+   },
+   "stress": {
+    "value": 0,
+    "max": 5,
+    "isReversed": true
+   }
+  },
+  "motivesAndTactics": "Wear your face, turn your strength against you, shatter into more",
+  "resistance": {
+   "physical": {
+    "resistance": false,
+    "immunity": false,
+    "reduction": 0
+   },
+   "magical": {
+    "resistance": true,
+    "immunity": false,
+    "reduction": 0
+   }
+  },
+  "type": "standard",
+  "notes": "",
+  "hordeHp": 1,
+  "experiences": {
+   "4NGUKVYTg1Rp6bZr": {
+    "name": "Mimic",
+    "description": "",
+    "value": 3
+   }
+  },
+  "bonuses": {
+   "roll": {
+    "attack": {
+     "bonus": 0,
+     "dice": []
+    },
+    "action": {
+     "bonus": 0,
+     "dice": []
+    },
+    "reaction": {
+     "bonus": 0,
+     "dice": []
+    }
+   },
+   "damage": {
+    "physical": {
+     "bonus": 0,
+     "dice": []
+    },
+    "magical": {
+     "bonus": 0,
+     "dice": []
+    }
+   }
+  },
+  "tier": 3,
+  "description": "<p><em>A hovering shard of looking-glass with your own stretched face trapped screaming inside its reflection.</em></p>",
+  "attack": {
+   "name": "Cutting Reflection",
+   "roll": {
+    "bonus": 3,
+    "type": "attack",
+    "trait": null,
+    "difficulty": null,
+    "advState": "neutral",
+    "diceRolling": {
+     "multiplier": "prof",
+     "flatMultiplier": 1,
+     "dice": "d6",
+     "compare": null,
+     "treshold": null
+    },
+    "useDefault": false
+   },
+   "range": "veryClose",
+   "damage": {
+    "parts": [
+     {
+      "value": {
+       "custom": {
+        "enabled": false,
+        "formula": ""
+       },
+       "flatMultiplier": 3,
+       "dice": "d8",
+       "bonus": 4,
+       "multiplier": "flat"
+      },
+      "applyTo": "hitPoints",
+      "type": [
+       "magical"
+      ],
+      "base": false,
+      "resultBased": false,
+      "valueAlt": {
+       "multiplier": "prof",
+       "flatMultiplier": 1,
+       "dice": "d6",
+       "bonus": null,
+       "custom": {
+        "enabled": false,
+        "formula": ""
+       }
+      }
+     }
+    ],
+    "includeBase": false,
+    "direct": false
+   },
+   "img": "icons/svg/sword.svg",
+   "type": "attack",
+   "chatDisplay": false,
+   "_id": "LDm8qlVx0MmLX8MV",
+   "systemPath": "actions",
+   "baseAction": false,
+   "description": "",
+   "originItem": {
+    "type": "itemCollection"
+   },
+   "actionType": "action",
+   "triggers": [],
+   "cost": [],
+   "uses": {
+    "value": null,
+    "max": null,
+    "recovery": null,
+    "consumeOnSuccess": false
+   },
+   "target": {
+    "type": "any",
+    "amount": null
+   },
+   "effects": [],
+   "save": {
+    "trait": null,
+    "difficulty": null,
+    "damageMod": "none"
+   }
+  },
+  "attribution": {
+   "source": "The Enduring Lesser Lights — Thistleglass",
+   "page": 0,
+   "artist": ""
+  },
+  "size": "small",
+  "criticalThreshold": 20,
+  "rules": {
+   "conditionImmunities": {
+    "hidden": false,
+    "restrained": false,
+    "vulnerable": false
+   },
+   "damageReduction": {
+    "thresholdImmunities": {
+     "minor": false
+    },
+    "reduceSeverity": {
+     "magical": 0,
+     "physical": 0
+    }
+   },
+   "attack": {
+    "damage": {
+     "hpDamageMultiplier": 1,
+     "hpDamageTakenMultiplier": 1
+    }
+   }
+  }
+ },
+ "flags": {},
+ "prototypeToken": {
+  "name": "Mirror-Kin",
+  "displayName": 0,
+  "actorLink": false,
+  "width": 1,
+  "height": 1,
+  "texture": {
+   "src": "icons/svg/mystery-man.svg",
+   "anchorX": 0.5,
+   "anchorY": 0.5,
+   "offsetX": 0,
+   "offsetY": 0,
+   "fit": "contain",
+   "scaleX": 1,
+   "scaleY": 1,
+   "rotation": 0,
+   "tint": "#ffffff",
+   "alphaThreshold": 0.75
+  },
+  "lockRotation": false,
+  "rotation": 0,
+  "alpha": 1,
+  "disposition": -1,
+  "displayBars": 0,
+  "bar1": {
+   "attribute": "resources.hitPoints"
+  },
+  "bar2": {
+   "attribute": "resources.stress"
+  },
+  "light": {
+   "negative": false,
+   "priority": 0,
+   "alpha": 0.5,
+   "angle": 360,
+   "bright": 0,
+   "color": null,
+   "coloration": 1,
+   "dim": 0,
+   "attenuation": 0.5,
+   "luminosity": 0.5,
+   "saturation": 0,
+   "contrast": 0,
+   "shadows": 0,
+   "animation": {
+    "type": null,
+    "speed": 5,
+    "intensity": 5,
+    "reverse": false
+   },
+   "darkness": {
+    "min": 0,
+    "max": 1
+   }
+  },
+  "sight": {
+   "enabled": false,
+   "range": 0,
+   "angle": 360,
+   "visionMode": "basic",
+   "color": null,
+   "attenuation": 0.1,
+   "brightness": 0,
+   "saturation": 0,
+   "contrast": 0
+  },
+  "detectionModes": [],
+  "occludable": {
+   "radius": 0
+  },
+  "ring": {
+   "enabled": false,
+   "colors": {
+    "ring": null,
+    "background": null
+   },
+   "effects": 1,
+   "subject": {
+    "scale": 1,
+    "texture": null
+   }
+  },
+  "turnMarker": {
+   "mode": 1,
+   "animation": null,
+   "src": null,
+   "disposition": false
+  },
+  "movementAction": null,
+  "flags": {},
+  "randomImg": false,
+  "appendNumber": false,
+  "prependAdjective": false
+ },
+ "items": [
+  {
+   "name": "Stolen Face",
+   "type": "feature",
+   "system": {
+    "description": "<p>The first time a PC attacks the Mirror-Kin each scene, they must succeed on a Presence Reaction Roll or mark a Stress at the sight of striking their own screaming face.</p>",
+    "resource": null,
+    "actions": {
+     "LwVRfaA66tAGcA5s": {
+      "type": "effect",
+      "_id": "LwVRfaA66tAGcA5s",
+      "systemPath": "actions",
+      "description": "",
+      "chatDisplay": true,
+      "actionType": "action",
+      "cost": [],
+      "uses": {
+       "value": null,
+       "max": "",
+       "recovery": null,
+       "consumeOnSuccess": false
+      },
+      "target": {
+       "type": "any",
+       "amount": null
+      },
+      "effects": [],
+      "roll": {
+       "type": null,
+       "trait": null,
+       "difficulty": null,
+       "bonus": null,
+       "advState": "neutral",
+       "diceRolling": {
+        "multiplier": "prof",
+        "flatMultiplier": 1,
+        "dice": "d6",
+        "compare": null,
+        "treshold": null
+       },
+       "useDefault": false
+      },
+      "save": {
+       "trait": "presence",
+       "difficulty": null,
+       "damageMod": "none"
+      },
+      "name": "Stolen Face",
+      "img": "icons/svg/sword.svg",
+      "range": "close",
+      "baseAction": false,
+      "originItem": {
+       "type": "itemCollection"
+      },
+      "triggers": []
+     }
+    },
+    "originItemType": null,
+    "featureForm": "action",
+    "attribution": {},
+    "multiclassOrigin": false
+   },
+   "_id": "BT5saj2JGxhxtR45",
+   "img": "icons/svg/aura.svg",
+   "effects": [],
+   "folder": null,
+   "sort": 0,
+   "flags": {},
+   "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "daggerheart",
+    "systemVersion": "1.6.3",
+    "lastModifiedBy": null
+   },
+   "ownership": {
+    "default": 0
+   }
+  },
+  {
+   "name": "Turnabout",
+   "type": "feature",
+   "system": {
+    "description": "<p>When a PC deals HP damage to the Mirror-Kin with a weapon, mark a Stress: the reflection makes that same attack back at the attacker, using the PC's own damage.</p>",
+    "resource": null,
+    "actions": {
+     "lOOjkf4yiyg38Mpi": {
+      "type": "effect",
+      "_id": "lOOjkf4yiyg38Mpi",
+      "systemPath": "actions",
+      "description": "",
+      "chatDisplay": true,
+      "actionType": "reaction",
+      "cost": [
+       {
+        "scalable": false,
+        "key": "stress",
+        "value": 1,
+        "step": null,
+        "itemId": null,
+        "consumeOnSuccess": false
+       }
+      ],
+      "uses": {
+       "value": null,
+       "max": "",
+       "recovery": null,
+       "consumeOnSuccess": false
+      },
+      "target": {
+       "type": "any",
+       "amount": null
+      },
+      "effects": [],
+      "roll": {
+       "type": null,
+       "trait": null,
+       "difficulty": null,
+       "bonus": null,
+       "advState": "neutral",
+       "diceRolling": {
+        "multiplier": "prof",
+        "flatMultiplier": 1,
+        "dice": "d6",
+        "compare": null,
+        "treshold": null
+       },
+       "useDefault": false
+      },
+      "save": {
+       "trait": null,
+       "difficulty": null,
+       "damageMod": "none"
+      },
+      "name": "Turnabout",
+      "img": "icons/svg/sword.svg",
+      "range": "close",
+      "baseAction": false,
+      "originItem": {
+       "type": "itemCollection"
+      },
+      "triggers": []
+     }
+    },
+    "originItemType": null,
+    "featureForm": "reaction",
+    "attribution": {},
+    "multiclassOrigin": false
+   },
+   "_id": "X9AErJJdSRj6tIfX",
+   "img": "icons/svg/aura.svg",
+   "effects": [],
+   "folder": null,
+   "sort": 0,
+   "flags": {},
+   "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "daggerheart",
+    "systemVersion": "1.6.3",
+    "lastModifiedBy": null
+   },
+   "ownership": {
+    "default": 0
+   }
+  }
+ ],
+ "effects": [],
+ "_stats": {
+  "compendiumSource": null,
+  "duplicateSource": null,
+  "exportSource": null,
+  "coreVersion": "13.351",
+  "systemId": "daggerheart",
+  "systemVersion": "1.6.3",
+  "lastModifiedBy": null,
+  "createdTime": null,
+  "modifiedTime": null
+ },
+ "ownership": {
+  "default": 0
+ }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thistleglass — Encounter Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital@0;1&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1016;--panel:#161b24;--panel2:#1d2430;--edge:#333c4a;--edge2:#48546a;--bone:#d9d3c4;--ash:#8b93a2;
+ --gilt:#b39a63;--blood:#9a463d;--violet:#8a5cb0;--violet-d:#5a3c78;--moon:#9fb4c2;--ok:#5c7a52;}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 100% at 50% 0%,#12161d,#080a0e 80%);color:var(--bone);
+ font-family:"EB Garamond",Georgia,serif;padding:0 0 4rem}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1rem;padding:.7rem 1.2rem;
+ background:linear-gradient(180deg,#141922,#0d1117);border-bottom:1px solid var(--edge2);box-shadow:0 2px 10px #0008}
+.bar h1{font-family:"Pirata One",serif;font-weight:400;font-size:1.5rem;margin:0;letter-spacing:.02em;color:var(--bone)}
+.bar .sub{font-family:"Cinzel";font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);margin-left:-.5rem}
+.bar .spacer{flex:1}
+.bar button{font-family:"Cinzel";font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+ color:var(--bone);background:var(--panel2);border:1px solid var(--edge2);border-radius:4px;padding:.5rem .8rem}
+.bar button:hover{border-color:var(--gilt);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.1rem;padding:1.1rem 1.2rem;max-width:1600px;margin:0 auto}
+.card{background:linear-gradient(180deg,var(--panel),#11151c);border:1px solid var(--edge);border-radius:8px;overflow:hidden;
+ box-shadow:0 4px 14px #0007;display:flex;flex-direction:column}
+.card.dead{opacity:.5}
+.chd{display:flex;gap:.8rem;padding:.8rem .9rem;border-bottom:1px solid var(--edge);position:relative}
+.chd .por{width:74px;height:74px;flex:none;border-radius:6px;object-fit:cover;border:1px solid var(--edge2);background:#0a0d12;
+ filter:grayscale(.15) contrast(1.05)}
+.chd .hd{flex:1;min-width:0}
+.chd h2{font-family:"Cinzel";font-weight:700;font-size:1.02rem;margin:.1rem 0 .3rem;color:#efe9da;line-height:1.15}
+.badges{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.tag{font-family:"Cinzel";font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.16rem .45rem;border-radius:3px;
+ border:1px solid var(--edge2);color:#0d1016;font-weight:700}
+.tier{background:var(--gilt)}.k-leader{background:#b58ad6}.k-bruiser{background:#cf7a6f}.k-solo{background:#e0c072}
+.k-social{background:#d68ab0}.k-support{background:#7fc7c7}.k-skulk{background:#8fb48a}.k-horde{background:#7fbfa8}
+.k-ranged{background:#e0a56a}.k-standard{background:#8aa8d6}.k-minion{background:#9aa2ad}
+.stat{padding:.55rem .9rem;font-size:.92rem;border-bottom:1px dashed var(--edge)}
+.stat b{color:var(--moon);font-family:"Cinzel";font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.pill{display:inline-block;background:var(--panel2);border:1px solid var(--edge2);border-radius:3px;padding:.05rem .4rem;margin:0 .15rem;font-size:.82rem}
+.thr{display:flex;align-items:stretch;margin:.5rem .9rem;border:1px solid var(--edge2);border-radius:4px;overflow:hidden;font-size:.68rem}
+.thr div{flex:1;text-align:center;padding:.3rem .2rem;font-family:"Cinzel";letter-spacing:.04em}
+.thr .lab{color:var(--ash);text-transform:uppercase;font-size:.58rem}
+.thr .num{background:var(--panel2);flex:0 0 auto;padding:.3rem .55rem;font-weight:700;color:var(--gilt);display:flex;align-items:center}
+.feats{padding:.5rem .9rem;font-size:.9rem;line-height:1.4}
+.feat{margin:.35rem 0}
+.feat .fn{font-family:"Cinzel";font-size:.82rem;color:#e6dcc4;font-weight:700}
+.feat .form{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-left:.3rem}
+.cost{font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;padding:.05rem .35rem;border-radius:3px;margin-left:.3rem;font-family:"Cinzel"}
+.cost.fear{background:var(--violet-d);color:#e8d8fb}.cost.stress{background:#5a4a2a;color:#f0e0b8}
+.feat .fd{color:#c9c2b2;font-size:.86rem}
+.mot{padding:.4rem .9rem .6rem;font-size:.82rem;color:var(--ash);font-style:italic}
+.insts{padding:.3rem .9rem .8rem;border-top:1px solid var(--edge)}
+.inst{background:var(--panel2);border:1px solid var(--edge);border-radius:5px;padding:.5rem .6rem;margin:.45rem 0}
+.inst.kod{opacity:.45}
+.inst .ih{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem}
+.inst .ih .nm{font-family:"Cinzel";font-size:.78rem;letter-spacing:.05em;color:#efe9da}
+.inst .ih .sp{flex:1}
+.inst .ih button{font-size:.62rem;font-family:"Cinzel";letter-spacing:.06em;cursor:pointer;background:#22160f;color:#d9b48c;
+ border:1px solid #5a3c2a;border-radius:3px;padding:.18rem .45rem}
+.trk{display:flex;align-items:center;gap:.5rem;margin:.25rem 0}
+.trk .tl{font-family:"Cinzel";font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;width:3.4rem;color:var(--ash)}
+.boxes{display:flex;gap:3px;flex-wrap:wrap;flex:1}
+.bx{width:16px;height:16px;border:1px solid var(--edge2);border-radius:3px;cursor:pointer;background:#0c0f14}
+.bx.on{background:var(--blood);border-color:#c05a4e}
+.trk.stress .bx.on{background:var(--gilt);border-color:#e0c884}
+.cnt{font-size:.72rem;color:var(--ash);width:2.6rem;text-align:right}
+.addrow{display:flex;gap:.4rem;margin-top:.5rem}
+.addrow button{flex:1;font-family:"Cinzel";font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+ color:var(--bone);background:var(--panel);border:1px dashed var(--edge2);border-radius:4px;padding:.35rem}
+.addrow button:hover{border-color:var(--gilt);color:#fff}
+.note{max-width:1600px;margin:0 auto;padding:.2rem 1.4rem 0;color:var(--ash);font-style:italic;font-size:.86rem}
+@media print{.bar button,.addrow,.inst .ih button{display:none}body{background:#fff;color:#111}
+ .card{break-inside:avoid;border-color:#999}.chd .por{filter:none}}
+</style></head><body>
+<div class="bar"><h1>Thistleglass</h1><span class="sub">The False Glade · Encounter Tracker</span>
+<span class="spacer"></span>
+<button onclick="addAll()">+ Instance each</button>
+<button onclick="if(confirm('Clear all HP/Stress and instances?')){localStorage.removeItem(KEY);location.reload()}">Reset</button>
+<button onclick="window.print()">Print</button></div>
+<p class="note">Click boxes to mark damage (HP) or stress. State saves automatically in this browser. Kreth's glade — perception lies; run the glamour before the steel.</p>
+<div class="grid" id="grid"></div>
+<script>
+const DATA=[{"name": "Moonshadow Sprite", "art": "img/moon-shadow-sprite.webp", "type": "leader", "tier": 3, "difficulty": 17, "major": 22, "severe": 42, "hp": 6, "stress": 6, "atkName": "Cold Radiance", "atkBonus": 5, "range": "Close", "dmg": "3d10+4", "dtype": "mag", "motives": "Shine gently, command the shadow, marshal the little fae, offer false hope", "exp": ["Regent of the Glade +3", "Two-Faced +3"], "feats": [{"name": "Rally the Glade", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: up to 1d4 fae adversaries within Far range immediately move up to their Speed and make an attack, or clear a Stress."}, {"name": "False Hope", "form": "Action", "costs": ["1 Stress"], "desc": "Mark a Stress: a PC within Close range must succeed on a Presence Reaction Roll or be unable to spend Hope until the start of their next turn, lulled by the gentle light."}, {"name": "The Shadow Obeys", "form": "Passive", "costs": [], "desc": "While the Moonshadow Sprite lives, its cast Shadow gains +2 to attack rolls and cannot be reduced below 1 HP."}]}, {"name": "Moonshadow, the Cast Shadow", "art": "img/moon-shadow-sprite.webp", "type": "bruiser", "tier": 3, "difficulty": 17, "major": 22, "severe": 40, "hp": 9, "stress": 4, "atkName": "Antler Sweep", "atkBonus": 4, "range": "Very Close", "dmg": "3d10+2", "dtype": "phy", "motives": "Loom, gore, drag into the dark, never match the thing that casts you", "exp": ["Looming +3"], "feats": [{"name": "Cast, Not Born", "form": "Passive", "costs": [], "desc": "The Shadow has resistance to physical damage. In bright light — or within Close range of a Sacred Pyre or other Splendor source — it loses this resistance."}, {"name": "Many Arms", "form": "Action", "costs": ["1 Stress"], "desc": "Mark a Stress: the Shadow makes an Antler Sweep attack against every PC in Very Close range."}, {"name": "Drag Into Dark", "form": "Reaction", "costs": ["1 Fear"], "desc": "When the Shadow damages a PC with Antler Sweep, spend a Fear: the target is pulled to Close range into darkness and Restrained until they succeed on a Strength Reaction Roll to break free."}]}, {"name": "Mirror-Kin Prime", "art": "img/mirror-kin-prime.webp", "type": "solo", "tier": 3, "difficulty": 17, "major": 22, "severe": 40, "hp": 10, "stress": 7, "atkName": "Hall of Knives", "atkBonus": 4, "range": "Very Close", "dmg": "3d10+4", "dtype": "mag", "motives": "Multiply, surround, wear every face at once, let them cut only glass", "exp": ["Legion of Faces +3", "Unbreakable Seeming +3"], "feats": [{"name": "Relentless (2)", "form": "Passive", "costs": [], "desc": "The Mirror-Kin Prime can be spotlighted up to 2 times per GM turn. Spend Fear as usual to do so."}, {"name": "Hall of Mirrors", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: raise up to three mirror-doubles (Mirror-Kin, defeated by any damage). Until a PC strikes one, they must succeed on an Instinct Reaction Roll to tell the Prime from its doubles when they attack."}, {"name": "Shatter and Scatter", "form": "Reaction", "costs": ["1 Fear"], "desc": "When the Mirror-Kin Prime marks its Severe threshold, spend a Fear: it bursts, dealing 3d8 physical damage to all in Very Close range, then reforms and clears 5 HP. Once per battle."}]}, {"name": "The Sweet One", "art": "img/sweets.webp", "type": "social", "tier": 3, "difficulty": 16, "major": 18, "severe": 32, "hp": 5, "stress": 6, "atkName": "Caress", "atkBonus": 2, "range": "Melee", "dmg": "3d8+3", "dtype": "mag", "motives": "Be adored, lure the beloved close, feed on trust, never break the smile", "exp": ["Beguiling +3", "Ancient +3"], "feats": [{"name": "Glamour", "form": "Passive", "costs": [], "desc": "The Sweet One appears as the loveliest thing each viewer can imagine. A PC who ends their turn within Close range must succeed on a Presence Reaction Roll or become Charmed, unwilling to attack it, until it harms them or an ally."}, {"name": "Honeyed Words", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: choose a PC within Close range. They must succeed on a Presence Reaction Roll or spend their next action moving toward and protecting the Sweet One."}, {"name": "Peeling Mask", "form": "Reaction", "costs": ["1 Stress"], "desc": "When the Sweet One is dealt HP damage, mark a Stress: the glamour slips, and the attacker must mark a Stress at the horror beneath."}]}, {"name": "The Kind Light", "art": "img/kindly-light.webp", "type": "support", "tier": 3, "difficulty": 15, "major": 24, "severe": 38, "hp": 8, "stress": 5, "atkName": "Drowning Glow", "atkBonus": 4, "range": "Close", "dmg": "3d10+6", "dtype": "mag", "motives": "Lure with warmth, drown the trusting, feed the guardians, never let them leave", "exp": ["Alluring +3", "Deep +3"], "feats": [{"name": "False Warmth", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: a PC within Far range who can see the light must succeed on a Presence Reaction Roll or move their full Speed toward it, ignoring hazards, on their next turn."}, {"name": "Feed the Glade", "form": "Action", "costs": ["1 Stress"], "desc": "Mark a Stress: another fae adversary within Close range clears a Stress, and its next attack this scene deals an extra 1d8 damage."}, {"name": "Undertow", "form": "Passive", "costs": [], "desc": "A PC who ends their turn within Very Close range of the Kind Light must mark a Stress as the air turns to cold water in their lungs."}]}, {"name": "The Helpful Thing", "art": "img/helpful-thing.webp", "type": "skulk", "tier": 3, "difficulty": 16, "major": 17, "severe": 32, "hp": 5, "stress": 5, "atkName": "Too Many Fingers", "atkBonus": 3, "range": "Melee", "dmg": "3d8+4", "dtype": "phy", "motives": "Be helpful, be invited in, tidy away the sleepers, smile with sewn lips", "exp": ["Unseen Servant +3"], "feats": [{"name": "Invited In", "form": "Passive", "costs": [], "desc": "The Helpful Thing is Hidden while it performs small kindnesses. A PC who accepts a gift or service from it must succeed on an Instinct Reaction Roll or fail to notice it drawing close, granting it advantage on its next attack."}, {"name": "A Little Gift", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: the Helpful Thing offers a PC within Melee range a small gift. If refused, it attacks that PC with advantage; if accepted, the PC marks 2 Stress as the gift proves not what it seemed."}]}, {"name": "Thistle-Down Swarm", "art": "img/thistledown-swarm.webp", "type": "horde", "tier": 3, "difficulty": 16, "major": 16, "severe": 30, "hp": 7, "stress": 3, "atkName": "Biting Cloud", "atkBonus": 1, "range": "Melee", "dmg": "3d6+6", "dtype": "phy", "motives": "Swarm and smother, strip the flesh, fascinate then feast, scatter and reform", "exp": ["Countless +3"], "feats": [{"name": "Horde (2d6)", "form": "Passive", "costs": [], "desc": "When the Thistle-Down Swarm has marked half or more of its HP, its Biting Cloud attack deals 2d6 physical damage instead."}, {"name": "Sweet Nothings", "form": "Action", "costs": ["1 Fear"], "desc": "Spend a Fear: each PC within Close range must succeed on a Presence Reaction Roll or become Charmed, drifting toward the lights and laughter, until the swarm harms them."}, {"name": "Reform", "form": "Reaction", "costs": ["1 Stress"], "desc": "When the swarm would be defeated by an attack that is not fire or area magic, mark a Stress to instead drop to 1 HP as the cloud scatters and re-gathers."}]}];
+const KEY="caul.thistleglass.tracker.v1";
+let ST=JSON.parse(localStorage.getItem(KEY)||"{}");
+function save(){localStorage.setItem(KEY,JSON.stringify(ST))}
+function adv(i){return DATA[i]}
+function inst(i){if(!ST[i])ST[i]=[{hp:0,st:0,dead:false}];return ST[i]}
+function rangeCap(s){return s}
+function boxes(n,on,cls,cb){var h='<div class="boxes '+cls+'">';for(var b=0;b<n;b++){h+='<span class="bx '+(b<on?'on':'')+'" data-b="'+b+'"></span>';}return h+'</div>';}
+function render(){
+ var g=document.getElementById('grid');g.innerHTML='';
+ DATA.forEach(function(a,i){
+  var insts=inst(i);
+  var allDead=insts.every(function(x){return x.dead});
+  var card=document.createElement('div');card.className='card'+(allDead?' dead':'');
+  var feats=a.feats.map(function(f){
+    var costs=f.costs.map(function(c){var k=/Fear/.test(c)?'fear':'stress';return '<span class="cost '+k+'">'+c+'</span>';}).join('');
+    return '<div class="feat"><span class="fn">'+f.name+'</span><span class="form">'+f.form+'</span>'+costs+
+           '<div class="fd">'+f.desc+'</div></div>';
+  }).join('');
+  var instHtml=insts.map(function(x,j){
+    return '<div class="inst'+(x.dead?' kod':'')+'" data-i="'+i+'" data-j="'+j+'">'+
+      '<div class="ih"><span class="nm">#'+(j+1)+'</span><span class="sp"></span>'+
+      '<button data-act="dead">'+(x.dead?'Revive':'Defeat')+'</button>'+
+      (insts.length>1?'<button data-act="rm">Remove</button>':'')+'</div>'+
+      '<div class="trk hp"><span class="tl">HP</span>'+boxes(a.hp,x.hp,'hp')+'<span class="cnt">'+x.hp+'/'+a.hp+'</span></div>'+
+      (a.stress>0?'<div class="trk stress"><span class="tl">Stress</span>'+boxes(a.stress,x.st,'stress')+'<span class="cnt">'+x.st+'/'+a.stress+'</span></div>':'')+
+      '</div>';
+  }).join('');
+  card.innerHTML=
+   '<div class="chd"><img class="por" src="'+a.art+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+    '<div class="hd"><div class="badges"><span class="tag k-'+a.type+'">'+a.type+'</span><span class="tag tier">Tier '+a.tier+'</span></div>'+
+    '<h2>'+a.name+'</h2></div></div>'+
+   '<div class="stat"><b>Difficulty</b> <span class="pill">'+a.difficulty+'</span> &nbsp; <b>Attack</b> <span class="pill">+'+a.atkBonus+'</span></div>'+
+   '<div class="stat"><b>'+a.atkName+'</b> <span class="pill">'+a.range+'</span> <span class="pill">'+a.dmg+' '+a.dtype+'</span></div>'+
+   '<div class="thr"><div><div class="lab">Minor</div>1 HP</div><div class="num">'+a.major+'</div>'+
+     '<div><div class="lab">Major</div>2 HP</div><div class="num">'+a.severe+'</div><div><div class="lab">Severe</div>3 HP</div></div>'+
+   (a.exp.length?'<div class="stat" style="border-bottom:none"><b>Exp</b> '+a.exp.map(function(e){return '<span class="pill">'+e+'</span>'}).join(' ')+'</div>':'')+
+   '<div class="feats">'+feats+'</div>'+
+   '<div class="mot">'+a.motives+'</div>'+
+   '<div class="insts">'+instHtml+
+     '<div class="addrow"><button data-act="add" data-i="'+i+'">+ Add instance</button></div></div>';
+  g.appendChild(card);
+ });
+ wire();
+}
+function wire(){
+ document.querySelectorAll('.bx').forEach(function(bx){
+   bx.onclick=function(){
+     var wrap=bx.closest('.inst');var i=+wrap.dataset.i,j=+wrap.dataset.j;
+     var isStress=bx.closest('.trk').classList.contains('stress');
+     var b=+bx.dataset.b;var cur=isStress?ST[i][j].st:ST[i][j].hp;
+     var nv=(b+1===cur)?b:(b+1);
+     if(isStress)ST[i][j].st=nv;else ST[i][j].hp=nv;save();render();
+   };
+ });
+ document.querySelectorAll('[data-act]').forEach(function(el){
+   el.onclick=function(){
+     var act=el.dataset.act;
+     if(act==='add'){var i=+el.dataset.i;inst(i).push({hp:0,st:0,dead:false});save();render();return;}
+     var wrap=el.closest('.inst');var i=+wrap.dataset.i,j=+wrap.dataset.j;
+     if(act==='dead'){ST[i][j].dead=!ST[i][j].dead;}
+     if(act==='rm'){ST[i].splice(j,1);if(!ST[i].length)ST[i]=[{hp:0,st:0,dead:false}];}
+     save();render();
+   };
+ });
+}
+function addAll(){DATA.forEach(function(a,i){inst(i).push({hp:0,st:0,dead:false})});save();render();}
+render();
+</script></body></html>

@@ -1,0 +1,547 @@
+{
+ "name": "The Helpful Ones, a Whole Household",
+ "img": "icons/svg/mystery-man.svg",
+ "type": "adversary",
+ "folder": null,
+ "system": {
+  "difficulty": 16,
+  "damageThresholds": {
+   "major": 16,
+   "severe": 32
+  },
+  "resources": {
+   "hitPoints": {
+    "value": 0,
+    "max": 6,
+    "isReversed": true
+   },
+   "stress": {
+    "value": 0,
+    "max": 6,
+    "isReversed": true
+   }
+  },
+  "motivesAndTactics": "Welcome the weary, tend and feed, make them never wish to leave, take a small price",
+  "resistance": {
+   "physical": {
+    "resistance": false,
+    "immunity": false,
+    "reduction": 0
+   },
+   "magical": {
+    "resistance": false,
+    "immunity": false,
+    "reduction": 0
+   }
+  },
+  "type": "social",
+  "notes": "",
+  "hordeHp": 1,
+  "experiences": {
+   "n8Fju7e2gxLA0PV5": {
+    "name": "Gracious Host",
+    "description": "",
+    "value": 3
+   },
+   "coXgaWTMvkNqttTp": {
+    "name": "Never Leave",
+    "description": "",
+    "value": 3
+   }
+  },
+  "bonuses": {
+   "roll": {
+    "attack": {
+     "bonus": 0,
+     "dice": []
+    },
+    "action": {
+     "bonus": 0,
+     "dice": []
+    },
+    "reaction": {
+     "bonus": 0,
+     "dice": []
+    }
+   },
+   "damage": {
+    "physical": {
+     "bonus": 0,
+     "dice": []
+    },
+    "magical": {
+     "bonus": 0,
+     "dice": []
+    }
+   }
+  },
+  "tier": 3,
+  "description": "<p><em>A whole cottage-worth of the little folk, bustling and bowing and pressing food on you — and every sewn smile the very same.</em></p>",
+  "attack": {
+   "name": "A Hundred Small Hands",
+   "roll": {
+    "bonus": 2,
+    "type": "attack",
+    "trait": null,
+    "difficulty": null,
+    "advState": "neutral",
+    "diceRolling": {
+     "multiplier": "prof",
+     "flatMultiplier": 1,
+     "dice": "d6",
+     "compare": null,
+     "treshold": null
+    },
+    "useDefault": false
+   },
+   "range": "melee",
+   "damage": {
+    "parts": [
+     {
+      "value": {
+       "custom": {
+        "enabled": false,
+        "formula": ""
+       },
+       "flatMultiplier": 3,
+       "dice": "d6",
+       "bonus": 4,
+       "multiplier": "flat"
+      },
+      "applyTo": "hitPoints",
+      "type": [
+       "physical"
+      ],
+      "base": false,
+      "resultBased": false,
+      "valueAlt": {
+       "multiplier": "prof",
+       "flatMultiplier": 1,
+       "dice": "d6",
+       "bonus": null,
+       "custom": {
+        "enabled": false,
+        "formula": ""
+       }
+      }
+     }
+    ],
+    "includeBase": false,
+    "direct": false
+   },
+   "img": "icons/svg/sword.svg",
+   "type": "attack",
+   "chatDisplay": false,
+   "_id": "7sFfLwggxXYa8ufZ",
+   "systemPath": "actions",
+   "baseAction": false,
+   "description": "",
+   "originItem": {
+    "type": "itemCollection"
+   },
+   "actionType": "action",
+   "triggers": [],
+   "cost": [],
+   "uses": {
+    "value": null,
+    "max": null,
+    "recovery": null,
+    "consumeOnSuccess": false
+   },
+   "target": {
+    "type": "any",
+    "amount": null
+   },
+   "effects": [],
+   "save": {
+    "trait": null,
+    "difficulty": null,
+    "damageMod": "none"
+   }
+  },
+  "attribution": {
+   "source": "The Enduring Lesser Lights — Thistleglass",
+   "page": 0,
+   "artist": ""
+  },
+  "size": "medium",
+  "criticalThreshold": 20,
+  "rules": {
+   "conditionImmunities": {
+    "hidden": false,
+    "restrained": false,
+    "vulnerable": false
+   },
+   "damageReduction": {
+    "thresholdImmunities": {
+     "minor": false
+    },
+    "reduceSeverity": {
+     "magical": 0,
+     "physical": 0
+    }
+   },
+   "attack": {
+    "damage": {
+     "hpDamageMultiplier": 1,
+     "hpDamageTakenMultiplier": 1
+    }
+   }
+  }
+ },
+ "flags": {},
+ "prototypeToken": {
+  "name": "The Helpful Ones, a Whole Household",
+  "displayName": 0,
+  "actorLink": false,
+  "width": 2,
+  "height": 2,
+  "texture": {
+   "src": "icons/svg/mystery-man.svg",
+   "anchorX": 0.5,
+   "anchorY": 0.5,
+   "offsetX": 0,
+   "offsetY": 0,
+   "fit": "contain",
+   "scaleX": 1,
+   "scaleY": 1,
+   "rotation": 0,
+   "tint": "#ffffff",
+   "alphaThreshold": 0.75
+  },
+  "lockRotation": false,
+  "rotation": 0,
+  "alpha": 1,
+  "disposition": -1,
+  "displayBars": 0,
+  "bar1": {
+   "attribute": "resources.hitPoints"
+  },
+  "bar2": {
+   "attribute": "resources.stress"
+  },
+  "light": {
+   "negative": false,
+   "priority": 0,
+   "alpha": 0.5,
+   "angle": 360,
+   "bright": 0,
+   "color": null,
+   "coloration": 1,
+   "dim": 0,
+   "attenuation": 0.5,
+   "luminosity": 0.5,
+   "saturation": 0,
+   "contrast": 0,
+   "shadows": 0,
+   "animation": {
+    "type": null,
+    "speed": 5,
+    "intensity": 5,
+    "reverse": false
+   },
+   "darkness": {
+    "min": 0,
+    "max": 1
+   }
+  },
+  "sight": {
+   "enabled": false,
+   "range": 0,
+   "angle": 360,
+   "visionMode": "basic",
+   "color": null,
+   "attenuation": 0.1,
+   "brightness": 0,
+   "saturation": 0,
+   "contrast": 0
+  },
+  "detectionModes": [],
+  "occludable": {
+   "radius": 0
+  },
+  "ring": {
+   "enabled": false,
+   "colors": {
+    "ring": null,
+    "background": null
+   },
+   "effects": 1,
+   "subject": {
+    "scale": 1,
+    "texture": null
+   }
+  },
+  "turnMarker": {
+   "mode": 1,
+   "animation": null,
+   "src": null,
+   "disposition": false
+  },
+  "movementAction": null,
+  "flags": {},
+  "randomImg": false,
+  "appendNumber": false,
+  "prependAdjective": false
+ },
+ "items": [
+  {
+   "name": "Make Yourselves at Home",
+   "type": "feature",
+   "system": {
+    "description": "<p>Spend a Fear: each PC within Close range must succeed on a Presence Reaction Roll or, lulled by warmth and comfort, be unable to leave the glade until they next take damage.</p>",
+    "resource": null,
+    "actions": {
+     "t4uKGRlXm8bM1rp5": {
+      "type": "effect",
+      "_id": "t4uKGRlXm8bM1rp5",
+      "systemPath": "actions",
+      "description": "",
+      "chatDisplay": true,
+      "actionType": "action",
+      "cost": [
+       {
+        "scalable": false,
+        "key": "fear",
+        "value": 1,
+        "step": null,
+        "itemId": null,
+        "consumeOnSuccess": false
+       }
+      ],
+      "uses": {
+       "value": null,
+       "max": "",
+       "recovery": null,
+       "consumeOnSuccess": false
+      },
+      "target": {
+       "type": "any",
+       "amount": null
+      },
+      "effects": [],
+      "roll": {
+       "type": null,
+       "trait": null,
+       "difficulty": null,
+       "bonus": null,
+       "advState": "neutral",
+       "diceRolling": {
+        "multiplier": "prof",
+        "flatMultiplier": 1,
+        "dice": "d6",
+        "compare": null,
+        "treshold": null
+       },
+       "useDefault": false
+      },
+      "save": {
+       "trait": "presence",
+       "difficulty": null,
+       "damageMod": "none"
+      },
+      "name": "Make Yourselves at Home",
+      "img": "icons/svg/sword.svg",
+      "range": "close",
+      "baseAction": false,
+      "originItem": {
+       "type": "itemCollection"
+      },
+      "triggers": []
+     }
+    },
+    "originItemType": null,
+    "featureForm": "action",
+    "attribution": {},
+    "multiclassOrigin": false
+   },
+   "_id": "Yn8gh7urm3kAbfmK",
+   "img": "icons/svg/aura.svg",
+   "effects": [],
+   "folder": null,
+   "sort": 0,
+   "flags": {},
+   "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "daggerheart",
+    "systemVersion": "1.6.3",
+    "lastModifiedBy": null
+   },
+   "ownership": {
+    "default": 0
+   }
+  },
+  {
+   "name": "The Reckoning",
+   "type": "feature",
+   "system": {
+    "description": "<p>Mark a Stress: the Household names the small price its guests owe. A PC who refuses to pay takes 3d6+4 physical damage as the little folk turn on them all at once.</p>",
+    "resource": null,
+    "actions": {
+     "HJzeuuEyiuJ2pLF7": {
+      "type": "attack",
+      "_id": "HJzeuuEyiuJ2pLF7",
+      "systemPath": "actions",
+      "description": "",
+      "chatDisplay": true,
+      "actionType": "action",
+      "cost": [
+       {
+        "scalable": false,
+        "key": "stress",
+        "value": 1,
+        "step": null,
+        "itemId": null,
+        "consumeOnSuccess": false
+       }
+      ],
+      "uses": {
+       "value": null,
+       "max": "",
+       "recovery": null,
+       "consumeOnSuccess": false
+      },
+      "target": {
+       "type": "any",
+       "amount": null
+      },
+      "effects": [],
+      "roll": {
+       "type": null,
+       "trait": null,
+       "difficulty": null,
+       "bonus": null,
+       "advState": "neutral",
+       "diceRolling": {
+        "multiplier": "prof",
+        "flatMultiplier": 1,
+        "dice": "d6",
+        "compare": null,
+        "treshold": null
+       },
+       "useDefault": false
+      },
+      "save": {
+       "trait": null,
+       "difficulty": null,
+       "damageMod": "none"
+      },
+      "name": "The Reckoning",
+      "img": "icons/svg/sword.svg",
+      "range": "close",
+      "baseAction": false,
+      "originItem": {
+       "type": "itemCollection"
+      },
+      "triggers": [],
+      "damage": {
+       "parts": [
+        {
+         "value": {
+          "custom": {
+           "enabled": false,
+           "formula": ""
+          },
+          "flatMultiplier": 3,
+          "dice": "d6",
+          "bonus": 4,
+          "multiplier": "flat"
+         },
+         "applyTo": "hitPoints",
+         "type": [
+          "physical"
+         ],
+         "base": false,
+         "resultBased": false,
+         "valueAlt": {
+          "multiplier": "prof",
+          "flatMultiplier": 1,
+          "dice": "d6",
+          "bonus": null,
+          "custom": {
+           "enabled": false,
+           "formula": ""
+          }
+         }
+        }
+       ],
+       "includeBase": false,
+       "direct": false
+      }
+     }
+    },
+    "originItemType": null,
+    "featureForm": "action",
+    "attribution": {},
+    "multiclassOrigin": false
+   },
+   "_id": "RmYtVGln7sQ1qIEk",
+   "img": "icons/svg/aura.svg",
+   "effects": [],
+   "folder": null,
+   "sort": 0,
+   "flags": {},
+   "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "daggerheart",
+    "systemVersion": "1.6.3",
+    "lastModifiedBy": null
+   },
+   "ownership": {
+    "default": 0
+   }
+  },
+  {
+   "name": "Many Hands",
+   "type": "feature",
+   "system": {
+    "description": "<p>While two or more other fae adversaries are within Close range, the Household has resistance to physical damage.</p>",
+    "resource": null,
+    "actions": {},
+    "originItemType": null,
+    "featureForm": "passive",
+    "attribution": {},
+    "multiclassOrigin": false
+   },
+   "_id": "A3VQs9xY0lEbjEty",
+   "img": "icons/svg/aura.svg",
+   "effects": [],
+   "folder": null,
+   "sort": 0,
+   "flags": {},
+   "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "daggerheart",
+    "systemVersion": "1.6.3",
+    "lastModifiedBy": null
+   },
+   "ownership": {
+    "default": 0
+   }
+  }
+ ],
+ "effects": [],
+ "_stats": {
+  "compendiumSource": null,
+  "duplicateSource": null,
+  "exportSource": null,
+  "coreVersion": "13.351",
+  "systemId": "daggerheart",
+  "systemVersion": "1.6.3",
+  "lastModifiedBy": null,
+  "createdTime": null,
+  "modifiedTime": null
+ },
+ "ownership": {
+  "default": 0
+ }
+}
