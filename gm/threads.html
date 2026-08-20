@@ -252,10 +252,7 @@
 <li><strong><span class="ref-open" title="not yet chronicled">Speaker</span> takes the eyes.</strong> In the fight the Moonshadow set two <span class="ref-open" title="not yet chronicled">Eyes of Kreth</span> into the mute construct; it rose, spoke a warning in a borrowed voice, and went still — a god&#x27;s perception now lodged in <a class="ref" href="../company/sylvie.html">Sylvie</a>&#x27;s servant. <em>(S25)</em></li>
 <li><strong><a class="ref" href="../company/sylvie.html">Sylvie</a> weighs godhood.</strong> Reading the paintings and the library, she asks whether the world might be mended by a new source of Splendor — herself, made a god. <em>(S25)</em></li>
 <li><strong>The core that will not keep time.</strong> <a class="ref" href="../company/heyou.html">Heyou</a> set <span class="ref-open" title="not yet chronicled">Vanco</span>&#x27;s returned motive-core into his own chest; it holds another&#x27;s essence and beats a half-step off, and now a part of him is always turned inward, listening to the wrongness. <em>(S25)</em></li>
-</ul><hr><h2 class="veil-source">Earlier Thread Notes</h2><blockquote><strong>Historical snapshot (pre-Session 15).</strong> Superseded by the current <em>Open Plot Threads</em> above. Kept for reference only — statuses here are frozen and no longer accurate.</blockquote>
-<h3>Primary Quest: Rekindle the Sacred Pyre</h3>
-<p><strong>Status:</strong> In Progress</p>
-<p><strong>Objective:</strong> Obtain a <a class="ref" href="../relics/blessed-branch.html">Blessed Branch</a> to rekindle <a class="ref" href="../atlas/drosvens-gate.html">Drosven&#x27;s Gate</a>&#x27;s Sacred Pyre</p>
+</ul><hr><h2 class="veil-source">Earlier Thread Notes</h2><h3>Primary Quest: Rekindle the Sacred Pyre</h3>
 <h4>Progress</h4>
 <ul>
 <li class="todo">☑ Travel to <a class="ref" href="../atlas/ulmiras-step.html">Ulmira&#x27;s Step</a></li>
@@ -275,8 +272,6 @@
 </ul>
 <hr>
 <h3>Ygva&#x27;s Divine Binding</h3>
-<p><strong>Status:</strong> Active involvement</p>
-<p><strong>Objective:</strong> <a class="ref" href="../dramatis-personae/ygva.html">Ygva</a> seeks to bind the old gods in the <a class="ref" href="../atlas/world-below.html">World Below</a></p>
 <h4>What Ygva Needs</h4>
 <ul>
 <li>Remnants and totems of the gods</li>
@@ -298,8 +293,6 @@
 </ul>
 <hr>
 <h3>Jamal&#x27;s Past: Grithmaar Deep</h3>
-<p><strong>Status:</strong> Background, building toward confrontation</p>
-<p><strong>Objective:</strong> Confront the creature that destroyed Jamal&#x27;s village</p>
 <h4>Known Facts</h4>
 <ul>
 <li>Something in <a class="ref" href="../atlas/grithmaar-deep.html">Grithmaar Deep</a> destroyed his home</li>
@@ -314,8 +307,6 @@
 </ul>
 <hr>
 <h3>The Heretic Marks</h3>
-<p><strong>Status:</strong> Background tension</p>
-<p><strong>Characters:</strong> <a class="ref" href="../company/draz.html">Draz</a>, <a class="ref" href="../company/jamal.html">Jamal</a></p>
 <h4>Details</h4>
 <ul>
 <li><a class="ref" href="../company/draz.html">Draz</a>: Mark on inner bicep</li>
@@ -331,8 +322,6 @@
 </ul>
 <hr>
 <h3>Heyou&#x27;s True Nature</h3>
-<p><strong>Status:</strong> Slowly revealing</p>
-<p><strong>Character:</strong> <a class="ref" href="../company/heyou.html">Heyou</a></p>
 <h4>Clues Gathered</h4>
 <ul>
 <li>Sigil on chest indicates specific origins</li>
@@ -349,8 +338,6 @@
 </ul>
 <hr>
 <h3>Sylvie&#x27;s Transformation</h3>
-<p><strong>Status:</strong> Ongoing personal arc</p>
-<p><strong>Character:</strong> <a class="ref" href="../company/sylvie.html">Sylvie</a></p>
 <h4>Changes</h4>
 <ul>
 <li>Heart removed by <a class="ref" href="../dramatis-personae/ygva.html">Ygva</a> but survived</li>
@@ -424,12 +411,12 @@
     }
   });
   var CATS=[['now','Now'],['arcs','Arcs'],['factions','Factions & NPCs'],['world','World'],
-            ['dormant','Dormant'],['log','Session log'],['earlier','Earlier notes']];
-  var KEY='caul.threads.filter', st;
+            ['dormant','Dormant'],['earlier','Earlier notes'],['log','Reference']];
+  var KEY='caul.threads.filter.v2', st;
   try{st=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){st={}}
   if(!('resolved' in st))st.resolved=false;
   if(!('gm' in st))st.gm=true;
-  CATS.forEach(function(c){if(!(c[0] in st))st[c[0]]=true;});
+  CATS.forEach(function(c){if(!(c[0] in st))st[c[0]]=(c[0]==='log'?false:true);});
   function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
   var lab=document.createElement('span'); lab.className='tf-label'; lab.textContent='Show'; bar.appendChild(lab);
   function chip(key,label,cls){
