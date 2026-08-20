@@ -252,8 +252,7 @@
 <li><strong><span class="ref-open" title="not yet chronicled">Speaker</span> takes the eyes.</strong> In the fight the Moonshadow set two <span class="ref-open" title="not yet chronicled">Eyes of Kreth</span> into the mute construct; it rose, spoke a warning in a borrowed voice, and went still — a god&#x27;s perception now lodged in <a class="ref" href="../company/sylvie.html">Sylvie</a>&#x27;s servant. <em>(S25)</em></li>
 <li><strong><a class="ref" href="../company/sylvie.html">Sylvie</a> weighs godhood.</strong> Reading the paintings and the library, she asks whether the world might be mended by a new source of Splendor — herself, made a god. <em>(S25)</em></li>
 <li><strong>The core that will not keep time.</strong> <a class="ref" href="../company/heyou.html">Heyou</a> set <span class="ref-open" title="not yet chronicled">Vanco</span>&#x27;s returned motive-core into his own chest; it holds another&#x27;s essence and beats a half-step off, and now a part of him is always turned inward, listening to the wrongness. <em>(S25)</em></li>
-</ul><hr><h2 class="veil-source">Earlier Thread Notes</h2><h2>Active Plot Threads</h2>
-<blockquote><strong>Historical snapshot (pre-Session 15).</strong> Superseded by the current <em>Open Plot Threads</em> above. Kept for reference only — statuses here are frozen and no longer accurate.</blockquote>
+</ul><hr><h2 class="veil-source">Earlier Thread Notes</h2><blockquote><strong>Historical snapshot (pre-Session 15).</strong> Superseded by the current <em>Open Plot Threads</em> above. Kept for reference only — statuses here are frozen and no longer accurate.</blockquote>
 <h3>Primary Quest: Rekindle the Sacred Pyre</h3>
 <p><strong>Status:</strong> In Progress</p>
 <p><strong>Objective:</strong> Obtain a <a class="ref" href="../relics/blessed-branch.html">Blessed Branch</a> to rekindle <a class="ref" href="../atlas/drosvens-gate.html">Drosven&#x27;s Gate</a>&#x27;s Sacred Pyre</p>
@@ -468,6 +467,52 @@
     });
   }
   apply();
+})();
+</script><script>
+(function(){
+  function slug(s){return s.toLowerCase().replace(/[‘’“”]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);}
+  function build(){
+    var panel=document.querySelector('.gm-panel'); if(!panel) return;
+    var heads=[].slice.call(panel.querySelectorAll('h2,h3'));
+    if(heads.length<3) return;
+    var used={};
+    heads.forEach(function(h){ var id=slug(h.textContent)||'s'; if(used[id]){used[id]++;id=id+'-'+used[id];}else used[id]=1; h.id=id; h.style.scrollMarginTop='5.5rem'; });
+    var rail=document.createElement('nav'); rail.className='rail'; rail.id='rail'; rail.setAttribute('aria-label','Sections');
+    rail.innerHTML='<div class="rail-title">Sections</div>';
+    var list=document.createElement('ul'); rail.appendChild(list);
+    var subs=null;
+    function link(h,kind){ var a=document.createElement('a'); a.href='#'+h.id; a.setAttribute('data-for',h.id); a.setAttribute('data-kind',kind);
+      a.textContent=h.textContent.replace(/\s+/g,' ').trim();
+      a.addEventListener('click',function(){ rail.classList.remove('open'); }); return a; }
+    heads.forEach(function(h){
+      if(h.tagName==='H2'){ var grp=document.createElement('li'); grp.className='r-grp'; grp.appendChild(link(h,'h2'));
+        subs=document.createElement('ul'); grp.appendChild(subs); list.appendChild(grp); }
+      else if(subs){ var li=document.createElement('li'); li.className='r-h3'; li.appendChild(link(h,'h3')); subs.appendChild(li); }
+    });
+    var btn=document.createElement('button'); btn.className='rail-toggle'; btn.type='button';
+    btn.innerHTML='<span aria-hidden="true">&#9776;</span> Sections';
+    btn.addEventListener('click',function(){ rail.classList.toggle('open'); });
+    document.body.appendChild(rail); document.body.appendChild(btn);
+    spy(rail,heads);
+  }
+  function spy(rail,heads){
+    var links={}; [].forEach.call(rail.querySelectorAll('a'),function(a){ links[a.getAttribute('data-for')]=a; });
+    var current=null, ticking=false;
+    function update(){ ticking=false; var best=heads[0], line=120;
+      for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=line) best=heads[i]; else break; }
+      if(best.id===current) return; current=best.id;
+      [].forEach.call(rail.querySelectorAll('a.on'),function(a){ a.classList.remove('on'); });
+      [].forEach.call(rail.querySelectorAll('.r-grp.open'),function(g){ g.classList.remove('open'); });
+      var a=links[best.id]; if(!a) return; a.classList.add('on');
+      var g=a.closest('.r-grp'); if(g) g.classList.add('open');
+      if(a.getAttribute('data-kind')==='h3'&&g){ var h2a=g.querySelector('a'); if(h2a) h2a.classList.add('on'); }
+      var r=a.getBoundingClientRect(), rr=rail.getBoundingClientRect();
+      if(r.top<rr.top+8||r.bottom>rr.bottom-8) a.scrollIntoView({block:'nearest'});
+    }
+    addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+    update();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',build); else build();
 })();
 </script></article></div></div>
 <footer class="foot"><span class="mark">❖</span>The Enduring Lesser Lights · Age of Umbra: Caul · Daggerheart</footer>

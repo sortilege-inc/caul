@@ -406,3 +406,24 @@ blockquote{
 .thread-filter .tf-chip[aria-pressed="true"]{opacity:1;border-color:#8a5cb0;background:rgba(138,92,176,.18)}
 .thread-filter .tf-status{margin-left:.1rem}
 .thread-filter .tf-resolved[aria-pressed="true"]{border-color:#8f7a4a;background:rgba(150,120,60,.18)}
+
+/* ---- section rail: sticky TOC for long GM pages (threads, planning) ---- */
+.rail{position:fixed;top:5rem;left:max(0.6rem,calc(50% - 575px));width:172px;max-height:calc(100vh - 7rem);overflow-y:auto;overscroll-behavior:contain;font-family:var(--caps);font-size:.72rem;letter-spacing:.06em;z-index:40;padding-right:.3rem}
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--edge);border-radius:3px}
+.rail-title{text-transform:uppercase;letter-spacing:.18em;font-size:.62rem;color:var(--ash-dim);padding:0 0 .5rem .7rem;border-bottom:1px solid var(--edge-soft);margin-bottom:.5rem}
+.rail ul{list-style:none;margin:0;padding:0}
+.rail a{display:block;text-decoration:none;color:var(--ash);padding:.24rem .5rem .24rem .7rem;border-left:2px solid transparent;text-transform:uppercase;line-height:1.25;transition:color .15s,border-color .15s}
+.rail a:hover{color:var(--moon-lit)}
+.rail .r-h3 a{padding-left:1.3rem;text-transform:none;letter-spacing:.01em;font-family:var(--serif);font-size:.82rem;color:var(--ash-dim)}
+.rail a.on{color:#bcbee6;border-left-color:var(--umbra);font-weight:600}
+.rail .r-h3{display:none}
+.rail .r-grp.open .r-h3{display:block}
+.rail-toggle{position:fixed;left:.9rem;bottom:1.1rem;z-index:41;display:none;align-items:center;gap:.45rem;font-family:var(--caps);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--bone);background:var(--slate-2);border:1px solid var(--umbra);border-radius:4px;padding:.5rem .8rem;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.4)}
+.rail-toggle:hover{border-color:#a9abd6}
+@media (max-width:1220px){
+  .rail{left:0;top:0;width:min(19rem,82vw);max-height:none;height:100vh;background:var(--slate);border-right:1px solid var(--edge);box-shadow:6px 0 26px rgba(0,0,0,.4);padding:4.5rem .6rem 2rem .6rem;transform:translateX(-102%);transition:transform .25s ease}
+  .rail.open{transform:none}
+  .rail-toggle{display:flex}
+}
+@media print{.rail,.rail-toggle{display:none}}
