@@ -14,7 +14,7 @@
 <div class="wrap"><p class="crumb"><a href="../index.html">Home</a><span class="sep">›</span><a href="../gm/index.html">Behind the Veil</a><span class="sep">›</span>Open Plot Threads</p>
 <header class="masthead gm-mast"><div class="eyebrow">GM Note</div>
 <h1>Open Plot Threads</h1><p class="sub">Every open thread — by urgency, and told session by session.</p></header>
-<div class="col"><div class="gm-banner"><span class="seal">☾</span><div><b>Behind the Veil — GM material.</b> Spoilers, draft notes, and cosmology that is not yet canon (and may never be). Players of the Enduring Lesser Lights, turn back.</div></div><article class="panel gm-panel"><h2>Open Plot Threads</h2>
+<div class="col"><div class="gm-banner"><span class="seal">☾</span><div><b>Behind the Veil — GM material.</b> Spoilers, draft notes, and cosmology that is not yet canon (and may never be). Players of the Enduring Lesser Lights, turn back.</div></div><article class="panel gm-panel"><div class="thread-filter" id="thread-filter" hidden></div><h2>Open Plot Threads</h2>
 <p><em>Current through Session 25 (&quot;Kreth&#x27;s Eyes&quot;). Older notes are kept below under &quot;Earlier Thread Notes&quot; as a historical snapshot.</em></p>
 <h3>Immediate / Active</h3>
 <h4>Where the party stands now — the Faerie Wood on the Shore (S25)</h4>
@@ -121,6 +121,10 @@
 <li>Robbed and wounded; holds part of Heyou&#x27;s essence; the Askavir-egg bargain never closed. The party has teleported far out of his reach — unresolved, not closed. The eye-patched katari among the <a class="ref" href="../atlas/verrows-span.html">Verrow&#x27;s Span</a> refugees may be his.</li>
 </ul>
 <h3>World Threads</h3>
+<h4>Why the gods left <em>(GM only)</em></h4>
+<ul>
+<li>The gods left on a migratory impulse, not a choice, and do not know why; each has rationalized it after the fact, and any resentment at being called back varies by god. Full note: [Author&#x27;s Notes → Why the gods left](../gm/design-notes.html). <em>(OPEN: what did each god rationalize, and are the stories shared or divided? The deeper question behind <a class="ref" href="../company/sylvie.html">Sylvie</a>&#x27;s reach toward godhood.)</em></li>
+</ul>
 <h4>The Elect and the World Above</h4>
 <ul>
 <li>The Athenaeum&#x27;s doctrine: only the <strong>Elect</strong> may ascend through a door to the World Above; the rest are left to entropy and the dark. <a class="ref" href="../dramatis-personae/ygva.html">Ygva</a> named two candidates — <a class="ref" href="../company/sylvie.html">Sylvie</a> and <a class="ref" href="../company/heyou.html">Heyou</a>. <a class="ref" href="../dramatis-personae/god-king-otheidas.html">Otheidas</a> tried to ascend his whole people and failed. <em>(Central cosmology — where does this lead?)</em></li>
@@ -391,7 +395,81 @@
 </ul>
 <hr>
 <h3>Session Prep Notes</h3>
-<p><em>Space for upcoming session preparation</em></p></article></div></div>
+<p><em>Space for upcoming session preparation</em></p><script>
+(function(){
+  var bar=document.getElementById('thread-filter'); if(!bar) return;
+  var art=bar.parentElement;
+  var kids=Array.prototype.slice.call(art.children);
+  function catOf(t){t=(t||'').toLowerCase();
+    if(t.indexOf('session by session')>=0)return'log';
+    if(t.indexOf('earlier thread')>=0||t.indexOf('active plot threads')>=0)return'earlier';
+    if(t.indexOf('character arc')>=0)return'arcs';
+    if(t.indexOf('faction')>=0||t.indexOf('npc thread')>=0)return'factions';
+    if(t.indexOf('world thread')>=0)return'world';
+    if(t.indexOf('dormant')>=0||t.indexOf('background')>=0)return'dormant';
+    if(t.indexOf('immediate')>=0||t.indexOf('active')>=0)return'now';
+    return null;}
+  var cur='now', gmHead=false, present={}, gmPresent=false;
+  kids.forEach(function(n){
+    if(/^H[234]$/.test(n.tagName)){
+      if(/^H[23]$/.test(n.tagName)){ var c=catOf(n.textContent); if(c)cur=c; }
+      gmHead=/gm only/i.test(n.textContent||'');
+      n.setAttribute('data-cat',cur); n.setAttribute('data-lvl',n.tagName.charAt(1));
+    } else if(n.tagName==='UL'){
+      Array.prototype.forEach.call(n.querySelectorAll(':scope > li'),function(li){
+        li.setAttribute('data-cat',cur); present[cur]=1;
+        var tx=li.textContent||'';
+        if(tx.indexOf('RESOLVED')>=0) li.setAttribute('data-resolved','1');
+        if(gmHead||/GM only/i.test(tx)){ li.setAttribute('data-gm','1'); gmPresent=true; }
+      });
+    }
+  });
+  var CATS=[['now','Now'],['arcs','Arcs'],['factions','Factions & NPCs'],['world','World'],
+            ['dormant','Dormant'],['log','Session log'],['earlier','Earlier notes']];
+  var KEY='caul.threads.filter', st;
+  try{st=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){st={}}
+  if(!('resolved' in st))st.resolved=false;
+  if(!('gm' in st))st.gm=true;
+  CATS.forEach(function(c){if(!(c[0] in st))st[c[0]]=true;});
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  var lab=document.createElement('span'); lab.className='tf-label'; lab.textContent='Show'; bar.appendChild(lab);
+  function chip(key,label,cls){
+    var b=document.createElement('button'); b.type='button'; b.className='tf-chip'+(cls?' '+cls:'');
+    b.textContent=label; b.setAttribute('aria-pressed',st[key]?'true':'false');
+    b.onclick=function(){st[key]=!st[key]; b.setAttribute('aria-pressed',st[key]?'true':'false'); save(); apply();};
+    return b;
+  }
+  CATS.forEach(function(c){ if(present[c[0]]) bar.appendChild(chip(c[0],c[1])); });
+  if(gmPresent) bar.appendChild(chip('gm','GM-only','tf-status'));
+  bar.appendChild(chip('resolved','Resolved','tf-status tf-resolved'));
+  bar.removeAttribute('hidden');
+  var heads=kids.filter(function(n){return /^H[234]$/.test(n.tagName);});
+  function apply(){
+    Array.prototype.forEach.call(art.querySelectorAll('li[data-cat]'),function(li){
+      var vis=st[li.getAttribute('data-cat')]
+        && (!li.getAttribute('data-resolved')||st.resolved)
+        && (!li.getAttribute('data-gm')||st.gm);
+      li.style.display=vis?'':'none';
+    });
+    heads.forEach(function(h){
+      var lvl=+h.getAttribute('data-lvl'), any=false, n=h.nextElementSibling;
+      while(n){
+        if(/^H[234]$/.test(n.tagName) && (+n.getAttribute('data-lvl'))<=lvl) break;
+        if(n.tagName==='UL'){ var ls=n.querySelectorAll(':scope > li');
+          for(var i=0;i<ls.length;i++){ if(ls[i].style.display!=='none'){any=true;break;} } }
+        if(any)break; n=n.nextElementSibling;
+      }
+      h.style.display=any?'':'none';
+    });
+    Array.prototype.forEach.call(art.querySelectorAll('ul'),function(ul){
+      var ls=ul.querySelectorAll(':scope > li'); if(!ls.length)return;
+      var vis=false; for(var i=0;i<ls.length;i++){if(ls[i].style.display!=='none'){vis=true;break;}}
+      ul.style.display=vis?'':'none';
+    });
+  }
+  apply();
+})();
+</script></article></div></div>
 <footer class="foot"><span class="mark">❖</span>The Enduring Lesser Lights · Age of Umbra: Caul · Daggerheart</footer>
 </body>
 </html>

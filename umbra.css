@@ -397,3 +397,12 @@ blockquote{
   box-shadow:var(--glow); border-color:var(--gilt); color:#fff;
 }
 .play-btn .pb-ico{ color:var(--gilt); font-size:1rem; }
+
+/* Open Threads — tag filter bar */
+.thread-filter{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:0 0 1.5rem;padding:.6rem .7rem;border:1px solid #6b4a86;border-left:3px solid #8a5cb0;border-radius:8px;background:rgba(90,60,120,.10)}
+.thread-filter .tf-label{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:#b48ad6;opacity:.85;margin-right:.15rem}
+.thread-filter .tf-chip{font-family:'EB Garamond',serif;font-size:.9rem;line-height:1;cursor:pointer;border:1px solid #5a4a6a;background:transparent;color:inherit;padding:.28rem .62rem;border-radius:999px;opacity:.45;transition:opacity .12s ease,background .12s ease,border-color .12s ease}
+.thread-filter .tf-chip:hover{opacity:.8}
+.thread-filter .tf-chip[aria-pressed="true"]{opacity:1;border-color:#8a5cb0;background:rgba(138,92,176,.18)}
+.thread-filter .tf-status{margin-left:.1rem}
+.thread-filter .tf-resolved[aria-pressed="true"]{border-color:#8f7a4a;background:rgba(150,120,60,.18)}
