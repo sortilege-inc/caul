@@ -280,6 +280,7 @@ blockquote{
 .chron a{
   display:flex; gap:1.2rem; align-items:baseline; text-decoration:none; color:inherit;
   padding:1rem 0.4rem; border-bottom:1px solid var(--edge-soft); transition:.2s;
+  scroll-margin-top:5.5rem;
 }
 .chron a:hover{ background:rgba(179,154,99,0.05); padding-left:0.9rem; }
 .chron .no{ font-family:var(--black); font-size:1.8rem; color:var(--gilt); min-width:2.4ch; text-align:right; }
