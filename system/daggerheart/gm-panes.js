@@ -171,6 +171,26 @@
       button('Remove', () => State.commit('setSceneCast', [sceneId, Sys().castRaw(sceneId).filter((x) => (typeof x === 'string' ? x : x.iid) !== c.iid)]), 'ghost tiny'),
     ]);
   }
+  // a scene's or a beat's notes: the GM's Markdown shown rendered (tags, lists, bold) to read at the
+  // table; Edit swaps in a textarea sized to the text, saved when the GM leaves it
+  function noteField(text, save, placeholder) {
+    const box = el('div', { class: 'note-field' });
+    const show = () => {
+      box.innerHTML = '';
+      box.appendChild(text ? G.render(text) : el('div', { class: 'muted small' }, [placeholder]));
+      box.appendChild(button(text ? 'Edit' : '+ ' + placeholder, edit, 'ghost tiny note-edit'));
+    };
+    const edit = () => {
+      box.innerHTML = '';
+      const t = text || '';
+      const ta = el('textarea', { class: 'text note-area', rows: Math.min(28, Math.max(3, t.split('\n').length + Math.ceil(t.length / 110))), 'aria-label': placeholder }, [t]);
+      ta.addEventListener('blur', () => { const v = ta.value.replace(/\s+$/, ''); if (v !== t) { text = v; save(v); } else show(); });
+      box.appendChild(ta);
+      ta.focus();
+    };
+    show();
+    return box;
+  }
   const editScene = (id, patch) => mutate((l) => { const s = sceneAt(l, id); if (s) Object.assign(s, patch); });
   const editBeat = (sid, bid, patch) => mutate((l) => { const s = sceneAt(l, sid); if (!s) return; s.beats = beatsOf(s); const b = s.beats.find((x) => x.id === bid); if (b) Object.assign(b, patch); });
 
@@ -257,7 +277,7 @@
     const row = el('div', { class: 'beat kind-' + beat.kind + (collapsed ? ' collapsed' : ''), 'data-beat': beat.id }, [head]);
     dropZone(row, 'beat', (d) => moveBeat(d, scene.id, beat.id));
     if (!collapsed) {
-      row.appendChild(el('textarea', { class: 'text beat-text', rows: 2, placeholder: 'What happens…', 'aria-label': 'Beat notes', oninput: debounce((ev) => editBeat(scene.id, beat.id, { text: ev.target.value }), 300) }, [beat.text || '']));
+      row.appendChild(noteField(beat.text, (v) => editBeat(scene.id, beat.id, { text: v }), 'notes'));
       if (beat.kind === 'encounter') row.appendChild(encounterBeat(scene, beat, redraw));
     }
     return row;
@@ -280,7 +300,7 @@
     if (collapsed) { if (scene.summary) card.appendChild(el('p', { class: 'arc-summary muted small' }, [scene.summary])); return card; }
     card.appendChild(el('input', { class: 'text', type: 'text', value: scene.summary || '', placeholder: 'One line: what the scene is', 'aria-label': 'Summary', oninput: debounce((ev) => editScene(scene.id, { summary: ev.target.value.trim() || undefined }), 300) }));
     card.appendChild(el('input', { class: 'text', type: 'text', value: scene.session || '', placeholder: 'Session (groups the scenes)', 'aria-label': 'Session', oninput: debounce((ev) => editScene(scene.id, { session: ev.target.value.trim() || undefined }), 400) }));
-    card.appendChild(el('textarea', { class: 'text', rows: 2, placeholder: 'Scene notes…', 'aria-label': 'Scene notes', oninput: debounce((ev) => editScene(scene.id, { text: ev.target.value }), 300) }, [scene.text || '']));
+    card.appendChild(noteField(scene.text, (v) => editScene(scene.id, { text: v }), 'scene notes'));
     const beatBox = el('div', { class: 'beats' });
     beatsOf(scene).forEach((b) => beatBox.appendChild(beatRow(scene, b, redraw)));
     beatBox.appendChild(dropZone(el('div', { class: 'beat-drop', 'aria-hidden': 'true' }, []), 'beat', (d) => moveBeat(d, scene.id, null)));

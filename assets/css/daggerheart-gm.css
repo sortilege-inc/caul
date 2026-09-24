@@ -268,3 +268,11 @@ body.play { display: block; }
 .dmg-panel .roll-btn { margin-top: 4px; }
 .fcard-costs { margin: 4px 8px 6px; }
 .fcard-costs .btn { background: var(--hope-bg); border-color: var(--hope); color: var(--hope); }
+
+/* a scene's or beat's notes, rendered; Edit opens a sized textarea */
+.note-field { margin: 6px 0; }
+.note-field .gm-text { font-size: .95rem; }
+.note-field .gm-text p { margin: 4px 0; }
+.note-field .gm-text ul { margin: 4px 0 4px 18px; padding: 0; }
+.note-field .note-edit { margin-top: 2px; }
+.note-area { width: 100%; font: 14px/1.45 var(--sans); }
