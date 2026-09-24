@@ -279,6 +279,36 @@ window.DHSheet = (function () {
     if (!c.Name) throw new Error((fileName || 'That file') + ' is not a Daggerheart character: it has no Name.');
     return { id: newId(), templateId: ACTOR_ID, name: c.Name, character: c, live: src.live || {}, notes: '', source: { kind: 'file', name: fileName || null } };
   }
+  // A member from a fully built Character instance (a campaign's pre-made PC or NPC that EXTENDS the
+  // Character ACTOR, rather than an appendix Guide): its actual fields — class(es) and subclass(es)
+  // incl. a multiclass, heritage, traits, stats, experiences, loadout/vault, inventory — read into
+  // the member's character map so the sheet renders it directly. Absent fields fall back to blanks.
+  function memberFromCharacter(entity, name) {
+    const nm = name || D.text(entity, 'Name') || entity.name;
+    const c = blankCharacter(nm);
+    c.Name = nm;
+    const lv = D.num(entity, 'Level'); if (lv != null) c.Level = lv;
+    const pr = D.text(entity, 'Pronouns'); if (pr) c.Pronouns = pr;
+    ['Class', 'Subclass', 'Second Class', 'Second Subclass', 'Ancestry', 'Community',
+     'Primary Weapon', 'Secondary Weapon', 'Active Armor'].forEach((f) => {
+      const e = refEntity(D.val(entity, f)); if (e) c[f] = refOf(e);
+    });
+    ['Evasion', 'Hit Points', 'Stress', 'Hope', 'Proficiency', 'Armor Score'].forEach((f) => {
+      const n = D.num(entity, f); if (n != null) c[f] = n;
+    });
+    const tr = D.defFields(D.prop(entity, 'Traits')); if (Object.keys(tr).length) c.Traits = Object.assign(c.Traits, tr);
+    const dt = D.defFields(D.prop(entity, 'Damage Thresholds')); if (dt.Major != null || dt.Severe != null) c['Damage Thresholds'] = dt;
+    const ep = D.prop(entity, 'Experiences');
+    if (ep && ep.items) {
+      c.Experiences = ep.items.map((it) => { const o = {}; (it.d || []).forEach((f) => (o[f.name] = f.value)); return { Name: o.Name, Modifier: o.Modifier }; }).filter((x) => x.Name);
+    }
+    ['Loadout', 'Vault', 'Inventory Weapons'].forEach((f) => {
+      const p = D.prop(entity, f);
+      if (p && p.items) c[f] = p.items.map((it) => (it.h ? { id: it.h, name: it.c } : null)).filter(Boolean);
+    });
+    const inv = D.val(entity, 'Inventory'); if (Array.isArray(inv)) c.Inventory = inv.slice();
+    return { id: newId(), templateId: ACTOR_ID, name: c.Name, character: c, live: {}, notes: '', source: { kind: 'character', id: entity.id } };
+  }
   function downloadMember(m) {
     const blob = new Blob([JSON.stringify({ kind: 'daggerheart-character', templateId: ACTOR_ID, character: ch(m), live: m.live || {} }, null, 2)], { type: 'application/json' });
     const a = el('a', { href: URL.createObjectURL(blob), download: String(m.name || 'character').replace(/[^\w\- ]+/g, '') + '.json' });
@@ -472,7 +502,7 @@ window.DHSheet = (function () {
   }
 
   return {
-    ACTOR_ID, spec, conditions, thresholds, armorScore, severity, traits, live, liveSheet, memberFromGuide, readMember, downloadMember,
+    ACTOR_ID, spec, conditions, thresholds, armorScore, severity, traits, live, liveSheet, memberFromGuide, memberFromCharacter, readMember, downloadMember,
     sentence, tokenText, blankCharacter, parseTraits, features, featureCard, adversaryBlock, markStress, clearStress, takeDamage, resolveRoll, patch, refEntity,
     takeRest, moveEffect, tierOf,
     readMemberFile: readMember,
