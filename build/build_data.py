@@ -69,8 +69,10 @@ PAGE_RE = re.compile(r"\((?:pages?|pp\.)\s+(\d+)")
 # a reference a list view needs: an archived sheet names the character it is a version of (an
 # instance's layer — the sheet gathers them; the pregen list leaves them out)
 REF_RECORD_FIELDS = {"Version Of": "versionOf"}
-RECORD_FIELDS = ["Type", "Technique Type", "Subtype", "Rank", "Clan", "Category", "Combat Conflict Rank",
-                 "Intrigue Conflict Rank", "School", "School Name", "Family Name", "Clan Name", "Roles"]
+RECORD_FIELDS = ["Tier", "Role", "Category", "Type", "Kind", "Domain Level", "Recall Cost", "Trait", "Range",
+                 "Damage", "Damage Type", "Burden", "Difficulty", "Complexity Rating", "Roll", "Spellcast Trait"]
+# a reference a list view shows by the NAME it prints (a domain card's Domain, a subclass's Class)
+REF_NAME_FIELDS = ["Domain", "Class"]
 
 
 # ───────────────────────── AST helpers ─────────────────────────
@@ -625,6 +627,8 @@ def records_of(entities):
                 fields[p["name"]] = p.get("value", p.get("default"))
             elif p["name"] in RECORD_FIELDS and p.get("vk") == "list" and p.get("items"):
                 fields[p["name"]] = [a.get("s") for a in p["items"] if "s" in a]
+            elif p["name"] in REF_NAME_FIELDS and p.get("vk") == "ref" and (p.get("ref") or {}).get("name"):
+                fields[p["name"]] = p["ref"]["name"]
             elif p["name"] in REF_RECORD_FIELDS and p.get("vk") == "ref" and (p.get("ref") or {}).get("hash"):
                 r[REF_RECORD_FIELDS[p["name"]]] = p["ref"]["hash"]    # an id, under a build key (verify_data BUILD_KEYS)
         if fields:
