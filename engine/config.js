@@ -54,6 +54,16 @@ window.VttConfig = {
       site: ['campaign/site/atlas-data.js', 'campaign/site/map.js', 'campaign/site/site.js'],
     },
   },
+  // The family standards (PLAYBOOK §4b): the public site's book tabs are off — the GM turns them on,
+  // per browser, in the GM page's Settings (engine/site.js) — and a veil stands in front of /gm/
+  // (engine/app.js). The GM's own material lives in the GM tabs (engine/gm-panes.js), in the pack.
+  siteBooks: false,
+  gmGate: {
+    title: 'The GM\u2019s table',
+    text: 'Beyond is the GM\u2019s material \u2014 the prep, the threads, what the players have not yet found. If you are playing, turn back.',
+    enter: 'Enter',
+    leave: 'Turn back',
+  },
   worker: {
     deployed: 'https://caul-vtt.sortilege.workers.dev',   // the caul-vtt Worker (M5 deploy)
     local: 'http://localhost:8796',

@@ -56,6 +56,14 @@
   // the Age of Umbra frame is in effect (decision 6): a highlighted section on the home tab points
   // players to it; the frame's full pitch and rules modifications live on the VTT's Frames tab and
   // the GM's Frame pane.
+  // the Frames tab is a book tab, off on the public site unless this browser turned the books on
+  // (engine/site.js, PLAYBOOK §4b.4) — the link to it shows only where the tab does
+  function booksShown() {
+    var cfg = window.VttConfig || {};
+    var on = !!cfg.siteBooks;
+    try { var v = localStorage.getItem((cfg.storagePrefix || 'sortilege-vtt') + ':site-books'); if (v !== null) on = v === '1'; } catch (e) { /* storage off: the deployment's default */ }
+    return on;
+  }
   function umbraCallout(host) {
     if (host.querySelector('.umbra-frame-callout')) return;
     var box = document.createElement('aside');
@@ -67,7 +75,7 @@
       'lights endure. This chronicle runs on Daggerheart’s <strong>Age of Umbra</strong> campaign ' +
       'frame: its principles and rules modifications (the Sacred Pyre that holds back the dark, the ' +
       'corrupting Umbra) are in force.</p>' +
-      '<p><a href="#frames">Read the frame at the table →</a></p>';
+      (booksShown() ? '<p><a href="#frames">Read the frame at the table →</a></p>' : '');
     var wrap = host.querySelector('.wrap') || host;
     wrap.insertBefore(box, wrap.firstChild);
   }
