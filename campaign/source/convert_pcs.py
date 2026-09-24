@@ -22,23 +22,49 @@ sys.path.insert(0, os.path.expanduser("~/Sortilege/Campaigns/2025-2026 Caul/caul
 import foundry_sheet
 
 IDX = json.load(open(os.path.join(SRC, "corpus-index.json")))
+
+def _norm(s):
+    """collapse a name to letters+digits, lowercased — Foundry and the corpus disagree on case and
+    punctuation (Foundry "Executioner's Guild" ↔ corpus "Executioners Guild"; "Book of Ava" ↔
+    "Book Of Ava"), so an exact miss falls back to a *single* normalized match."""
+    return re.sub(r"[^a-z0-9]", "", str(s).lower())
+
+# per-kind normalized index, built once, for the unambiguous fallback
+NORM = {}
+for _k, _h in IDX.items():
+    _kind, _, _nm = _k.partition("|")
+    NORM.setdefault(_kind, {}).setdefault(_norm(_nm), []).append((_nm, _h))
 CHARACTER = '#daggerheartCharacter000000001 ^"Character"'
 T_EXP = '#daggerheartExperience00000001 ^"Experience"'
 T_CARD = '#daggerheartDomainCard0000001 ^"Domain Card"'
 T_WEAPON = '#daggerheartWeapon00000000001 ^"Weapon"'
 
-# the PCs to build, and a stable caul id + pronouns for each
+# the PCs to build, and a stable caul id + pronouns for each.
+# Pronouns are as stated by the owner (2026-09-24), never inferred from a name.
 PCS = [
-    ("draz", "caulPCDraz000000000000001", "Draz", "he/him"),
+    ("draz",   "caulPCDraz000000000000001", "Draz",            "he/him"),
+    ("heyou",  "caulPCHeyou00000000000001", "Heyou",           "they/them"),
+    ("jamal",  "caulPCJamal00000000000001", "Jamal Jenkins",   "he/him"),
+    ("sylvie", "caulPCSylvie0000000000001", "Sylvie Cerridwen","she/her"),
 ]
 
 def q(s):
     return '"' + str(s).replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ").strip() + '"'
 
 def ref(kind, name):
-    """'#hash ^\"Name\"' if the corpus has it, else None."""
+    """'#hash ^\"Name\"' if the corpus has it, else None. Exact match first; on a miss, a single
+    normalized match resolves and the corpus's own canonical spelling is emitted (so the label is
+    stable and matches the corpus, not Foundry's inconsistent casing)."""
+    if not name:
+        return None
     h = IDX.get(kind + "|" + name)
-    return ('%s ^%s' % (h, q(name))) if h else None
+    if h:
+        return '%s ^%s' % (h, q(name))
+    cands = NORM.get(kind, {}).get(_norm(name), [])
+    if len(cands) == 1:
+        cname, ch = cands[0]
+        return '%s ^%s' % (ch, q(cname))
+    return None
 
 def load(pc):
     a = json.load(open(os.path.join(SRC, "foundry", pc + ".json")))

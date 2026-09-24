@@ -34,4 +34,93 @@ EXTENSION "Caul_Characters" EXTENDS "Daggerheart_Core_Base" {
             ^"Inventory" LIST OF STRING [ "Improved Gambeson Armor", "Broken Compass", "50ft of Rope", "Basic Supplies", "Torch", "Piercing Arrows", "Otheidas Circlet", "Vial of Splendor", "Minor Health Potion", "Unstable Arcane Shard" ]
         }
     }
+
+    #caulPCHeyou00000000000001 ^"Heyou" DEF {
+        EXTENDS #daggerheartCharacter000000001 ^"Character"
+        PROPERTIES {
+            ^"Level" INTEGER 6
+            ^"Traits" DEF { ^"Agility" INTEGER 0 ^"Strength" INTEGER 1 ^"Finesse" INTEGER 2 ^"Instinct" INTEGER 0 ^"Presence" INTEGER 1 ^"Knowledge" INTEGER -1 }
+            ^"Class" #tuqQDt9ZY5G7UjomFosgsxJi ^"Rogue"
+            ^"Subclass" #tpZO7zPYeakjsuSkMsmnz5fF ^"Syndicate"
+            ^"Second Class" #tMlLdHFN0gUnwls6DmNtqJiu ^"Assassin"
+            ^"Second Subclass" #tGZxCAwRi5nEBMVyyqsYVJkY ^"Executioners Guild"
+            ^"Ancestry" #tcaPtXcHIMpYzw2W6LFrLeFV ^"Clank"
+            ^"Community" #t6xM9I5FLsQD5mpZvznkJuPm ^"Slyborne"
+            ^"Pronouns" STRING "they/them"
+            ^"Evasion" INTEGER 14
+            ^"Hit Points" INTEGER 6
+            ^"Marked HP" INTEGER 0
+            ^"Stress" INTEGER 6
+            ^"Marked Stress" INTEGER 1
+            ^"Hope" INTEGER 1
+            ^"Proficiency" INTEGER 3
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 13 ^"Severe" INTEGER 22 }
+            ^"Armor Score" INTEGER 0
+            ^"Gold" DEF { ^"Handfuls" INTEGER 2 ^"Bags" INTEGER 0 ^"Chest" INTEGER 0 }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Dubious Smith" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Pragmatic Fence" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Ancient Tech - Clanker" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Fallen Sorcery Apprentice" ^"Modifier" INTEGER 2 } ]
+            ^"Loadout" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tYnaT2ZebzCZnxQjn0ipicx4 ^"Inspirational Words", #tIsEMSdQ9dpDFbIUnX1Wdxli ^"Rain Of Blades", #tzvWecscQGc7Fz2OZRXIFpUD ^"Invisibility", #tejSWZzhlwfDgGup83Sg9FWT ^"Never Upstaged", #tWehLL4l8cMILqXMm1mwfGuR ^"Versatile Fighter" ]
+            ^"Vault" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tBwaSsep9XBz5SryeuSBJrI9 ^"Pick And Pull", #ta7zLoxv0PgQ2RRQ53hMi4KD ^"Chokehold", #tQ8bg1ygUstat0s69gpRZ0rp ^"Smite", #tiHt3M4v6u1t1Av46dELS9QD ^"Healing Hands", #tbxdCptXfU3E7XUdlKsG6pIN ^"Shape Material" ]
+            ^"Primary Weapon" #tXgDLUBzxemLxKqWRj9j91Y0 ^"Small Dagger"
+            ^"Inventory Weapons" LIST OF #daggerheartWeapon00000000001 ^"Weapon" [ #tbppbYH5b5FHT0PnZ10CT4LN ^"Dagger", #tdFJXICrKNQtBaEmI3wSVqpx ^"Devouring Dagger" ]
+            ^"Inventory" LIST OF STRING [ "Improved Gambeson Armor", "Set of Forgery Tools", "50ft of Rope", "Basic Supplies", "Torch", "Phase Vambraces", "Vial of Darksmoke Recipe", "Suppression Amulet", "Clank Heart", "Minor Health Potion", "Vial of Darksmoke" ]
+        }
+    }
+
+    #caulPCJamal00000000000001 ^"Jamal Jenkins" DEF {
+        EXTENDS #daggerheartCharacter000000001 ^"Character"
+        PROPERTIES {
+            ^"Level" INTEGER 6
+            ^"Traits" DEF { ^"Agility" INTEGER 2 ^"Strength" INTEGER 1 ^"Finesse" INTEGER 0 ^"Instinct" INTEGER 1 ^"Presence" INTEGER -1 ^"Knowledge" INTEGER 0 }
+            ^"Class" #tx66JCGK8wGjMhq20WzmjPBt ^"Warrior"
+            ^"Subclass" #t6oeyki4b3amF2ifm5LsNebt ^"Call of the Slayer"
+            ^"Ancestry" #tZjCr7EMVxMFqGeeWlafz0R9 ^"Dwarf"
+            ^"Community" #t10mYB0vpPlwuEIyMcX7Jv4f ^"Underborne"
+            ^"Pronouns" STRING "he/him"
+            ^"Evasion" INTEGER 13
+            ^"Hit Points" INTEGER 8
+            ^"Marked HP" INTEGER 3
+            ^"Stress" INTEGER 6
+            ^"Marked Stress" INTEGER 3
+            ^"Hope" INTEGER 1
+            ^"Proficiency" INTEGER 3
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 13 ^"Severe" INTEGER 21 }
+            ^"Armor Score" INTEGER 0
+            ^"Gold" DEF { ^"Handfuls" INTEGER 2 ^"Bags" INTEGER 0 ^"Chest" INTEGER 0 }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Sound of Silence" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Miner" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Cave Climber" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Tinkerer" ^"Modifier" INTEGER 2 } ]
+            ^"Loadout" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tGR9Kk3hqX1EdTVW0ca3FkPr ^"Not Good Enough", #tctaqoajybFRfD3bGYODQokj ^"Deft Maneuvers", #twMxznk4X0aYaNluVMjOLePt ^"Scramble", #t3l1R1FZy7b3I9sKDSx68u2F ^"Whirlwind", #tvQ7ysQ9oxHWFe9ujAsOEfGW ^"Rapid Riposte" ]
+            ^"Vault" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tnZE6ClrGpJ1xPpQVirfpfJK ^"Untouchable", #tRdtwOYhWzeaOhZx4tZ5rXZP ^"A Soldier’s Bond", #tRNsbO77E9KIRQxQnVDBSAi1 ^"Know Thy Enemy", #t1cb9ipRCkJKBbg15cR7u4ol ^"Vitality" ]
+            ^"Primary Weapon" #t5t4xuUpDScyjWWgLaLUlo1X ^"Axe of Fortunis"
+            ^"Inventory Weapons" LIST OF #daggerheartWeapon00000000001 ^"Weapon" [ #tcHiLDtO42KXo80M9YGnJ0z4 ^"Warhammer", #tbppbYH5b5FHT0PnZ10CT4LN ^"Dagger", #t7FuAbgUBoPJCE3lGM86TBVD ^"Improved Warhammer" ]
+            ^"Inventory" LIST OF STRING [ "Chainmail Armor", "A Sharpening Stone", "Torch", "50ft of Rope", "Basic Supplies", "Demon Tiger Collar", "Borek's Amulet", "Fire Jar", "Lorekeeper", "Minor Health Potion", "Minor Stamina Potion" ]
+        }
+    }
+
+    #caulPCSylvie0000000000001 ^"Sylvie Cerridwen" DEF {
+        EXTENDS #daggerheartCharacter000000001 ^"Character"
+        PROPERTIES {
+            ^"Level" INTEGER 6
+            ^"Traits" DEF { ^"Agility" INTEGER 0 ^"Strength" INTEGER -1 ^"Finesse" INTEGER 0 ^"Instinct" INTEGER 1 ^"Presence" INTEGER 1 ^"Knowledge" INTEGER 2 }
+            ^"Class" #t7tgT26MqieXQGYVp5LwsmYf ^"Wizard"
+            ^"Subclass" #tugdlp6WwtWF6pj5znQjCf6w ^"School of Knowledge"
+            ^"Ancestry" #tbURDaNgnlNABN5h4xgJ48vp ^"Human"
+            ^"Community" #tJKqyGjpLRIkNi5I2i3FdXqi ^"Ridgeborne"
+            ^"Pronouns" STRING "she/her"
+            ^"Evasion" INTEGER 13
+            ^"Hit Points" INTEGER 8
+            ^"Marked HP" INTEGER 0
+            ^"Stress" INTEGER 8
+            ^"Marked Stress" INTEGER 0
+            ^"Hope" INTEGER 6
+            ^"Proficiency" INTEGER 3
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 12 ^"Severe" INTEGER 19 }
+            ^"Armor Score" INTEGER 0
+            ^"Gold" DEF { ^"Handfuls" INTEGER 2 ^"Bags" INTEGER 0 ^"Chest" INTEGER 0 }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Sister Moon" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "The Scarred Earth" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Healer" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Smile" ^"Modifier" INTEGER 2 } ]
+            ^"Loadout" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tOmvWnW3TRQXNHRiZKzqo4AH ^"Book Of Ava", #tH3yCikDf062VpzzWrqQ2jwQ ^"Siphon Essence", #tI3JDGOCl7pD784JADzY3If8 ^"Book Of Norai", #t9Z36hgM1CZdso5j8Q6yLBqI ^"Book Of Grynn", #tMdhlR5vAJaXWC45hZe1EcLi ^"Sigil Of Retribution" ]
+            ^"Vault" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tSvN52Ys1ZjALR0mbBxBaboD ^"Voice Of Dread", #tnqwiUbFHq9pwP7zb9T1ql1q ^"Hideous Retribution", #to5wkybCYtqePCuQndCvemle ^"Summon Horror", #t6jnfLVlBJNLRXvX1IoDFMaW ^"Damnation", #tccjQBaUGjczOJAWTobkwVHk ^"Teleport" ]
+            ^"Primary Weapon" #t8npwxwZnyXVl5uEaVpF7PZN ^"Improved Greatstaff"
+            ^"Inventory Weapons" LIST OF #daggerheartWeapon00000000001 ^"Weapon" [ #tBKV8xY0XiuPotI2pgapevzb ^"Greatstaff", #tXgDLUBzxemLxKqWRj9j91Y0 ^"Small Dagger", #tdFJXICrKNQtBaEmI3wSVqpx ^"Devouring Dagger" ]
+            ^"Inventory" LIST OF STRING [ "Leather Armor", "Tiny Elemental Pet", "Torch", "50ft of Rope", "Basic Supplies", "Stoneweaver Focus (Pink Crystal)", "Minor Health Potion", "Minor Stamina Potion", "Potion of Stability" ]
+        }
+    }
 }

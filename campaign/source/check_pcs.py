@@ -11,14 +11,26 @@ The built entity's props come from campaign/data/campaign.js (node dumps them); 
 from the same extractor the converter used (caul-support foundry_sheet.py). Reference props are
 checked by the referenced entity's name.
 """
-import json, os, subprocess, sys
+import json, os, re, subprocess, sys
+
+# reference-name fields carry the corpus's canonical spelling in the built layer but Foundry's
+# spelling in the record; compare them normalized (letters+digits, lowercased). Everything else
+# (numbers, verbatim experience names) is compared exactly.
+REF_NAME_FIELDS = {"Class", "Subclass", "Second Class", "Second Subclass", "Ancestry", "Community"}
+def _norm(s):
+    return re.sub(r"[^a-z0-9]", "", str(s).lower())
 
 HERE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.expanduser("~/Sortilege/Campaigns/2025-2026 Caul/caul-support/scripts"))
 import foundry_sheet
 
 PLANT = "--plant" in sys.argv
-PCS = [("draz", "#caulPCDraz000000000000001", "Draz")]
+PCS = [
+    ("draz",   "#caulPCDraz000000000000001", "Draz"),
+    ("heyou",  "#caulPCHeyou00000000000001", "Heyou"),
+    ("jamal",  "#caulPCJamal00000000000001", "Jamal Jenkins"),
+    ("sylvie", "#caulPCSylvie0000000000001", "Sylvie Cerridwen"),
+]
 
 DUMP_JS = r'''
 const fs=require("fs");
@@ -61,7 +73,9 @@ def expected(pc):
         "_loadout_plus_vault": sum(1 for _ in s["cards"]),
         "_experiences": sorted(e["name"] for e in s["experiences"]),
     }
-    return {k: v for k, v in exp.items() if v is not None}
+    # drop absent fields: None, and the extractor's empty-string for a non-multiclass PC's
+    # "Second Class" (single-class characters have no second class prop in the layer)
+    return {k: v for k, v in exp.items() if v is not None and v != ""}
 
 def main():
     b = built([cid for _, cid, _ in PCS])
@@ -78,7 +92,8 @@ def main():
         got_cmp["_experiences"] = sorted(x for x in ((e.get("Name") if isinstance(e, dict) else e) for e in (got.get("Experiences") or [])) if x)
         for k, want in exp.items():
             have = got_cmp.get(k)
-            if have != want:
+            match = (_norm(have) == _norm(want)) if k in REF_NAME_FIELDS else (have == want)
+            if not match:
                 print("  MISMATCH %s.%s: built=%r  record=%r" % (name, k, have, want)); fails += 1
         print("  %s: %d field(s) checked" % (name, len(exp)))
     if PLANT:
