@@ -183,6 +183,22 @@ ul.items.columns { columns: 3 220px; }
 .die.adv { border-color: var(--crit); color: var(--crit); min-width: 36px; height: 36px; font-size: 1rem; }
 .die.dis { border-color: var(--danger); color: var(--danger); min-width: 36px; height: 36px; font-size: 1rem; }
 .die.dropped { opacity: .4; }
+/* the die's shape is the Daggerheart system's own icon (assets/icons/dice, pulled from the module);
+   the rolled value reads on top, its colour chosen for the shape's fill */
+.die[data-shape] { border: 0; background: transparent center / contain no-repeat; text-shadow: 0 1px 2px rgba(0,0,0,.55); }
+.die[data-shape="hope-d12"] { background-image: url(../icons/dice/hope/d12.svg); color: #241d0b; text-shadow: none; }
+.die[data-shape="fear-d12"] { background-image: url(../icons/dice/fear/d12.svg); color: #efeaff; }
+.die[data-shape="adv-d6"] { background-image: url(../icons/dice/adv/d6.svg); color: #06210f; text-shadow: 0 1px 1px rgba(255,255,255,.4); }
+.die[data-shape="disadv-d6"] { background-image: url(../icons/dice/disadv/d6.svg); color: #2a0606; text-shadow: 0 1px 1px rgba(255,255,255,.4); }
+.die[data-shape^="default-"] { color: #2a241a; text-shadow: none; }
+.die[data-shape="default-d4"] { background-image: url(../icons/dice/default/d4.svg); }
+.die[data-shape="default-d6"] { background-image: url(../icons/dice/default/d6.svg); }
+.die[data-shape="default-d8"] { background-image: url(../icons/dice/default/d8.svg); }
+.die[data-shape="default-d10"] { background-image: url(../icons/dice/default/d10.svg); }
+.die[data-shape="default-d12"] { background-image: url(../icons/dice/default/d12.svg); }
+.die[data-shape="default-d20"] { background-image: url(../icons/dice/default/d20.svg); }
+.die.extra { filter: saturate(.55) brightness(1.05); }
+.die.rerolled { opacity: .5; }
 .roll-total { font: 700 1.8rem var(--display); margin-top: 4px; }
 .roll-total .with { font-size: 1rem; font-family: var(--sans); margin-left: 6px; }
 .outcome { margin-top: 6px; }
