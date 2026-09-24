@@ -2,11 +2,12 @@
 """
 check_shape.py — the fields the site reads, asserted against the corpus's own counts.
 
-verify_data.py proves every string arrives; it is blind to a string on the wrong field. This
-checks the shapes system/daggerheart/ reads — the Samurai ACTOR's fields, the dice faces, the Twenty
-Questions, clans / families / schools, techniques in both encodings, NPCs, pregens, the arcs'
-parts and scenes, the codex, the errata — and every count is taken from a LINE SCAN of the
-corpus (a regex over the raw files, sharing no code with the parser), never typed here.
+verify_data.py proves every string arrives; it is blind to a string on the wrong field (L5R5e
+decision 20: a FAMILIES list parsed as a name and its type passed the string gate whole). This
+checks the shapes system/daggerheart/ reads — every typed entity by its type, the Character
+ACTOR's fields, the Action Roll's outcomes, the stat blocks' ATTACK / EXPERIENCES / FEATURES /
+POTENTIAL_ADVERSARIES, the frames' blocks, the structured tables — and every count is taken
+from a SCAN of the raw corpus files (a regex, sharing no code with the parser), never typed here.
 
     python3 build/check_shape.py [<path to titterpig-dsl-daggerheart/0.5>]
 """
@@ -14,6 +15,7 @@ import glob
 import os
 import re
 import sys
+from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_data import BOOKS, DEFAULT_CORPUS  # noqa: E402
@@ -29,20 +31,37 @@ def check(label, got, want):
         FAILS.append("%s: data has %r, the corpus %r" % (label, got, want))
 
 
-def scan(corpus, pattern, glob_pat="*"):
-    """How many lines of the raw corpus files match — the independent count."""
-    rx = re.compile(pattern)
-    n = 0
-    for p in glob.glob(os.path.join(corpus, glob_pat)):
-        with open(p, encoding="utf-8") as fh:
-            n += sum(1 for ln in fh if rx.search(ln))
-    return n
+def texts(corpus, pat="*.ttrpg"):
+    return [open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(corpus, pat)))]
 
 
-def scan_text(corpus, pattern, glob_pat="*"):
-    """How many matches over the raw file text — for a construct the corpus writes across lines."""
-    rx = re.compile(pattern)
-    return sum(len(rx.findall(open(p, encoding="utf-8").read())) for p in glob.glob(os.path.join(corpus, glob_pat)))
+def scan_text(corpus, pattern, pat="*.ttrpg"):
+    rx = re.compile(pattern, re.M)
+    return sum(len(rx.findall(t)) for t in texts(corpus, pat))
+
+
+def block_body(text, head):
+    """The raw text of the first `head … {` block, braces balanced (strings skipped)."""
+    i = text.index(head)
+    j = text.index("{", i)
+    depth, k, in_str = 0, j, False
+    while k < len(text):
+        c = text[k]
+        if in_str:
+            if c == "\\":
+                k += 1
+            elif c == '"':
+                in_str = False
+        elif c == '"':
+            in_str = True
+        elif c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                return text[j + 1:k]
+        k += 1
+    raise SystemExit("check_shape: unbalanced block %r" % head)
 
 
 def main():
@@ -54,13 +73,11 @@ def main():
     chapters = [c for b in books for c in b["book"]["chapters"]]
     index = next(o for o in others if isinstance(o, dict))
     records = next(o for o in others if isinstance(o, list))
-    by_name = lambda n: [e for e in E.values() if e["name"] == n]
-    typed = lambda t: [e for e in E.values() if e.get("type") == t]
     blocks = lambda e, kw: [b for b in e.get("blocks", []) if isinstance(b, dict) and b.get("kw") == kw]
     prop = lambda e, n: next((p for p in e.get("props", []) if p["name"] == n), None)
 
     def deep(test):
-        """How many nodes anywhere in the book data pass `test` (every chapter's and entity's blocks, props, fields)."""
+        """How many nodes anywhere in the book data pass `test`."""
         n = 0
         stack = [c.get("blocks") for c in chapters] + [[e] for e in E.values()]
         while stack:
@@ -71,108 +88,92 @@ def main():
                 if test(x):
                     n += 1
                 for k, v in x.items():
-                    if k not in ("children",) and isinstance(v, (list, dict)):
+                    if k != "children" and isinstance(v, (list, dict)):
                         stack.append(v)
         return n
 
-    # ── the books and files ──
+    # ── the books, the files, the ids ──
     check("books", len(books), len(BOOKS))
-    check("chapters (every corpus file)", len(chapters), len(glob.glob(os.path.join(corpus, "*.*"))))
-    for ext in ("ttrpg", "actor", "arc", "frame", "codex", "lore"):
-        check("%s chapters" % ext, sum(1 for c in chapters if c["kind"] == ext), len(glob.glob(os.path.join(corpus, "*." + ext))))
+    n_files = len(glob.glob(os.path.join(corpus, "*.ttrpg"))) + len(glob.glob(os.path.join(corpus, "*.lore")))
+    check("chapters (every .ttrpg and .lore)", len(chapters), n_files)
+    check("entities with an id this build wrote (the corpus hashes every one — PLAN H1)",
+          sum(1 for e in E.values() if e.get("synthetic")), 0)
+    check("index entity count", index["counts"]["entities"], len(E))
 
-    # ── the player character: ACTOR "Samurai" and the fields the sheet reads ──
-    sam = [e for e in E.values() if e["name"] == "Samurai" and e["form"] == "ACTOR"]
-    check("ACTOR Samurai declared once", len(sam), scan(corpus, r'ACTOR "Samurai" DEF', "*.ttrpg"))
-    ent = [e for e in E.values() if e["name"] == "Entity" and e["form"] == "ACTOR"]
-    check("ACTOR Entity declared once", len(ent), 1)
-    if sam and ent:
-        s = sam[0]
-        check("Samurai EXTENDS Entity", s.get("type"), "Entity")
-        for f in ("Clan", "Family", "School", "School Rank", "Skills", "Techniques", "Advantages", "Disadvantages",
-                  "Honor", "Glory", "Status", "Endurance", "Composure", "Focus", "Vigilance", "Fatigue", "Strife",
-                  "Void Points", "Ninjō", "Giri", "Demeanor", "Equipment", "Roles", "Titles", "Bonds", "Bushido", "Experience"):
-            check("Samurai declares %s" % f, prop(s, f) is not None, True)
-        rings = prop(ent[0], "Rings")
-        check("Entity's Rings are the five", [f["name"] for f in (rings or {}).get("fields", [])], ["Air", "Earth", "Fire", "Water", "Void"])
-        check("each ring 1–5", sorted({(f.get("min"), f.get("max")) for f in (rings or {}).get("fields", [])}), [(1, 5)])
+    # ── every type, by its EXTENDS lines ──
+    # `EXTENDS #h ^"T"` anywhere (a one-line DEF carries it inline); a DEF that EXTENDS its own
+    # name is a character's printing of that entity (copyOf), not an instance of a type.
+    raw = Counter()
+    for t in texts(corpus):
+        for m in re.finditer(r'(?:\^|ACTOR )"((?:[^"\\]|\\.)*)"\s+DEF\s*\{([^{}]*?)EXTENDS\s+(?:#\w+\s+)?\^"((?:[^"\\]|\\.)*)"', t):
+            if m.group(1) != m.group(3):
+                raw[m.group(3)] += 1
+    got = Counter(e["type"] for e in E.values() if e.get("type"))
+    for ty in sorted(set(raw) | set(got)):
+        check("entities of type %s" % ty, got.get(ty, 0), raw.get(ty, 0))
+    check("records (every typed entity)", sum(1 for r in records if r.get("type")), sum(raw.values()))
 
-    # ── the dice: the faces the roller reads ──
-    for die, n in (("Ring Die", 6), ("Skill Die", 12)):
-        d = by_name(die)
-        faces = [r for b in (blocks(d[0], "FACES") if d else []) for r in b.get("body", []) if "num" in r]
-        check(die + " faces", [r["num"] for r in faces], list(range(1, n + 1)))
-    sym = by_name("Dice Symbols")
-    check("the symbols' RESOLUTION_ORDER", [a["s"] for b in (blocks(sym[0], "RESOLUTION_ORDER") if sym else []) for a in b["args"][0]["l"]], ["(ex)", "(st)", "(op)", "(su)"])
-    tn = by_name("Target Number")
-    check("TN DIFFICULTY_SCALE rows", [r["num"] for b in (blocks(tn[0], "DIFFICULTY_SCALE") if tn else []) for r in b.get("body", [])], list(range(1, 9)))
+    # ── the actors ──
+    for actor in ("Entity", "Character", "Adversary", "Environment"):
+        e = [x for x in E.values() if x["form"] == "ACTOR" and x["name"] == actor]
+        check("ACTOR %s" % actor, len(e), 1)
+    base = open(glob.glob(os.path.join(corpus, "*-core-base.ttrpg"))[0], encoding="utf-8").read()
+    body = block_body(base, 'ACTOR "Character" DEF')
+    props_raw = block_body(body, "PROPERTIES")
+    # a property declaration line: `^"Name" <type…>` at the PROPERTIES block's own depth
+    depth, top = 0, []
+    for ln in props_raw.split("\n"):
+        s = ln.strip()
+        if depth == 0 and s.startswith('^"'):
+            top.append(re.match(r'\^"([^"]+)"', s).group(1))
+        depth += ln.count("{") - ln.count("}")
+    ch = next(x for x in E.values() if x["form"] == "ACTOR" and x["name"] == "Character")
+    check("Character ACTOR's properties (names, in order)", [p["name"] for p in ch.get("props", [])], top)
+    gold = prop(ch, "Gold")
+    check("Character's Gold fields", [f["name"] for f in (gold or {}).get("fields", [])], ["Handfuls", "Bags", "Chest"])
+    for name, ofh in (("Loadout", "#daggerheartDomainCard0000001"), ("Vault", "#daggerheartDomainCard0000001"),
+                      ("Experiences", "#daggerheartExperience00000001"), ("Conditions", "#daggerheartCondition0000000001")):
+        p = prop(ch, name)
+        check("Character's %s is a LIST OF %s" % (name, ofh), (p or {}).get("ofHash"), ofh)
 
-    # ── character creation ──
-    qs = [e for e in E.values() if prop(e, "Question") and prop(e, "Question Text")]
-    check("the Twenty Questions", sorted(prop(e, "Question")["value"] for e in qs if e["file"].endswith("core-chargen.ttrpg")), list(range(1, 21)))
-    check("Clans", len(typed("Clan")), scan(corpus, r'EXTENDS #\S+ \^"Clan"$'))
-    check("Families", len(typed("Family")), scan(corpus, r'EXTENDS #\S+ \^"Family"$'))
-    check("Schools", len(typed("School")), scan(corpus, r'EXTENDS #\S+ \^"School"$'))
-    check("schools with a CURRICULUM", sum(1 for e in typed("School") if blocks(e, "CURRICULUM")), len(typed("School")))
-    check("CURRICULUM blocks (schools, titles, errata)", deep(lambda x: x.get("kw") == "CURRICULUM"), scan(corpus, r'^\s+CURRICULUM \{'))
-    check("STARTING_TECHNIQUES blocks", deep(lambda x: x.get("kw") == "STARTING_TECHNIQUES"), scan(corpus, r'^\s+STARTING_TECHNIQUES \{'))
-    check("Ring Increase with a CHOOSE", deep(lambda x: x.get("name") == "Ring Increase" and any(b.get("kw") == "CHOOSE" for b in x.get("blocks", []))),
-          scan_text(corpus, r'\^"Ring Increase" DEF \{[^{}]*?CHOOSE'))
-    check("families with a Ring Increase CHOOSE", sum(1 for e in typed("Family") if any(b.get("kw") == "CHOOSE" for b in (prop(e, "Ring Increase") or {}).get("blocks", []))), len(typed("Family")))
-    # a list of bare names, one per line, is that many names (the parser once read each pair as
-    # a name and its type, and Crab had three families instead of five)
-    fam_names = sum(len(re.findall(r'\^"[^"]+"', m)) for p in glob.glob(os.path.join(corpus, "*")) for m in re.findall(r'FAMILIES \{([^{}]*)\}', open(p, encoding="utf-8").read()))
-    check("names listed in FAMILIES blocks", deep(lambda x: x.get("vk") == "name" and False) + sum(1 for e in typed("Clan") for b in blocks(e, "FAMILIES") for x in b.get("body", []) if x.get("vk") == "name"), fam_names)
-    check("core skills (SKILL_GROUP)", sum(1 for e in E.values() if e["file"].endswith("core-traits.ttrpg") and blocks(e, "SKILL_GROUP")), scan(corpus, r'^\s+SKILL_GROUP "', "*core-traits.ttrpg"))
-    for t in ("Distinction", "Adversity", "Passion", "Anxiety"):
-        check(t + " (EXTENDS)", len(typed(t)), scan(corpus, r'EXTENDS #\S+ \^"%s"$' % t))
+    # ── the dice ──
+    ar = next(x for x in E.values() if x["name"] == "Action Roll" and x["id"] == "#daggerheartActionRoll000000001")
+    out = blocks(ar, "OUTCOMES")
+    check("Action Roll OUTCOMES rows", len(out[0]["body"]) if out else 0,
+          len(re.findall(r'^\s*"[^"]+"\s+"', block_body(base, "OUTCOMES"), re.M)))
 
-    # ── techniques, both encodings ──
-    check("techniques with a RANK line", sum(1 for e in E.values() if any(b.get("args") and not b.get("body") for b in blocks(e, "RANK"))),
-          scan(corpus, r'^\s+RANK [0-9]+$', "*.ttrpg"))
-    check("techniques APPLIES TO Technique", sum(1 for e in E.values() if any(a["name"] == "Technique" for a in e.get("applies", []))),
-          scan(corpus, r'APPLIES TO \[#\S+ \^"Technique"\]'))
+    # ── stat blocks ──
+    for kw in ("ATTACK", "EXPERIENCES", "FEATURES", "POTENTIAL_ADVERSARIES", "PLAYER_PRINCIPLES", "GM_PRINCIPLES",
+               "CAMPAIGN_MECHANICS", "TIERS", "ROLL_TABLE", "FOUNDATION", "SPECIALIZATION", "MASTERY"):
+        check("%s blocks" % kw, deep(lambda x, kw=kw: x.get("kw") == kw), scan_text(corpus, r"^\s*%s\b[^\n{]*\{" % kw))
+    # an adversary's attack is a value: one DEF-shaped property in each ATTACK block
+    check("ATTACK values (Range + Damage)",
+          deep(lambda x: x.get("kw") == "ATTACK" and len(x.get("body", [])) == 1 and x["body"][0].get("vk") == "def"),
+          scan_text(corpus, r"^\s*ATTACK\s*\{"))
+    # a FEATURES block's DEFs are entities: every one left as {ent}
+    feat_raw = scan_text(corpus, r'^\s*(?:#\w+\s+)?\^"[^"]+"\s+DEF\s*\{\s*$\n\s*EXTENDS\s+(?:#\w+\s+)?\^"(?:Adversary Feature|Environment Feature)"')
+    check("adversary and environment features", sum(1 for e in E.values() if e.get("type") in ("Adversary Feature", "Environment Feature")), feat_raw)
 
-    # ── NPCs and pregens ──
-    check("NPCs", len(typed("NPC")), scan(corpus, r'EXTENDS #\S+ \^"NPC"$'))
-    check("pregens (Samurai in .actor)", sum(1 for e in typed("Samurai") if e["file"].endswith(".actor")), scan(corpus, r'EXTENDS #\S+ \^"Samurai"$', "*.actor"))
-    check("NPC abilities as RULES lines", sum(len(e.get("rules", [])) for e in typed("NPC")) > 0, True)
+    # ── the structured tables (C1) ──
+    rw = next((x for x in E.values() if x["name"] == "Ride Like the Wind"), None)
+    mounts = prop(rw, "Mounts") if rw else None
+    check("Ride Like the Wind's Mounts", len((mounts or {}).get("items", [])),
+          len(re.findall(r'"[^"]+"', re.search(r'\^"Mounts" LIST \[([^\]]*)\]', "\n".join(texts(corpus))).group(1))))
+    ld = next((x for x in E.values() if x["name"] == "Lurking Darkness"), None)
+    rt = blocks(ld, "ROLL_TABLE") if ld else []
+    check("Lurking Darkness ROLL_TABLE rows", len(rt[0]["body"]) if rt else 0,
+          len(re.findall(r'^\s*"[^"]+"\s+"', block_body("\n".join(texts(corpus)), 'ROLL_TABLE "1d12"'), re.M)))
 
-    # ── adventures ──
-    arcs = [c for c in chapters if c["kind"] == "arc"]
-    check("arcs", len(arcs), 16)
-    def count_kw(nodes, kw):
-        n = 0
-        for x in nodes or []:
-            if isinstance(x, dict):
-                if x.get("kw") == kw:
-                    n += 1
-                n += count_kw(x.get("body"), kw)
-        return n
-    check("arc PARTs", sum(count_kw(c["blocks"], "PART") for c in arcs), scan(corpus, r'^\s*PART [0-9]+ "', "*.arc"))
-    check("arc SCENE blocks", sum(count_kw(c["blocks"], "SCENE") for c in arcs), scan(corpus, r'^\s*SCENE \^', "*.arc"))
-    check("arc SCENES lists", sum(count_kw(c["blocks"], "SCENES") for c in arcs), scan(corpus, r'^\s*SCENES \[', "*.arc"))
+    # ── .lore ──
+    check(".lore chapters", sum(1 for c in chapters if c["kind"] == "lore"), len(glob.glob(os.path.join(corpus, "*.lore"))))
 
-    # ── the lore graph, the errata, the sidebars ──
-    check("codex RELATIONSHIPS (a predicate and its target on one line)",
-          sum(1 for e in E.values() if e["form"] == "ENTITY" for b in blocks(e, "RELATIONSHIPS") for x in b.get("body", []) if x.get("vk") == "ref"),
-          scan(corpus, r'\^"[^"]*" *-> *\^', "*.codex"))
-    check("codex ENTITY nodes", sum(1 for e in E.values() if e["form"] == "ENTITY"), scan(corpus, r'^\s*ENTITY ', "*.codex"))
-    check("errata MODIFY blocks", sum(count_kw(c.get("blocks"), "MODIFY") for c in chapters) + sum(count_kw(e.get("blocks"), "MODIFY") for e in E.values()),
-          scan(corpus, r'^\s*MODIFY '))
-    # this corpus prints its sidebars at a file's top level, beside the DEFs they CONCERN; the
-    # reader attaches each to its target at runtime
-    check("GUIDANCE entries", sum(len(e.get("guidance", [])) for e in E.values()) + deep(lambda x: x.get("kw") == "ENTRY"), scan(corpus, r'^\s*ENTRY '))
-    check("GUIDANCE entries that CONCERN something", deep(lambda x: x.get("kw") == "CONCERNS"), scan(corpus, r'^\s*CONCERNS \['))
-
-    # ── records ──
-    check("records carry every typed entity", sum(1 for r in records if r.get("type")), sum(1 for e in E.values() if e.get("type")))
-    check("index counts entities", index["counts"]["entities"], len(E))
-
-    print("check_shape: %s (%d assertions)" % ("OK" if not FAILS else "%d FAILED" % len(FAILS), N[0]))
-    for f in FAILS:
-        print("  " + f)
-    return 1 if FAILS else 0
+    if FAILS:
+        print("check_shape: %d of %d assertions FAIL" % (len(FAILS), N[0]))
+        for f in FAILS:
+            print("  " + f)
+        return 1
+    print("check_shape: OK (%d assertions; %d types, %d typed entities)" % (N[0], len(raw), sum(raw.values())))
+    return 0
 
 
 if __name__ == "__main__":

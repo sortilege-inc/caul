@@ -206,7 +206,7 @@ def gen(x, ctx):
     if n == "entity":
         return {"ent": ctx.entity(x["hash"], x.get("kind"), x["name"], x["body"])}
     if n == "prop":
-        if x.get("type") == "DEF" and ctx is not None and ctx.defs_are_entities:
+        if x.get("type") == "DEF" and ctx is not None and ctx.defs_are_entities and not value_def(x, ctx):
             return {"ent": ctx.entity(None, None, x["name"], x["body"])}
         return prop_value(x, ctx)
     if n == "kw":
@@ -242,9 +242,19 @@ def gen(x, ctx):
 # ───────────────────────── entities ─────────────────────────
 
 # Keywords whose body holds a DEF's own property VALUES — a DEF inside them is a field, not an
-# entity. Everything else (PHASES, LOCATIONS, ENTRIES, the container body, a DEF's body) holds
-# entities.
+# entity. Everything else (FEATURES, PHASES, the container body, a DEF's body) holds entities.
 VALUE_BLOCKS = {"PROPERTIES"}
+# Blocks of a stat block's own values, where an UNTYPED DEF (no EXTENDS) is a value too: an
+# adversary's one standard attack (`ATTACK { ^"Longbow" DEF { ^"Range" … ^"Damage" … } }` — its
+# name is a label, not the weapon of that name) and a weapon's or armor's per-tier rows
+# (`TIERS { ^"Tier 1" DEF { ^"Tier" 1 ^"Damage" "d8+1 mag" } }`). A typed DEF there (the Doom
+# Track's tiers EXTEND ^"Doom Track Tier") stays an entity.
+STAT_VALUE_BLOCKS = {"ATTACK", "TIERS"}
+
+
+def value_def(x, ctx):
+    return ctx.slot in STAT_VALUE_BLOCKS and not any(
+        y.get("n") == "kw" and y.get("kw") == "EXTENDS" for y in x.get("body") or [])
 
 
 class Ctx:

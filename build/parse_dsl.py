@@ -297,8 +297,14 @@ class Parser:
     # ---- bare "string" item (THEMES member, REFERENCES arrow line) ----
 
     def parse_str_item(self):
-        s = unescape(self.next().val)
+        first = self.next()
+        s = unescape(first.val)
         args = []
+        # `"Critical Success" "You get what you want…"` — a row keyed by its printed label, its
+        # text on the SAME line (OUTCOMES, a ROLL_TABLE). A string on the next line is the next
+        # item, never this one's value (the rule L5R5e's parser keeps for a caret, its decision 20).
+        if self.peek() and self.peek().kind == "STR" and self.peek().line == first.line:
+            args.append({"k": "str", "v": unescape(self.next().val)})
         # A REFERENCES arrow is `"label" -> #hash ^"Name"`; the arrow itself is not a
         # token, so the hash/caret pair is all that follows. Only a complete pair
         # continues this item — a lone hash belongs to whatever comes next.
