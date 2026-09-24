@@ -521,9 +521,11 @@ window.DHSheet = (function () {
   }
 
   // ── an adversary at the GM's table: its roll, its damage, its marks (GM-only npcState) ──
-  function adversaryBlock(e) {
-    const st = Object.assign({ hp: 0, stress: 0 }, ((State().state.npcState || {})[e.id]) || {});
-    const setSt = (p, text) => { State().commit('setNpcState', [e.id, Object.assign({}, st, p)]); if (text) State().commit('appendLog', [{ at: Date.now(), kind: 'event', who: 'GM · ' + e.name, text }]); };
+  function adversaryBlock(e, inst) {
+    const key = (inst && inst.iid) || e.id;                 // one tracked copy (a scene-cast instance) or the entity
+    const label = (inst && inst.label) || e.name;
+    const st = Object.assign({ hp: 0, stress: 0 }, ((State().state.npcState || {})[key]) || {});
+    const setSt = (p, text) => { State().commit('setNpcState', [key, Object.assign({}, st, p)]); if (text) State().commit('appendLog', [{ at: Date.now(), kind: 'event', who: 'GM · ' + label, text }]); };
     const hp = D.num(e, 'Hit Points') || 0;
     const stress = D.num(e, 'Stress') || 0;
     const atk = D.num(e, 'Attack Modifier') || 0;
@@ -542,12 +544,12 @@ window.DHSheet = (function () {
       ]),
       el('div', { class: 'chiprow tight' }, [
         button('Attack: d20 ' + Dice.sign(atk), () => {
-          const r = Dice.gmRoll({ modifier: atk, advantage: adv, disadvantage: dis, difficulty: diff || null, label: e.name + (attack ? ' · ' + attack.name : '') });
+          const r = Dice.gmRoll({ modifier: atk, advantage: adv, disadvantage: dis, difficulty: diff || null, label: label + (attack ? ' · ' + attack.name : '') });
           out.innerHTML = ''; out.appendChild(Dice.resultView(r));
           State().commit('appendLog', [Dice.logEntry(r, 'GM')]);
         }, 'tiny'),
         af.Damage ? button('Damage ' + af.Damage, () => {
-          const r = Dice.damageRoll(af.Damage, 1, e.name + (attack ? ' · ' + attack.name : ''));
+          const r = Dice.damageRoll(af.Damage, 1, label + (attack ? ' · ' + attack.name : ''));
           out.innerHTML = ''; out.appendChild(Dice.resultView(r));
           State().commit('appendLog', [Dice.logEntry(r, 'GM')]);
         }, 'ghost tiny') : null,

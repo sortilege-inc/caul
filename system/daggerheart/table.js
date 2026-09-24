@@ -29,9 +29,16 @@ window.VttSystem = (function () {
     return (all.find((s) => s.id === cur) || all.find((s) => !(S().arc || []).find((a) => a.id === s.id && a.played)) || all[0] || {}).id || null;
   }
 
-  const castIds = (sceneId) => ((S().cast || {})[sceneId] || []).slice();
+  // A scene's cast (op setSceneCast) is a list of instances. Backward-compatible: a bare string is one
+  // instance whose instance-id is the entity id (so a campaign saved before instances keeps its marks);
+  // an object { iid, id, label } is one tracked copy — many copies of one adversary each get their own
+  // iid, so npcState / npcConditions (keyed by iid) track them separately.
+  const rawCast = (sceneId) => ((S().cast || {})[sceneId] || []).slice();
+  const castEntries = (sceneId) => rawCast(sceneId).map((c) => (typeof c === 'string' ? { iid: c, id: c } : { iid: c.iid || c.id, id: c.id, label: c.label }));
+  const castIds = (sceneId) => castEntries(sceneId).map((c) => c.id);           // the entity ids (may repeat)
   const byId = (id) => D.entity(id) || D.record(id) || null;
-  const cast = (sceneId) => castIds(sceneId).map(byId).filter(Boolean);
+  const cast = (sceneId) => { const seen = {}; return castEntries(sceneId).map((c) => c.id).filter((id) => (seen[id] ? false : (seen[id] = 1))).map(byId).filter(Boolean); }; // distinct entities
+  const instLabel = (c) => c.label || ((byId(c.id) || {}).name || c.id);
 
   const maps = () => [];
   const mapDef = () => null;
@@ -46,7 +53,7 @@ window.VttSystem = (function () {
     if (party.length) groups.push({ label: 'The party', items: party });
     const sid = currentSceneId();
     const sc = scene(sid);
-    const here = sc ? cast(sid).map((e) => ({ label: e.name, kind: 'cast', ref: e.id })) : [];
+    const here = sc ? castEntries(sid).map((c) => ({ id: 'tk-' + c.iid, label: instLabel(c), kind: 'cast', ref: c.id, iid: c.iid })) : [];
     if (here.length) groups.push({ label: sc.name, items: here });
     return groups;
   }
@@ -60,14 +67,15 @@ window.VttSystem = (function () {
     }
     const e = t.kind === 'cast' && t.ref ? byId(t.ref) : null;
     if (!e) return null;
-    const st = (S().npcState || {})[e.id];
-    const cond = (S().npcConditions || {})[e.id] || [];
+    const key = t.iid || e.id;                                   // per-instance marks (falls back to the entity)
+    const st = (S().npcState || {})[key];
+    const cond = (S().npcConditions || {})[key] || [];
     const hp = e.props ? D.num(e, 'Hit Points') : null;
     return { text: [st && hp ? 'HP ' + (st.hp || 0) + '/' + hp : null, cond.join(', ') || null].filter(Boolean).join(' · '), pips: [] };
   }
   function selectToken(t) {
     if (t.kind === 'party') Bus.emit('select', { kind: 'party', id: t.owner });
-    else if (t.kind === 'cast' && t.ref) Bus.emit('select', { kind: 'entity', id: t.ref });
+    else if (t.kind === 'cast' && t.ref) Bus.emit('select', { kind: 'entity', id: t.ref, iid: t.iid, label: t.label });
   }
   const tokenMenu = () => null;
 
@@ -78,7 +86,7 @@ window.VttSystem = (function () {
   const memberSubtitle = (m) => (m && m.templateId === Sheet().COMPANION_ID) ? Sheet().companionLine(m.character || {}) : Sheet().sentence(m.character || {});
 
   return {
-    moduleId, frame, scenes, scene, currentSceneId, cast, castIds, byId, maps, mapDef, defaultMapId, legend, mapAssets,
+    moduleId, frame, scenes, scene, currentSceneId, cast, castIds, castEntries, castRaw: rawCast, instLabel, byId, maps, mapDef, defaultMapId, legend, mapAssets,
     tokenSources, tokenColor, tokenStatus, selectToken, tokenMenu,
     liveSheet, readCharacter, downloadCharacter, memberSubtitle,
   };
