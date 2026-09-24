@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daggerheart — the books</title>
+<link rel="icon" href="assets/art/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/daggerheart.css">
+</head>
+<body class="site">
+<header class="site-head">
+  <a class="brand" href="#book">
+    <img class="brand-mark" src="assets/art/favicon.svg" alt="">
+    <span class="brand-text"><span class="brand-title">Daggerheart</span><span class="brand-sub">the books at the table</span></span>
+  </a>
+  <nav class="site-tabs" id="site-tabs"></nav>
+  <a class="gm-link" href="gm/">The GM’s table →</a>
+</header>
+<main class="site-main" id="site-main"></main>
+
+<script src="engine/config.js"></script>
+<script src="engine/render.js"></script>
+<script src="engine/data.js"></script>
+<script src="data/index.js"></script>
+<script src="data/records.js"></script>
+<script src="engine/instance.js" data-stage="data"></script>
+<script src="system/daggerheart/data.js"></script>
+<script src="system/daggerheart/dice.js"></script>
+<script src="system/daggerheart/entity.js"></script>
+<script src="system/daggerheart/sheet.js"></script>
+<script src="system/daggerheart/creator.js"></script>
+<script src="system/daggerheart/site.js"></script>
+<script src="engine/instance.js" data-stage="site"></script>
+<script src="engine/site.js"></script>
+</body>
+</html>

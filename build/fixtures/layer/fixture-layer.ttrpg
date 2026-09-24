@@ -1,0 +1,44 @@
+EXTENSION "Fixture_Layer" EXTENDS "Daggerheart_Core_Base" {
+    NAME "The layer build's own fixture"
+    VERSION "0.1.0"
+    SPEC_VERSION "0.5"
+    RELEASE_DATE "2026-09-24"
+
+    # Not game content. The smallest layer that exercises every path of build/build_layer.py: one
+    # adversary on the corpus's Adversary chassis with a feature on its feature type (the
+    # references gate), and a MODIFY and CONCERNS by name on a corpus entity (the names gate).
+    # Built only to a scratch folder by the layer's tests, never into data/.
+
+    MODIFY ^"Proficiency" {
+        GUIDANCE {
+            ENTRY ^"fixture-guidance" #FXLayerFixtureGuide01 {
+                CONCERNS [ ^"Proficiency" ]
+                TOPICS [ "fixture" ]
+                TEXT "A fixture guidance entry, not a rule."
+            }
+        }
+    }
+
+    #FXLayerFixtureAdv00001 ^"Fixture Adversary" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 1
+            ^"Role" STRING "Minion"
+            ^"Description" STRING "A fixture for the layer build, not an adversary."
+            ^"Difficulty" INTEGER 10
+            ^"Hit Points" INTEGER 1
+            ^"Stress" INTEGER 1
+            ^"Attack Modifier" INTEGER 0
+        }
+        ATTACK {
+            ^"Fixture Strike" DEF { ^"Range" STRING "Melee" ^"Damage" STRING "1 phy" }
+        }
+        FEATURES {
+            #FXLayerFixtureFeat0001 ^"Fixture Feature" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "A fixture feature, not a rule."
+            }
+        }
+    }
+}
