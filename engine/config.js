@@ -40,8 +40,9 @@ window.VttConfig = {
     styles: ['campaign/site/umbra.css', 'campaign/site/caul-doc.css'],
     stages: {
       data: ['campaign/data/index.js'],
-      // the campaign's site tabs (M4): the docs in campaign/docs/, the interactive atlas map
-      site: ['campaign/site/site.js'],
+      // the campaign's site tabs (M4): the interactive atlas map (data then renderer), then the
+      // tabs that draw the docs in campaign/docs/
+      site: ['campaign/site/atlas-data.js', 'campaign/site/map.js', 'campaign/site/site.js'],
     },
   },
   worker: {
