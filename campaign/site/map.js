@@ -10,7 +10,7 @@
     '<div class="atlas-shell">' +
     '  <div class="mapwrap" data-el="wrap">' +
     '    <div class="viewport" data-el="vp">' +
-    '      <img data-el="img" src="campaign/atlas/umbra-map.jpeg" alt="Map of the world of the Enduring Lesser Lights">' +
+    '      <img data-el="img" src="campaign/atlas/umbra-map.jpeg" alt="Map of the world of Caul">' +
     '      <div data-el="markers"></div>' +
     '    </div>' +
     '    <div class="maplegend" data-el="legend"></div>' +

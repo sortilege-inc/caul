@@ -72,7 +72,7 @@ def main():
         seq += 1
         blocks.append(block(env_id(e["name"], seq), e))
     text = ('EXTENSION "Caul_Environments" EXTENDS "Daggerheart_Core_Base" {\n'
-            '    NAME "The Enduring Lesser Lights - the environments"\n'
+            '    NAME "Caul - the environments"\n'
             '    VERSION "0.1.0"\n    SPEC_VERSION "0.5"\n    RELEASE_DATE "2026-09-24"\n\n'
             + "\n\n".join(blocks) + "\n}\n")
     open(os.path.join(HERE, "campaign/dsl/caul-environments.actor"), "w").write(text)

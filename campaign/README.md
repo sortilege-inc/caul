@@ -1,4 +1,4 @@
-# The Enduring Lesser Lights — an Age of Umbra Chronicle
+# Caul — an Age of Umbra Chronicle
 
 A static campaign wiki for the Daggerheart / *Age of Umbra* game **The Enduring Lesser
 Lights**. Dark, desaturated grimoire aesthetic; no build step —
@@ -20,7 +20,7 @@ plain HTML + one stylesheet.
 | `umbra.css` | The theme |
 
 The interactive atlas overlays waypoint pins on `atlas/umbra-map.jpeg` (copied from
-`caul-support/27. The Enduring Lesser Lights/umbra-nowords.jpeg`, inverted + cold-tinted via CSS).
+`caul-support/27. Caul/umbra-nowords.jpeg`, inverted + cold-tinted via CSS).
 Pins are colour-keyed by `kind` — **seat** (red, Drosven's Gate), **delve** (purple, Grithmaar
 Deep), **settlement** (gold), **ruin/lost** (dark ✕). Positions + kinds live in `ATLAS_COORDS` in
 the generator (keyed to the labelled reference map); pinned places without a chronicled page yet
@@ -46,7 +46,7 @@ This site is **generated** from the raw campaign pull in `../caul-support/`:
 python3 ../caul-support/scripts/build_site.py
 ```
 
-Source of truth: `caul-support/The Enduring Lesser Lights - HTML Export/` (narrative HTML)
+Source of truth: `caul-support/Caul - HTML Export/` (narrative HTML)
 plus `caul-support/foundry/` (portraits). Portrait art is hot-linked from
 `foundry.sortilege.online` and `assets.myarchivist.ai`. Re-running wipes and rebuilds the
 generated category directories only (`umbra.css`, `README.md`, `.git` are preserved).

@@ -78,7 +78,7 @@ def main():
         blocks.append('    #%s ^%s DEF {\n        EXTENDS %s\n        PROPERTIES {\n%s\n        }\n    }'
                       % (cid, q(name), RANGER_COMPANION, body))
     text = ('EXTENSION "Caul_Companions" EXTENDS "Daggerheart_Core_Base" {\n'
-            '    NAME "The Enduring Lesser Lights - the player-bonded companions"\n'
+            '    NAME "Caul - the player-bonded companions"\n'
             '    VERSION "0.1.0"\n    SPEC_VERSION "0.5"\n    RELEASE_DATE "2026-09-24"\n\n'
             + "\n\n".join(blocks) + "\n}\n")
     open(os.path.join(HERE, "campaign/dsl/caul-companions.actor"), "w").write(text)

@@ -151,7 +151,7 @@ def main():
         if unresolved:
             print("  %s — carried as inventory/notes (no corpus hash): %s" % (name, unresolved))
     text = ('EXTENSION "Caul_Characters" EXTENDS "Daggerheart_Core_Base" {\n'
-            '    NAME "The Enduring Lesser Lights - the player characters"\n'
+            '    NAME "Caul - the player characters"\n'
             '    VERSION "0.1.0"\n    SPEC_VERSION "0.5"\n    RELEASE_DATE "2026-09-24"\n\n'
             + "\n\n".join(blocks) + "\n}\n")
     out = os.path.join(HERE, "campaign/dsl/caul-pcs.actor")

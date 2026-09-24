@@ -1,0 +1,45 @@
+/* campaign/site/caul-theme.css — dress the Daggerheart VTT frame in the original Caul site's look
+   (campaign/umbra.css: a cold, desaturated grimoire — void & stone, bone text, gilt/moon accents,
+   EB Garamond + Cinzel). The VTT themes with the CSS variables in assets/css/daggerheart.css; this
+   redefines them to Caul's values at the same selectors the VTT uses, so — loaded after the VTT's
+   sheet via instance.styles — it wins, in light or dark. Caul is always its dark self. */
+:root,
+:root:not([data-theme="light"]),
+:root[data-theme="dark"],
+:root[data-theme="light"] {
+  /* structure — void & stone */
+  --bg: #090b0e;            /* --void   */
+  --panel: #161c24;         /* --slate  */
+  --panel-2: #1c242e;       /* --slate-2 */
+  --ink: #d7d2c4;           /* --bone   */
+  --ink-2: #8b9298;         /* --ash    */
+  --line: #3b4653;          /* --edge   */
+  /* accents — used sparingly */
+  --accent: #b39a63;        /* --gilt   */
+  --accent-ink: #0e1218;    /* --abyss (ink on gilt) */
+  --link: #9fb4c2;          /* --moon   */
+  /* Daggerheart's own metacurrency colours, tuned to Caul */
+  --hope: #c9a86a; --hope-bg: #2a2412;
+  --fear: #9b8fce; --fear-bg: #211d33;   /* --umbra violet */
+  --crit: #7fb8a0; --crit-bg: #12281f;
+  --danger: #b0574a;        /* --blood  */
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+  /* type — the grimoire */
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'EB Garamond', Georgia, serif;
+  --display: 'Cinzel', 'EB Garamond', Georgia, serif;
+}
+
+/* the atmosphere the old site carried on its body — the void, its lights, and a faint grain */
+body {
+  background-color: #090b0e;
+  background-image:
+    radial-gradient(1200px 700px at 72% -8%, rgba(60, 74, 90, 0.35), transparent 60%),
+    radial-gradient(1000px 900px at 8% 12%, rgba(40, 44, 66, 0.28), transparent 55%),
+    radial-gradient(1400px 1000px at 50% 120%, rgba(20, 26, 34, 0.9), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-attachment: fixed, fixed, fixed, scroll;
+}
+
+/* the masthead wears the display face (the active tab already reads dark-on-gilt via the variables) */
+.site-mast, .site-title, .site-brand { font-family: 'Cinzel', 'EB Garamond', Georgia, serif; }

@@ -6,7 +6,7 @@
    section hub (index) and #chronicle/s26-brathis-burns a session; a further segment is an in-page
    anchor. The atlas tab shows the interactive map at #atlas and a place's prose at #atlas/<place>. */
 (function () {
-  var TITLE = (window.VttConfig || {}).title || 'The Enduring Lesser Lights';
+  var TITLE = (window.VttConfig || {}).title || 'Caul';
   var cache = {};
 
   function fetchDoc(url) {

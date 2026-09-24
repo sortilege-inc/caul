@@ -112,7 +112,7 @@ def main():
         blocks.append(block(adv_id(ad["name"], seq), ad))
         anomalies += ad["anomalies"]
     text = ('EXTENSION "Caul_Adversaries" EXTENDS "Daggerheart_Core_Base" {\n'
-            '    NAME "The Enduring Lesser Lights - the bestiary"\n'
+            '    NAME "Caul - the bestiary"\n'
             '    VERSION "0.1.0"\n    SPEC_VERSION "0.5"\n    RELEASE_DATE "2026-09-24"\n\n'
             + "\n\n".join(blocks) + "\n}\n")
     out = os.path.join(HERE, "campaign/dsl/caul-adversaries.actor")

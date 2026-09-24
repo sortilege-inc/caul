@@ -1,7 +1,7 @@
-# caul — The Enduring Lesser Lights
+# caul — Caul
 
 An **instance** of the Daggerheart VTT (`sortilege-vtt-daggerheart`): the campaign
-**The Enduring Lesser Lights** (Age of Umbra: Caul), live at **caul.sortilege.online**.
+**Caul** (Age of Umbra: Caul), live at **caul.sortilege.online**.
 
 The VTT owns the root — the site at `/`, the GM's table at `/gm/`, the engine, the system
 module, the generated books. This campaign owns `campaign/` and a short list of per-deployment

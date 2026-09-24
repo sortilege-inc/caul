@@ -1,5 +1,5 @@
 EXTENSION "Caul_Adversaries" EXTENDS "Daggerheart_Core_Base" {
-    NAME "The Enduring Lesser Lights - the bestiary"
+    NAME "Caul - the bestiary"
     VERSION "0.1.0"
     SPEC_VERSION "0.5"
     RELEASE_DATE "2026-09-24"

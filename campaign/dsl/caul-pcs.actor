@@ -1,5 +1,5 @@
 EXTENSION "Caul_Characters" EXTENDS "Daggerheart_Core_Base" {
-    NAME "The Enduring Lesser Lights - the player characters"
+    NAME "Caul - the player characters"
     VERSION "0.1.0"
     SPEC_VERSION "0.5"
     RELEASE_DATE "2026-09-24"

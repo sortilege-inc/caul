@@ -1,4 +1,4 @@
-# The Enduring Lesser Lights — instance plan
+# Caul — instance plan
 
 An **instance** of the Daggerheart VTT (`sortilege-vtt-daggerheart`): the Caul campaign, live at
 **caul.sortilege.online**. Built per `~/Sortilege/VTT/INSTANCES.md`. The VTT owns root; this
@@ -32,7 +32,7 @@ Three commits, each proven:
 - **M1.3 boundary** (`facec96`) — instance-owned root files, all `merge=ours`: `engine/config.js` (title, `caul-vtt` namespacing, Age of Umbra `defaultCampaign`, `instance: null` until content lands), `worker/wrangler.jsonc` (`caul-vtt`, ALLOWED_ORIGIN = caul + github.io), `README.md`, `CNAME`, `.gitignore`, `.claude/launch.json`, `.gitattributes`; driver enabled.
 
 **Boundary proven (throwaway clone):** an overlapping upstream change to `engine/config.js` + a change to `engine/app.js` — without the driver the merge conflicts on `config.js`; with it, `config.js` keeps the instance's copy entirely and `app.js` takes the upstream change.
-**Boot proven:** served locally, `/` and `/gm/` HTTP 200, tab title "The Enduring Lesser Lights", data loaded (2 books, 3,036 entities), Age of Umbra frame id resolves in `data/`, zero console errors.
+**Boot proven:** served locally, `/` and `/gm/` HTTP 200, tab title "Caul", data loaded (2 books, 3,036 entities), Age of Umbra frame id resolves in `data/`, zero console errors.
 
 ## Foundry (source for M2)
 Relay `foundryrestapi.com`, world online; clientId supplied per session (a session secret, not stored here). Fresh snapshot pulled to `caul-support/archive/foundry-export/2026-09-24/` — 4 PCs + Pinchie + Umbral Raven + 2× Speaker. **No clashes:** the PCs are structurally identical to the 2026-09-12 export (all level 6, same classes/subclasses/cards). The 14 fae adversaries already sit in `campaign/adversaries/` as Foundry JSON.

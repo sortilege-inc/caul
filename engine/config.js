@@ -4,7 +4,7 @@
 // pull, diff engine/config.js against upstream and carry any new key by hand (INSTANCES.md).
 window.VttConfig = {
   system: 'daggerheart',
-  title: 'The Enduring Lesser Lights',
+  title: 'Caul',
   channel: 'caul-vtt',            // BroadcastChannel name (same-machine windows)
   storagePrefix: 'caul-vtt',      // localStorage key prefix
   dataGlobal: 'DAGGERHEART',      // the global data/*.js registers into (must match the VTT)
@@ -13,7 +13,7 @@ window.VttConfig = {
   // effect for this campaign; the party opens on it. Its rules modifications come from the
   // frame's own mechanics in the data.
   defaultCampaign: {
-    name: 'The Enduring Lesser Lights',
+    name: 'Caul',
     modules: ['#t5KkPQAKPBQWhS6w3ZFiQh2x'],
     books: [],
     // the S28 arc and the open threads, seeded once (campaign/source/build_seed.py); the GM edits
@@ -39,8 +39,14 @@ window.VttConfig = {
   // campaign's 106 statblocks into the data global at the `data` stage. Site tabs + GM doc land
   // at M4.
   instance: {
-    // the migrated wiki's look, scoped to .caul-doc (campaign/source/scope_css.py) + a fit file
-    styles: ['campaign/site/umbra.css', 'campaign/site/caul-doc.css'],
+    // the original Caul site's look: its fonts, its palette/type over the whole VTT frame
+    // (caul-theme.css), then the migrated docs' own styling scoped to .caul-doc (scope_css.py) + a fit
+    styles: [
+      'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IM+Fell+English:ital@0;1&family=Pirata+One&display=swap',
+      'campaign/site/caul-theme.css',
+      'campaign/site/umbra.css',
+      'campaign/site/caul-doc.css',
+    ],
     stages: {
       data: ['campaign/data/index.js'],
       // the campaign's site tabs (M4): the interactive atlas map (data then renderer), then the

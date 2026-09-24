@@ -57,7 +57,7 @@ def main():
     pack = {
         "kind": "sortilege-vtt-campaign",
         "version": 1,
-        "campaign": {"name": "The Enduring Lesser Lights"},
+        "campaign": {"name": "Caul"},
         "arc": [
             {"id": "caul-s28-open", "title": "Session 28 — The World Above",
              "text": opening_scene(), "played": False},

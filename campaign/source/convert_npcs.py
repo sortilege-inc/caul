@@ -48,7 +48,7 @@ def main():
         if C.unresolved:
             notes.append("%s — carried as inventory/notes (no corpus hash): %s" % (e["name"], C.unresolved))
     text = ('EXTENSION "Caul_NPCs" EXTENDS "Daggerheart_Core_Base" {\n'
-            '    NAME "The Enduring Lesser Lights - the character-typed NPCs"\n'
+            '    NAME "Caul - the character-typed NPCs"\n'
             '    VERSION "0.1.0"\n    SPEC_VERSION "0.5"\n    RELEASE_DATE "2026-09-24"\n\n'
             + "\n\n".join(blocks) + "\n}\n")
     open(os.path.join(HERE, "campaign/dsl/caul-npcs.actor"), "w").write(text)
