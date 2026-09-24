@@ -49,7 +49,7 @@ window.VttConfig = {
     },
   },
   worker: {
-    deployed: '',                 // set at deploy (M5): the caul.sortilege.online Worker
+    deployed: 'https://caul-vtt.sortilege.workers.dev',   // the caul-vtt Worker (M5 deploy)
     local: 'http://localhost:8796',
   },
 };
