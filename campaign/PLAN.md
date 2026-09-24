@@ -22,7 +22,7 @@ once per clone).
 | M1 | The fork | **done 2026-09-24** — see below |
 | M2 | Homebrew characters & NPCs into `campaign/dsl/` (PCs as `Character`; companions, the bestiary, environments), from Foundry, gated + field-checked | **done 2026-09-24** — 106 statblocks (4 PCs, 5 companions, 13 NPCs, 80 adversaries, 4 environments), all layer-gated + field-checked with planted-failure tests |
 | M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | **done 2026-09-24** — roster pickers, sheet render, companion control all proven in the browser (below) |
-| M4 | Migrate the 171 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc | |
+| M4 | Migrate the 167 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc; Age of Umbra highlighted section | **in progress** — approach below (incorporates the updated instance playbook) |
 | M5 | Deploy (owner): Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | |
 
 ## M1 — the fork (branch `vtt-instance`, unpushed)
@@ -61,6 +61,28 @@ All 150 Foundry actors categorized: **4 PCs, 5 companions, 10 character-NPCs, 4 
 - **Companion view/control** (decision 5) — upstream `memberFromCompanion` + `companionSheet` (Evasion, a Stress track the player marks/clears, the attack with a damage roll, Experiences, training); `liveSheet` routes companion members to it. `engine/play.js`: a claiming player sees and controls the companion(s) whose `source.partner` is their character's name. **Proven:** Pinchie renders (Evasion 6, Stress 0/3, Charge, 4 experiences, 4 upgrades); the Stress track marks (0→2) and persists; Jamal's player gets Pinchie, Sylvie's would not.
 - **Old `campaign/play/` sheets retired** (removed). The 4 links from `campaign/company/*.html` to `../play/` are dead until M4 rewires them during the wiki migration.
 - **Age of Umbra frame** (decision 6) already surfaces on the GM Frame tab (God-King Othedias, Matthew Mercer) — M4 adds the highlighted section.
+
+## M4 approach — incorporating the updated instance playbook (`~/Sortilege/VTT/INSTANCES.md`, PLAYBOOK §4; Portents M7, 2026-09-24)
+Reviewed the current playbook + Portents' proven M7 tooling before starting. **What the Daggerheart VTT actually supports** (verified in `engine/config.js`, `engine/instance.js`, `system/daggerheart/gm-panes.js`, `site.js`) — I use only these; `gmGate`, `siteBooks`, `ownAdventure`, `hidePanes`, `paneOrder` are L5R5e-only and absent here:
+- `instance.styles: [...]` — loaded once at the first stage (scoped `umbra.css` goes here).
+- `instance.stages.{data,site,gm,table,play}` — `site` pushes tabs onto `window.VttSiteTabs`; `gm` registers panels via `window.VttPanels.register`.
+- `defaultCampaign.seed: 'campaign/pack/seed.json'` — fills what the campaign never had (the S28 arc = scenes), once, never overwriting the GM's edits.
+- `notes: { src, title, class, gate: { title, text, enter } }` — the GM Notes-pane document behind a spoiler gate → **this is Behind-the-Veil** (not a whole-page `gmGate`).
+- `defaultSlots` — panes the GM table opens on.
+
+**Migration method (Portents' pattern, adapted).** Deterministic + gated, mirroring `migrate_docs.py`/`scope_css.py`:
+1. `campaign/source/migrate_docs.py` — take each page's `<div class="wrap">` content region into `campaign/docs/<name>.html`; drop chrome (nav/breadcrumb/footer/scripts); rewrite links to tab routes (`#chronicle/s26`, `#atlas/drosvens-gate`, `#personae/askavir`) and assets to `campaign/assets/`. **Prove per doc:** text identical to the old region + every href/src resolves; **make the proof fail once** (planted change + planted bad link); **run before deleting** the old pages.
+2. `scope_css.py` — scope `umbra.css` under `.caul-doc` (undo `body`/`:root`/`min-height:100vh` so it can't restyle the whole VTT); a small hand file fits paper to frame.
+3. `site.js` — `docTab(name, after)` fetches `campaign/docs/<name>.html` into a `.caul-doc` container, scrolls to the path anchor, runs the page's own script as an `after` fn (listeners self-remove — tabs re-render, no reload). Tabs pushed campaign-first.
+4. Seed `campaign/pack/seed.json` with the **S28 arc** (scenes), via `defaultCampaign.seed`.
+5. **Age of Umbra highlighted section** (decision 6) — a home-doc block surfacing the frame already shown on the GM Frame tab.
+
+**Section → tab model** (Caul is multi-page, unlike Portents' single pages): 8 tabs — Chronicle (27 sessions), Company (4 PCs), Dramatis Personae (50), Factions (9), Atlas (~10 + interactive map), Relics (32), Lore (3), Home. Each section concatenates its hub + entries into one doc with per-entry anchors.
+
+**Open design decisions (to surface executive-ready before scaling):**
+- **Dramatis Personae + the bestiary already exist as DSL records** (17 Characters, 80 adversaries). Does the DP tab render from the DSL layer (like Portents' `personae.js`, record-driven, with reveal state) or from the wiki prose profiles (richer narrative)? The two overlap.
+- **Which of the 14 `gm/` pages are the Behind-the-Veil `notes` document** (vs GM prep that belongs in the pack/Threads pane).
+- **Atlas interactivity** — is there an existing interactive map to preserve, or is the atlas prose-with-anchors?
 
 ## Decision log (autonomous calls this session)
 - **Companion modeling (owner, 2026-09-24):** the plan's "companions as `Adversary`" (decision 5) was written before the records were seen. Pinchie & the Umbral Raven are Foundry `companion`-type (the Ranger's-Companion sheet), not adversaries. Owner chose to **extend the corpus `Ranger Companion` ACTOR upstream** with optional played-instance fields (Pronouns, Partner, Evasion, Stress, Marked Stress, an Attack DEF, Experiences, Upgrades, Description) rather than force them into `Adversary`. "Player view+control" (decision 5) is an engine/ownership feature (M3), independent of the DSL type. Speaker ×2 are `character`-typed → the `Character` path.
