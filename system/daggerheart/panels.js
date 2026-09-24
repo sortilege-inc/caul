@@ -95,11 +95,34 @@
     });
     return sel;
   }
+  // A campaign's pre-built characters (PCs and NPCs that EXTEND the Character ACTOR) and companions
+  // (Ranger Companion instances). Empty in the base VTT (its characters come from Guides or files).
+  function instancePicker(type, label, fromEntity) {
+    const rows = D.recordsOf(type);
+    if (!rows.length) return null;
+    const sel = el('select', { class: 'scope', 'aria-label': label }, [el('option', { value: '' }, [label])].concat(
+      rows.map((r) => el('option', { value: r.id }, [r.name + (F(r, 'Class') ? ' — ' + F(r, 'Class') : (F(r, 'Partner') ? ' — ' + F(r, 'Partner') + '’s' : ''))]))));
+    sel.addEventListener('change', () => {
+      const r = rows.find((x) => x.id === sel.value);
+      sel.value = '';
+      if (!r) return;
+      D.ensureAll().then(() => {
+        const m = fromEntity(D.entity(r.id));
+        State.commit('addPartyMember', [m]);
+        Panels.select({ kind: 'party', id: m.id });
+      });
+    });
+    return sel;
+  }
   function renderParty(container, ctx) {
     const draw = () => {
       container.innerHTML = '';
       const party = S().party || [];
-      container.appendChild(el('div', { class: 'chiprow' }, [characterLoader('Load character file(s)…', ''), guidePicker()]));
+      container.appendChild(el('div', { class: 'chiprow' }, [
+        characterLoader('Load character file(s)…', ''), guidePicker(),
+        instancePicker('Character', 'add a built character…', Sheet.memberFromCharacter),
+        instancePicker('Ranger Companion', 'add a companion…', Sheet.memberFromCompanion),
+      ].filter(Boolean)));
       if (!party.length) container.appendChild(el('div', { class: 'empty' }, ['No one in the party yet.']));
       party.forEach((m) => container.appendChild(el('div', { class: 'member' }, [
         el('button', { class: 'card', type: 'button', onclick: () => Panels.select({ kind: 'party', id: m.id }) }, [

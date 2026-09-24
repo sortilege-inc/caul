@@ -75,7 +75,7 @@ window.VttSystem = (function () {
   const readCharacter = (obj, fileName) => Sheet().readMember(obj, fileName);
   const downloadCharacter = (m) => Sheet().downloadMember(m);
   const liveSheet = (m, opts) => Sheet().liveSheet(m, opts);
-  const memberSubtitle = (m) => Sheet().sentence(m.character || {});
+  const memberSubtitle = (m) => (m && m.templateId === Sheet().COMPANION_ID) ? Sheet().companionLine(m.character || {}) : Sheet().sentence(m.character || {});
 
   return {
     moduleId, frame, scenes, scene, currentSceneId, cast, castIds, byId, maps, mapDef, defaultMapId, legend, mapAssets,

@@ -32,6 +32,7 @@ window.DHSheet = (function () {
   const Dice = window.DHDice;
   const State = () => window.VttState;
   const ACTOR_ID = '#daggerheartCharacter000000001';
+  const COMPANION_ID = '#daggerheartRangerCompanion01';
   const CONDITION_ID = '#daggerheartCondition0000000001';
 
   // ── the ACTOR, read ────────────────────────────────────────────────
@@ -309,6 +310,24 @@ window.DHSheet = (function () {
     const inv = D.val(entity, 'Inventory'); if (Array.isArray(inv)) c.Inventory = inv.slice();
     return { id: newId(), templateId: ACTOR_ID, name: c.Name, character: c, live: {}, notes: '', source: { kind: 'character', id: entity.id } };
   }
+  // A member from a played Ranger Companion instance (a campaign's companion: a Ranger's companion,
+  // a familiar). Its own frame — Evasion, Stress, a single Attack, Experiences, training upgrades,
+  // and the character it is bonded to. `source.partner` is that character's name, so a player who
+  // claims their character also gets control of the companion (engine/play.js).
+  function memberFromCompanion(entity, name) {
+    const nm = name || entity.name;
+    const c = { Name: nm, Traits: {}, Experiences: [], Loadout: [], Vault: [], Inventory: [], 'Marked Traits': [] };
+    const pr = D.text(entity, 'Pronouns'); if (pr) c.Pronouns = pr;
+    const partner = D.text(entity, 'Partner'); if (partner) c.Partner = partner;
+    const ev = D.num(entity, 'Evasion'); if (ev != null) c.Evasion = ev;
+    const st = D.num(entity, 'Stress'); c.Stress = st != null ? st : 6;
+    const at = D.prop(entity, 'Attack'); if (at) c.Attack = D.defFields(at);
+    const ep = D.prop(entity, 'Experiences');
+    if (ep && ep.items) c.Experiences = ep.items.map((it) => { const o = {}; (it.d || []).forEach((f) => (o[f.name] = f.value)); return { Name: o.Name, Modifier: o.Modifier }; }).filter((x) => x.Name);
+    const up = D.prop(entity, 'Upgrades');
+    if (up && up.items) c.Upgrades = up.items.map((it) => (it.h ? { id: it.h, name: it.c } : null)).filter(Boolean);
+    return { id: newId(), templateId: COMPANION_ID, name: c.Name, character: c, live: {}, notes: '', source: { kind: 'companion', id: entity.id, partner: partner || null } };
+  }
   function downloadMember(m) {
     const blob = new Blob([JSON.stringify({ kind: 'daggerheart-character', templateId: ACTOR_ID, character: ch(m), live: m.live || {} }, null, 2)], { type: 'application/json' });
     const a = el('a', { href: URL.createObjectURL(blob), download: String(m.name || 'character').replace(/[^\w\- ]+/g, '') + '.json' });
@@ -373,7 +392,44 @@ window.DHSheet = (function () {
   const paneOf = (m) => panes[m.id] || 'play';
   const notesTimers = {};
   const debounceNotes = (m) => (ev) => { clearTimeout(notesTimers[m.id]); const v = ev.target.value; notesTimers[m.id] = setTimeout(() => State().commit('setPartyPlayerNotes', [m.id, v]), 400); };
+  // A companion's live sheet: its Evasion, a Stress track the player can mark and clear, its attack
+  // (with a damage roll), its Experiences and training. Simpler than a character's — a companion
+  // takes Stress, not HP, and has no traits, Hope or loadout.
+  const companionLine = (c) => ['Companion', c.Partner ? '· ' + c.Partner : null].filter(Boolean).join(' ');
+  function companionSheet(m, opts) {
+    const o = opts || {};
+    const c = ch(m); const l = live(m);
+    const box = el('div', { class: 'sheet live companion' + (o.player ? ' player' : '') });
+    const put = (n) => { if (n) box.appendChild(n); return n; };
+    put(el('div', { class: 'sheet-head' }, [
+      el('div', { class: 'sheet-name' }, [c.Name || m.name, c.Pronouns ? el('span', { class: 'muted small' }, [' (' + c.Pronouns + ')']) : null]),
+      el('div', { class: 'muted small' }, [companionLine(c)]),
+    ]));
+    put(el('div', { class: 'sheet-stats' }, [
+      el('div', { class: 'stat' }, [el('div', { class: 'stat-k' }, ['Evasion']), el('div', { class: 'stat-v' }, [c.Evasion != null ? String(c.Evasion) : '—'])]),
+    ]));
+    put(track('Stress', stressMax(c), l.markedStress, (v) => (v > l.markedStress ? markStress(m, v - l.markedStress) : clearStress(m, l.markedStress - v)), 'stress'));
+    const at = c.Attack || {};
+    if (at.Name) {
+      put(el('div', { class: 'prop-k' }, ['Attack']));
+      const dmg = at.Damage || '';
+      const die = (String(dmg).match(/d\d+/) || [''])[0];
+      put(el('div', { class: 'weapon' }, [
+        el('div', {}, [el('b', {}, [at.Name]), el('span', { class: 'muted small' }, [' · ' + [at.Range, dmg].filter(Boolean).join(' · ')])]),
+        die ? button('Roll damage (' + (dmg || die) + ')', () => {
+          const r = Dice.damageRoll(die, 1, at.Name);
+          State().commit('appendLog', [Object.assign(Dice.logEntry(r, m.name), { memberId: m.id })]);
+        }, 'ghost tiny') : null,
+      ]));
+    }
+    const exps = (c.Experiences || []).map((x) => ({ name: x.Name || x.name, modifier: x.Modifier != null ? x.Modifier : x.modifier }));
+    if (exps.length) put(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Experience']), exps.map((x) => el('span', { class: 'chip' }, [x.name + ' ' + Dice.sign(Number(x.modifier) || 0)]))]));
+    const ups = c.Upgrades || [];
+    if (ups.length) put(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Training']), ups.map((u) => el('span', { class: 'chip' }, [u.name]))]));
+    return box;
+  }
   function liveSheet(m, opts) {
+    if (m && m.templateId === COMPANION_ID) return companionSheet(m, opts);
     const o = opts || {};
     const c = ch(m); const l = live(m);
     const tr = traits(c);
@@ -502,7 +558,7 @@ window.DHSheet = (function () {
   }
 
   return {
-    ACTOR_ID, spec, conditions, thresholds, armorScore, severity, traits, live, liveSheet, memberFromGuide, memberFromCharacter, readMember, downloadMember,
+    ACTOR_ID, COMPANION_ID, companionLine, spec, conditions, thresholds, armorScore, severity, traits, live, liveSheet, memberFromGuide, memberFromCharacter, memberFromCompanion, readMember, downloadMember,
     sentence, tokenText, blankCharacter, parseTraits, features, featureCard, adversaryBlock, markStress, clearStress, takeDamage, resolveRoll, patch, refEntity,
     takeRest, moveEffect, tierOf,
     readMemberFile: readMember,

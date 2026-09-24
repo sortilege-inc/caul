@@ -130,7 +130,12 @@
     // on a phone the three fold into one line (assets/css/daggerheart-gm.css); wider, they stand open as before
     const menu = el('details', { class: 'play-menu', open: (menuOpen != null ? menuOpen : !PHONE.matches) || null }, [el('summary', {}, ['Table · file · release']), bar]);
     menu.addEventListener('toggle', () => { menuOpen = menu.open; });
-    return el('div', { class: 'play-card wide' }, [menu, strip, Sys.liveSheet(m, { player: true })]);
+    // a companion is bonded to a character by name (source.partner); its player is whoever claimed
+    // that character, and they view and control it right below their own sheet.
+    const mineName = (m.character && m.character.Name) || m.name;
+    const companions = (State.state.party || []).filter((x) => x.source && x.source.kind === 'companion' && x.source.partner === mineName);
+    return el('div', { class: 'play-card wide' }, [menu, strip, Sys.liveSheet(m, { player: true })]
+      .concat(companions.map((cm) => el('div', { class: 'companion-wrap' }, [Sys.liveSheet(cm, { player: true })]))));
   }
 
   function render() {
