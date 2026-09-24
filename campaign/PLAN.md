@@ -22,7 +22,7 @@ once per clone).
 | M1 | The fork | **done 2026-09-24** — see below |
 | M2 | Homebrew characters & NPCs into `campaign/dsl/` (PCs as `Character`; companions, the bestiary, environments), from Foundry, gated + field-checked | **done 2026-09-24** — 106 statblocks (4 PCs, 5 companions, 13 NPCs, 80 adversaries, 4 environments), all layer-gated + field-checked with planted-failure tests |
 | M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | **done 2026-09-24** — roster pickers, sheet render, companion control all proven in the browser (below) |
-| M4 | Migrate the 167 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc; Age of Umbra highlighted section | **in progress** — approach below (incorporates the updated instance playbook) |
+| M4 | Migrate the 167 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc; Age of Umbra highlighted section | **done 2026-09-24** — all pieces below, each proven in the browser (0 console errors) |
 | M5 | Deploy (owner): Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | |
 
 ## M1 — the fork (branch `vtt-instance`, unpushed)
@@ -79,10 +79,15 @@ Reviewed the current playbook + Portents' proven M7 tooling before starting. **W
 
 **Section → tab model** (Caul is multi-page, unlike Portents' single pages): 8 tabs — Chronicle (27 sessions), Company (4 PCs), Dramatis Personae (50), Factions (9), Atlas (~10 + interactive map), Relics (32), Lore (3), Home. Each section concatenates its hub + entries into one doc with per-entry anchors.
 
-**Open design decisions (to surface executive-ready before scaling):**
-- **Dramatis Personae + the bestiary already exist as DSL records** (17 Characters, 80 adversaries). Does the DP tab render from the DSL layer (like Portents' `personae.js`, record-driven, with reveal state) or from the wiki prose profiles (richer narrative)? The two overlap.
-- **Which of the 14 `gm/` pages are the Behind-the-Veil `notes` document** (vs GM prep that belongs in the pack/Threads pane).
-- **Atlas interactivity** — is there an existing interactive map to preserve, or is the atlas prose-with-anchors?
+**Design decisions (owner, 2026-09-24):** DP tab renders from the **wiki prose profiles**; the `gm/` pages **split** — lore→veil, live tracking→panes. The atlas has an existing interactive map (preserved as its own tab).
+
+## M4 progress — done 2026-09-24 (each proven in the browser, 0 console errors)
+- **152 docs migrated** (`migrate_docs.py`, commit `a941020`) → `campaign/docs/<route>/<stem>.html`; text-identical to the old regions, every link rewritten to a tab route + resolving; `--plant` catches a bad text/link.
+- **`umbra.css` scoped** (`scope_css.py`, 157 rules under `.caul-doc`) + `caul-doc.css` fit file; **`site.js`** registers the 8 campaign tabs (`docTab` fetches a doc by path), campaign-first (`d774f31`).
+- **Behind-the-Veil** (`build_veil.py` → `docs/veil.html`, 10 lore pages) behind the Notes-pane spoiler gate (`config.notes`); **Age of Umbra** highlighted section on the home tab (`fc13c28`).
+- **Interactive atlas map** (`build_map.py` → `atlas-data.js`, 21 pins; `map.js` = `window.CaulMap`, pan/zoom/markers/legend/detail/gazetteer, scoped + self-cleaning) — `5ffaa99`.
+- **Seed** the S28 arc + 6 tracked threads (`build_seed.py` → `pack/seed.json`, `defaultCampaign.seed`) — factual recap, no invented plot — `830794c`.
+- **Old top-level pages retired** (166 `.html`, `0be3fb2`); portraits + the map image kept in place; old URLs 404 (decision 3). The migration scripts (`build_veil`/`build_map`/`build_seed`) read the now-retired sources, so they don't re-run — their outputs are committed and were gated at build; the sources live in git history.
 
 ## Decision log (autonomous calls this session)
 - **Companion modeling (owner, 2026-09-24):** the plan's "companions as `Adversary`" (decision 5) was written before the records were seen. Pinchie & the Umbral Raven are Foundry `companion`-type (the Ranger's-Companion sheet), not adversaries. Owner chose to **extend the corpus `Ranger Companion` ACTOR upstream** with optional played-instance fields (Pronouns, Partner, Evasion, Stress, Marked Stress, an Attack DEF, Experiences, Upgrades, Description) rather than force them into `Adversary`. "Player view+control" (decision 5) is an engine/ownership feature (M3), independent of the DSL type. Speaker ×2 are `character`-typed → the `Character` path.
