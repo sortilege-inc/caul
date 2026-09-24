@@ -37,6 +37,12 @@ Three commits, each proven:
 ## Foundry (source for M2)
 Relay `foundryrestapi.com`, world online; clientId supplied per session (a session secret, not stored here). Fresh snapshot pulled to `caul-support/archive/foundry-export/2026-09-24/` — 4 PCs + Pinchie + Umbral Raven + 2× Speaker. **No clashes:** the PCs are structurally identical to the 2026-09-12 export (all level 6, same classes/subclasses/cards). The 14 fae adversaries already sit in `campaign/adversaries/` as Foundry JSON.
 
+## M2 roster disposition (owner, 2026-09-24 — `campaign/source/foundry-roster.json`)
+All 150 Foundry actors categorized: **4 PCs, 5 companions, 10 character-NPCs, 4 environments, 12 named + 68 generic adversary statblocks** (20 numbered actors are instances that reuse a generic's statblock), **23 dropped**.
+- **Named vs generic adversaries:** a *named* adversary is a single unique instance; a *generic* may be duplicated at the table and renamed. Encoded per statblock in the layer; single-instance enforcement for named ones is a table rule (upstream if it needs engine support).
+- Splits resolved: "Lonely Spirit" is two actors (character → drop, adversary → generic); "Dwarf Captain (Copy)" and the duplicate "Chaos Realm" dropped; full-title actors matched by prefix ("Ash-begets-Tide, Priest of Ossa-in-Abstentia", "Inola Wending, Keeper of Splendor"); "The Kindly Light" is the actual world actor.
+- **Undecided (await owner):** `Mellan` (plain — the Revenant version is imported), `Tueri`, `Speaker` ×2 (Sylvie's construct — companion or NPC?).
+
 ## Decision log (autonomous calls this session)
 - Namespacing `channel`/`storagePrefix` set to `caul-vtt` (was the VTT's `sortilege-vtt-daggerheart`) — origin-scoped anyway, but keeps localhost previews of the base VTT and this instance from sharing storage. `dataGlobal` left `DAGGERHEART` (must match `data/*.js`).
 - Worker named `caul-vtt`; launch.json site port `8142`, worker `8796` (the VTT's).
