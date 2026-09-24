@@ -1,47 +1,1424 @@
 {
-  "kind": "sortilege-vtt-campaign",
-  "version": 1,
-  "campaign": {
-    "name": "Caul"
+ "kind": "sortilege-vtt-campaign",
+ "version": 1,
+ "campaign": {
+  "name": "Caul"
+ },
+ "arc": [
+  {
+   "id": "caul-s28-open",
+   "title": "Session 28 — The World Above",
+   "text": "The company stands in the World Above, beyond the moon-membrane, where Session 27 left them. The fight is unresolved — the leaping predator (the giant bush-baby), the great cat (unengaged), and the leech-larvae remain. Open leads recovered so far: Amber Reach (glimpsed as a living city) and the mountain waterfall. Talis burns below.",
+   "played": false
+  }
+ ],
+ "threads": [
+  {
+   "id": "caul-thread-1",
+   "title": "Primary Quest: Rekindle the Sacred Pyre",
+   "text": "Progress ☐ Return to Drosven's Gate ☐ Rekindle the Sacred Pyre Complications Sylvie 's transformation and new allegiance to Ygva Party is now involved in Ygva 's plan to bind the gods Sacred Tree destroyed by goblin explosion"
   },
-  "arc": [
-    {
-      "id": "caul-s28-open",
-      "title": "Session 28 — The World Above",
-      "text": "The company stands in the World Above, beyond the moon-membrane, where Session 27 left them. The fight is unresolved — the leaping predator (the giant bush-baby), the great cat (unengaged), and the leech-larvae remain. Open leads recovered so far: Amber Reach (glimpsed as a living city) and the mountain waterfall. Talis burns below.",
-      "played": false
-    }
-  ],
-  "threads": [
-    {
-      "id": "caul-thread-1",
-      "title": "Primary Quest: Rekindle the Sacred Pyre",
-      "text": "Progress ☐ Return to Drosven's Gate ☐ Rekindle the Sacred Pyre Complications Sylvie 's transformation and new allegiance to Ygva Party is now involved in Ygva 's plan to bind the gods Sacred Tree destroyed by goblin explosion"
-    },
-    {
-      "id": "caul-thread-2",
-      "title": "Ygva's Divine Binding",
-      "text": "What Ygva Needs Remnants and totems of the gods God-essences from various sources Sylvie 's assistance as a fellow Umbra witch Party's Role Sylvie accepted Ygva as \"sister\" and learned summoning Heyou negotiated for artifacts Party possesses Askavir heart with Splendor magic Trad"
-    },
-    {
-      "id": "caul-thread-3",
+  {
+   "id": "caul-thread-2",
+   "title": "Ygva's Divine Binding",
+   "text": "What Ygva Needs Remnants and totems of the gods God-essences from various sources Sylvie 's assistance as a fellow Umbra witch Party's Role Sylvie accepted Ygva as \"sister\" and learned summoning Heyou negotiated for artifacts Party possesses Askavir heart with Splendor magic Trad"
+  },
+  {
+   "id": "caul-thread-3",
+   "title": "The Heretic Marks",
+   "text": "Details Draz : Mark on inner bicep Jamal : Mark on right buttock Both conceal their marks Sylvie made Draz a sweater to help hide his"
+  },
+  {
+   "id": "caul-thread-4",
+   "title": "Heyou's True Nature",
+   "text": "Clues Gathered Sigil on chest indicates specific origins Kelun sensed connection to him Ygva could summon his detached leg Circlet among artifacts matches his sigil Absorbed Askavir heart portion, gained holy power Potential May be key to creating new beings Connected to stone co"
+  },
+  {
+   "id": "caul-thread-5",
+   "title": "Sylvie's Transformation",
+   "text": "Changes Heart removed by Ygva but survived Shifted from Splendor to Dread domain Gained Umbra witch powers Can communicate telepathically Healing magic replaced by essence siphoning Goals Understand her new nature Find her heart Return to her origins Navigate relationship with Yg"
+  },
+  {
+   "id": "caul-thread-6",
+   "title": "Dangling Hooks",
+   "text": "The Dimmers Operations Heyou 's criminal connections Borek 's role in Ulmira's Step Trade in Askavir eggs and other goods Refugees from Dolm's Break Arrived at Verrow's Span Tall katari with eye patch among them (suspected ulterior motives) Settlement crisis from Askavir attack ("
+  }
+ ],
+ "gm": {
+  "overview": [
+   {
+    "id": "veil-cosmology-the-shape-of-the-world",
+    "title": "The Shape of the World",
+    "text": "- **Cosmic revelation**: world served as \"egg\" for gods who have now hatched and departed\n- The Apostasy: Otheidas was a Promethean figure, trying to use the Splendor domain to grow civilization in the Halcyon Domain. But this was never a possibility; he did not know, or refused to acknowledge, that the Halcyon Domain was a mere embryo that the veiled gods were parasitic upon, and would inevitably abandon.\n- Ygva’s Plan\n- Is collecting blessed branches, and other Splendor-touched artifacts to attempt to lure back and trap the gods.\n\n**Splendor Domain:**\n\n- The gods' own magical domain, their essence\n- Largely absent from the world now because the gods departed\n- What little remains are \"vestigial effects\" - echoes, remnants, old practices\n- Sylvie accidentally learned to tap into these remnants when rebuilding her magic\n\n**Dread Domain:**\n\n- Associated with the Umbra\n- The magic that witches use (hence their stigmatization)\n- The \"dark\" counterpart to Splendor's divine light\n- THIS is what filled the void in Sylvie when Ygva took her Splendor\n\nThe Umbra crisis is happening *because* the gods took their Splendor with them when they left, creating a vacuum that Dread/Umbra rushed to fill,\n\n**The Moon Connection**: Linked to Kreth (dark god of predation, long night, deception). The Moon rune \"Jara\" is Ygva's rune.",
+    "sections": [
+     {
+      "id": "veil-cosmology-the-shape-of-the-world-key-cosmological-points",
+      "title": "Key Cosmological Points",
+      "text": "**1. Concentric Sphere Structure (Jules Verne style)**\n\n- The world is the interior of nested spheres\n- The \"sky\" and \"stars\" are the underside of the next concentric layer\n- Multiple eggs exist as different worlds\n- Higher dimensional spheres represent new developmental stages\n\n**2. Ontogeny Recapitulates Phylogeny**\n\n- What inhabitants perceive as \"history\" is actually embryonic development\n- Titans = skeletal framework (early development)\n- Gods = organs/systems forming from that substrate\n- Mortals/civilizations = late-stage cellular differentiation\n- The \"hatching\" = cosmic entities reaching maturity and breaking out\n- Current inhabitants are afterbirth—used-up developmental tissue\n\n**3. Splendor Magic's Origin (The Apostasy)**\n\n- Otheidas (god-king) was not part of the original clutch\n- He wrestled with a developing god (Jacob and the angel) and drew blood\n- That divine blood became the blessed branches\n- ALL Splendor magic derives from this cosmic theft\n- Otheidas tried to prevent birth/keep gods perpetually gestating\n- It was always doomed—birth happens whether you want it or not\n\n**4. The Moon**\n\n- A hole into the next earth/dimensional sphere\n- Not an object in the sky but a rupture between realities\n- Sylvie's Splendor magic is gone because that chunk of earth literally exists in another dimension now\n- She can't access it because it's in a different ontological plane\n\n**5. Societies as Proteins**\n\n- All civilizations, settlements, factions serve functional purposes like proteins in cellular development\n- Temporary structures performing tasks during gestation\n- Not conscious of their true purpose\n\n**6. The Umbra is Entropy**\n\n- Not evil or corruption\n- The Second Law of Thermodynamics\n- Inevitable disorder in a closed system after the organizational energy (gods) departed\n- The pyres burn stolen divine energy to locally decrease entropy\n- It's an unwinnable fight against physics itself\n\n**7. No Access to the Beyond**\n\n- No one can access or understand what \"adult\" stages, meaning, or procreation are for these cosmic entities\n- The nature of existence beyond the outermost shell remains unknowable\n\n**Distribution of Ancestries**\n\n- Location · Goblins · Halflings · Katari · Fauns · Humans · Orcs · Other · Dwarves · Simiah · Faeries · Clanks · Infernis · Elves · Galapa · Giants · Ribbets · Fungral · Total\n- Dolm's Break · 93 · 400 · 45 · 17 · 19 · 12 · 67 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 653\n- Grithmaar Deep · 256 · 0 · 103 · 0 · 0 · 0 · 11 · 180 · 0 · 0 · 124 · 44 · 28 · 0 · 0 · 0 · 0 · 746\n- Redmorrow · 178 · 0 · 0 · 0 · 1252 · 0 · 58 · 0 · 0 · 0 · 7 · 463 · 131 · 0 · 0 · 0 · 377 · 2466\n- Saint Thera's Remit · 1 · 1 · 0 · 0 · 6 · 0 · 1 · 16 · 0 · 0 · 0 · 1 · 0 · 0 · 0 · 0 · 0 · 26\n- Salthewn · 418 · 3 · 0 · 0 · 471 · 634 · 167 · 24 · 70 · 0 · 0 · 0 · 0 · 0 · 81 · 0 · 0 · 1868\n- Tern's Watch · 10 · 0 · 465 · 0 · 149 · 0 · 16 · 0 · 0 · 0 · 1 · 0 · 59 · 0 · 0 · 0 · 0 · 700\n- Kaelrock · 0 · 42 · 0 · 19 · 250 · 0 · 19 · 0 · 255 · 0 · 0 · 0 · 0 · 14 · 40 · 0 · 0 · 639\n- Thistleglass · 0 · 64 · 0 · 99 · 4 · 0 · 23 · 7 · 0 · 122 · 0 · 0 · 330 · 0 · 0 · 0 · 0 · 649\n- Mireveil · 0 · 0 · 162 · 0 · 0 · 0 · 31 · 0 · 49 · 0 · 273 · 0 · 0 · 565 · 177 · 340 · 0 · 1597\n- Verrow's Span · 0 · 0 · 4 · 0 · 3 · 0 · 2 · 0 · 12 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 1 · 22\n- Drosven's Gate · 0 · 0 · 0 · 15 · 1 · 508 · 36 · 24 · 46 · 23 · 0 · 0 · 0 · 0 · 0 · 0 · 0 · 653\n- Ulmira's Step · 0 · 0 · 0 · 0 · 190 · 0 · 12 · 188 · 0 · 0 · 6 · 0 · 0 · 0 · 230 · 17 · 15 · 658\n- Vireth Holow · 0 · 0 · 0 · 0 · 0 · 0 · 59 · 0 · 13 · 0 · 0 · 0 · 0 · 0 · 0 · 323 · 143 · 538"
+     }
+    ]
+   },
+   {
+    "id": "veil-cosmology-setting-secrets-gm-canon",
+    "title": "Setting Secrets — GM Canon",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-the-umbra-deeper-truths",
+      "title": "The Umbra - Deeper Truths",
+      "text": "The Umbra is not merely a realm of darkness—it is a source of power that connects to the old gods. Witches who draw from it gain abilities that mirror divine power but at significant cost. The corruption spreading from breaches like the one beside [Drosven's Gate](#atlas/drosvens-gate)'s plaza suggests the boundaries between worlds are weakening."
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-ygva-s-true-plan",
+      "title": "Ygva's True Plan",
+      "text": "[Ygva](#personae/ygva) seeks to gather remnants and totems of the gods to bind them in the [World Below](#atlas/world-below). She has recruited [Sylvie](#company/sylvie) as a \"sister\" in this endeavor, recognizing her Umbra abilities. Key elements:\n\n- Collecting god-essences from various sources\n- The [Askavir](#personae/askavir) heart contains potent Splendor magic\n- [Sylvie](#company/sylvie)'s heart may be among offerings for the gods\n- The binding would fundamentally change the world's divine order"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-the-old-gods-hidden-knowledge",
+      "title": "The Old Gods - Hidden Knowledge",
+      "text": "**Tlellic (God of Predation)**\n\n- The [Askavir](#personae/askavir) is his mount/avatar\n- The Moon Rune symbolizes false hope and paralysis of thought\n- Connected to the predatory cycle of the world\n\n**Mollthain (The Rampart)**\n\n- Left great creatures in [Grithmaar Deep](#atlas/grithmaar-deep)\n- One such creature destroyed [Jamal](#company/jamal)'s village\n- These creatures serve as guardians or weapons\n\n**Otheidas (The God-King)**\n\n- Relics protect against divine powers\n- [Draz](#company/draz)'s amulet is one such relic (ineffective against Umbra magic)\n- [Sylvie](#company/sylvie) possesses a circlet associated with him\n- Connected to the [Celsians](#factions/celsians) and their knowledge"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-the-world-below",
+      "title": "The World Below",
+      "text": "A barren expanse devoid of life beneath the surface world. Key features:\n\n- Abandoned settlements\n- Titans transporting massive rocks\n- Stronger lunar augmentation for Umbra magic\n- Potential prison for bound gods"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-kelun-and-the-stone-beings",
+      "title": "Kelun and the Stone Beings",
+      "text": "[Kelun](#personae/kelun) is a figure of divine authority connected to stone constructs:\n\n- Sensed a connection to [Heyou](#company/heyou)\n- Expressed disappointment over the destruction of the [Sacred Tree](#atlas/underground-complex)\n- May represent an aspect of the old divine order\n- The [Living Fortress](#relics/living-fortress) and Stonewraiths are related entities"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-the-heretic-marks",
       "title": "The Heretic Marks",
-      "text": "Details Draz : Mark on inner bicep Jamal : Mark on right buttock Both conceal their marks Sylvie made Draz a sweater to help hide his"
-    },
-    {
-      "id": "caul-thread-4",
-      "title": "Heyou's True Nature",
-      "text": "Clues Gathered Sigil on chest indicates specific origins Kelun sensed connection to him Ygva could summon his detached leg Circlet among artifacts matches his sigil Absorbed Askavir heart portion, gained holy power Potential May be key to creating new beings Connected to stone co"
-    },
-    {
-      "id": "caul-thread-5",
-      "title": "Sylvie's Transformation",
-      "text": "Changes Heart removed by Ygva but survived Shifted from Splendor to Dread domain Gained Umbra witch powers Can communicate telepathically Healing magic replaced by essence siphoning Goals Understand her new nature Find her heart Return to her origins Navigate relationship with Yg"
-    },
-    {
-      "id": "caul-thread-6",
-      "title": "Dangling Hooks",
-      "text": "The Dimmers Operations Heyou 's criminal connections Borek 's role in Ulmira's Step Trade in Askavir eggs and other goods Refugees from Dolm's Break Arrived at Verrow's Span Tall katari with eye patch among them (suspected ulterior motives) Settlement crisis from Askavir attack ("
-    }
+      "text": "Both [Draz](#company/draz) and [Jamal](#company/jamal) bear heretic marks:\n\n- [Draz](#company/draz): Inner bicep, concealed carefully\n- [Jamal](#company/jamal): Right buttock\n\nThe marks identify them as heretics to something—likely religious or social order. The nature of their heresy and who hunts them remains to be explored."
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-heyou-s-origins",
+      "title": "Heyou's Origins",
+      "text": "[Heyou](#company/heyou) is more than a simple clank:\n\n- A sigil on his chest indicates specific origins\n- [Kelun](#personae/kelun) sensed a connection to him\n- [Ygva](#personae/ygva) recognized him and could summon his detached leg\n- A circlet matching his sigil exists among artifacts\n- May be connected to the creation of new beings"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-the-sacred-pyres-mechanics",
+      "title": "The Sacred Pyres - Mechanics",
+      "text": "The pyres are more than magical fires:\n\n- They anchor the barrier against Umbra\n- Require [Blessed Branch](#relics/blessed-branch) from sacred trees to rekindle\n- Connected to the divine order (trees guarded by beasts)\n- Their extinguishing may be coordinated (the emergence at Drosven's Gate)"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-faction-secrets",
+      "title": "Faction Secrets",
+      "text": "**The Dimmers**\n\n- Criminal network with extensive reach\n- [Heyou](#company/heyou) is a member\n- [Borek](#personae/borek) operates in [Ulmira's Step](#atlas/ulmiras-step)\n- Trade in valuable goods including [Askavir](#personae/askavir) eggs\n\n**Goblin Engineers**\n\n- Highly organized, not savage raiders\n- Build fortifications and use explosives\n- Corrupted by Umbra influence\n- Defend territory in the caverns\n\n**The Celsians / Celsian Athenaeum**\n\n- Scholarly institution with arcane knowledge\n- [Tamber](#personae/tamber) is a former initiate\n- Knowledge of [Otheidas](#personae/god-king-otheidas) and protective relics\n- May have information about the gods' binding"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-historical-timeline",
+      "title": "Historical Timeline",
+      "text": "**The Age of Titans**\n\n- Predates known history\n- Features throughout the Halcyon Domain demonstrate that titans must once have been present\n- The titan skeleton near [Ulmira's Step](#atlas/ulmiras-step) has been dead since at least the Apostasy\n- Titans observed transporting massive rocks in the [World Below](#atlas/world-below)\n\n**The Apostasy (~100 Years Ago)**\n\n- The gods left the world\n- The region was formerly known as the Halcyon Domain; no one now refers to it as such\n- Around the same time, settlements began crafting sacred pyres, lit by [Blessed Branch](#relics/blessed-branch)es\n- Umbral shadow has threatened all areas not graced by sacred pyres ever since\n- Horrifying monsters lurk in the dark beyond pyre-light\n- Death now risks blighting the soul, sometimes causing the recently deceased to threaten their former communities\n\n**Recent Events**\n\n- Something caused the pyre in [Drosven's Gate](#atlas/drosvens-gate) to spontaneously go out\n- The cause is unknown, as is whether there is precedent"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-magic-systems",
+      "title": "Magic Systems",
+      "text": "**Aetherweave (Wizards)**\n\n- Source their magic from the vestiges of the Veiled Gods\n- Some communities distrust this tradition\n\n**Umbral Magic (Witches)**\n\n- Used by witches who draw power from the Umbra\n- Some communities distrust this tradition\n- [Ygva](#personae/ygva) describes the gods as monsters and seeks to bind them\n\n**Blessed Branches**\n\n- At least one tree source exists\n- The cause of their magic is unknown\n- Their power in keeping the Umbra at bay is undisputed\n- Required for starting sacred pyres\n\n**Stone Constructs**\n\n- Once served as mouthpieces of the gods\n- [Kelun](#personae/kelun) is the primary known example\n\n**Sylvie's Stoneweaver Origins**\n\n- Originally a Stoneweaver sorcerer from the Stoneheart Peaks\n- Stoneweaver order was hereditary, focused on earth energies, harmony, attunement, containment\n- Five weavers were active, responsible for the Confluence Ritual:\n- **Kaelen** hoped to seize control over the Earth-Heart; **Rhys** supported him\n- **[Sylvie](#company/sylvie)** had begun to recognize a power within herself connected to \"Sister Moon\"\n- A cataclysmic magical confrontation caused the Sundering of the Stoneheart, destroying the mountain settlement and blasting the peak (and presumably the Earth-Heart) into the sky to join the moon\n- Kaelen and Rhys are presumed dead or on the moon\n- The other two weavers are presumed dead, lost to the cataclysm\n- Sylvie's magic ceased to operate, but she could travel safely in moonlight\n- She slowly relearned magic traveling between settlements; some lore related to practices of the old Veiled Gods (Splendor domain) oddly seemed to work, even without divine connection\n- Community was built around an ancient magical nexus\n- \"Sister Moon\": She does not understand what this connection has to do with her, but has her theories"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-geography-overview",
+      "title": "Geography Overview",
+      "text": "- Sacred pyres keep settlements safe from darkness; they're failing\n- [Blessed Branch](#relics/blessed-branch)es required to rekindle/maintain pyres\n- Settlements are scattered and operate semi-independently\n- There is/was a vast region called [Amber Reach](#atlas/amber-reach) on the western side of the mountains"
+     },
+     {
+      "id": "veil-cosmology-setting-secrets-gm-canon-plot-hooks-for-future-development",
+      "title": "Plot Hooks for Future Development",
+      "text": "1. **What destroyed Jamal's village?** - A creature of [Mollthain](#personae/mollthain) in [Grithmaar Deep](#atlas/grithmaar-deep)\n\n2. **Ygva's endgame** - Will the gods actually be bound? What happens then?\n\n3. **Sylvie's heart** - Where is it? What happens if she gets it back?\n\n4. **The Heretic hunters** - Who seeks those with the marks?\n\n5. **Heyou's true nature** - What was he created for?\n\n6. **The coordinated pyre attacks** - Is someone orchestrating them?\n\n7. **The Sundering of the Stoneheart** - Are Kaelen and Rhys alive on the moon? What is the Earth-Heart?\n\n8. **Sister Moon** - What is Sylvie's connection to the moon?"
+     }
+    ]
+   },
+   {
+    "id": "veil-faeries-thistleglass",
+    "title": "The Faeries of Thistleglass",
+    "text": "*Campaign setting reference — GM canon, not player-facing. The wood [Draz](#company/draz) hails from, and the covenant of the Eyes of [Kreth](#personae/kreth).*",
+    "sections": [
+     {
+      "id": "veil-faeries-thistleglass-faeries-in-the-age-of-umbra",
+      "title": "Faeries in the Age of Umbra",
+      "text": "Faeries are more sensitive to the soul blight than other ancestries, causing their physical appearance to develop in jagged and monstrous ways. Where other peoples endure the Umbra through grit and Sacred Pyres, the faeries of [Thistleglass](#atlas/thistleglass) took a different path entirely."
+     },
+     {
+      "id": "veil-faeries-thistleglass-thistleglass",
+      "title": "Thistleglass",
+      "text": "[Thistleglass](#atlas/thistleglass) is a strange and magical forest in the southern coastal region of the Halcyon Domain, home to faeries, elves, and fauns. Few go in or leave. It is connected by road to [Redmorrow](#atlas/redmorrow) (a ruthless smuggler's haven built from grounded shipwrecks) and [Salthewn](#atlas/salthewn) (a coastal village that maintains black-pitch fires on buoys to ward off sea evils).\n\nThistleglass is tagged as **Forest / Mystical** — the only settlement with the Mystical designation."
+     },
+     {
+      "id": "veil-faeries-thistleglass-the-faeries-response-to-the-umbra",
+      "title": "The Faeries' Response to the Umbra",
+      "text": "The faeries of [Thistleglass](#atlas/thistleglass) were always strange and peculiar, but when the Umbra descended on the world, they did not resist it. They matched it. Every cruel thing ever imagined about the fae — the stolen children, the impossible bargains, the glamours that hide rot, the revelry that traps you for a hundred years — became literal truth. They didn't become mindless revenants. They chose this, or adapted to it with terrifying deliberateness.\n\nThey don't huddle behind Sacred Pyres. They don't endure. They simply decided the world is beautiful, and for them, it is."
+     },
+     {
+      "id": "veil-faeries-thistleglass-the-eyes-of-kreth",
+      "title": "The Eyes of Kreth",
+      "text": "**Kreth, the Veiled God**\n\n[Kreth](#personae/kreth) is one of the dark gods of the pantheon, whose domains are **deception and the moon**. ([Tlellic](#personae/tlellic), the other dark god, governs predation and the long night.) Like all the Veiled Gods, Kreth abandoned the Halcyon Domain during the Apostasy. But Kreth left something behind.\n\n**The Divine Remnant**\n\nWhat [Kreth](#personae/kreth) left behind are **eyeballs** — divine organs of perception from the god of deception. Some of the faeries of [Thistleglass](#atlas/thistleglass) wear these eyes in place of their own. To receive the Eyes of Kreth, a faerie must gouge out their own mortal sight and fill the empty sockets with something divine and deceitful. It is a covenant written in flesh — a permanent choice to stop seeing the world as it truly is.\n\nThe eyes appear as pale, luminous orbs — little moons staring out from jagged, blight-twisted faerie faces. In the eternal gloom of the Age of Umbra, encountering a figure in the Thistleglass dark with two soft, cold lights where eyes should be is deeply unsettling. Not the warm glow of a Sacred Pyre. Something older and wrong.\n\n**What the Eyes Do**\n\nTo see through [Kreth](#personae/kreth)'s eyes is to see the world as it can be *made to appear* rather than as it is. The faeries who wear them don't just gain power — they gain Kreth's perspective, his fundamental relationship with truth. Everything becomes malleable, negotiable, a surface to be rewritten.\n\n**The illusions they create are real — for them.** When an eye-bearer reshapes the world, it *is* reshaped for them and for anyone caught inside it. The glamour doesn't just fool senses; it rewrites reality for those within it. If a faerie decides the path leads to a warm hearth and a feast, then you walk, and you eat, and you feel full. And maybe you are sitting in a bog slowly drowning. Maybe you're eating handfuls of mud and thorns. But within the illusion, it's real. The pain doesn't come through. The warmth is genuine. You are dying comfortably and gratefully.\n\nThere is no \"seeing through\" the glamour in any conventional sense. You can't disbelieve it. Dispelling it doesn't reveal the truth underneath — it destroys the reality you're currently experiencing and drops you into whatever is actually happening to your body, mid-consequence. Breaking free of a Thistleglass glamour might be worse than staying in one.\n\n**The Hierarchy of the Eyes**\n\nThe Eyes of [Kreth](#personae/kreth) are divine remnants — limited in number, not something that can be manufactured. This creates a natural hierarchy within [Thistleglass](#atlas/thistleglass):\n\n- **Eye-bearers** form an elite caste: a priesthood, a ruling court, or both. They are the ones who shape the glamours, enforce the bargains, and maintain whatever twisted order the forest runs on.\n- **The rest of the fae** — those without the eyes — follow, serve, or fear the eye-bearers. Some may know exactly what is real and stay anyway.\n\n**Thematic Parallels**\n\nThe Eyes of [Kreth](#personae/kreth) mirror other divine remnants left behind in the Halcyon Domain:\n\n- **[Blessed Branches](#relics/blessed-branch)** carry splinters of [Caranthalis](#personae/caranthalis)'s divinity and can ignite Sacred Pyres\n- **The [Askavir](#personae/askavir)** may be [Tlellic](#personae/tlellic)'s mount, pet, familiar, or avatar\n- **The Eyes of Kreth** are a fragment of divine will tied to deception and the moon\n\nEach represents a different god's lingering influence — and a different relationship between mortals and the absent divine."
+     },
+     {
+      "id": "veil-faeries-thistleglass-the-moral-problem",
+      "title": "The Moral Problem",
+      "text": "The question the party will eventually face isn't just \"how do we fight this.\" It's whether the faeries are even suffering. Whether breaking the glamour is rescue or cruelty. The faeries have built a paradise out of a god's refusal to accept what's true. Some of them may prefer the lie. Some of them may not even know it *is* a lie."
+     },
+     {
+      "id": "veil-faeries-thistleglass-faerie-names",
+      "title": "Faerie Names",
+      "text": "Faeries of [Thistleglass](#atlas/thistleglass) carry names that sound lovely until you sit with them — poetic, evocative, carrying a sense of something beautiful turned sharp or melancholy.\n\n**Examples:**\n\n- Winter's Fallen Leaf\n- Thorn Beneath the Smile\n- Evening's Last Whisper\n- Hollow Where the Song Was\n- Moth Against the Lantern\n- Promise Left to Rot\n- Dew on a Dead Branch\n- Shadow Worn as Silk\n- Silence After the Scream\n- Lullaby for the Lost\n- Needle in the Cradle\n- Bloom That Drinks the Dark\n- Sweetness on the Blade\n- Web Across the Threshold\n- Kindness Without Eyes"
+     },
+     {
+      "id": "veil-faeries-thistleglass-connections-to-the-party",
+      "title": "Connections to the Party",
+      "text": "- **[Draz](#company/draz)** is from the southern coastal region near [Thistleglass](#atlas/thistleglass) — this is his home territory, where he knows people and places.\n- **[Sylvie](#company/sylvie)** identified Thistleglass early on as a potential source of [Blessed Branches](#relics/blessed-branch) (the alternative to [Ulmira's Step](#atlas/ulmiras-step)).\n- **[Redmorrow](#atlas/redmorrow)**, the smuggler's haven, connects directly to Thistleglass and may serve as a gateway or buffer between the fae forest and the wider world.\n- The party has been heading southwest toward this region after leaving Witch's Peak."
+     }
+    ]
+   },
+   {
+    "id": "veil-vignette",
+    "title": "Vignette — The Whispering Deck",
+    "text": "A little vignette for the Tarot, pre- Thursday:\n\nReaching into her worn leather pouch, Sylvie drew out her Whispering Deck. The cards hummed faintly in her palm. Perhaps, tonight, at last, they would be a mirror to the truths she sought. She shuffled, the dry rustle of the cards a familiar comfort, and laid out three for herself: Past, Present, Future.\n\nThe first card, turned for her Past, was the Tower. Sylvie’s lips thinned, a faint line of bitter frustration etched around them. Again. Always the Tower.\n\nIts image was seared into her memory: a jagged tower struck by lightning, figures tumbling from its heights amidst chaos and ruin. To Sylvie, this card was the indelible mark of the Sundering. It wasn't just a symbol of destruction; it was the echo of her own hand in that destruction. It was the cataclysmic confrontation, the raw power that was unleashed, the moment she lost her connection to the Earth-Heart, the severance that still felt like a missing limb. The Tower was the smoking crater where her home once stood, the shattered fragments of her community, and the obliteration of her former self. It confirmed the profound, inescapable guilt that sat like a stone in her gut – a testament to her failure, her fear that her own power- what broken pieces remained of it- was inherently destructive, a burden that leveled all it touched. It was a constant finger in the wound of what she had lost, and what she had caused. As if she needed reminding.\n\nNext, for her Present, she turned The Hermit. A sigh, barely audible, escaped her. Also predictable.\n\nThe Hermit depicted a cloaked figure, alone on a desolate peak, holding a lantern aloft. Her life since the Sundering. It spoke of solitude, introspection, and a deliberate withdrawal from the world. It was her chosen path of wandering, her avoidance of connection, and her relentless pursuit of forgotten lore. The Hermit's lantern represented her internal search for answers, her constant vigilance, and her self-imposed isolation. The card also spoke, albeit more quietly, to the profound grief she carried, the weight of a shattered past that dogged her steps, no matter how far she went. She was the seeker, but also the outcast, forever walking a solitary path. Her safest place was alone. Again - as if she needed reminding.\n\nFinally, for her Future, the card was The Moon. Sylvie stared at it, her frustration deepening. It had been this way since the Sundering – a ceaseless cycle of these three cards, over and over.\n\nThe Moon card showed a winding path between two towers, leading towards the horizon where a full moon hung, shedding an eerie, uncertain light. Certainly, the Moon spoke directly to her new magic, but also, and more disturbingly, to mystery, intuition, and the unknown. Its light was deceptive, not illuminating truths directly, but revealing them through shadow and symbol. For her future, it meant a continued journey through uncertainty, endlessly navigating hidden dangers and illusions. Would her future forever be shrouded in uncertainty and isolation, never truly finding solid ground or clear light?\n\n\"Still the same,\" she murmured to the sleeping forest, the words barely a whisper. Years. Years of these same three cards, confirming her past catastrophe, her solitary present, and her mysterious, unsettling future. It was a truth, yes, but a frustratingly unchanging one - and one that only promised more danger, more ambiguity. Chaos, solitude, and endless mystery. Her future was all moonlit illusion. What she wouldn’t give to have a future defined by something other than solitude and uncertainty - and then she shut down that line of thought firmly. That, she decided, was enough self-pity for one evening, and put away the cards."
+   },
+   {
+    "id": "veil-design-notes",
+    "title": "Author's Notes — Age of Umbra",
+    "text": "*A spoken worldbuilding monologue by the GM, recorded 2025-10-17 (transcribed and lightly cleaned). These are author's-intent **lore revisions** made while developing the Age of Umbra campaign frame toward a Daggerheart campaign book in the style of the Root clearing books. GM canon — not player-facing.*",
+    "sections": [
+     {
+      "id": "veil-design-notes-the-world-as-chrysalis",
+      "title": "The world as chrysalis",
+      "text": "- The biggest revision concerns **[Otheidas](#personae/god-king-otheidas)**, the god-king: he was a **Promethean** figure. He tried to seize the power of the gods and build something lasting *here* — either not realizing, or refusing to accept, that the gods were always going to leave.\n- The world is a **chrysalis** — a husk, embryological development. The **Titans** were the original stock: they built the preconditions, and out of the Titans came both the **gods** *and* the **ancestries** (shaped to help the gods develop). The world is a clutch of eggs.\n- Now the gods have hatched and gone, taking most of the **Splendor** magic with them. What remains is **vestigial and dying**. The **[blessed branches](#relics/blessed-branch) are vestiges of [Caranthalis](#personae/caranthalis)**; other Splendor artifacts are tied to the other departed gods.\n- The gods have withdrawn to a **higher sphere** — a **concentric-worlds** cosmology, very eldritch-abomination in flavor. The **Titans are now inert and buried**. The **Umbra bleeds through everything**; the sacred pyres, lit by Caranthalis's blessed branches, hold the Umbra at bay — an oil-and-water stalemate."
+     },
+     {
+      "id": "veil-design-notes-the-players",
+      "title": "The players",
+      "text": "- **[Dimmers](#factions/dimmers)** — the criminal syndicate. Smaller players: they strip copper wire from the ruins of civilization. Nihilistic — *let's make a buck on the way out.*\n- **[The Celsian Athenaeum](#atlas/celsian-athenaeum) and the Celsian itinerants** — wandering academic tutors who preserve knowledge and spread it between communities.\n- **Witches** — wield **Umbra** magic. Some still cling to the old god-influenced **Splendor** traditions, but after a godless century those have become wonky hybrids; witches have largely gone all-in on the Umbra, making them a relatively new force. The most significant, for the party's purposes, is **[Ygva](#personae/ygva)**, the witch of **[Ulmira's Step](#atlas/ulmiras-step)**, high in the mountains.\n- In those mountains the party brushes against vestiges of the veiled god **[Ulmira](#personae/ulmira)**, and against **[Tlellic](#personae/tlellic)'s** old familiar, the **[Askavir](#personae/askavir)** — a massive, Roc-like eagle-beast.\n- The simiah largely rejected the sacred pyres and remained in the forests, not delving too far into things — except for one simiah community high in the mountains (**[Verrow's Span](#atlas/verrows-span)**)."
+     },
+     {
+      "id": "veil-design-notes-why-the-gods-left",
+      "title": "Why the gods left",
+      "text": "- **The gods do not know why they left** — no more than a bird knows why it flies south before winter. It was a natural impulse, an inevitability, not a decision.\n- To the extent that a god is sentient, it has built a **post-hoc rationalization** — a story that recasts the inevitable as a choice, so that leaving becomes something it *meant* to do.\n- Whether a returning god would be resentful **varies by god**, and turns on the rationalization it settled into — but underneath every rationalization is the same blank fact: none of them chose, and none of them know.\n\n*(GM: what rationalization did each god arrive at, and are those stories shared among the gods or divided up between them? This is the deeper question behind [Sylvie](#company/sylvie)'s \"would the gods resent being called back\" — and behind her own reach toward godhood.)*"
+     }
+    ]
+   }
+  ],
+  "places": [
+   {
+    "id": "veil-canon-places-amber-reach",
+    "title": "Amber Reach",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-amber-reach-description",
+      "title": "Description",
+      "text": "A large city on the western side of the mountains. Its current status is uncertain -- it is unclear whether it still stands or has fallen to the Umbra."
+     },
+     {
+      "id": "veil-canon-places-amber-reach-history",
+      "title": "History",
+      "text": "Amber Reach was a significant population center during the era of the Halcyon Domain. Its size and location suggest it was a major hub of trade and governance before the Apostasy."
+     },
+     {
+      "id": "veil-canon-places-amber-reach-gm-notes",
+      "title": "GM Notes",
+      "text": "Amber Reach represents a potential westward expansion of the campaign. Its fate -- thriving, struggling, or fallen -- is yet to be determined and can be shaped to suit upcoming plot needs."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-drosven-s-gate",
+    "title": "Drosven's Gate",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-drosven-s-gate-description",
+      "title": "Description",
+      "text": "A settlement whose Sacred Pyre was extinguished when dark creatures emerged from the cracked ground beside the plaza. The party's starting point and the catalyst for their quest."
+     },
+     {
+      "id": "veil-canon-places-drosven-s-gate-current-status",
+      "title": "Current Status",
+      "text": "The pyre went dark spontaneously. The cause is unknown, as is whether there is precedent for a pyre failing in this way. The settlement is currently in crisis, exposed to the Umbra and the monsters it brings."
+     },
+     {
+      "id": "veil-canon-places-drosven-s-gate-connections",
+      "title": "Connections",
+      "text": "- Road to [Ulmira's Step](#atlas/ulmiras-step)"
+     },
+     {
+      "id": "veil-canon-places-drosven-s-gate-gm-notes",
+      "title": "GM Notes",
+      "text": "The extinguishing of Drosven's Gate's pyre is the inciting event of the campaign. Whether this was natural degradation, sabotage, or something more cosmological remains a core mystery."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-grithmaar-deep",
+    "title": "Grithmaar Deep",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-grithmaar-deep-description",
+      "title": "Description",
+      "text": "A vast subterranean expanse beneath the mountains, associated with dwarves. Features expansive caverns, deep tunnels, intricate stone formations, and a dark, foreboding environment."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-climate",
+      "title": "Climate",
+      "text": "Cool and damp due to underground nature."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-significance",
+      "title": "Significance",
+      "text": "- Believed to house a great creature left by [Mollthain](#personae/mollthain), The Rampart\n- Rich in resources but fraught with dangers\n- Connected to sacred [Blessed Branch](#relics/blessed-branch)es and the [Old Gods](#factions/old-gods)\n- Site of [Jamal](#company/jamal)'s past trauma (his village was destroyed by something here)"
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-access",
+      "title": "Access",
+      "text": "- Staircase begins at old temple near [Tern's Watch](#atlas/terns-watch)\n- Moon Rune Carving provides view into [World Below](#atlas/world-below)"
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-creatures",
+      "title": "Creatures",
+      "text": "- Large flying mantis-like creatures with phasing quality\n- The great creature of [Mollthain](#personae/mollthain) (unseen but referenced)"
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-history",
+      "title": "History",
+      "text": "[Jamal](#company/jamal)'s crew encountered a massive creature here, prompting them to dig in different directions due to fear. This creature is connected to the destruction of his home village."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-unique-properties",
+      "title": "Unique Properties",
+      "text": "Grithmaar Deep does not need a sacred pyre; the Umbra somehow doesn't reach it. The reason for this immunity is unknown."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-jamal-s-community",
+      "title": "Jamal's Community",
+      "text": "[Jamal](#company/jamal)'s people were mining downward until they pierced through a shell-like boundary and glimpsed a massive monster deep in the earth, sleeping. They now only mine horizontally and refuse to go any deeper."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-current-status",
+      "title": "Current Status",
+      "text": "Party confirmed intent to seek the great creature left by [Mollthain](#personae/mollthain). [Ygva](#personae/ygva) identified it as a viable target for acquiring god-touched artifacts."
+     },
+     {
+      "id": "veil-canon-places-grithmaar-deep-gm-notes",
+      "title": "GM Notes",
+      "text": "Grithmaar Deep represents both [Jamal](#company/jamal)'s past trauma and a potential source of powerful artifacts. The creature of [Mollthain](#personae/mollthain) is a major plot element waiting to be confronted.\n\nThe phasing mantis creatures' wings can potentially be crafted into gliders—an option the party discussed but has not yet pursued."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate",
+    "title": "Sacred Pyre of Drosven's Gate",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-description",
+      "title": "Description",
+      "text": "A central feature in the plaza of [Drosven's Gate](#atlas/drosvens-gate), known for its solemn atmosphere. When lit, provides light and safety; when extinguished, plunges the plaza into darkness."
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-significance",
+      "title": "Significance",
+      "text": "The magical flame is integral to the town's rituals and protective measures. Keeps the town safe from Umbra creatures and miasma."
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-current-status-extinguished",
+      "title": "Current Status: EXTINGUISHED",
+      "text": "The pyre went out unexpectedly, triggering the campaign's inciting incident."
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-rekindling-requirements",
+      "title": "Rekindling Requirements",
+      "text": "- Ordinary fire will NOT restore its magic\n- Requires a [Blessed Branch](#relics/blessed-branch)\n- Party currently possesses one (hidden by [Heyou](#company/heyou) in [Living Fortress](#relics/living-fortress))"
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-the-extinction-event",
+      "title": "The Extinction Event",
+      "text": "When the pyre went out:\n\n1. Plaza plunged into darkness\n\n2. Massive chitinous creature burst from the cracked ground beside the plaza\n\n3. Gelatinous creatures emerged\n\n4. Party used smoldering embers for tactical advantage\n\n5. [Draz](#company/draz) warned creatures regenerate without burning remains"
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-aftermath",
+      "title": "Aftermath",
+      "text": "- Plaza remains dark\n- Remnants of conflict litter the area\n- Town is vulnerable to Umbra incursion"
+     },
+     {
+      "id": "veil-canon-places-sacred-pyre-of-drosven-s-gate-gm-notes",
+      "title": "GM Notes",
+      "text": "Rekindling this pyre is the party's primary quest objective. They now possess the [Blessed Branch](#relics/blessed-branch) needed but must return to [Drosven's Gate](#atlas/drosvens-gate) to complete the mission.\n\nThe extinction may not have been random—the emergence from the broken ground beside the plaza suggests coordinated action or weakening of protective barriers."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-salthewn",
+    "title": "Salthewn",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-salthewn-description",
+      "title": "Description",
+      "text": "A coastal port town known for rugged terrain, tall spires, and distinctive architecture designed to endure coastal storms. Grand structures rise above the landscape, showcasing ingenuity and resilience."
+     },
+     {
+      "id": "veil-canon-places-salthewn-significance",
+      "title": "Significance",
+      "text": "- [Heyou](#company/heyou)'s hometown\n- Known for syndicate activities\n- Unique flammable substance used for metalworking"
+     },
+     {
+      "id": "veil-canon-places-salthewn-notable-npcs",
+      "title": "Notable NPCs",
+      "text": "- [Ugg](#personae/ugg) and [Grug](#personae/grug) - Giant twin enforcers (four eyes, card-playing brutes)\n- Various syndicate operators"
+     },
+     {
+      "id": "veil-canon-places-salthewn-features",
+      "title": "Features",
+      "text": "- Forge-fires using ooze secretions as fuel\n- Caverns with self-resetting traps\n- Kerosene-like odor in tunnels indicates flammable oily slick"
+     },
+     {
+      "id": "veil-canon-places-salthewn-underground",
+      "title": "Underground",
+      "text": "The caverns beneath Salthewn are:\n\n- Dark and treacherous\n- Riddled with self-resetting traps\n- Source of flammable substance vital for metalworking\n- Home to [Flammable Ooze](#relics/flammable-ooze) creatures"
+     },
+     {
+      "id": "veil-canon-places-salthewn-connections",
+      "title": "Connections",
+      "text": "- Visible from surrounding mountains\n- Connected to [World Below](#atlas/world-below) through Moon Rune Carving (discovered connection)"
+     },
+     {
+      "id": "veil-canon-places-salthewn-gm-notes",
+      "title": "GM Notes",
+      "text": "[Heyou](#company/heyou)'s past in Salthewn connects him to the [Dimmers](#factions/dimmers) network. His knowledge of the flammable ooze (used in forge-fires) proved crucial during cavern battles.\n\nThe city's criminal underworld and [Heyou](#company/heyou)'s history there may provide plot hooks or complications as the campaign progresses."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-thistleglass",
+    "title": "Thistleglass",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-thistleglass-description",
+      "title": "Description",
+      "text": "A western settlement. Little is currently known about it."
+     },
+     {
+      "id": "veil-canon-places-thistleglass-gm-notes",
+      "title": "GM Notes",
+      "text": "Mentioned in passing. Details to be developed as the campaign progresses westward."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-ulmira-s-step",
+    "title": "Ulmira's Step",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-ulmira-s-step-description",
+      "title": "Description",
+      "text": "A remote Ridgeborne settlement perched high in the mountains of the Halcyon Domain. Said to be the first step of a forgotten pilgrimage once walked in honor of the departed god [Ulmira](#personae/ulmira). The lower portions of massive carved stone steps are still visible; upper steps are lost beneath avalanche rubble.\n\nA Sacred Pyre burns high in an exposed basalt cistern at the town's center, maintained as a beacon of safety and community. The pyre is still burning."
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-the-kurael",
+      "title": "The Kurael",
+      "text": "The people of Ulmira's Step call themselves **Kurael**, meaning \"those who endure upon the mountains.\"\n\n**Language**\n\n- **Lammat** is the primary dialect, shaped by the wind and stone of their mountain homes. Lammat lacks the consonants \"p\" and \"b\" entirely.\n- **Kurethik** is an older ritual language still preserved and used in ceremonies. It predates the Apostasy.\n\n**Ancestry Terms**\n\n- **Shargan**: The Kurael name for themselves and other mountain-born Giants. Adults typically range from 5 to 10 feet tall, most often 7-9 feet.\n- **Lenvar**: Humans; means \"tide-chasers,\" referencing their fleeting, migratory nature.\n- **Drakenn**: Dwarves; means \"fire-sleepers,\" referencing their subterranean life and connection to heat and stone."
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-the-askavir",
+      "title": "The Askavir",
+      "text": "A massive raptor-like being, seen in silhouette against the clouds or moon. Appears rarely -- at most once per month. Its name comes from the Lammat dialect. Rumored to have been the familiar of the Veiled God [Tlellic](#personae/tlellic). Its presence inspires awe and fear but it rarely attacks the Step directly.\n\nSee also: [Askavir](#personae/askavir)"
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-the-titan-skeleton",
+      "title": "The Titan Skeleton",
+      "text": "At the mountain's base, just outside of Ulmira's Step near the road to [Drosven's Gate](#atlas/drosvens-gate), lies the remains of a massive titan clad in ancient metal armor. The skeleton is semi-buried, with teeth the size of a grown human and bones large enough to walk through. It has been dead since at least the Apostasy; rumors abound."
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-notable-npcs",
+      "title": "Notable NPCs",
+      "text": "- [Borek](#personae/borek) - [Dimmers](#factions/dimmers) leader of local operations\n- [Sarru](#personae/sarru) - Pyre-keeper"
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-connections",
+      "title": "Connections",
+      "text": "- Road to [Drosven's Gate](#atlas/drosvens-gate)\n- Part of the broader mountain settlements of the Halcyon Domain"
+     },
+     {
+      "id": "veil-canon-places-ulmira-s-step-gm-notes",
+      "title": "GM Notes",
+      "text": "Ulmira's Step is the party's primary safe haven. The cultural details of the Kurael -- their languages, ancestry terms, and traditions -- provide rich material for roleplay encounters. The titan skeleton near the road is a landmark that hints at the Age of Titans and could hold secrets of its own."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-verrow-s-span",
+    "title": "Verrow's Span",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-verrow-s-span-description",
+      "title": "Description",
+      "text": "A cliff-hugging village nestled in a mountainous region, characterized by unique architecture of dwellings carved from rock formations. Interconnected by rope bridges and ladders facilitating movement through steep, rugged terrain."
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-population",
+      "title": "Population",
+      "text": "- Predominantly simiah (~30 original residents)\n- A few human and Katari families\n- Recently increased by refugees from [Dolm's Break](#atlas/dolms-break) (goblins, halflings, Katari)"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-notable-features",
+      "title": "Notable Features",
+      "text": "- Open areas for socializing and dining\n- Sacred pyre at center for cultural rituals\n- Makeshift morgue for sky burials\n- Pool formed by rock formations (giant's open mouth shape)\n- [Salthewn](#atlas/salthewn) architecture visible from vantage points"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-climate",
+      "title": "Climate",
+      "text": "Harsh, cold, and misty. Snow near the peaks significantly impacts lifestyle."
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-notable-npcs",
+      "title": "Notable NPCs",
+      "text": "- [Akiri](#personae/akiri)\n- [Janzi](#personae/janzi)\n- [Tamber](#personae/tamber) - Celsian tutor\n- [Bufa](#personae/bufa) - West-ranging explorer\n- [Draz](#company/draz)'s great aunt (unnamed)"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-local-cuisine",
+      "title": "Local Cuisine",
+      "text": "Thick worm steaks, powerful freeze-distilled liquor"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-connections",
+      "title": "Connections",
+      "text": "Routes to:\n\n- [Tern's Watch](#atlas/terns-watch)\n- [St. Thera's Remit](#atlas/st-theras-remit)\n- [Dolm's Break](#atlas/dolms-break)\n- [Amber Reach](#atlas/amber-reach) (ancient city)"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-recent-events",
+      "title": "Recent Events",
+      "text": "- Refugees arrived from [Dolm's Break](#atlas/dolms-break)\n- [Askavir](#personae/askavir) attacked settlement, causing casualties\n- [Sylvie](#company/sylvie) tethered [Askavir](#personae/askavir), causing crash into plaza\n- [Ygva](#personae/ygva) arrived, sparked confrontations\n- ~15 departed toward [Tern's Watch](#atlas/terns-watch) to distribute refugee burden\n- [Askavir](#personae/askavir) body remains on wheeled platform for processing\n- Party crafted ammunition and forged dagger from [Askavir](#personae/askavir) claw"
+     },
+     {
+      "id": "veil-canon-places-verrow-s-span-gm-notes",
+      "title": "GM Notes",
+      "text": "Verrow's Span serves as a sanctuary amid regional chaos. [Draz](#company/draz)'s connection to the simiah community here provides social capital. The [Askavir](#personae/askavir) remains are valuable and arrangements were made with locals for processing."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-places-world-below",
+    "title": "World Below",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-places-world-below-description",
+      "title": "Description",
+      "text": "A cavernous realm accessible through a Moon Rune Carving. Characterized by a barren expanse devoid of life, featuring large stone-like structures and titanic beings engaged in construction."
+     },
+     {
+      "id": "veil-canon-places-world-below-climate",
+      "title": "Climate",
+      "text": "Desolate, permeated by foreboding and ancient power. [Sylvie](#company/sylvie)'s lunar augmentation is notably stronger here."
+     },
+     {
+      "id": "veil-canon-places-world-below-inhabitants",
+      "title": "Inhabitants",
+      "text": "- Titans engaged in construction (arranging stones for immense pyre)\n- Automatons\n- [Ygva](#personae/ygva) operates here"
+     },
+     {
+      "id": "veil-canon-places-world-below-purpose",
+      "title": "Purpose",
+      "text": "- Convergence site for mystical energies and remnants of the gods\n- [Ygva](#personae/ygva)'s plan: draw divine beings from upper world and bind them here\n- Titans prepare offerings and construct massive pyre"
+     },
+     {
+      "id": "veil-canon-places-world-below-access",
+      "title": "Access",
+      "text": "- Through Moon Rune Carving\n- [Ygva](#personae/ygva) and [Valghast](#personae/valghast) can transport others here\n- Party landed on massive tower roof during descent"
+     },
+     {
+      "id": "veil-canon-places-world-below-notable-features",
+      "title": "Notable Features",
+      "text": "- Abandoned settlements\n- Titans transporting massive rocks\n- Altars with artifacts\n- Immense pyre under construction"
+     },
+     {
+      "id": "veil-canon-places-world-below-key-events",
+      "title": "Key Events",
+      "text": "- [Sylvie](#company/sylvie) observed titan through Moon Rune Carving\n- [Valghast](#personae/valghast) responded to [Sylvie](#company/sylvie)'s fireball signal\n- Party met [Ygva](#personae/ygva) here and learned her plans\n- [Ygva](#personae/ygva) requested [Askavir Heart](#relics/askavir-heart) for her pyre ritual"
+     },
+     {
+      "id": "veil-canon-places-world-below-gm-notes",
+      "title": "GM Notes",
+      "text": "The World Below is where [Ygva](#personae/ygva)'s plan to bind the gods will culminate. The titans appear to serve her willingly or are compelled to aid in construction.\n\nThe party has agreed to help gather god-touched artifacts, making them complicit in [Ygva](#personae/ygva)'s scheme. Whether this leads to salvation or catastrophe remains to be seen."
+     }
+    ]
+   }
+  ],
+  "people": [
+   {
+    "id": "veil-canon-persons-borek",
+    "title": "Borek",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-borek-description",
+      "title": "Description",
+      "text": "A dwarf with a flamboyant, ostentatious style. Adorned with multiple rings, notably a heavy two-finger ring bearing the [Dimmers](#factions/dimmers) emblem. Loud personality that makes him the center of attention at social gatherings."
+     },
+     {
+      "id": "veil-canon-persons-borek-background",
+      "title": "Background",
+      "text": "Borek is the [Dimmers](#factions/dimmers) Leader of [Ulmira's Step](#atlas/ulmiras-step), operating in the shadows and tied to the underground dealings of the region. His welcoming demeanor allows him to facilitate deals effectively."
+     },
+     {
+      "id": "veil-canon-persons-borek-role",
+      "title": "Role",
+      "text": "- [Dimmers](#factions/dimmers) leader in [Ulmira's Step](#atlas/ulmiras-step)\n- Broker of information and valuable goods\n- Connection to [Heyou](#company/heyou) through [Dimmers](#factions/dimmers) network"
+     },
+     {
+      "id": "veil-canon-persons-borek-relationships",
+      "title": "Relationships",
+      "text": "- **[Heyou](#company/heyou)** - Fellow [Dimmers](#factions/dimmers) member; possesses part of Heyou's essence\n- **[Dimmers](#factions/dimmers)** - Leader of local operations"
+     },
+     {
+      "id": "veil-canon-persons-borek-key-dealings",
+      "title": "Key Dealings",
+      "text": "- Offered information about [Heyou](#company/heyou)'s missing limbs in exchange for [Askavir](#personae/askavir) eggs\n- Hinted at possessing part of [Heyou](#company/heyou)'s essence\n- Demanded [Askavir](#personae/askavir) ink in exchange for it"
+     },
+     {
+      "id": "veil-canon-persons-borek-key-events",
+      "title": "Key Events",
+      "text": "- Welcomed [Heyou](#company/heyou) with subtle signals of [Dimmers](#factions/dimmers) recognition\n- Proposed bargain involving [Askavir](#personae/askavir) eggs\n- Entertained others publicly, providing opportunity for infiltration\n- Party conducted stealthy infiltration into his quarters while he was distracted"
+     },
+     {
+      "id": "veil-canon-persons-borek-gm-notes",
+      "title": "GM Notes",
+      "text": "Borek represents the criminal underworld's presence in [Ulmira's Step](#atlas/ulmiras-step). His possession of part of [Heyou](#company/heyou)'s essence creates leverage over the clank.\n\nHis interest in [Askavir](#personae/askavir) eggs and ink suggests knowledge of their valuable properties. The infiltration into his quarters may have consequences if discovered.\n\nAs [Dimmers](#factions/dimmers) leader, he likely has extensive knowledge of regional secrets and could be a valuable—if dangerous—ally or adversary."
+     }
+    ],
+    "about": [
+     "#caulADVBorek0000000000003"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-kelun",
+    "title": "Kelun",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-kelun-description",
+      "title": "Description",
+      "text": "A stone figure distinct from previous stone wraiths, identified as a mouthpiece of the gods. Possesses the ability to shapeshift, notably into [Mellon](#personae/mellon), a nearby ghost. Communicates telepathically with authority."
+     },
+     {
+      "id": "veil-canon-persons-kelun-background",
+      "title": "Background",
+      "text": "Kelun serves the divine pantheon, primarily speaking for [Caranthalis](#personae/caranthalis), the god associated with the [Sacred Tree](#atlas/underground-complex). He has also served Ossa Mollthain and [Tlellic](#personae/tlellic), indicating connection to a broader divine pantheon of eight gods, with [Otheidas](#personae/god-king-otheidas) representing cycles of life and undeath."
+     },
+     {
+      "id": "veil-canon-persons-kelun-abilities",
+      "title": "Abilities",
+      "text": "- Shapeshifting (took [Mellon](#personae/mellon)'s form)\n- Telepathic communication\n- Authority over stone constructs\n- Serves as formal diplomatic envoy\n- Can sense connections to other beings (sensed bond with [Heyou](#company/heyou))"
+     },
+     {
+      "id": "veil-canon-persons-kelun-role",
+      "title": "Role",
+      "text": "Beyond mere confrontation, Kelun serves as a formal diplomatic envoy in supernatural dynamics. He often departs to announce arrivals, showcasing authority and adherence to divine protocols."
+     },
+     {
+      "id": "veil-canon-persons-kelun-relationships",
+      "title": "Relationships",
+      "text": "- **[Caranthalis](#personae/caranthalis)** - Primary god he speaks for\n- **Ossa Mollthain** - Has served\n- **[Tlellic](#personae/tlellic)** - Has served\n- **[Heyou](#company/heyou)** - Sensed a connection, expressed disappointment\n- **[Ygva](#personae/ygva)** - Compelled party to seek her"
+     },
+     {
+      "id": "veil-canon-persons-kelun-key-events",
+      "title": "Key Events",
+      "text": "- Appeared on bridge after party destroyed [Sacred Tree](#atlas/underground-complex)\n- Blocked party's escape, demanding they face consequences\n- Shapeshifted into [Mellon](#personae/mellon), causing confusion\n- Questioned party's failure to seek [Ygva](#personae/ygva)\n- Stated: \"My name is Kelun and you will follow me and we will decide what the consequences need to be\"\n- Revealed transactional perspective: party as \"potentially useful components\""
+     },
+     {
+      "id": "veil-canon-persons-kelun-gm-notes",
+      "title": "GM Notes",
+      "text": "Kelun represents divine authority and judgment. His connection to [Heyou](#company/heyou) suggests the clank may have deeper ties to the divine order than realized. He operates on protocols that the party doesn't fully understand.\n\nHis disappointment over the [Sacred Tree](#atlas/underground-complex)'s destruction was genuine—the tree was sacred to [Caranthalis](#personae/caranthalis). The party remains in a precarious position with the divine powers."
+     }
+    ],
+    "about": [
+     "#caulNPCKelun0000000000002"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-living-fortress",
+    "title": "Living Fortress",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-living-fortress-description",
+      "title": "Description",
+      "text": "A massive stone elemental approximately ten feet tall, composed of rock and earth with a rugged surface indicating natural origins. Resembles a giant stone construct adorned with intricate designs."
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-background",
+      "title": "Background",
+      "text": "Connected to ancient Stoneweaver magic, the Living Fortress is controlled remotely via a pendant. Originally summoned by [Sylvie](#company/sylvie), control was later transferred to [Heyou](#company/heyou), who pilots it while remaining hidden from threats."
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-abilities",
+      "title": "Abilities",
+      "text": "- Form manipulation\n- Resilience against attacks\n- Can relocate obstacles and opponents\n- Shields allies from threats\n- Controlled remotely via [Stoneweaver pendant](#relics/stoneweaver-pendant)"
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-control",
+      "title": "Control",
+      "text": "The fortress's effectiveness is contingent upon the will of its controller. When the connection with [Heyou](#company/heyou) was severed after he unleashed a powerful smite, it became temporarily inert."
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-current-status",
+      "title": "Current Status",
+      "text": "Under [Heyou](#company/heyou)'s control. He hides the [Blessed Branch](#relics/blessed-branch) inside using [Phasing Vambraces](#relics/phasing-vambraces)."
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-key-events",
+      "title": "Key Events",
+      "text": "- Summoned by [Sylvie](#company/sylvie)\n- Control transferred to [Heyou](#company/heyou)\n- Relocated hooded figure blocking narrow bridge\n- Absorbed attack from hooded figure\n- Defended party from giant mantises and Astral Assassin\n- Became inert when connection severed during battle\n- Used for transportation and shelter in [World Below](#atlas/world-below)\n- [Sylvie](#company/sylvie) cast Wall of Flame to warm it during blizzard"
+     },
+     {
+      "id": "veil-canon-persons-living-fortress-gm-notes",
+      "title": "GM Notes",
+      "text": "The Living Fortress serves as mobile transport, combat asset, and hidden storage. [Heyou](#company/heyou)'s use of [Phasing Vambraces](#relics/phasing-vambraces) to hide the [Blessed Branch](#relics/blessed-branch) inside makes it a crucial mission asset.\n\nThe pendant control mechanism may have limitations or vulnerabilities not yet discovered."
+     }
+    ],
+    "about": [
+     "#caulADVLivingFortress0002"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-sarru",
+    "title": "Sarru",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-sarru-description",
+      "title": "Description",
+      "text": "A dwarven pyre-keeper with a strong, stocky build typical of her kind. Maintains an attentive and careful demeanor when sharing knowledge about dangerous matters."
+     },
+     {
+      "id": "veil-canon-persons-sarru-background",
+      "title": "Background",
+      "text": "Sarru serves as pyre-keeper of the Sacred Pyre in [Ulmira's Step](#atlas/ulmiras-step), an essential role for keeping the town warm and free from miasma. She maintains a connection with [Ygva](#personae/ygva), acting as a point of contact for those seeking guidance regarding the [Blessed Branch](#relics/blessed-branch)."
+     },
+     {
+      "id": "veil-canon-persons-sarru-role",
+      "title": "Role",
+      "text": "- Tends the Sacred Pyre of [Ulmira's Step](#atlas/ulmiras-step)\n- Guardian and member of [Caul](#factions/caul)\n- Point of contact for those seeking [Ygva](#personae/ygva)"
+     },
+     {
+      "id": "veil-canon-persons-sarru-abilities",
+      "title": "Abilities",
+      "text": "- Knowledge of pyre maintenance and sacred rituals\n- Combat capabilities as a Guardian\n- Understanding of Umbra dangers"
+     },
+     {
+      "id": "veil-canon-persons-sarru-relationships",
+      "title": "Relationships",
+      "text": "- **[Caul](#factions/caul)** - Member\n- **[Ygva](#personae/ygva)** - Maintains connection, provides directions to seekers\n- **[Savel](#personae/savel)** - Fellow party member\n- **[Sylvie](#company/sylvie)** - Received protective wards from her"
+     },
+     {
+      "id": "veil-canon-persons-sarru-key-events",
+      "title": "Key Events",
+      "text": "- Provided directions to [Ygva](#personae/ygva)'s ruined shrine\n- Warned party about physical and spiritual dangers of the path\n- Joined return party into caverns with [Savel](#personae/savel), [Mellon](#personae/mellon), and [Sylvie](#company/sylvie)\n- Received protective wards from [Sylvie](#company/sylvie) before descent\n- Fought alongside party against hulking Umbra-corrupted brute\n- Took damage from [Guardian](#personae/guardian) beast during battle\n- Discovered Giant Collar with broken chain after battle\n- Planned escort to [Drosven's Gate](#atlas/drosvens-gate) with blessed branches"
+     },
+     {
+      "id": "veil-canon-persons-sarru-gm-notes",
+      "title": "GM Notes",
+      "text": "Sarru represents the practical knowledge of maintaining civilization's defenses against the Umbra. Her role as pyre-keeper gives her unique insight into the sacred rituals and dangers involved.\n\nShe is loyal to both [Ulmira's Step](#atlas/ulmiras-step) and [Caul](#factions/caul), potentially creating conflicts if their interests diverge."
+     }
+    ],
+    "about": [
+     "#caulNPCSarru0000000000004"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-savel",
+    "title": "Savel",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-savel-description",
+      "title": "Description",
+      "text": "A giant sorcerer known for his imposing stature and mastery of the arcane arts. His gauntleted fists reflect a blend of physical strength and magical prowess."
+     },
+     {
+      "id": "veil-canon-persons-savel-background",
+      "title": "Background",
+      "text": "Savel is a member of [Caul](#factions/caul), working alongside the party to navigate hazardous environments and confront lurking threats. He has shown a mechanical aspect to his character, serving as both spellcaster and support."
+     },
+     {
+      "id": "veil-canon-persons-savel-abilities",
+      "title": "Abilities",
+      "text": "- Arcane magic (strikes that can stagger large creatures)\n- Protective magic for allies\n- Physical combat with gauntleted fists\n- Communication with spirits ([Mellon](#personae/mellon)'s ghost)"
+     },
+     {
+      "id": "veil-canon-persons-savel-relationships",
+      "title": "Relationships",
+      "text": "- **[Caul](#factions/caul)** - Member\n- **[Sarru](#personae/sarru)** - Fellow party member\n- **[Mellon](#personae/mellon)** - Communicated with his ghost\n- **[Jamal](#company/jamal), [Draz](#company/draz)** - Traveled with them to Drosven's Gate\n- Hinted ties to a witch (suggested by [Jamal](#company/jamal))"
+     },
+     {
+      "id": "veil-canon-persons-savel-key-events",
+      "title": "Key Events",
+      "text": "- Fought hulking goblinoid corrupted by Umbra in caverns\n- Delivered arcane strikes that staggered the brute\n- Communicated with [Mellon](#personae/mellon)'s ghost to learn his intent\n- Facilitated movement of [Explosive Barrels](#relics/explosive-barrels) against [Guardian](#personae/guardian) beast\n- Used [Mellon](#personae/mellon)'s ghost as distraction during battle\n- Cast protective magic for [Jamal](#company/jamal)\n- Planned escort to [Drosven's Gate](#atlas/drosvens-gate) with blessed branches"
+     },
+     {
+      "id": "veil-canon-persons-savel-gm-notes",
+      "title": "GM Notes",
+      "text": "Savel's connection to a witch (hinted by [Jamal](#company/jamal)) suggests deeper ties to the supernatural forces at play. His ability to communicate with [Mellon](#personae/mellon)'s ghost indicates familiarity with spirits.\n\nAs a giant, he may have knowledge of [Ulmira's Step](#atlas/ulmiras-step)'s history as a titan settlement originally founded by his kind."
+     }
+    ],
+    "about": [
+     "#caulNPCSavel0000000000005"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-tamber",
+    "title": "Tamber",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-tamber-description",
+      "title": "Description",
+      "text": "A Celsian itinerant scholar with an academic demeanor. Currently serves as a tutor for children in [Verrow's Span](#atlas/verrows-span)."
+     },
+     {
+      "id": "veil-canon-persons-tamber-background",
+      "title": "Background",
+      "text": "Former initiate at the [Celsian Athenaeum](#atlas/celsian-athenaeum), Tamber possesses knowledge of ancient lore, especially the age of titans that predates civilization. She and [Ygva](#personae/ygva) learned from the same mentors but diverged in their practices—[Ygva](#personae/ygva) was expelled for using depletion (essence-draining), which contradicts Celsian ethics.\n\nWhen [Ygva](#personae/ygva) returned, Tamber referred to her as \"sister,\" while [Ygva](#personae/ygva) called her \"apostate.\""
+     },
+     {
+      "id": "veil-canon-persons-tamber-abilities-knowledge",
+      "title": "Abilities & Knowledge",
+      "text": "- Ancient history and titan age lore\n- Runes and mystical texts\n- Knowledge of the [Rune of the Moon](#relics/rune-of-the-moon) (false hope, paralysis of thought, [Kreth](#personae/kreth))\n- Understanding of [Old Gods](#factions/old-gods) and their potential return\n- Insight into magical artifacts and their origins"
+     },
+     {
+      "id": "veil-canon-persons-tamber-role",
+      "title": "Role",
+      "text": "Tamber serves as a source of scholarly knowledge for the party, particularly regarding [Ygva](#personae/ygva)'s background and the nature of magical artifacts."
+     },
+     {
+      "id": "veil-canon-persons-tamber-relationships",
+      "title": "Relationships",
+      "text": "- **[Ygva](#personae/ygva)** - Former peer; complex relationship (\"sister\"/\"apostate\")\n- **[Sylvie](#company/sylvie)** - Examined her necklace and artifacts\n- **[Heyou](#company/heyou)** - Invited him to study\n- **[Draz](#company/draz)** - Explained his amulet's origins and limitations"
+     },
+     {
+      "id": "veil-canon-persons-tamber-key-insights-provided",
+      "title": "Key Insights Provided",
+      "text": "- [Draz](#company/draz)'s amulet was commissioned by [God-King Otheidas](#personae/god-king-otheidas) to protect lesser mages from divine threats\n- The amulet will NOT protect against [Ygva](#personae/ygva)'s Umbra magic\n- [Ygva](#personae/ygva) was expelled from Athenaeum for practicing depletion\n- Mountain glyphs are remnants from the titan age\n- The [Askavir](#personae/askavir) is potentially tied to [Tlellic](#personae/tlellic)"
+     },
+     {
+      "id": "veil-canon-persons-tamber-key-events",
+      "title": "Key Events",
+      "text": "- Examined [Sylvie](#company/sylvie)'s artifacts but didn't recognize their make\n- Revealed critical information about [Ygva](#personae/ygva)'s history\n- Rebuffed [Draz](#company/draz)'s proposal to support return of [Old Gods](#factions/old-gods)\n- Adjusted teachings to caution against destabilizing ideas\n- Expressed private concerns about [Draz](#company/draz)'s ambitions"
+     },
+     {
+      "id": "veil-canon-persons-tamber-gm-notes",
+      "title": "GM Notes",
+      "text": "Tamber represents orthodox scholarly tradition versus [Ygva](#personae/ygva)'s heretical practices. She may possess hidden knowledge useful to the party but prioritizes social stability over grand changes.\n\nHer warning about the [Old Gods](#factions/old-gods)' return suggests deeper knowledge of the dangers involved in [Ygva](#personae/ygva)'s plan."
+     }
+    ],
+    "about": [
+     "#caulNPCTamber000000000006"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-valghast",
+    "title": "Valghast",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-valghast-description",
+      "title": "Description",
+      "text": "A large winged lion with a savage appearance and large, powerful wings allowing flight. His presence is bone-shaking, capable of instilling fear with his roar."
+     },
+     {
+      "id": "veil-canon-persons-valghast-background",
+      "title": "Background",
+      "text": "Valghast serves as mount and companion to [Ygva](#personae/ygva). He is linked to the deity [Mollthain](#personae/mollthain), known as The Rampart, indicating divine origins. He assists in travel between the upper world and the [World Below](#atlas/world-below)."
+     },
+     {
+      "id": "veil-canon-persons-valghast-abilities",
+      "title": "Abilities",
+      "text": "- Flight with powerful wings\n- Travel between realms (upper world and [World Below](#atlas/world-below))\n- Communication (interpreted by [Draz](#company/draz) using Nature's Tongue)\n- Fearsome roar\n- May have connection to dream communication"
+     },
+     {
+      "id": "veil-canon-persons-valghast-role",
+      "title": "Role",
+      "text": "Crucial link between the party and [Ygva](#personae/ygva), providing transportation and assistance. Remains at sites to retrieve the party if necessary."
+     },
+     {
+      "id": "veil-canon-persons-valghast-relationships",
+      "title": "Relationships",
+      "text": "- **[Ygva](#personae/ygva)** - Master/companion\n- **[Mollthain](#personae/mollthain)** - Divine connection\n- **[Draz](#company/draz)** - Communicated with via Nature's Tongue"
+     },
+     {
+      "id": "veil-canon-persons-valghast-key-events",
+      "title": "Key Events",
+      "text": "- Landed at Moon Rune Carving with bone-shaking roar\n- Agreed to take party to meet [Ygva](#personae/ygva)\n- Transported party on [Ygva](#personae/ygva)'s orders:\n- Through \"hole in the sky\" to cavern ledge\n- Near waterfall to aid exit from tunnels\n- Remained at site to assist party with travel needs"
+     },
+     {
+      "id": "veil-canon-persons-valghast-gm-notes",
+      "title": "GM Notes",
+      "text": "Valghast's connection to [Mollthain](#personae/mollthain) suggests he may have abilities or knowledge beyond simple transportation. His loyalty to [Ygva](#personae/ygva) appears absolute.\n\nAs a divine creature, he may be able to sense things others cannot or have restrictions on his actions based on divine mandates."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-persons-ygva",
+    "title": "Ygva",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-ygva-description",
+      "title": "Description",
+      "text": "A 7.5-foot witch of formidable presence and supernatural abilities. She wields a staff that enables manipulation of celestial forces, creating cloud alignments and knotwork. Known for her overwhelming force and tactical awareness."
+     },
+     {
+      "id": "veil-canon-persons-ygva-background",
+      "title": "Background",
+      "text": "Ygva was once a student at the [Celsian Athenaeum](#atlas/celsian-athenaeum) but was expelled for practicing essence-draining magic (depletion) that conflicted with the tenets of the archivists. This established a rift with [Tamber](#personae/tamber), her former peer, who calls her \"apostate\" while Ygva calls Tamber \"sister.\"\n\nShe now resides near a mountainside shrine near [Ulmira's Step](#atlas/ulmiras-step), drawing her power from the Umbra. Locals avoid her due to her strange habits and the dangers inherent in seeking her out."
+     },
+     {
+      "id": "veil-canon-persons-ygva-abilities",
+      "title": "Abilities",
+      "text": "- Teleportation (can bring others with her)\n- Summoning misty/umbral entities\n- Moonbeam attacks\n- Hovering over water\n- Staff-based celestial manipulation\n- Dream communication with [Sylvie](#company/sylvie)\n- Travel through rock, creating direct paths"
+     },
+     {
+      "id": "veil-canon-persons-ygva-goals",
+      "title": "Goals",
+      "text": "- Gather remnants and totems of the gods\n- Light a colossal pyre to summon the gods\n- Bind the gods in the [World Below](#atlas/world-below)\n- Restore the world through the return of the gods"
+     },
+     {
+      "id": "veil-canon-persons-ygva-relationships",
+      "title": "Relationships",
+      "text": "- **[Sylvie](#company/sylvie)** - Tore out her heart; now considers her a \"sister\" in Umbra magic\n- **[Tamber](#personae/tamber)** - Former peer from the Athenaeum; calls her \"apostate\"\n- **[Valghast](#personae/valghast)** - Her winged lion mount\n- **[Kelun](#personae/kelun)** - Stone figure who compels others to seek her"
+     },
+     {
+      "id": "veil-canon-persons-ygva-key-events",
+      "title": "Key Events",
+      "text": "- Teleported into confrontation with party, attacking with moonbeam\n- Struck [Sylvie](#company/sylvie) in the heart, teleported away with her unconscious body\n- Revealed cosmic truths to [Sylvie](#company/sylvie) about reality being an \"egg\" for cosmic entities\n- Tore out [Sylvie](#company/sylvie)'s heart when [Draz](#company/draz) attacked during negotiations\n- Later allied with party, accepting seed trade for [Blessed Branch](#relics/blessed-branch)\n- Taught [Sylvie](#company/sylvie) the Summon Horror discipline\n- Transported party on [Valghast](#personae/valghast) to aid their mission"
+     },
+     {
+      "id": "veil-canon-persons-ygva-gm-notes",
+      "title": "GM Notes",
+      "text": "Ygva's plan to bind the gods represents a potentially world-changing event. Her relationship with the party has shifted from antagonist to uneasy ally. She possesses [Sylvie](#company/sylvie)'s heart, which may be among offerings for the gods.\n\nHer loneliness and ambition drive her—she claims her vision is not shared by many. The party's cooperation may be genuine or purely transactional."
+     }
+    ],
+    "about": [
+     "#caulNPCYgva00000000000009"
+    ]
+   },
+   {
+    "id": "veil-canon-persons-mellon",
+    "title": "Mellon",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-persons-mellon-description",
+      "title": "Description",
+      "text": "A dead ranger who persists as a ghost. Accompanied by a cat companion named Yuki."
+     },
+     {
+      "id": "veil-canon-persons-mellon-background",
+      "title": "Background",
+      "text": "Mellon was a ranger in life. The circumstances of his death are unclear, but his spirit lingers, encountered by the party on a bridge."
+     },
+     {
+      "id": "veil-canon-persons-mellon-relationships",
+      "title": "Relationships",
+      "text": "- **Yuki** - His cat companion, still present with him\n- **[Kelun](#personae/kelun)** - The stone being shapeshifted into Mellon's form at one point, causing confusion"
+     },
+     {
+      "id": "veil-canon-persons-mellon-gm-notes",
+      "title": "GM Notes",
+      "text": "Mellon's ghost represents the dangers of death in this world -- the risk of soul blight and undeath. His continued presence with Yuki adds a melancholy human element. [Kelun](#personae/kelun) using his form suggests the divine powers are aware of and can mimic the dead."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-celsian-athenaeum",
+    "title": "Celsian Athenaeum",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-overview",
+      "title": "Overview",
+      "text": "A scholarly faction focused on preservation and study of magical knowledge, particularly arcane arts. Maintains rigorous standards and practices."
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-location",
+      "title": "Location",
+      "text": "Far to the west (exact location unspecified)."
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-philosophy",
+      "title": "Philosophy",
+      "text": "- Responsible use of magic\n- Archivism and preservation\n- Alignment with teachings of powerful mentors\n- Opposition to essence-draining practices (depletion)"
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-training",
+      "title": "Training",
+      "text": "Initiates are trained in various forms of magic under strict ethical guidelines. Practices that drain magical essence are forbidden."
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-notable-members",
+      "title": "Notable Members",
+      "text": "- **[Tamber](#personae/tamber)** - A fully-initiated Celsian itinerant in good standing; holds advanced techniques [Ygva](#personae/ygva) never learned"
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-notable-former-members",
+      "title": "Notable Former Members",
+      "text": "- **[Ygva](#personae/ygva)** - Expelled before completing initiation for \"depletion\": draining an entity's entire essence to power a single effect, in violation of the Athenaeum's preservation ethos\n\nBoth [Tamber](#personae/tamber) and [Ygva](#personae/ygva) learned from the same mentors but diverged in practices. When they reunite, [Tamber](#personae/tamber) calls [Ygva](#personae/ygva) \"apostate\" while [Ygva](#personae/ygva) calls [Tamber](#personae/tamber) \"sister.\""
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-relationship-to-party",
+      "title": "Relationship to Party",
+      "text": "- [Tamber](#personae/tamber) serves as information source about [Ygva](#personae/ygva)'s background\n- Knowledge of [Otheidas](#personae/god-king-otheidas) relics and their properties\n- Understanding of runes and mystical texts"
+     },
+     {
+      "id": "veil-canon-factions-celsian-athenaeum-gm-notes",
+      "title": "GM Notes",
+      "text": "The Athenaeum represents orthodox magical tradition versus the heretical practices of [Ygva](#personae/ygva). [Tamber](#personae/tamber) — who completed initiation where [Ygva](#personae/ygva) did not — embodies the tradition [Ygva](#personae/ygva) betrayed.\n\nThe faction may have further role if the party seeks magical knowledge or assistance against [Ygva](#personae/ygva)'s plans. Their stance against the [Old Gods](#factions/old-gods)' return (via [Tamber](#personae/tamber)'s warnings) positions them as potential opposition to [Ygva](#personae/ygva)'s scheme."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-celsian-teachers",
+    "title": "Celsian Teachers",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-celsian-teachers-overview",
+      "title": "Overview",
+      "text": "Wandering educators who travel between settlements, spreading knowledge and preserving learning in a world where communities are isolated. Connected to the [Celsian Athenaeum](#atlas/celsian-athenaeum)."
+     },
+     {
+      "id": "veil-canon-factions-celsian-teachers-activities",
+      "title": "Activities",
+      "text": "- Traveling between settlements to teach\n- Preserving pre-Apostasy knowledge\n- Serving as messengers and cultural bridges between isolated communities"
+     },
+     {
+      "id": "veil-canon-factions-celsian-teachers-key-members",
+      "title": "Key Members",
+      "text": "- **[Tamber](#personae/tamber)** - A former initiate of the [Celsian Athenaeum](#atlas/celsian-athenaeum)"
+     },
+     {
+      "id": "veil-canon-factions-celsian-teachers-gm-notes",
+      "title": "GM Notes",
+      "text": "The Celsian teachers serve as a connective tissue between the scattered settlements of The Enduring. They can be used as plot devices for delivering news, lore, or quest hooks from distant locations."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-delvers",
+    "title": "Delvers",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-delvers-overview",
+      "title": "Overview",
+      "text": "Relic hunters who explore dangerous ruins from the time before the Apostasy. They venture into Umbra-touched territory in search of artifacts, knowledge, and resources from the fallen Halcyon Domain."
+     },
+     {
+      "id": "veil-canon-factions-delvers-activities",
+      "title": "Activities",
+      "text": "- Exploring ruins and abandoned settlements\n- Recovering pre-Apostasy artifacts and technology\n- Navigating areas beyond the reach of sacred pyres"
+     },
+     {
+      "id": "veil-canon-factions-delvers-connections",
+      "title": "Connections",
+      "text": "- Overlap with the [Dimmers](#factions/dimmers), who also scavenge from ruins\n- Some Celsians may support or employ Delvers for scholarly purposes"
+     },
+     {
+      "id": "veil-canon-factions-delvers-gm-notes",
+      "title": "GM Notes",
+      "text": "Delvers represent the adventuring class of this world -- those who risk the Umbra for profit or purpose. They can serve as quest-givers, rivals, or sources of information about ruins the party might explore."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-dimmers",
+    "title": "Dimmers",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-dimmers-overview",
+      "title": "Overview",
+      "text": "A powerful faction deeply entrenched in the criminal underworld, known for operations in the shadows and intricate ties to various illicit activities. Their reputation instills caution among local populations."
+     },
+     {
+      "id": "veil-canon-factions-dimmers-structure",
+      "title": "Structure",
+      "text": "Network of semi-independent members operating across multiple settlements. Members identify each other through subtle signals and wear emblems like two-finger rings."
+     },
+     {
+      "id": "veil-canon-factions-dimmers-operations",
+      "title": "Operations",
+      "text": "- Trade and negotiation\n- Acquisition of rare items (including essence of individuals)\n- Infiltration and manipulation\n- Information brokering"
+     },
+     {
+      "id": "veil-canon-factions-dimmers-presence",
+      "title": "Presence",
+      "text": "- [Salthewn](#atlas/salthewn) - Hometown of [Heyou](#company/heyou), includes [Ugg](#personae/ugg) and [Grug](#personae/grug) (giant enforcers)\n- [Ulmira's Step](#atlas/ulmiras-step) - [Borek](#personae/borek) is local leader\n- [Verrow's Span](#atlas/verrows-span) - Semi-independent operators present"
+     },
+     {
+      "id": "veil-canon-factions-dimmers-key-members",
+      "title": "Key Members",
+      "text": "- **[Borek](#personae/borek)** - Leader of [Ulmira's Step](#atlas/ulmiras-step) operations, flamboyant dwarf\n- **[Heyou](#company/heyou)** - Party member, former fence\n- **[Ugg](#personae/ugg) & [Grug](#personae/grug)** - Giant twin enforcers from [Salthewn](#atlas/salthewn)\n- Tall feline katari with eye patch among [Dolm's Break](#atlas/dolms-break) refugees"
+     },
+     {
+      "id": "veil-canon-factions-dimmers-notable-dealings",
+      "title": "Notable Dealings",
+      "text": "- [Borek](#personae/borek) bargained [Askavir](#personae/askavir) eggs for information about [Heyou](#company/heyou)'s missing limbs\n- [Borek](#personae/borek) possesses part of [Heyou](#company/heyou)'s essence, demands [Askavir](#personae/askavir) ink\n- Party infiltrated [Borek](#personae/borek)'s quarters during distraction"
+     },
+     {
+      "id": "veil-canon-factions-dimmers-reputation",
+      "title": "Reputation",
+      "text": "Grim incidents have marred their image (two members fell from high bridge). They are both recognized and regarded with suspicion in settlements where they operate."
+     },
+     {
+      "id": "veil-canon-factions-dimmers-heyou-s-knowledge-of-dimmers-subsets",
+      "title": "Heyou's Knowledge of Dimmers Subsets",
+      "text": "\"Dimmers\" is a catch-all term for multiple, semi-overlapping groups that are scavenging from the ruins of the Halcyon Domain. Some are taking scarce [Blessed Branch](#relics/blessed-branch)es to light their way into temple and palace ruins for delving; others are more interested in getting a leg up on other survivors.\n\n[Heyou](#company/heyou) has had direct interactions with two subsets:\n\n1. **The Reactivators** - Interested in reactivating old stone clanks\n\n2. **The Recyclers** - Focused on recycling found and stolen materials"
+     },
+     {
+      "id": "veil-canon-factions-dimmers-gm-notes",
+      "title": "GM Notes",
+      "text": "The [Dimmers](#factions/dimmers) represent the criminal element the party must navigate. [Heyou](#company/heyou)'s membership provides access but also obligations.\n\n[Borek](#personae/borek)'s possession of part of [Heyou](#company/heyou)'s essence creates leverage and potential plot hooks. The infiltration into his quarters may have consequences.\n\nThe katari with eye patch among refugees warrants watching—likely a [Dimmers](#factions/dimmers) operator with hidden agenda.\n\nThe Dimmers may be the same organization as (or a subset of) [The Syndicate](#factions/syndicate)."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-goblin-engineers",
+    "title": "Goblin Engineers",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-goblin-engineers-overview",
+      "title": "Overview",
+      "text": "A faction of goblins recognized for mechanical expertise and engineering skills. Operate within [Underground Complex](#atlas/underground-complex), specializing in constructing defenses and explosive contraptions."
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-equipment",
+      "title": "Equipment",
+      "text": "- Tool belts\n- Socket wrenches\n- Explosive barrels (three-part design)\n- Focus on engineering over traditional combat"
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-culture",
+      "title": "Culture",
+      "text": "- Pragmatic attitude toward workplace hazards\n- Accept injuries as normal part of trade\n- Dangerous approach to survival\n- Willing to embrace chaos in pursuit of goals"
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-tactics",
+      "title": "Tactics",
+      "text": "- Utilize explosives to secure territory\n- Rig defensive positions with explosive barrels\n- Ambush intruders in tunnel systems\n- Territory marked by ring of corpses"
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-relationship-with-party",
+      "title": "Relationship with Party",
+      "text": "- Established positive rapport with [Heyou](#company/heyou) (respected his mechanical aptitude)\n- Goblin Envoy proposed alliance against [Guardian](#personae/guardian) beast\n- Provided explosive powder as gesture of goodwill\n- Alliance ended catastrophically when goblin accident destroyed [Sacred Tree](#atlas/underground-complex)"
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-key-events",
+      "title": "Key Events",
+      "text": "- Explained three-part explosive barrel design (shake, throw, detonate)\n- Previous attempts against [Guardian](#personae/guardian) resulted in no returns\n- Goblin carrying barrel caused catastrophic explosion\n- Explosion destroyed [Sacred Tree](#atlas/underground-complex) and ended alliance hopes"
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-casualties",
+      "title": "Casualties",
+      "text": "Multiple goblins killed in the accidental explosion, including the one carrying the barrel."
+     },
+     {
+      "id": "veil-canon-factions-goblin-engineers-gm-notes",
+      "title": "GM Notes",
+      "text": "The [Goblin Engineers](#factions/goblin-engineers) represent a faction whose pragmatism led to disaster. Their destruction of the [Sacred Tree](#atlas/underground-complex) angered [Kelun](#personae/kelun) and the divine powers.\n\nDespite the catastrophe, surviving engineers may still operate in the tunnels. Their engineering knowledge and explosive supplies could be valuable—or dangerous—in future encounters."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-old-gods",
+    "title": "Old Gods",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-old-gods-overview",
+      "title": "Overview",
+      "text": "Ancient deities whose influence persists through relics, sacred rituals, and scattered followers. Their worship is considered heresy in contemporary society."
+     },
+     {
+      "id": "veil-canon-factions-old-gods-the-veiled-gods-otheidas-and-the-pantheon",
+      "title": "The Veiled Gods (Otheidas and the Pantheon)",
+      "text": "**Ulmira - Pacts, the Alliance between the Earth and the Heavens**\n\n- [Ulmira's Step](#atlas/ulmiras-step) was named as the first step of a forgotten pilgrimage in her honor\n- Associated with pacts and divine covenants\n\n**Tlellic - The Long Night, Predation**\n\n- The [Askavir](#personae/askavir) is his mount/avatar (rumored to have been his familiar)\n- Connected to Moon Rune (false hope, paralysis of thought)\n- His departure left the [Askavir](#personae/askavir) as a remnant\n\n**Kreth - False Visions, Deceit, The Moon**\n\n- Associated with deception and lunar influence\n- Connection to \"Sister Moon\" and Sylvie's powers is unexplored\n\n**Brathis - Feral Survival, Loss of Personhood**\n\n- Represents the degradation of civilized identity\n- Survival at the cost of one's humanity\n\n**Mollthain - The Rampart, Sturdy Against All Odds**\n\n- Left great creatures in places like [Grithmaar Deep](#atlas/grithmaar-deep)\n- One such creature destroyed [Jamal](#company/jamal)'s village\n- [Valghast](#personae/valghast) (Ygva's lion) is linked to Mollthain\n\n**Caranthalis - The Tree of Light, Source of Blessed Branches**\n\n- God of the [Sacred Tree](#atlas/underground-complex)s and source of [Blessed Branch](#relics/blessed-branch)es\n- [Kelun](#personae/kelun) primarily speaks for him\n- Destruction of [Sacred Tree](#atlas/underground-complex) angered divine powers\n\n**Ossa - The Wanderer Atop the Peaks**\n\n- [Draz](#company/draz)'s compass points toward this god\n- [Kelun](#personae/kelun) has served Ossa\n\n**Otheidas - The Arrested Cycle of Life and Undeath, Revenants**\n\n- Associated with cycles of life and undeath\n- Relics protect lesser mages from divine powers\n- [Draz](#company/draz)'s amulet and [Sylvie](#company/sylvie)'s circlet are connected to him\n- [Celsians](#factions/celsians) preserve knowledge of his teachings"
+     },
+     {
+      "id": "veil-canon-factions-old-gods-sacred-elements",
+      "title": "Sacred Elements",
+      "text": "- [Blessed Branch](#relics/blessed-branch)es for rekindling sacred pyres\n- Sacred Pyres as defense against Umbra\n- Altars throughout the world\n- [Askavir](#personae/askavir) heart contains Splendor magic"
+     },
+     {
+      "id": "veil-canon-factions-old-gods-ygva-s-plan",
+      "title": "Ygva's Plan",
+      "text": "[Ygva](#personae/ygva) seeks to bind the [Old Gods](#factions/old-gods) in the [World Below](#atlas/world-below) by:\n\n- Gathering remnants and totems\n- Constructing massive pyre with titans' help\n- Using god-touched artifacts"
+     },
+     {
+      "id": "veil-canon-factions-old-gods-gm-notes",
+      "title": "GM Notes",
+      "text": "The [Old Gods](#factions/old-gods) represent a cosmological framework the party is increasingly entangled with. [Draz](#company/draz) sought to recruit [Tamber](#personae/tamber) to revive them, but she refused citing social stability risks.\n\n[Sylvie](#company/sylvie)'s transformation connects her to Umbra magic, which operates outside the [Old Gods](#factions/old-gods)' divine framework—or perhaps draws from the same source in different form."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-pyre-keepers",
+    "title": "Pyre-Keepers",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-pyre-keepers-overview",
+      "title": "Overview",
+      "text": "Those who maintain the sacred fires that protect settlements from the Umbra. A vital role in every community that possesses a sacred pyre."
+     },
+     {
+      "id": "veil-canon-factions-pyre-keepers-key-members",
+      "title": "Key Members",
+      "text": "- **[Sarru](#personae/sarru)** - Pyre-keeper of [Ulmira's Step](#atlas/ulmiras-step)"
+     },
+     {
+      "id": "veil-canon-factions-pyre-keepers-responsibilities",
+      "title": "Responsibilities",
+      "text": "- Maintaining and tending sacred pyres\n- Ensuring the fire never goes out\n- Procuring [Blessed Branch](#relics/blessed-branch)es when needed\n- Guarding against threats to the pyre"
+     },
+     {
+      "id": "veil-canon-factions-pyre-keepers-gm-notes",
+      "title": "GM Notes",
+      "text": "The pyre-keepers represent the thin line between survival and annihilation for most settlements. Their knowledge of how pyres work -- and their limitations -- makes them important sources of information."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-the-enduring",
+    "title": "The Enduring",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-the-enduring-overview",
+      "title": "Overview",
+      "text": "A term used by the extant communities that have survived the Apostasy and the coming of the Umbra. Not a formal organization so much as a shared identity among the scattered settlements that persist under the protection of sacred pyres."
+     },
+     {
+      "id": "veil-canon-factions-the-enduring-member-settlements",
+      "title": "Member Settlements",
+      "text": "- [Ulmira's Step](#atlas/ulmiras-step)\n- [Drosven's Gate](#atlas/drosvens-gate)\n- [Salthewn](#atlas/salthewn)\n- [Thistleglass](#atlas/thistleglass)\n- [Verrow's Span](#atlas/verrows-span)"
+     },
+     {
+      "id": "veil-canon-factions-the-enduring-characteristics",
+      "title": "Characteristics",
+      "text": "- Settlements are scattered and operate semi-independently\n- United by shared reliance on sacred pyres and [Blessed Branch](#relics/blessed-branch)es\n- Each community has developed its own culture, dialect, and survival strategies"
+     },
+     {
+      "id": "veil-canon-factions-the-enduring-gm-notes",
+      "title": "GM Notes",
+      "text": "The Enduring is the campaign's namesake. The \"Lesser Lights\" likely refers to the sacred pyres themselves -- lesser lights that keep the darkness at bay in the absence of the gods."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-factions-the-syndicate",
+    "title": "The Syndicate",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-factions-the-syndicate-overview",
+      "title": "Overview",
+      "text": "A criminal organization active in multiple cities. [Heyou](#company/heyou)'s background is tied to the Syndicate. May overlap with or be an alternate name for the [Dimmers](#factions/dimmers) network."
+     },
+     {
+      "id": "veil-canon-factions-the-syndicate-operations",
+      "title": "Operations",
+      "text": "- Active across multiple settlements\n- Criminal enterprise with wide-reaching influence"
+     },
+     {
+      "id": "veil-canon-factions-the-syndicate-key-members",
+      "title": "Key Members",
+      "text": "- **[Borek](#personae/borek)** - Syndicate dwarf in [Ulmira's Step](#atlas/ulmiras-step) who knows about [Heyou](#company/heyou)'s missing limbs\n- **[Heyou](#company/heyou)** - Connected through his background"
+     },
+     {
+      "id": "veil-canon-factions-the-syndicate-notable-dealings",
+      "title": "Notable Dealings",
+      "text": "- [Borek](#personae/borek) requested [Askavir](#personae/askavir) eggs\n- The party stole back [Heyou](#company/heyou)'s leg from [Borek](#personae/borek)'s home"
+     },
+     {
+      "id": "veil-canon-factions-the-syndicate-connections-to-pcs",
+      "title": "Connections to PCs",
+      "text": "- [Draz](#company/draz) has interacted with Syndicate runners through the forest glade; this may be his only connection to the outside world"
+     },
+     {
+      "id": "veil-canon-factions-the-syndicate-gm-notes",
+      "title": "GM Notes",
+      "text": "The Syndicate and [Dimmers](#factions/dimmers) may be the same organization referred to by different names, or the Syndicate may be the larger parent organization of which the Dimmers are a subset. Clarify as the campaign develops."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-bestiary-askavir",
+    "title": "Askavir",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-bestiary-askavir-description",
+      "title": "Description",
+      "text": "An immense raptor with an extraordinary wingspan of nearly ninety feet and talons marking it as a being of divine origin. Its silhouette casts a vast shadow over the landscape. Possesses intelligence and agency surpassing typical animal behavior.\n\nThe name \"Askavir\" comes from the Lammat dialect spoken by the Kurael of [Ulmira's Step](#atlas/ulmiras-step). When alive, it appeared rarely -- at most once per month -- seen in silhouette against the clouds or moon. Its presence inspired awe and fear but it rarely attacked the Step directly. Rumored to have been the familiar of the Veiled God [Tlellic](#personae/tlellic)."
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-divine-connection",
+      "title": "Divine Connection",
+      "text": "The Askavir is tied to [Tlellic](#personae/tlellic), the god of predation. Its purpose involves finding and delivering specific individuals under divine mandates connected to greater cosmic forces."
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-abilities",
+      "title": "Abilities",
+      "text": "- Flight with 90-foot wingspan\n- Communication through Nature's Tongue\n- Divine mandate to capture specific individuals\n- Powerful wing beats that shake structures\n- Talons capable of lifting humanoids\n- Splendor magic emanating from heart"
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-combat-behavior",
+      "title": "Combat Behavior",
+      "text": "- Swoops to capture targets\n- Can lift and drop victims from height\n- Bites can bisect a humanoid\n- Wing beats create environmental hazards\n- Heart contains overwhelming Splendor magic"
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-key-events",
+      "title": "Key Events",
+      "text": "- Captured [Jamal](#company/jamal) and [Draz](#company/draz), dropping them on separate peaks\n- Shook rope bridge with wing beats\n- Attacked [Verrow's Span](#atlas/verrows-span), capturing refugees\n- Tethered by [Sylvie](#company/sylvie)'s magic, crashed onto ledge\n- Shot in eye by [Draz](#company/draz)\n- Set ablaze by [Sylvie](#company/sylvie)'s Fireball\n- Died thrashing in the plaza"
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-remains-value",
+      "title": "Remains & Value",
+      "text": "- Heart: Potent Splendor magic, overwhelming to siphon\n- Eggs: Valuable, sought by [Borek](#personae/borek) and [Dimmers](#factions/dimmers)\n- Ink: Demanded by [Borek](#personae/borek)\n- Claws: [Heyou](#company/heyou) forged a dagger from one\n- Eyes: [Sylvie](#company/sylvie) took them for her bag\n- Bones: [Draz](#company/draz)'s kinfolk to tend them"
+     },
+     {
+      "id": "veil-canon-bestiary-askavir-gm-notes",
+      "title": "GM Notes",
+      "text": "Though dead, the Askavir's remains hold significant value and power. Its connection to [Tlellic](#personae/tlellic) means its death may have divine consequences.\n\nThe heart's Splendor magic was too overwhelming for [Sylvie](#company/sylvie) to siphon—it may require special circumstances or preparation to utilize. [Heyou](#company/heyou) absorbed a portion, gaining holy power."
+     }
+    ],
+    "about": [
+     "#caulNPCAskavir00000000001"
+    ]
+   },
+   {
+    "id": "veil-canon-bestiary-guardian-beast",
+    "title": "Guardian Beast",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-bestiary-guardian-beast-description",
+      "title": "Description",
+      "text": "A purple, multi-eyed, feline-like demon tethered to a [Glowing Tree](#atlas/underground-complex). Features a Giant Collar with a broken chain indicating prior connection to a [Sacred Tree](#atlas/underground-complex). Produces gray, extremely cold viscous fluid."
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-abilities",
+      "title": "Abilities",
+      "text": "- Unnatural intellect and calculated hostility\n- Tactical repositioning during combat\n- Grappling ability to ensnare targets from distance\n- Held [Blessed Branch](#relics/blessed-branch) in its mouth"
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-combat-behavior",
+      "title": "Combat Behavior",
+      "text": "- Behaves with calculated hostility toward intruders\n- Intelligent repositioning complicates opponents' strategies\n- Can grapple from unexpected distances\n- Responses to Nature's Tongue were hostile"
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-origin",
+      "title": "Origin",
+      "text": "Appears to be a corrupted or summoned being, bound to protect the [Sacred Tree](#atlas/underground-complex). The broken chain on its collar suggests it was once more securely tethered."
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-key-events",
+      "title": "Key Events",
+      "text": "- Discovered at [Glowing Tree](#atlas/underground-complex) holding [Blessed Branch](#relics/blessed-branch)\n- [Draz](#company/draz) attempted communication via Nature's Tongue—received hostility\n- Goblin Envoy proposed alliance against it\n- Party used [Explosive Barrels](#relics/explosive-barrels) in assault\n- [Draz](#company/draz) fired arrow at barrels, freeing beast from tether\n- Sustained severe injuries from explosions\n- [Jamal](#company/jamal) crushed its paw with warhammer\n- [Heyou](#company/heyou) decapitated it with daggers\n- [Sarru](#personae/sarru) took damage from its attack"
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-aftermath",
+      "title": "Aftermath",
+      "text": "- Party discovered burnt and regrown [Sacred Tree](#atlas/underground-complex)\n- Found Giant Collar with broken chain\n- Raised questions about what bound the Guardian to the tree"
+     },
+     {
+      "id": "veil-canon-bestiary-guardian-beast-gm-notes",
+      "title": "GM Notes",
+      "text": "The Guardian was bound to the [Sacred Tree](#atlas/underground-complex) by forces connected to [Caranthalis](#personae/caranthalis). Its death (and the subsequent destruction of the tree by goblins) angered [Kelun](#personae/kelun) and the divine powers.\n\nThe cold viscous fluid and multi-eyed appearance suggest Umbra corruption or demonic origin."
+     }
+    ]
+   },
+   {
+    "id": "veil-canon-bestiary-stonewraith",
+    "title": "Stonewraith",
+    "text": "",
+    "sections": [
+     {
+      "id": "veil-canon-bestiary-stonewraith-description",
+      "title": "Description",
+      "text": "A ten-foot-tall creature that emerges from stone walls. Connected to ancient technology and supernatural elements."
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-abilities",
+      "title": "Abilities",
+      "text": "- Emerges from solid stone\n- Resistance to conventional weaponry (arrows pushed back)\n- Subsonic attacks that disrupt environment\n- Can knock opponents off perches\n- Causes falling rocks\n- Retaliation against ranged attacks"
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-combat-behavior",
+      "title": "Combat Behavior",
+      "text": "- Attacks produce deep subsonic rumbles\n- Can target multiple enemies through environmental effects\n- Conventional weapons are largely ineffective"
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-communication",
+      "title": "Communication",
+      "text": "Can respond to peaceful approach. [Sylvie](#company/sylvie) approached with open hands and received attentive response."
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-ancient-connection",
+      "title": "Ancient Connection",
+      "text": "The spirit within a Stonewraith can temporarily inhabit other beings. One possessed [Heyou](#company/heyou), revealing:\n\n- It had roamed the area for thirty years\n- Warned about the [Guardian](#personae/guardian) of the [Glowing Tree](#atlas/underground-complex)\n- Connected to a magical relay system"
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-encounters",
+      "title": "Encounters",
+      "text": "- [Draz](#company/draz)'s arrow was pushed back by its defenses\n- Subsonic attack caused falling rocks damaging [Draz](#company/draz)\n- [Heyou](#company/heyou) was temporarily possessed, learning vital information"
+     },
+     {
+      "id": "veil-canon-bestiary-stonewraith-gm-notes",
+      "title": "GM Notes",
+      "text": "Stonewraiths appear to be guardians or observers connected to ancient systems. They're not necessarily hostile if approached correctly, but will defend against perceived threats.\n\nTheir connection to [Heyou](#company/heyou) (who recognized it as ancient tech) suggests clanks and Stonewraiths may share origins."
+     }
+    ]
+   }
+  ],
+  "pc": [
+   {
+    "id": "veil-sylvie-draft",
+    "title": "Draft — Sylvie Cerridwen",
+    "text": "**Name:** Sylvie Cerridwen\n\n**Ancestry:** Human\n\n**Age:** Early 40s\n\n**Class:** Witch (Wizard)\n\n**Community:** Ridgeborne (specifically, from the now-destroyed Stoneheart Peaks) **Specialization:** School of Knowledge\n\n**Core Concept:** Sylvie was a Stoneweaver from an isolated, mountain community dedicated to containing an ancient magical nexus. A profound conflict with a powerful colleague, whose insidious magical manipulations escalated into an attempt to dominate and violate her magical channels, led to a cataclysmic confrontation. This event, known as the \"Sundering of the Stoneheart,\" resulted in the destruction of her home and the irreversible transformation of her magic from earth-attuned to lunar. She now wields potent, moon-infused magic, bearing the indelible marks of this destructive transformation.\n\n**Daggerheart Mechanics:**\n\n- **Hope:** To find a new purpose where her unique understanding of magic can be valuable, and to prevent widespread destruction or imbalance caused by unchecked power.\n- **Fear:** That the power she was forced to unleash will consume her, or that she might inadvertently cause similar widespread devastation.\n- **Experiences:**\n- **Sister Moon:** Reflects a heightened magical potency under direct moonlight, allowing her to push limits or perceive hidden truths related to lunar energies.\n- **The Scarred Earth:** Represents the profound loss of her home and her intuitive understanding of corruption, destruction, or fragmented magic, particularly regarding geological or elemental forces.",
+    "sections": [
+     {
+      "id": "veil-sylvie-draft-key-background-world-building-elements-for-gm-agreement",
+      "title": "Key Background & World-Building Elements for GM Agreement",
+      "text": "The following elements form the foundation of Sylvie's character and would need to be integrated into the game world's lore and geography.\n\n- **The Stoneheart Peaks & The Ridgeborne Community:** An ancient, isolated human community nestled deep within the mountains. This community, specifically the Stoneheart Peaks settlement, is now **destroyed/sundered/ruined** due to a cataclysmic magical event.\n- **The Stoneweaver Order & The Earth-Heart:**\n- **The Stoneweavers:** An ancient, hereditary magical order within the Stoneheart Peaks. Their magic was traditionally earth-attuned, focused on harmony, containment, and subtle manipulation of mountain energies.\n- **The Earth-Heart:** A **profound, ancient, primal nexus of magic** hidden deep within the Stoneheart Peaks. It is a vast, powerful entity whose immense, raw energy requires constant guardianship.\n- **The Five Guardians:** Only five Stoneweavers (Sylvie, Kaelen, Rhys, and two others) were entrusted with its guardianship, performing the **Confluence Ritual** to contain its volatile power.\n- **Kaelen & Rhys:**\n- **Kaelen:** A powerful Stoneweaver whose ambition led him to seek absolute control over the Earth-Heart. He engaged in **insidious magical and psychological manipulations** directed at Sylvie, attempting to destabilize her connection to the Earth-Heart and gain dominance.\n- **Rhys:** A Stoneweaver and Sylvie's peer who, despite understanding Kaelen's problematic actions, chose to prioritize Kaelen's promises of power for the order over intervening to support Sylvie, remaining silent and complicit.\n- **The Sundering of the Stoneheart:**\n- **The Event:** A cataclysmic magical confrontation during the sacred Confluence Ritual. Kaelen's escalating magical assault and his attempt to directly **control and violate Sylvie's magical channels** triggered Sylvie's forceful, newly awakened lunar magic.\n- **The Cataclysm:** The resulting clash of unleashed power between Sylvie and Kaelen, combined with Kaelen's previous manipulations and the compromised state of the Earth-Heart, caused the **Sundering of the Stoneheart**, destroying the mountain settlement (and much of the mountain itself). Occasional survivors may be encountered. The surviving members of her community, if any found her, would likely view her as a destructive force, a pariah responsible for their ruin.\n- **The Fates of the Five Stoneweavers:**\n- **Kaelen:** Was **utterly obliterated** by Sylvie's power, leaving no trace.\n- **Rhys:** Was **trapped within the fractured remnants of the Earth-Heart** in a unique magical stasis/prison, a living consequence of his choices.\n- **The Other Two:** Were **lost to the immediate cataclysm** and are presumed dead.\n- **Sylvie's New Magic (Lunar Weaving) & Magical Items:**\n- **Shift in Power:** Sylvie's old earth-attuned Stoneweaver magic was irrevocably severed. Her new power is entirely **lunar-based**, manifesting from a profound connection to the \"Sister Moon.\"\n- **The Staff of Sundered Moonlight:** Her magical two-handed staff was **forged in the chaos of the Sundering**. An ancient tree branch, steeped in the Peaks' energy, became infused with her raw lunar magic, transforming into a staff dense as petrified wood, pulsing with inner moonlight and silver veins.\n- **The Whispering Deck:** A cherished tarot deck, a gift from her **grandmother** (a previous Stoneweaver). Sylvie had it on her person during the Sundering, and it was imbued with the chaotic lunar energies, becoming a living link to her past and a transformed magical artifact. It is used for **meditation and unlocking magical insight**.\n- **Knowledge Acquisition:** She studies moon magic through meticulous direct observation of the moon and magical experimentation, compiling insights into her **grimoire. ** She also seeks out **forgotten lore scraps**, insights from oral history traditions, ancient runes from forgotten days, trying to piece together what the wild magic is that speaks to her now.\n- **Flint:** Sylvie's crow familiar. He served as a silent witness during the time of Kaelen's manipulations and now remains her loyal companion.\n- **Sylvie's Lunar Weavings:** She knits, especially under moonlight, weaving silent protective spells and lunar blessings into the fabric. These charm-infused knitted items are often given to those she perceives as vulnerable."
+     },
+     {
+      "id": "veil-sylvie-draft-gm-response",
+      "title": "GM Response",
+      "text": "1. As a Stoneweaver, mechanically you were once a level 5-7 sorcerer.,\n\n2. What Kaelen did sundered the mountain, and tried to disempower you. Instead, you pushed your powers into the mountain itself. Kaelen & Rhys cast part of the mountain up to the moon.,\n\n3. There was a period in which Sylvie was without magic, and she slowly began to relearn as she traveled between settlements, scraping together bits of lore.,\n\n4. She learned that when she traveled in moonlight, she was generally able to travel safely.,\n\n5. Some of the lore that she picked up related to practices of the old Veiled Gods (Splendor Domain). Oddly enough, the *practices* seem to work, even in the absence of divine connection\n\n- I guess my question then is are Kaelen / Rhys dead then? Maybe not. If she was stripped of her power by events, then she presumably didn’t win that battle magically?\n- She believes with a high degree of confidence that they are dead."
+     },
+     {
+      "id": "veil-sylvie-draft-player-questions",
+      "title": "Player questions:",
+      "text": "Mechanism Explaining Sylvie's Moon Tie: A Convergence of Blood, Lore, and Cataclysm\n\nSylvie's profound and sudden connection to the Sister Moon is not a singular phenomenon but the culmination of several interwoven threads: a deeply ancient, almost forgotten aspect of Stoneweaver lore; a specific, powerful ancestral heritage; and the cataclysmic trauma of the Sundering itself.\n\n- The \"Sister Moon\" in Ancient Earth-Heart Lore (Earth-Heart's True Nature): While the dominant Stoneweaver tradition focused solely on the Earth-Heart's terrestrial power, deeper, more archaic texts within their sacred lore spoke of a complementary force: the \"Sister Moon.\" This wasn't merely the celestial body, but a recognized cosmic counterpart to the Earth-Heart's primal energy, representing balance, cycles, unseen currents, and receptive power – an ethereal yin to the Earth-Heart's grounded yang. Over millennia, as the Stoneweavers became increasingly pragmatic in their containment duties, this lunar aspect faded into obscured metaphor, honored in name but rarely truly understood or actively engaged. It was a concept, a philosophical balance, rather than an accessible magical wellspring.,\n- An Ancestral Lunar Heritage (Bloodline Revelation): Generations ago, Sylvie's grandmother's mother brought a unique thread into the Cerridwen lineage when she married into the clan. She hailed from a hidden, ancient tradition (perhaps from a nomadic people, or a valley clan that revered celestial bodies), carrying a potent, latent affinity for lunar magic. This affinity was passed down through the generations, a quiet, almost imperceptible hum in the bloodline, lying dormant within most of her descendants, including Sylvie's grandmother and mother, as it lacked the specific trigger or environment to manifest. It was a seed that never fully bloomed within the earth-attuned environment of the Stoneheart Peaks.,\n- The Catalyst of Cataclysmic Trauma (Latent Affinity Activated & Earth-Heart's Rebalancing): Sylvie herself, unbeknownst to her, carried this intensified, latent lunar affinity in her blood. Her own quiet, intuitive nature, while perfectly suited to earth-weaving, also inherently resonated with the subtle, introspective power of the moon. The truly transformative moment came during the Sundering. Kaelen's relentless, aggressive, and violating magic didn't just clash with Sylvie; it assaulted the very balance of the Earth-Heart itself. His attempts to dominate and force the ancient nexus, coupled with his profound violation of Sylvie's own magical channels, threw the entire system into an unprecedented, catastrophic disequilibrium. When Sylvie's traditional earth magic was irrevocably severed, unable to bear the combined assault and the betrayal, a void was created. In that moment of utter desperation and her defiant, primal \"NO,\" the now-uncontained Earth-Heart, thrashing in its own self-preservation, instinctively sought balance. It resonated with the only other complementary force present in the immediate vicinity that also stood in pure opposition to Kaelen's aggressive intent: the ancient, dormant lunar affinity in Sylvie's very blood.,\n- The Earth-Heart, bleeding its power, inadvertently or as a final act of re-equilibration, amplified and funneled its complementary lunar aspect directly into Sylvie. The extreme trauma and the complete magical severance acted as the violent \"key,\" unlocking and igniting the powerful, inherited lunar magic that had lain dormant for generations. The \"Sister Moon,\" as both a cosmic entity and a revered concept in ancient lore, answered the call, not just as a patron, but as an inherent magical force now directly connected to Sylvie's being.\n\nIn essence, Sylvie didn't just gain new magic; her ancient bloodline's dormant lunar potential was violently activated and magnified by the collapsing Earth-Heart's desperate lunge for balance, all triggered by Kaelen's destructive forces. She became a living, breathing testament to the interconnectedness of all primal forces and the unforeseen consequences of disrupting ancient harmonies."
+     },
+     {
+      "id": "veil-sylvie-draft-gm-response-2",
+      "title": "GM Response",
+      "text": "Sylvie can think whatever she would like about it; I suspect the bulk of it more has to do with Kaelen & Rhys casting her power with a chunk of the mountain up to the moon.\n\nBut I also like the idea of the \"Earth-heart\" connecting to her, a godlike connection but one that is impersonal and inchoate.\n\nI generally lean against \"oh, it's in the protagonist's blood\" explanations for things, but if that's important to you we can figure something out."
+     }
+    ],
+    "about": [
+     "Sylvie Cerridwen"
+    ]
+   }
   ]
+ }
 }

@@ -22,18 +22,10 @@ window.VttConfig = {
   },
   // the three panels the GM page opens on (engine/app.js) — revisited at the migration milestone
   defaultSlots: ['frame', 'party', 'inspector'],
-  // Behind the Veil (M4): the GM's lore/secrets, concatenated by campaign/source/build_veil.py,
-  // shown in the Notes pane behind a spoiler gate (system/daggerheart/gm-panes.js).
-  notes: {
-    src: 'campaign/docs/veil.html',
-    title: 'Behind the Veil',
-    class: 'caul-doc',
-    gate: {
-      title: 'Behind the Veil',
-      text: 'The shape of the world beneath the world — the GM’s canon, cosmology and secrets. Spoilers for players.',
-      enter: 'Lift the Veil',
-    },
-  },
+  // Behind the Veil moved into the GM tabs (the family standard, PLAYBOOK §4b.2): its text is the
+  // seed's `gm` (campaign/source/absorb_veil.py), edited in Overview, Places and People; the Notes
+  // pane, which showed the old document, is left out (its free notes are in Overview).
+  hidePanes: ['notes'],
   // The campaign's own scripts, loaded by engine/instance.js at the stages the upstream pages
   // mark. The DSL layer (campaign/dsl/ → campaign/data/, via build/build_layer.sh) registers the
   // campaign's 106 statblocks into the data global at the `data` stage. Site tabs + GM doc land
