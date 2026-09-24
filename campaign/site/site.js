@@ -53,8 +53,27 @@
     return atlasDoc(main, path);
   }
 
+  // the Age of Umbra frame is in effect (decision 6): a highlighted section on the home tab points
+  // players to it; the frame's full pitch and rules modifications live on the VTT's Frames tab and
+  // the GM's Frame pane.
+  function umbraCallout(host) {
+    if (host.querySelector('.umbra-frame-callout')) return;
+    var box = document.createElement('aside');
+    box.className = 'umbra-frame-callout';
+    box.innerHTML =
+      '<div class="uf-tag">Campaign frame in effect</div>' +
+      '<h2>The Age of Umbra</h2>' +
+      '<p>A dying world drowned in shadow — the great lights have gone out, and only the lesser ' +
+      'lights endure. This chronicle runs on Daggerheart’s <strong>Age of Umbra</strong> campaign ' +
+      'frame: its principles and rules modifications (the Sacred Pyre that holds back the dark, the ' +
+      'corrupting Umbra) are in force.</p>' +
+      '<p><a href="#frames">Read the frame at the table →</a></p>';
+    var wrap = host.querySelector('.wrap') || host;
+    wrap.insertBefore(box, wrap.firstChild);
+  }
+
   var tabs = [
-    { id: 'home', label: TITLE, render: docTab('home') },
+    { id: 'home', label: TITLE, render: docTab('home', umbraCallout) },
     { id: 'chronicle', label: 'Chronicle', render: docTab('chronicle') },
     { id: 'company', label: 'The Company', render: docTab('company') },
     { id: 'personae', label: 'Dramatis Personae', render: docTab('personae') },

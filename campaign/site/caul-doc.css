@@ -8,3 +8,22 @@
 .caul-doc .wrap {
   margin-inline: auto;           /* keep the column centred within the tab */
 }
+/* the Age of Umbra highlighted section on the home tab (site.js umbraCallout) */
+.caul-doc .umbra-frame-callout {
+  margin: 0 0 2rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--edge, #3c4a5a);
+  border-left: 3px solid var(--gold, #c9a86a);
+  border-radius: 6px;
+  background: rgba(60, 74, 90, 0.18);
+}
+.caul-doc .umbra-frame-callout .uf-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold, #c9a86a);
+  margin-bottom: 0.3rem;
+}
+.caul-doc .umbra-frame-callout h2 { margin: 0.1rem 0 0.5rem; }
+.caul-doc .umbra-frame-callout p { margin: 0.4rem 0 0; }
+
