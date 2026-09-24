@@ -48,13 +48,15 @@
   "name": "Pinchie",
   "subType": "companion",
   "category": "companion",
-  "canon": "Pinchie"
+  "canon": "Pinchie",
+  "owner": "Jamal"
  },
  "dMdDGA4LXyPhitEG": {
   "name": "Umbral Raven",
   "subType": "companion",
   "category": "companion",
-  "canon": "Umbral Raven"
+  "canon": "Umbral Raven",
+  "owner": "Sylvie"
  },
  "GuTWBGcysdf0rvRT": {
   "name": "You Bastard",
@@ -90,19 +92,25 @@
   "name": "Mellan (Revenant)",
   "subType": "character",
   "category": "character-npc",
-  "canon": "Mellan (Revenant)"
+  "canon": "Mellan (Revenant)",
+  "variant_group": "Mellan",
+  "variant_role": "revenant"
  },
  "O53fmhhROhana4j0": {
   "name": "Sarru",
   "subType": "character",
   "category": "character-npc",
-  "canon": "Sarru"
+  "canon": "Sarru",
+  "variant_group": "Sarru",
+  "variant_role": "base"
  },
  "ljNlsABRT6FaQQpv": {
   "name": "Savel",
   "subType": "character",
   "category": "character-npc",
-  "canon": "Savel"
+  "canon": "Savel",
+  "variant_group": "Savel",
+  "variant_role": "base"
  },
  "oFwFD2Mr69AIsKu5": {
   "name": "Tamber",
@@ -222,13 +230,17 @@
   "name": "Umbral Savel",
   "subType": "adversary",
   "category": "adversary-named",
-  "canon": "Umbral Savel"
+  "canon": "Umbral Savel",
+  "variant_group": "Savel",
+  "variant_role": "umbral"
  },
  "Ce0T0sltuXBWhYZm": {
   "name": "Umbral Sarru",
   "subType": "adversary",
   "category": "adversary-named",
-  "canon": "Umbral Sarru"
+  "canon": "Umbral Sarru",
+  "variant_group": "Sarru",
+  "variant_role": "umbral"
  },
  "DYXJGcFqSzEEwWtx": {
   "name": "Arch-Necromancer",
@@ -496,7 +508,9 @@
   "name": "Enraged Mountain Troll - Evolution",
   "subType": "adversary",
   "category": "adversary-generic",
-  "canon": "Enraged Mountain Troll"
+  "canon": "Enraged Mountain Troll",
+  "variant_group": "Mountain Troll",
+  "variant_role": "evolution"
  },
  "UMNypqIgTKSPrGsh": {
   "name": "Ethereal Deathmantis",
@@ -616,7 +630,9 @@
   "name": "Mountain Troll",
   "subType": "adversary",
   "category": "adversary-generic",
-  "canon": "Mountain Troll"
+  "canon": "Mountain Troll",
+  "variant_group": "Mountain Troll",
+  "variant_role": "base"
  },
  "Q2hmQ3jyCDcW7FgL": {
   "name": "Noble Warlord",
@@ -781,30 +797,35 @@
  "iE5VS53tRptJIzlt": {
   "name": "Mellan",
   "subType": "character",
-  "category": "UNDECIDED",
+  "category": "character-npc",
   "canon": "Mellan",
-  "reason": "Mellan (plain, not the Revenant)"
+  "reason": "Mellan (plain, not the Revenant)",
+  "variant_group": "Mellan",
+  "variant_role": "base"
  },
  "59pGniiHrDowoz1q": {
   "name": "Tueri",
   "subType": "character",
-  "category": "UNDECIDED",
-  "canon": "Tueri",
-  "reason": "Tueri"
+  "category": "character-npc",
+  "canon": "Tueri"
  },
  "TxIdhXZGY132kZ8o": {
   "name": "Speaker",
   "subType": "character",
-  "category": "UNDECIDED",
+  "category": "companion",
   "canon": "Speaker",
-  "reason": "Speaker (Sylvie's construct) — companion or NPC?"
+  "owner": "Sylvie",
+  "variant_group": "Speaker",
+  "variant_role": "base"
  },
  "hTjFVuzmKTIJr41m": {
   "name": "Speaker",
   "subType": "character",
-  "category": "UNDECIDED",
+  "category": "companion",
   "canon": "Speaker",
-  "reason": "Speaker (Sylvie's construct) — companion or NPC?"
+  "owner": "Sylvie",
+  "variant_group": "Speaker",
+  "variant_role": "alt"
  },
  "HCnLwtvgUoMuMgmH": {
   "name": "Clank Leg",
