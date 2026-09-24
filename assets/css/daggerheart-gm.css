@@ -184,3 +184,9 @@ body.play { display: block; }
   body.play .stat { min-width: 0; padding: 6px 2px; }
   body.play .stat-k { font-size: 13px; letter-spacing: .02em; }
 }
+
+/* the kit's GM stylesheet (assets/css/gm.css, PLAYBOOK §4b) reads these names; here they are this
+   palette's own, in both themes — without them the gate's box fell back to light parchment under the
+   dark theme's light ink */
+:root { --paper: var(--panel); --edge: var(--line); --gold: var(--accent); --crimson: var(--danger); --jade: var(--crit); }
+.gm-noted { color: var(--ink); border: 1px solid var(--accent); font-family: var(--sans); font-size: .85rem; padding: 0 6px; margin-left: 4px; cursor: pointer; }

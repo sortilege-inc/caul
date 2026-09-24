@@ -130,6 +130,8 @@
           el('div', { class: 'card-meta muted small' }, [Sys().memberSubtitle(m)]),
           el('div', { class: 'card-text' }, [Sheet.tokenText(m)]),
         ]),
+        // the GM's notes on this character (the People pane's sections "about" them, by name)
+        window.VttGmText ? window.VttGmText.aboutSections('pc', m.name, draw) : null,
         el('div', { class: 'member-ops' }, [
           button('file', () => Sys().downloadCharacter(m), 'ghost tiny'),
           button('remove', () => { if (confirm('Remove ' + m.name + ' from the party?')) State.commit('removePartyMember', [m.id]); }, 'ghost tiny'),
@@ -164,6 +166,9 @@
           sc && castable ? button('Put in ' + sc.name, () => put(sid, e.id), 'tiny') : null,
           el('a', { class: 'btn ghost tiny', href: './#book/' + encodeURIComponent(e.book) + '/' + encodeURIComponent(e.id), target: '_blank' }, ['In the reader']),
         ]));
+        // the GM's notes on this one (the People pane's sections "about" it)
+        const about = window.VttGmText && window.VttGmText.aboutSections('people', e.id, draw);
+        if (about) container.appendChild(about);
         if (e.type === 'Adversary') {
           container.appendChild(Sheet.adversaryBlock(e));
           container.appendChild(npcConditionsBlock(e));
@@ -172,6 +177,8 @@
       } else if (sel.kind === 'party') {
         const m = (S().party || []).find((x) => x.id === sel.id);
         if (!m) return container.appendChild(el('div', { class: 'empty' }, ['That character is no longer in the party.']));
+        const about = window.VttGmText && window.VttGmText.aboutSections('pc', m.name, draw);
+        if (about) container.appendChild(about);
         container.appendChild(Sys().liveSheet(m));
         container.appendChild(el('div', { class: 'prop-k' }, ['GM notes', el('span', { class: 'muted' }, [' · never sent to players'])]));
         container.appendChild(el('textarea', { class: 'text', rows: 3, oninput: debounce((ev) => State.commit('setPartyNotes', [m.id, ev.target.value]), 400) }, [m.notes || '']));
@@ -205,6 +212,9 @@
       const search = el('input', { type: 'search', class: 'search', placeholder: 'Find one in either book…', value: castState.q });
       search.addEventListener('input', debounce(() => { castState.q = search.value.trim().toLowerCase(); drawList(); }, 150));
       const list = el('div');
+      // who the GM has notes about (the People pane's sections "about" them)
+      const noted = {};
+      ((S().gm || {}).people || []).forEach((x) => (x.about || []).forEach((id) => { noted[id] = (noted[id] || 0) + 1; }));
       const drawList = () => {
         list.innerHTML = '';
         const rows = D.recordsOf(castState.kind).filter((r) => (!castState.q || r.name.toLowerCase().indexOf(castState.q) !== -1) && (!castState.tier || String(F(r, 'Tier')) === castState.tier))
@@ -213,6 +223,7 @@
         list.appendChild(el('ul', { class: 'items toc' }, rows.slice(0, 200).map((r) => el('li', {}, [
           el('button', { class: 'ref', type: 'button', onclick: () => window.DHOpenEntity(r.id) }, [r.name]),
           el('span', { class: 'muted small' }, [' · ' + ['Tier ' + (F(r, 'Tier') || '—'), F(r, 'Role') || F(r, 'Category'), D.label(r.book)].filter(Boolean).join(' · ')]),
+          noted[r.id] ? el('button', { class: 'chip gm-noted', type: 'button', title: 'the GM’s notes on ' + r.name, onclick: () => Panels.select({ kind: 'entity', id: r.id }) }, ['GM notes']) : null,
           sc ? el('button', { class: 'ref tiny', type: 'button', title: 'put in ' + sc.name, 'aria-label': 'put ' + r.name + ' in ' + sc.name, onclick: () => put(sid, r.id) }, ['+']) : null,
         ]))));
       };
@@ -223,6 +234,7 @@
     };
     ctx.on('scene:changed', draw);
     ctx.on('state:remote', draw);
+    ctx.on('state:changed', (p) => { if (p && p.op && p.op.name === 'setGm' && !editing(container)) draw(); });
     draw();
   }
 
