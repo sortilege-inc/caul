@@ -20,7 +20,7 @@ once per clone).
 |---|---|---|
 | M0 | Plan + decisions | **done** — this file |
 | M1 | The fork | **done 2026-09-24** — see below |
-| M2 | Homebrew characters & NPCs into `campaign/dsl/` (4 PCs as `Character`; Pinchie, Umbral Raven, the bestiary as `Adversary`), from Foundry, gated + field-checked | next |
+| M2 | Homebrew characters & NPCs into `campaign/dsl/` (4 PCs as `Character`; Pinchie, Umbral Raven, the bestiary), from Foundry, gated + field-checked | **in progress** — 4 PCs + 2 companions done (below); NPCs/environments/adversaries + 3 record-less companions await a Foundry pull |
 | M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | |
 | M4 | Migrate the 171 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc | |
 | M5 | Deploy (owner): Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | |
@@ -43,7 +43,16 @@ All 150 Foundry actors categorized: **4 PCs, 5 companions, 10 character-NPCs, 4 
 - Splits resolved: "Lonely Spirit" is two actors (character → drop, adversary → generic); "Dwarf Captain (Copy)" and the duplicate "Chaos Realm" dropped; full-title actors matched by prefix ("Ash-begets-Tide, Priest of Ossa-in-Abstentia", "Inola Wending, Keeper of Splendor"); "The Kindly Light" is the actual world actor.
 - **Undecided (await owner):** `Mellan` (plain — the Revenant version is imported), `Tueri`, `Speaker` ×2 (Sylvie's construct — companion or NPC?).
 
+## M2 progress (2026-09-24)
+- **4 PCs → `Character`** (`campaign/dsl/caul-pcs.actor`, commit `56414be`). Draz + Heyou are multiclass (upstream Second Class/Subclass). `convert_pcs.py` + `check_pcs.py`; layer-gated (0 uncovered strings, all refs resolve) + field-checked (18/18/16/16 fields vs the records; `--plant` catches perturbations). Pronouns per the owner: Draz he/him, Heyou they/them, Jamal he/him, Sylvie she/her.
+- **2 companions → `Ranger Companion`** (`campaign/dsl/caul-companions.actor`). Pinchie (Jamal) + Umbral Raven (Sylvie), each a *played instance* of the Ranger Companion type (fields added upstream, see decision log). `convert_companions.py` + `check_companions.py` + shared `companion_extract.py`; layer-gated + field-checked (9/9 fields; `--plant` catches perturbations).
+  - **Record anomalies flagged (owner to fix at the Foundry source, then re-pull — decision 4):** Pinchie's attack die is stored as `d20` (Foundry's unset default; the converter uses the record's `valueAlt` `d6`); the Umbral Raven has two blank-named Experiences (modifier 2 each).
+- **Still to convert (all need a Foundry pull — only 8 actors are in the 2026-09-24 snapshot):** 3 record-less companions (Bob the Living Fortress, You Bastard, Yuki), the 2× Speaker construct (character-typed → the `Character` path, as a variant pair), 12 character-NPCs, 4 environments, 12 named + 68 generic adversary statblocks (14 fae already sit in `campaign/adversaries/` as Foundry JSON).
+
 ## Decision log (autonomous calls this session)
+- **Companion modeling (owner, 2026-09-24):** the plan's "companions as `Adversary`" (decision 5) was written before the records were seen. Pinchie & the Umbral Raven are Foundry `companion`-type (the Ranger's-Companion sheet), not adversaries. Owner chose to **extend the corpus `Ranger Companion` ACTOR upstream** with optional played-instance fields (Pronouns, Partner, Evasion, Stress, Marked Stress, an Attack DEF, Experiences, Upgrades, Description) rather than force them into `Adversary`. "Player view+control" (decision 5) is an engine/ownership feature (M3), independent of the DSL type. Speaker ×2 are `character`-typed → the `Character` path.
+- **Upstream Ranger Companion extension** — corpus `titterpig-dsl-daggerheart` core-base bumped 0.5.2→**0.5.3** (`71a9225`, pushed); VTT `data/` regenerated + gated (`919eb94`, pushed); merged into this instance (only `data/*.js` changed, boundary held).
+- **`ref()` normalization** — Foundry and the corpus disagree on case/punctuation for the same entity (`Executioner's Guild`↔`Executioners Guild`, `Book of Ava`↔`Book Of Ava`). `convert_pcs.ref()` falls back from an exact corpus lookup to a *single* normalized (letters+digits, lowercased) match and emits the corpus's canonical spelling; `check_pcs` compares reference names normalized.
 - Namespacing `channel`/`storagePrefix` set to `caul-vtt` (was the VTT's `sortilege-vtt-daggerheart`) — origin-scoped anyway, but keeps localhost previews of the base VTT and this instance from sharing storage. `dataGlobal` left `DAGGERHEART` (must match `data/*.js`).
 - Worker named `caul-vtt`; launch.json site port `8142`, worker `8796` (the VTT's).
 - `campaign/CNAME` (moved by M1.1) removed — CNAME lives only at root.
