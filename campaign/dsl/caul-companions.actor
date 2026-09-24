@@ -29,4 +29,39 @@ EXTENSION "Caul_Companions" EXTENDS "Daggerheart_Core_Base" {
             ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient", #tv5AMHlEIoZ3CIX5dlwSP3gT ^"Armored", #t7MjTKl86Qa0iUvA9NwmuVQT ^"Aware" ]
         }
     }
+
+    #caulNPCYouBastard0000001 ^"You Bastard" DEF {
+        EXTENDS #daggerheartRangerCompanion01 ^"Ranger Companion"
+        PROPERTIES {
+            ^"Evasion" INTEGER 6
+            ^"Stress" INTEGER 3
+            ^"Marked Stress" INTEGER 1
+            ^"Attack" DEF { ^"Name" STRING "Charge" ^"Range" STRING "Melee" ^"Damage" STRING "Prof d12 physical" }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Unruly" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Unconcerned" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Umbral Resistant" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Trampler" ^"Modifier" INTEGER 2 } ]
+            ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tzXktTL7eAepxKSsIAjxcuYZ ^"Vicious", #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient", #tFsQU6UqtNUJD44GmbUGGiL6 ^"Light in the Dark" ]
+        }
+    }
+
+    #caulNPCBob00000000000001 ^"Bob the Living Fortress" DEF {
+        EXTENDS #daggerheartRangerCompanion01 ^"Ranger Companion"
+        PROPERTIES {
+            ^"Evasion" INTEGER 6
+            ^"Stress" INTEGER 3
+            ^"Marked Stress" INTEGER 1
+            ^"Attack" DEF { ^"Name" STRING "Ground Slam" ^"Range" STRING "Melee" ^"Damage" STRING "Prof d6 physical" }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Bodyguard" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Immovable" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Divine Sensitivity" ^"Modifier" INTEGER 2 } ]
+            ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient" ]
+        }
+    }
+
+    #caulNPCYuki0000000000001 ^"Yuki" DEF {
+        EXTENDS #daggerheartRangerCompanion01 ^"Ranger Companion"
+        PROPERTIES {
+            ^"Evasion" INTEGER 10
+            ^"Stress" INTEGER 3
+            ^"Marked Stress" INTEGER 0
+            ^"Attack" DEF { ^"Name" STRING "Attack" ^"Range" STRING "Melee" ^"Damage" STRING "Prof d6 physical" }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "We Always Find Them" ^"Modifier" INTEGER 2 } ]
+        }
+    }
 }

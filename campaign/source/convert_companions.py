@@ -23,10 +23,14 @@ RANGER_COMPANION = '#daggerheartRangerCompanion01 ^"Ranger Companion"'
 T_EXP = '#daggerheartExperience00000001 ^"Experience"'
 T_UPGRADE = '#daggerheartCompanionUpgrade1 ^"Companion Upgrade"'
 
-# name, stable caul id, Foundry source file, the bonded character (from the roster manifest)
+# name, stable caul id, Foundry source file, the bonded character (from the roster manifest;
+# None for a companion not bonded to a specific PC)
 COMPANIONS = [
-    ("Pinchie",       "caulNPCPinchie0000000001", "pinchie",      "Jamal Jenkins"),
-    ("Umbral Raven",  "caulNPCUmbralRaven000001", "umbral-raven", "Sylvie Cerridwen"),
+    ("Pinchie",                "caulNPCPinchie0000000001", "pinchie",                 "Jamal Jenkins"),
+    ("Umbral Raven",           "caulNPCUmbralRaven000001", "umbral-raven",            "Sylvie Cerridwen"),
+    ("You Bastard",            "caulNPCYouBastard0000001", "you-bastard",             None),
+    ("Bob the Living Fortress","caulNPCBob00000000000001", "bob-the-living-fortress", None),
+    ("Yuki",                   "caulNPCYuki0000000000001", "yuki",                    None),
 ]
 
 
