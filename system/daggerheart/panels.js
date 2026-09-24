@@ -21,7 +21,8 @@
     D.ensure(r.book).then(() => Panels.select({ kind: 'entity', id }));
   };
   const editing = (c) => document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName) && c.contains(document.activeElement);
-  const put = (sceneId, id) => State.commit('setSceneCast', [sceneId, Sys().castIds(sceneId).filter((x) => x !== id).concat([id])]);
+  // put one more copy of an adversary/environment in a scene — a fresh instance the GM tracks on its own
+  const put = (sceneId, id) => State.commit('setSceneCast', [sceneId, Sys().castRaw(sceneId).concat([{ iid: State.genId('inst'), id: id }])]);
 
   // ── Frame: the campaign frame in play ──────────────────────────────
   function renderFrame(container, ctx) {
@@ -47,11 +48,11 @@
         sc ? button('Open on the table', () => window.open(window.VttConfig.pages.table + '?scene=' + encodeURIComponent(sid), (window.VttConfig.channel || 'vtt') + '-table'), 'tiny') : null,
       ]));
       if (sc) {
-        const here = Sys().cast(sid);
-        container.appendChild(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['In it']), here.length ? here.map((x) => el('span', { class: 'chip' }, [
-          el('button', { class: 'ref', type: 'button', onclick: () => window.DHOpenEntity(x.id) }, [x.name]),
-          el('button', { class: 'ref tiny', type: 'button', title: 'take out', onclick: () => State.commit('setSceneCast', [sid, Sys().castIds(sid).filter((y) => y !== x.id)]) }, ['×']),
-        ])) : el('span', { class: 'muted small' }, ['no one — the Cast panel puts adversaries and environments here'])]));
+        const here = Sys().castEntries(sid);
+        container.appendChild(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['In it']), here.length ? here.map((c) => el('span', { class: 'chip' }, [
+          el('button', { class: 'ref', type: 'button', onclick: () => window.DHOpenEntity(c.id) }, [Sys().instLabel(c)]),
+          el('button', { class: 'ref tiny', type: 'button', title: 'take out', onclick: () => State.commit('setSceneCast', [sid, Sys().castRaw(sid).filter((y) => (typeof y === 'string' ? y : y.iid) !== c.iid)]) }, ['×']),
+        ])) : el('span', { class: 'muted small' }, ['no one — a scene’s Encounter beats and the Inspector put adversaries here'])]));
       }
       container.appendChild(el('div', { class: 'paper' }, [E.render(e)]));
       const lore = D.frameLore(e);
@@ -144,11 +145,12 @@
   }
 
   // ── Inspector ──────────────────────────────────────────────────────
-  function npcConditionsBlock(e) {
-    const on = (S().npcConditions || {})[e.id] || [];
+  function npcConditionsBlock(e, inst) {
+    const key = (inst && inst.iid) || e.id;
+    const on = (S().npcConditions || {})[key] || [];
     return el('div', { class: 'chiprow tight conditions' }, [el('span', { class: 'prop-k' }, ['Conditions']), Sheet.conditions().map((x) => {
       const has = on.indexOf(x.name) !== -1;
-      return el('button', { type: 'button', class: 'btn tiny' + (has ? ' on' : ''), title: x.text, onclick: () => State.commit('setNpcConditions', [e.id, has ? on.filter((y) => y !== x.name) : on.concat([x.name])]) }, [x.name]);
+      return el('button', { type: 'button', class: 'btn tiny' + (has ? ' on' : ''), title: x.text, onclick: () => State.commit('setNpcConditions', [key, has ? on.filter((y) => y !== x.name) : on.concat([x.name])]) }, [x.name]);
     })]);
   }
   function renderInspector(container, ctx) {
@@ -170,8 +172,10 @@
         const about = window.VttGmText && window.VttGmText.aboutSections('people', e.id, draw);
         if (about) container.appendChild(about);
         if (e.type === 'Adversary') {
-          container.appendChild(Sheet.adversaryBlock(e));
-          container.appendChild(npcConditionsBlock(e));
+          const inst = { iid: sel.iid || e.id, label: sel.label || e.name };
+          if (inst.label !== e.name) container.appendChild(el('div', { class: 'inst-name' }, [inst.label]));
+          container.appendChild(Sheet.adversaryBlock(e, inst));
+          container.appendChild(npcConditionsBlock(e, inst));
         }
         container.appendChild(el('div', { class: 'paper' }, [E.render(e)]));
       } else if (sel.kind === 'party') {

@@ -24,6 +24,18 @@
   const S = () => State.state;
   const CFG = window.VttConfig || {};
   const F = D.f;
+
+  // The GM nav, in sections (engine/app.js buildNav draws a divider between groups; a pane left out of
+  // every group is off the nav). Cast is out — its "browse every adversary and environment" is already
+  // in Encounters and a scene's cast; Notes is the instance's call (VttConfig.hidePanes). An instance
+  // may override the whole thing with VttConfig.navGroups.
+  window.VttNav = window.VttNav || CFG.navGroups || [
+    { ids: ['inspector', 'party'] },
+    { ids: ['frame', 'campaign', 'scenes', 'threads'] },
+    { ids: ['overview', 'people', 'places'] },
+    { ids: ['fear', 'encounters', 'rules', 'dice', 'log'] },
+    { ids: ['settings'] },
+  ];
   const editing = (c) => document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName) && c.contains(document.activeElement);
   const newId = (p) => State.genId(p);
   const openEntity = (id) => window.DHOpenEntity && window.DHOpenEntity(id);
@@ -67,36 +79,224 @@
     draw();
   }
 
-  // ── Scenes: the campaign's arc ─────────────────────────────────────
-  // arc = [{ id, title, session, summary, text, sections: [beat], played }]. Sessions are its groups;
-  // a session whose scenes are all played folds to one line. One scene is running (the engine's
-  // `current`); a scene's cast is the shared `cast` (op setSceneCast), so the players see who is there.
+  // ── Scenes: the campaign's arc, its beats, its encounters ──────────
+  // arc  = [scene]; scene = { id, title, session, summary, text, played, collapsed, beats:[beat] }
+  // beat = { id, kind:'note'|'encounter', title, text, collapsed, npcs:[{id,count}] (encounter only) }
+  // Sessions group the scenes; one scene is running (the engine's `current`). A beat is a part of a
+  // scene the GM can reorder, collapse, or drag into another scene; an Encounter beat plans a fight
+  // (its adversaries, the Battle Points) and, when put on the table, becomes tracked instances in the
+  // scene's cast. Legacy scenes carried their beats as `sections`; beatsOf migrates them and a save
+  // writes `beats`. The arc is the GM's own pack state (op setArc), never sent to a session's room.
   const arc = () => JSON.parse(JSON.stringify(S().arc || []));
   const setArc = (list) => State.commit('setArc', [list]);
   const sessionOpen = {};
+  function beatsOf(scene) {
+    if (Array.isArray(scene.beats)) return scene.beats;
+    return (scene.sections || []).map((s) => ({ id: s.id || newId('beat'), kind: 'note', title: s.title || '', text: s.text || '' }));
+  }
+  function writeArc(list) {
+    list.forEach((sc) => { sc.beats = beatsOf(sc).map((b) => Object.assign({ kind: 'note' }, b)); delete sc.sections; });
+    setArc(list);
+  }
+  function mutate(fn) { const l = arc(); fn(l); writeArc(l); }
+  const sceneAt = (l, id) => l.find((s) => s.id === id);
   function run(id) {
     State.commit('setCurrentScene', [Sys().moduleId(), id]);
     Bus.emit('scene:changed', { moduleId: Sys().moduleId(), sceneId: id });
   }
-  function castRow(x, redraw) {
-    const here = Sys().cast(x.id);
-    const put = (ids) => State.commit('setSceneCast', [x.id, ids]);
+
+  // ── drag and drop: reorder scenes; reorder beats and move them between scenes ──
+  // `dragging` is what is in hand; a drop target inserts it before itself (moveScene / moveBeat).
+  let dragging = null;   // { kind:'scene', id } | { kind:'beat', sceneId, beatId }
+  function dragStart(payload) {
+    return (ev) => { dragging = payload; ev.dataTransfer.effectAllowed = 'move'; try { ev.dataTransfer.setData('text/plain', payload.kind); } catch (e) { /* firefox needs the try */ } ev.stopPropagation(); };
+  }
+  function dropZone(node, accept, onDrop) {
+    node.addEventListener('dragover', (ev) => { if (dragging && dragging.kind === accept) { ev.preventDefault(); ev.dataTransfer.dropEffect = 'move'; node.classList.add('drag-over'); } });
+    node.addEventListener('dragleave', () => node.classList.remove('drag-over'));
+    node.addEventListener('drop', (ev) => { node.classList.remove('drag-over'); if (dragging && dragging.kind === accept) { ev.preventDefault(); ev.stopPropagation(); const d = dragging; dragging = null; onDrop(d); } });
+    return node;
+  }
+  function moveScene(dragId, beforeId) {
+    mutate((l) => {
+      const from = l.findIndex((s) => s.id === dragId); if (from < 0) return;
+      const before = beforeId ? sceneAt(l, beforeId) : null;
+      const session = before ? before.session : (l.length ? l[l.length - 1].session : undefined);
+      const sc = l.splice(from, 1)[0];
+      sc.session = session;                                    // adopt the session it lands in
+      let to = beforeId ? l.findIndex((s) => s.id === beforeId) : l.length;
+      if (to < 0) to = l.length;
+      l.splice(to, 0, sc);
+    });
+  }
+  function moveBeat(from, toSceneId, beforeBeatId) {
+    mutate((l) => {
+      const src = sceneAt(l, from.sceneId); if (!src) return;
+      src.beats = beatsOf(src);
+      const bi = src.beats.findIndex((b) => b.id === from.beatId); if (bi < 0) return;
+      const beat = src.beats.splice(bi, 1)[0];
+      const dst = sceneAt(l, toSceneId) || src;
+      dst.beats = beatsOf(dst);
+      let at = beforeBeatId ? dst.beats.findIndex((b) => b.id === beforeBeatId) : dst.beats.length;
+      if (at < 0) at = dst.beats.length;
+      dst.beats.splice(at, 0, beat);
+    });
+  }
+
+  // ── an Encounter beat on the table: its adversaries become instances the GM tracks one by one ──
+  const nameOf = (id) => { const r = D.record(id); return r ? r.name : id; };
+  function putOnTable(sceneId, npcs) {
+    const cur = Sys().castRaw(sceneId);
+    npcs.forEach((n) => { for (let k = 1; k <= n.count; k++) cur.push({ iid: newId('inst'), id: n.id, label: n.count > 1 ? nameOf(n.id) + ' ' + k : nameOf(n.id) }); });
+    State.commit('setSceneCast', [sceneId, cur]);
+  }
+  // a compact per-instance tracker: its name, its HP and Stress marks (GM-only npcState, keyed by iid)
+  function instTracker(sceneId, c, e) {
+    const st = Object.assign({ hp: 0, stress: 0 }, (S().npcState || {})[c.iid] || {});
+    const hp = D.num(e, 'Hit Points') || 0;
+    const stress = D.num(e, 'Stress') || 0;
+    const setSt = (p) => State.commit('setNpcState', [c.iid, Object.assign({}, st, p)]);
+    const setLabel = (v) => { const raw = Sys().castRaw(sceneId).map((x) => (typeof x === 'string' ? { iid: x, id: x } : x)); const it = raw.find((x) => x.iid === c.iid); if (it) { it.label = v.trim() || undefined; State.commit('setSceneCast', [sceneId, raw]); } };
+    const mark = (label, key, max) => el('span', { class: 'inst-track' }, [
+      el('span', { class: 'prop-k' }, [label]),
+      button('−', () => setSt({ [key]: Math.max(0, (st[key] || 0) - 1) }), 'ghost tiny'),
+      el('b', { class: 'num' }, [(st[key] || 0) + '/' + max]),
+      button('+', () => setSt({ [key]: Math.min(max, (st[key] || 0) + 1) }), 'ghost tiny'),
+    ]);
+    return el('div', { class: 'inst-row' + ((st.hp || 0) >= hp && hp ? ' down' : '') }, [
+      el('input', { class: 'text inst-label', type: 'text', value: c.label || nameOf(c.id), 'aria-label': 'This one’s name', onchange: (ev) => setLabel(ev.target.value) }),
+      hp ? mark('HP', 'hp', hp) : null,
+      stress ? mark('Stress', 'stress', stress) : null,
+      button('Open', () => Panels.select({ kind: 'entity', id: c.id, iid: c.iid, label: c.label || nameOf(c.id) }), 'ghost tiny'),
+      button('Remove', () => State.commit('setSceneCast', [sceneId, Sys().castRaw(sceneId).filter((x) => (typeof x === 'string' ? x : x.iid) !== c.iid)]), 'ghost tiny'),
+    ]);
+  }
+  const editScene = (id, patch) => mutate((l) => { const s = sceneAt(l, id); if (s) Object.assign(s, patch); });
+  const editBeat = (sid, bid, patch) => mutate((l) => { const s = sceneAt(l, sid); if (!s) return; s.beats = beatsOf(s); const b = s.beats.find((x) => x.id === bid); if (b) Object.assign(b, patch); });
+
+  // the scene's cast, as instances: a chip each, and a search that adds one more
+  function castRow(sceneId, redraw) {
+    const here = Sys().castEntries(sceneId);
     const hits = el('div', { class: 'gm-cast-hits' });
-    const find = el('input', { type: 'search', class: 'text', placeholder: '+ an adversary or environment', 'aria-label': 'Put someone in ' + (x.title || 'this scene') });
+    const find = el('input', { type: 'search', class: 'text', placeholder: '+ an adversary or environment', 'aria-label': 'Put someone in this scene' });
     find.addEventListener('input', debounce(() => {
       const q = find.value.trim().toLowerCase();
       hits.innerHTML = '';
       if (q.length < 2) return;
       castable().filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 8)
-        .forEach((r) => hits.appendChild(button('+ ' + r.name + ' · ' + r.type + ' · ' + D.label(r.book), () => { put(Sys().castIds(x.id).filter((id) => id !== r.id).concat([r.id])); redraw(); }, 'ghost tiny')));
+        .forEach((r) => hits.appendChild(button('+ ' + r.name + ' · ' + r.type + ' · ' + D.label(r.book), () => { putOnTable(sceneId, [{ id: r.id, count: 1 }]); redraw(); }, 'ghost tiny')));
     }, 150));
     return el('div', { class: 'gm-cast' }, [
-      el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['In it'])].concat(here.map((e) => el('span', { class: 'chip' }, [
-        el('button', { class: 'ref', type: 'button', onclick: () => openEntity(e.id) }, [e.name]),
-        el('button', { class: 'ref tiny', type: 'button', title: 'take out', 'aria-label': 'Take ' + e.name + ' out', onclick: () => put(Sys().castIds(x.id).filter((id) => id !== e.id)) }, ['×']),
+      el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['In it'])].concat(here.map((c) => el('span', { class: 'chip' }, [
+        el('button', { class: 'ref', type: 'button', onclick: () => Panels.select({ kind: 'entity', id: c.id, iid: c.iid, label: Sys().instLabel(c) }) }, [Sys().instLabel(c)]),
+        el('button', { class: 'ref tiny', type: 'button', title: 'take out', 'aria-label': 'Take out', onclick: () => State.commit('setSceneCast', [sceneId, Sys().castRaw(sceneId).filter((y) => (typeof y === 'string' ? y : y.iid) !== c.iid)]) }, ['×']),
       ]))).concat([find])),
       hits,
     ]);
+  }
+
+  // an Encounter beat's body: the plan (its adversaries + Battle Points), and — once the fight is on the
+  // table — a tracker per copy with the shared moves printed once below.
+  function encounterBeat(scene, beat, redraw) {
+    const pcs = (S().party || []).length;
+    const npcs = (beat.npcs || []).slice();
+    const box = el('div', { class: 'enc-beat' });
+    npcs.forEach((n, i) => {
+      const r = D.record(n.id);
+      box.appendChild(el('div', { class: 'chiprow tight enc-row' }, [
+        el('button', { class: 'ref', type: 'button', onclick: () => openEntity(n.id) }, [r ? r.name : n.id]),
+        el('span', { class: 'muted small' }, [(r ? 'Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || '') : '') + ' ×']),
+        button('−', () => { const b = npcs.map((x) => Object.assign({}, x)); b[i].count = Math.max(0, b[i].count - 1); if (!b[i].count) b.splice(i, 1); editBeat(scene.id, beat.id, { npcs: b }); }, 'ghost tiny'),
+        el('b', { class: 'num' }, [String(n.count)]),
+        button('+', () => { const b = npcs.map((x) => Object.assign({}, x)); b[i].count += 1; editBeat(scene.id, beat.id, { npcs: b }); }, 'ghost tiny'),
+      ]));
+    });
+    if (npcs.length) { const sp = spend(npcs.filter((n) => n.count > 0), pcs); box.appendChild(el('div', { class: 'enc-sum small' }, [el('b', {}, ['Battle Points spent ' + sp.pts]), sp.lines.length ? el('span', { class: 'muted' }, [' · ' + sp.lines.join(' · ')]) : null])); }
+    const hits = el('div');
+    const search = el('input', { type: 'search', class: 'text', placeholder: 'Add an adversary…', 'aria-label': 'Add an adversary to this encounter' });
+    search.addEventListener('input', debounce(() => {
+      const q = search.value.trim().toLowerCase();
+      hits.innerHTML = '';
+      if (q.length < 2) return;
+      D.recordsOf('Adversary').filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 10).forEach((r) => hits.appendChild(button('+ ' + r.name + ' · Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || ''), () => {
+        const b = npcs.map((x) => Object.assign({}, x)); const f = b.find((x) => x.id === r.id); if (f) f.count += 1; else b.push({ id: r.id, count: 1 }); editBeat(scene.id, beat.id, { npcs: b });
+      }, 'ghost tiny')));
+    }, 150));
+    box.appendChild(search);
+    box.appendChild(hits);
+    if (npcs.some((n) => n.count > 0)) box.appendChild(el('div', { class: 'chiprow tight' }, [button('Put on the table', () => { putOnTable(scene.id, npcs.filter((n) => n.count > 0)); run(scene.id); redraw(); }, 'tiny')]));
+    // the trackers: instances of this beat's adversaries now in the scene's cast, grouped by adversary
+    const ids = {}; npcs.forEach((n) => (ids[n.id] = 1));
+    const insts = Sys().castEntries(scene.id).filter((c) => ids[c.id]);
+    if (insts.length) {
+      const byId = {};
+      insts.forEach((c) => { (byId[c.id] = byId[c.id] || []).push(c); });
+      Object.keys(byId).forEach((id) => {
+        const e = D.entity(id) || D.record(id);
+        const grp = el('div', { class: 'enc-group' }, [el('div', { class: 'prop-k' }, [(e ? e.name : id) + ' · ' + byId[id].length + (byId[id].length === 1 ? ' on the table' : ' on the table')])]);
+        byId[id].forEach((c) => grp.appendChild(instTracker(scene.id, c, e)));
+        if (e) grp.appendChild(el('details', { class: 'enc-detail' }, [el('summary', { class: 'muted small' }, ['Moves & details · shared']), el('div', { class: 'paper' }, [E.render(e)])]));
+        box.appendChild(grp);
+      });
+    }
+    return box;
+  }
+
+  // one beat: a draggable, collapsible row; an Encounter beat carries its fight
+  function beatRow(scene, beat, redraw) {
+    const collapsed = !!beat.collapsed;
+    const handle = el('span', { class: 'drag-handle', title: 'Drag to move this beat', draggable: 'true', 'aria-hidden': 'true' }, ['∷']);
+    handle.addEventListener('dragstart', dragStart({ kind: 'beat', sceneId: scene.id, beatId: beat.id }));
+    const head = el('div', { class: 'beat-head' }, [
+      handle,
+      el('button', { class: 'gm-caret', type: 'button', 'aria-label': collapsed ? 'Expand beat' : 'Collapse beat', onclick: () => editBeat(scene.id, beat.id, { collapsed: !collapsed }) }, [collapsed ? '▸' : '▾']),
+      el('span', { class: 'beat-kind ' + beat.kind }, [beat.kind === 'encounter' ? 'Encounter' : 'Beat']),
+      el('input', { class: 'text beat-title', type: 'text', value: beat.title || '', placeholder: beat.kind === 'encounter' ? 'Name this encounter' : 'Name this beat', 'aria-label': 'Beat title', oninput: debounce((ev) => editBeat(scene.id, beat.id, { title: ev.target.value }), 300) }),
+      button('×', () => { if (confirm('Remove this beat?')) mutate((l) => { const s = sceneAt(l, scene.id); if (s) s.beats = beatsOf(s).filter((b) => b.id !== beat.id); }); }, 'ghost tiny'),
+    ]);
+    const row = el('div', { class: 'beat kind-' + beat.kind + (collapsed ? ' collapsed' : ''), 'data-beat': beat.id }, [head]);
+    dropZone(row, 'beat', (d) => moveBeat(d, scene.id, beat.id));
+    if (!collapsed) {
+      row.appendChild(el('textarea', { class: 'text beat-text', rows: 2, placeholder: 'What happens…', 'aria-label': 'Beat notes', oninput: debounce((ev) => editBeat(scene.id, beat.id, { text: ev.target.value }), 300) }, [beat.text || '']));
+      if (beat.kind === 'encounter') row.appendChild(encounterBeat(scene, beat, redraw));
+    }
+    return row;
+  }
+
+  // one scene: a draggable, collapsible card of beats, its cast, and its controls
+  function sceneCard(scene, cur, redraw) {
+    const collapsed = !!scene.collapsed;
+    const handle = el('span', { class: 'drag-handle', title: 'Drag to reorder', draggable: 'true', 'aria-hidden': 'true' }, ['∷']);
+    handle.addEventListener('dragstart', dragStart({ kind: 'scene', id: scene.id }));
+    const card = el('section', { class: 'arc-card' + (scene.played ? ' played' : '') + (cur === scene.id ? ' running' : '') + (collapsed ? ' collapsed' : ''), 'data-scene': scene.id }, [
+      el('div', { class: 'arc-head' }, [
+        handle,
+        el('button', { class: 'gm-caret', type: 'button', 'aria-label': collapsed ? 'Expand scene' : 'Collapse scene', onclick: () => editScene(scene.id, { collapsed: !collapsed }) }, [collapsed ? '▸' : '▾']),
+        el('input', { class: 'text arc-title', type: 'text', value: scene.title || '', placeholder: 'Scene', 'aria-label': 'Scene title', oninput: debounce((ev) => editScene(scene.id, { title: ev.target.value }), 300) }),
+        el('span', { class: 'arc-badges' }, [cur === scene.id ? el('span', { class: 'chip on' }, ['Running']) : null, scene.played ? el('span', { class: 'chip' }, ['Played']) : null]),
+      ]),
+    ]);
+    dropZone(card, 'scene', (d) => moveScene(d.id, scene.id));
+    if (collapsed) { if (scene.summary) card.appendChild(el('p', { class: 'arc-summary muted small' }, [scene.summary])); return card; }
+    card.appendChild(el('input', { class: 'text', type: 'text', value: scene.summary || '', placeholder: 'One line: what the scene is', 'aria-label': 'Summary', oninput: debounce((ev) => editScene(scene.id, { summary: ev.target.value.trim() || undefined }), 300) }));
+    card.appendChild(el('input', { class: 'text', type: 'text', value: scene.session || '', placeholder: 'Session (groups the scenes)', 'aria-label': 'Session', oninput: debounce((ev) => editScene(scene.id, { session: ev.target.value.trim() || undefined }), 400) }));
+    card.appendChild(el('textarea', { class: 'text', rows: 2, placeholder: 'Scene notes…', 'aria-label': 'Scene notes', oninput: debounce((ev) => editScene(scene.id, { text: ev.target.value }), 300) }, [scene.text || '']));
+    const beatBox = el('div', { class: 'beats' });
+    beatsOf(scene).forEach((b) => beatBox.appendChild(beatRow(scene, b, redraw)));
+    beatBox.appendChild(dropZone(el('div', { class: 'beat-drop', 'aria-hidden': 'true' }, []), 'beat', (d) => moveBeat(d, scene.id, null)));
+    card.appendChild(beatBox);
+    card.appendChild(el('div', { class: 'chiprow tight' }, [
+      button('+ Beat', () => mutate((l) => { const s = sceneAt(l, scene.id); if (s) s.beats = beatsOf(s).concat([{ id: newId('beat'), kind: 'note', title: '', text: '' }]); }), 'ghost tiny'),
+      button('+ Encounter', () => mutate((l) => { const s = sceneAt(l, scene.id); if (s) s.beats = beatsOf(s).concat([{ id: newId('beat'), kind: 'encounter', title: '', text: '', npcs: [] }]); }), 'ghost tiny'),
+    ]));
+    card.appendChild(el('div', { class: 'chiprow tight arc-actions' }, [
+      cur !== scene.id ? button('Run this scene', () => run(scene.id), 'tiny') : null,
+      button(scene.played ? 'Not played' : 'Mark played', () => editScene(scene.id, { played: !scene.played }), 'ghost tiny'),
+      button('Open on the table', () => { run(scene.id); window.open(CFG.pages.table + '?scene=' + encodeURIComponent(scene.id), (CFG.channel || 'vtt') + '-table'); }, 'ghost tiny'),
+      button('Remove', () => { if (confirm('Remove “' + (scene.title || 'this scene') + '”?')) mutate((l) => { const at = l.findIndex((s) => s.id === scene.id); if (at >= 0) l.splice(at, 1); }); }, 'ghost tiny'),
+    ]));
+    card.appendChild(castRow(scene.id, redraw));
+    return card;
   }
   function renderScenes(container, ctx) {
     const draw = () => {
@@ -106,50 +306,28 @@
       const played = list.filter((x) => x.played).length;
       container.appendChild(el('h4', {}, ['The arc', el('span', { class: 'muted small' }, [' · ' + list.length + (list.length === 1 ? ' scene, ' : ' scenes, ') + played + ' played'])]));
       if (!list.length) container.appendChild(el('div', { class: 'empty' }, ['No scenes yet — add the first below.']));
+      // sessions group consecutive scenes; each group folds, and its scenes are draggable cards
       const groups = [];
-      list.forEach((x, i) => {
-        const g = groups[groups.length - 1];
-        if (g && g.name === (x.session || null)) g.items.push([x, i]);
-        else groups.push({ name: x.session || null, items: [[x, i]] });
-      });
-      const opts = {
-        redraw: draw, save: setArc, subLabel: 'Beat',
-        cls: (x) => 'arc-card' + (x.played ? ' played' : '') + (cur === x.id ? ' running' : ''),
-        badges: (x) => el('span', { class: 'arc-badges' }, [cur === x.id ? el('span', { class: 'chip on' }, ['Running']) : null, x.played ? el('span', { class: 'chip' }, ['Played']) : null]),
-        before: (x) => (x.summary ? el('p', { class: 'arc-summary' }, [x.summary]) : el('span')),
-        after: (x) => castRow(x, draw),
-        actions: (x) => el('span', { class: 'chiprow tight' }, [
-          cur !== x.id ? button('Run this scene', () => run(x.id), 'tiny') : null,
-          button(x.played ? 'Not played' : 'Mark played', () => { const l = arc(); const at = l.findIndex((y) => y.id === x.id); l[at].played = !x.played; setArc(l); }, 'ghost tiny'),
-          button('Open on the table', () => { run(x.id); window.open(CFG.pages.table + '?scene=' + encodeURIComponent(x.id), (CFG.channel || 'vtt') + '-table'); }, 'ghost tiny'),
-        ]),
-        fields: (d) => el('div', { class: 'chiprow tight' }, [
-          el('input', { class: 'text', type: 'text', value: d.session || '', placeholder: 'Session (groups the scenes)', 'aria-label': 'Session', oninput: (ev) => (d.session = ev.target.value.trim() || undefined) }),
-          el('input', { class: 'text wide', type: 'text', value: d.summary || '', placeholder: 'One line: what the scene is', 'aria-label': 'Summary', oninput: (ev) => (d.summary = ev.target.value.trim() || undefined) }),
-        ]),
-      };
+      list.forEach((x) => { const g = groups[groups.length - 1]; if (g && g.name === (x.session || null)) g.items.push(x); else groups.push({ name: x.session || null, items: [x] }); });
       groups.forEach((g) => {
         const key = g.name || '';
-        const allPlayed = g.items.every(([x]) => x.played);
+        const allPlayed = g.items.every((x) => x.played);
         const isOpen = sessionOpen[key] != null ? sessionOpen[key] : !allPlayed;
         container.appendChild(el('button', { class: 'arc-session' + (allPlayed ? ' played' : ''), type: 'button', 'aria-expanded': isOpen ? 'true' : 'false', onclick: () => { sessionOpen[key] = !isOpen; draw(); } }, [
           el('span', { class: 'gm-caret', 'aria-hidden': 'true' }, [isOpen ? '▾' : '▸']), ' ', g.name || 'Scenes',
           el('span', { class: 'muted small' }, [' · ' + g.items.length + (g.items.length === 1 ? ' scene' : ' scenes') + (allPlayed ? ', played' : '')]),
         ]));
         if (!isOpen) return;
-        g.items.forEach(([x, i]) => {
-          if (G.open[x.id] == null) G.open[x.id] = cur === x.id;
-          container.appendChild(G.editingId[x.id] ? G.sectionEditor(x, i, list, opts) : G.sectionView(x, opts));
-        });
+        const wrap = el('div', { class: 'arc-scenes' });
+        g.items.forEach((x) => wrap.appendChild(sceneCard(x, cur, draw)));
+        container.appendChild(wrap);
       });
       // a new scene joins the last session unless named otherwise
       const last = list.length ? list[list.length - 1].session : undefined;
       const t = el('input', { class: 'text', type: 'text', placeholder: 'Add a scene…', 'aria-label': 'New scene' });
       container.appendChild(el('div', { class: 'chiprow tight gm-add' }, [t, button('Add', () => {
         if (!t.value.trim()) return;
-        const x = { id: newId('arc'), title: t.value.trim(), session: last, text: '', played: false };
-        G.editingId[x.id] = true; G.open[x.id] = true;
-        setArc(arc().concat([x]));
+        mutate((l) => l.push({ id: newId('arc'), title: t.value.trim(), session: last, text: '', played: false, beats: [] }));
       }, 'tiny')]));
       // the questions to put to the players, asked or not
       const qs = Object.assign({ note: '', items: [] }, (S().gm || {}).questions || {});
@@ -271,7 +449,7 @@
       const sc = Sys().scene(sid);
       container.appendChild(el('div', { class: 'chiprow tight' }, [
         button('Save encounter', () => { if (!draft.npcs.length) return; const l = encounters(); l.push({ id: newId('enc'), name: draft.name.trim() || ('Encounter ' + (l.length + 1)), npcs: draft.npcs.map((n) => ({ id: n.id, count: n.count })), adjust: draft.adjust.slice() }); setEncounters(l); }, 'tiny'),
-        sc && draft.npcs.length ? button('Put in ' + sc.name, () => { const cur = Sys().castIds(sid); State.commit('setSceneCast', [sid, cur.concat(draft.npcs.map((n) => n.id).filter((id) => cur.indexOf(id) === -1))]); }, 'ghost tiny') : null,
+        sc && draft.npcs.length ? button('Put in ' + sc.name, () => { putOnTable(sid, draft.npcs.filter((n) => n.count > 0)); }, 'ghost tiny') : null,
         draft.npcs.length ? button('Clear', () => { draft = { name: '', npcs: [], adjust: [] }; draw(); }, 'ghost tiny') : null,
       ]));
       const saved = encounters();
@@ -326,6 +504,7 @@
   function renderPeople(container, ctx) {
     const draw = () => {
       container.innerHTML = '';
+      if (G.list('people').length + G.list('pc').length > 1) container.appendChild(G.filterBox(container, 'Filter people…'));
       container.appendChild(el('h4', { 'data-gm-id': 'people' }, ['The campaign’s people']));
       G.sections(container, G.list('people'), { redraw: draw, save: (l) => G.setList('people', l), addLabel: 'Add someone…', fields: (d) => aboutField(d, 'people') });
       container.appendChild(el('h4', { 'data-gm-id': 'pc' }, ['Behind the characters', el('span', { class: 'muted small' }, [' · never sent to players'])]));

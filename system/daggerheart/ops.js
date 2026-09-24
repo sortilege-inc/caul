@@ -2,12 +2,14 @@
 // call and shared the same way (engine/ops.js). Loaded by the browser after engine/ops.js, and
 // imported by the Worker beside it, so the room applies the very same functions.
 //
-//   cast          { [sceneId]: [entityIds] }  the adversaries and environments the GM has put in a scene
-//   npcConditions { [entityId]: [names] }     an adversary's conditions (Hidden, Restrained,
-//                                             Vulnerable), shared so the players see them
+//   cast          { [sceneId]: [instance] }   the adversaries/environments the GM has put in a scene.
+//                                             An instance is { iid, id, label } — one tracked copy; a
+//                                             bare string is the legacy shape (one copy, iid = id).
+//   npcConditions { [iid]: [names] }          a copy's conditions (Hidden, Restrained, Vulnerable),
+//                                             shared so the players see them
 //   fear          n                           the GM's Fear, shared: "you should keep this pool
 //                                             visible to players during the game" (gm-guidance.lore)
-//   npcState      { [entityId]: {hp, stress} } an adversary's marked HP and Stress — the GM's own
+//   npcState      { [iid]: {hp, stress} }     a copy's marked HP and Stress — the GM's own
 //   gm, gmNotes, arc, threads, encounters     the GM's own pack state, never shared and never sent
 //                                             to the room (local ops)
 //   party[].versions                          archived copies of a character (archivePartyVersion)
