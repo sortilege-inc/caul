@@ -115,9 +115,30 @@ Local: launch entries `vtt-daggerheart` (**8742**) and `vtt-daggerheart-worker` 
 
 One commit per milestone; each proven before the next begins (PLAYBOOK §5, §7).
 
+## Family standards (owner, 2026-09-24; PLAYBOOK §4b)
+
+The four standards, from the kit (`~/Sortilege/VTT/tools/port-standards`: `port_standards.py`,
+`port_config.py`) and, because this VTT already had system-level GM panes, rebuilt in
+`system/daggerheart/` on `sortilege-vtt-l5r5e` I19 (as TOR2e did the same day).
+
+| # | What changed | Proof |
+|---|---|---|
+| F1 | **Not crawled:** `robots.txt` (the AI crawlers by name, then `*`) and `<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">` on `index.html`, `gm/index.html`, `gm/vtt.html`, `gm/play.html`. **The GM's material in the GM tabs, in the pack:** `engine/gm-text.js` (the GM Markdown with SET / AGREED / SOURCE / YOURS / OPEN / MINE / NOTE tags, section lists with an editor, a search) and `engine/gm-panes.js` (Overview with rulings and free notes, Places, Settings — it registers only what the system lacks); `system/daggerheart/gm-panes.js` rebuilt on I19 — **Scenes** grouped by session, a card per scene with its summary, folding beats and its cast (the running scene marked, *Run this scene*, *Open on the table*), a played session folded to one line, the **questions for the table**; **Threads** as sections with what happened in play, closed / reopened; **Encounters** its own pane (Battle Points, unchanged); **People** with an *About* picker (an adversary or environment from the books, or a character), whose sections show in the **Inspector**, on the character's **Party** card and as a *GM notes* marker in **Cast**; the Notes document kept for an instance. `setGm`, `setGmNotes`, `setArc`, `setThreads`, `setEncounters` are **local ops** (`{ local: true }`); `engine/state.js`'s seed fills by id and never re-adds what the GM removed. **A gate in front of `/gm/`** (`gmGate`, once per tab). **The books off the public site** (`siteBooks: false`; the ten book tabs, the creator among them, marked `books: true`, the dice not), turned on per browser in Settings | **landed 2026-09-24** — browser on 8742, through the controls: the public site with **books off** → tabs *Dice* only, robots meta present; `/gm/` → the **gate** *The GM's table* … **Enter** → the page, no gate on the next load in that tab, the gate again in a fresh tab; **Settings** → *Show the books on the site, in this browser* → the site's tabs *The books, Classes, Domains, Heritage, Make a character, Adversaries, Environments, Equipment, Frames, Dice, Search*. **Scenes:** *The colossus wakes* added with session *Session 2*, a summary, text `SET 24 Sep` / `OPEN` and a beat *The ground splits* (`YOURS`); the Jagged Knife Bandit put in its cast; edited (+ `AGREED`); **Mark played** → *The arc · 3 scenes, 1 played*, *Session 2 · 1 scene, played* folded to a line; a question added → *1 not yet asked*. **Threads:** *The shard buyers* (`OPEN`) saved, edited (+ `NOTE`), its play note stored, **Close** → *0 open, 1 closed*. **People:** *Red Mae* about the Jagged Knife Bandit (`YOURS`, `MINE`), edited (+ `SET 24 Sep`); *Sable's debt* about Sable (`AGREED`, `SOURCE`) — shown on Sable's Party card and in the Inspector for her, and the bandit's *GM notes* marker in Cast opens him in the Inspector with the note. **Overview:** *The premise* (`SET`, `OPEN`, edited + `AGREED`) and a ruling *Shards as currency* (`AGREED`); the search *assayer* → *2 found* (People, Threads). **Places:** *Wyllin's Gulch* (`SOURCE`, `YOURS`, edited + `OPEN`). Encounters renders (*Battle Points 8 = (3 × 2 PCs) + 2*); the table lists the arc's three scenes. `gm/index.html`, `gm/vtt.html` and `gm/play.html` in a fresh tab: **0 console errors**. In the page, `VttOps.LOCAL` = *setGm, setGmNotes, setArc, setThreads, setEncounters* |
+
+| # | Decision | Why |
+|---|---|---|
+| F-1 | **The arc is always the running adventure**: every scene card has the running marker, *Run this scene* and its cast (L5R5e's `ownAdventure` form, always on) | A frame prints no scene list; the table's scenes have been the GM's arc since M3 (decision in `table.js`). |
+| F-2 | `engine/gm-text.js` loads before `system/daggerheart/gm-panes.js` (the kit put it after) | The system's panes use it (TOR2e F-3). |
+| F-3 | Daggerheart's own **People** pane, with an *About* picker | The engine's People editor cannot say whom a section is about, so the Inspector, Party and Cast notes could never show; the shared kit is not edited (TOR2e F-4). |
+| F-4 | The kit's colour names (`--paper`, `--edge`, `--gold`, `--crimson`, `--jade`) are mapped onto this palette in `daggerheart-gm.css`, in both themes | Found in the browser: under the dark theme the gate's box fell back to light parchment with the theme's light ink on it — unreadable; the *GM notes* marker, a `<button>`, likewise drew black on dark. |
+| F-5 | **Encounters is its own pane**, out of *Threads · Encounters* | I19's split; Threads is now sections. |
+| F-6 | `setNpcState` stays a room op | An adversary's marks are table state the GM's other windows follow; the standard names the GM's notes, arc and threads. It remains GM-only and never forwarded to a player (M5). |
+| F-7 | The local ops were **not re-proven over a live room** here | The preview pane allowed one server (the other four slots were other chats'); proven in the page (`VttOps.LOCAL`) and by `engine/session.js`'s filter, the same kit code TOR2e proved live (its room 7BRX2). |
+| F-8 | Not deployed (D4): no Worker of its own to redeploy; the instance Caul's Worker is redeployed with the merge | — |
+
 ## STOPPED HERE — to resume
 
-**M0–M5 landed 2026-09-24**, each committed and pushed. Nothing is deployed (D4, private).
+**M0–M5 landed 2026-09-24**, each committed and pushed; the **family standards** the same day (above). Nothing is deployed (D4, private); the instance Caul is.
 
 To resume: `bash build/build.sh` (gate green); start `vtt-daggerheart` (8742) — or
 `vtt-daggerheart-two-origins` (8742 + 8744) to test a player — and `vtt-daggerheart-worker` (8796;

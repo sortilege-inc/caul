@@ -8,7 +8,8 @@
 //   fear          n                           the GM's Fear, shared: "you should keep this pool
 //                                             visible to players during the game" (gm-guidance.lore)
 //   npcState      { [entityId]: {hp, stress} } an adversary's marked HP and Stress — the GM's own
-//   gmNotes, arc, threads, encounters         the GM's own pack state, never shared
+//   gm, gmNotes, arc, threads, encounters     the GM's own pack state, never shared and never sent
+//                                             to the room (local ops)
 //   party[].versions                          archived copies of a character (archivePartyVersion)
 (function (root, factory) {
   if (typeof module !== 'undefined' && module.exports) module.exports = factory(require('../../engine/ops.js'));
@@ -52,10 +53,16 @@
     if (!s.npcState) s.npcState = {};
     s.npcState[id] = Object.assign({}, st || {});
   }, null, gmOnly);
-  Ops.register('setGmNotes', (s, text) => { s.gmNotes = String(text || ''); }, null, gmOnly);
-  Ops.register('setArc', (s, list) => { s.arc = (list || []).map((x) => Object.assign({}, x)); }, null, gmOnly);
-  Ops.register('setThreads', (s, list) => { s.threads = (list || []).map((x) => Object.assign({}, x)); }, null, gmOnly);
-  Ops.register('setEncounters', (s, list) => { s.encounters = JSON.parse(JSON.stringify(list || [])); }, null, gmOnly);
+  // The GM's own pack state is local (PLAYBOOK §4b.2): kept in this browser's pack and never sent to
+  // a session's room. `gm` is the GM's own sections (overview, places, people, pc, rules, threadsNote,
+  // questions — engine/gm-text.js); the arc's scenes carry sessions and beats.
+  const LOCAL = { local: true };
+  const copy = (x) => JSON.parse(JSON.stringify(x == null ? null : x));
+  Ops.register('setGm', (s, where, value) => { if (!s.gm) s.gm = {}; s.gm[String(where)] = copy(value); }, null, gmOnly, LOCAL);
+  Ops.register('setGmNotes', (s, text) => { s.gmNotes = String(text || ''); }, null, gmOnly, LOCAL);
+  Ops.register('setArc', (s, list) => { s.arc = copy(list || []); }, null, gmOnly, LOCAL);
+  Ops.register('setThreads', (s, list) => { s.threads = copy(list || []); }, null, gmOnly, LOCAL);
+  Ops.register('setEncounters', (s, list) => { s.encounters = copy(list || []); }, null, gmOnly, LOCAL);
 
   return Ops;
 });

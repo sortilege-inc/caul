@@ -359,18 +359,18 @@ window.VttSiteTabs = (function () {
   }
 
   const tabs = [
-    { id: 'book', label: 'The books', render: renderBook },
-    { id: 'classes', label: 'Classes', render: renderClasses },
-    { id: 'domains', label: 'Domains', render: renderDomains },
-    { id: 'heritage', label: 'Heritage', render: renderHeritage },
-    { id: 'adversaries', label: 'Adversaries', render: renderAdversaries },
-    { id: 'environments', label: 'Environments', render: renderEnvironments },
-    { id: 'equipment', label: 'Equipment', render: renderEquipment },
-    { id: 'frames', label: 'Frames', render: renderFrames },
+    { id: 'book', label: 'The books', render: renderBook, books: true },
+    { id: 'classes', label: 'Classes', render: renderClasses, books: true },
+    { id: 'domains', label: 'Domains', render: renderDomains, books: true },
+    { id: 'heritage', label: 'Heritage', render: renderHeritage, books: true },
+    { id: 'adversaries', label: 'Adversaries', render: renderAdversaries, books: true },
+    { id: 'environments', label: 'Environments', render: renderEnvironments, books: true },
+    { id: 'equipment', label: 'Equipment', render: renderEquipment, books: true },
+    { id: 'frames', label: 'Frames', render: renderFrames, books: true },
     { id: 'dice', label: 'Dice', render: renderDice },
-    { id: 'search', label: 'Search', render: renderSearch },
+    { id: 'search', label: 'Search', render: renderSearch, books: true },
   ];
   // the creator adds its tab when it is loaded (system/daggerheart/creator.js, M4)
-  if (window.DHCreator) tabs.splice(4, 0, { id: 'create', label: 'Make a character', render: window.DHCreator.render });
+  if (window.DHCreator) tabs.splice(4, 0, { id: 'create', label: 'Make a character', render: window.DHCreator.render, books: true });
   return tabs;
 })();

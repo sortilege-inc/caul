@@ -1,8 +1,13 @@
-// system/daggerheart/gm-panes.js — the GM's three panes (from L5R5e's Portents work, I9–I10): Notes,
-// Scenes, Threads · Encounters. Everything here is the GM's own pack state (ops.js: gmNotes, arc,
-// threads, encounters) — saved with the pack, never sent to a player. The encounter builder is the
-// book's Battle Points: the formula is its sentence (a named constant), the costs and adjustments
-// are the corpus's own `^"Adversary Type"` and `^"Battle Point Adjustment"` entities.
+// system/daggerheart/gm-panes.js — the GM's own panes (the family standard, PLAYBOOK §4b.2, on
+// sortilege-vtt-l5r5e I19): Scenes (the campaign's arc — sessions, a card per scene with its beats
+// and its cast, the questions for the table), Threads (with what happened to each in play),
+// Encounters (the book's Battle Points), People (whom a note is about), and the Notes document an
+// instance may name. Overview (premise, rulings, free notes, a search), Places and Settings are the
+// engine's (engine/gm-panes.js), which registers only what this file does not. Everything here is the
+// GM's own pack state (ops.js: gm, gmNotes, arc, threads, encounters — local ops, never sent to a
+// session's room); the text is the GM's small Markdown with its SET / OPEN / SOURCE … tags
+// (engine/gm-text.js). A frame prints no scene list, so the arc is the table's scenes (table.js): one
+// is running, and the table, the Cast pane and the player's page follow it.
 //
 //   BATTLE_POINTS "When planning a battle, start with the following formula to calculate how many
 //                 Battle Points you should spend: (3 × the number of PCs in combat) + 2"
@@ -12,13 +17,25 @@
   const D = window.DHData;
   const E = window.DHEntity;
   const State = window.VttState;
+  const G = window.VttGmText;
+  const Bus = window.VttBus;
+  const Panels = window.VttPanels;
   const Sys = () => window.VttSystem;
   const S = () => State.state;
   const CFG = window.VttConfig || {};
   const F = D.f;
   const editing = (c) => document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName) && c.contains(document.activeElement);
   const newId = (p) => State.genId(p);
+  const openEntity = (id) => window.DHOpenEntity && window.DHOpenEntity(id);
   const BATTLE_POINTS = (pcs) => 3 * pcs + 2;
+  // who can stand in a scene or be the subject of a note: the books' adversaries and environments
+  const castable = () => D.recordsOf('Adversary').concat(D.recordsOf('Environment'));
+
+  const redrawOn = (ctx, container, draw) => {
+    ctx.on('state:changed', () => { if (!editing(container)) draw(); });
+    ctx.on('state:remote', () => { if (!editing(container)) draw(); });
+    ctx.on('gm:reveal', draw);
+  };
 
   // ── Notes: an authored document the instance names (VttConfig.notes), and free notes ──
   let docCache = null;
@@ -50,42 +67,137 @@
     draw();
   }
 
-  // ── Scenes: the campaign's arc — the table's scenes (table.js) ─────
-  const arc = () => (S().arc || []).map((x) => Object.assign({}, x));
+  // ── Scenes: the campaign's arc ─────────────────────────────────────
+  // arc = [{ id, title, session, summary, text, sections: [beat], played }]. Sessions are its groups;
+  // a session whose scenes are all played folds to one line. One scene is running (the engine's
+  // `current`); a scene's cast is the shared `cast` (op setSceneCast), so the players see who is there.
+  const arc = () => JSON.parse(JSON.stringify(S().arc || []));
   const setArc = (list) => State.commit('setArc', [list]);
+  const sessionOpen = {};
+  function run(id) {
+    State.commit('setCurrentScene', [Sys().moduleId(), id]);
+    Bus.emit('scene:changed', { moduleId: Sys().moduleId(), sceneId: id });
+  }
+  function castRow(x, redraw) {
+    const here = Sys().cast(x.id);
+    const put = (ids) => State.commit('setSceneCast', [x.id, ids]);
+    const hits = el('div', { class: 'gm-cast-hits' });
+    const find = el('input', { type: 'search', class: 'text', placeholder: '+ an adversary or environment', 'aria-label': 'Put someone in ' + (x.title || 'this scene') });
+    find.addEventListener('input', debounce(() => {
+      const q = find.value.trim().toLowerCase();
+      hits.innerHTML = '';
+      if (q.length < 2) return;
+      castable().filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 8)
+        .forEach((r) => hits.appendChild(button('+ ' + r.name + ' · ' + r.type + ' · ' + D.label(r.book), () => { put(Sys().castIds(x.id).filter((id) => id !== r.id).concat([r.id])); redraw(); }, 'ghost tiny')));
+    }, 150));
+    return el('div', { class: 'gm-cast' }, [
+      el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['In it'])].concat(here.map((e) => el('span', { class: 'chip' }, [
+        el('button', { class: 'ref', type: 'button', onclick: () => openEntity(e.id) }, [e.name]),
+        el('button', { class: 'ref tiny', type: 'button', title: 'take out', 'aria-label': 'Take ' + e.name + ' out', onclick: () => put(Sys().castIds(x.id).filter((id) => id !== e.id)) }, ['×']),
+      ]))).concat([find])),
+      hits,
+    ]);
+  }
   function renderScenes(container, ctx) {
     const draw = () => {
       container.innerHTML = '';
       const list = arc();
       const cur = Sys().currentSceneId();
       const played = list.filter((x) => x.played).length;
-      container.appendChild(el('h4', {}, ['The arc', el('span', { class: 'muted small' }, [' · ' + list.length + ' scenes, ' + played + ' played'])]));
+      container.appendChild(el('h4', {}, ['The arc', el('span', { class: 'muted small' }, [' · ' + list.length + (list.length === 1 ? ' scene, ' : ' scenes, ') + played + ' played'])]));
+      if (!list.length) container.appendChild(el('div', { class: 'empty' }, ['No scenes yet — add the first below.']));
+      const groups = [];
       list.forEach((x, i) => {
-        const upd = (patch) => { const l = arc(); l[i] = Object.assign({}, l[i], patch); setArc(l); };
-        const move = (d) => { const l = arc(); const j = i + d; if (j < 0 || j >= l.length) return; const t = l[i]; l[i] = l[j]; l[j] = t; setArc(l); };
-        container.appendChild(el('div', { class: 'arc-scene' + (x.played ? ' played' : '') + (x.id === cur ? ' current' : '') }, [
-          el('div', { class: 'chiprow tight' }, [
-            el('input', { type: 'checkbox', checked: x.played || null, title: 'Played', 'aria-label': 'Played', onchange: (ev) => upd({ played: ev.target.checked }) }),
-            el('input', { class: 'text arc-title', type: 'text', value: x.title || '', placeholder: 'A scene', 'aria-label': 'Scene title', oninput: debounce((ev) => upd({ title: ev.target.value }), 400) }),
-            x.id === cur ? el('span', { class: 'chip on' }, ['current']) : button('make current', () => { State.commit('setCurrentScene', [Sys().moduleId(), x.id]); window.VttBus.emit('scene:changed', { sceneId: x.id }); }, 'ghost tiny'),
-            button('↑', () => move(-1), 'ghost tiny'), button('↓', () => move(1), 'ghost tiny'),
-            button('×', () => { if (confirm('Remove “' + (x.title || 'this scene') + '” from the arc?')) setArc(arc().filter((_, j) => j !== i)); }, 'ghost tiny'),
-          ]),
-          el('textarea', { class: 'text arc-text', rows: 3, placeholder: 'What it is for, who is in it, what might happen…', 'aria-label': 'Scene notes', oninput: debounce((ev) => upd({ text: ev.target.value }), 400) }, [x.text || '']),
-        ]));
+        const g = groups[groups.length - 1];
+        if (g && g.name === (x.session || null)) g.items.push([x, i]);
+        else groups.push({ name: x.session || null, items: [[x, i]] });
       });
-      const title = el('input', { class: 'text', type: 'text', placeholder: 'Add a scene…', 'aria-label': 'New scene' });
-      container.appendChild(el('div', { class: 'chiprow tight' }, [title, button('Add', () => { if (!title.value.trim()) return; setArc(arc().concat([{ id: newId('arc'), title: title.value.trim(), text: '', played: false }])); title.value = ''; draw(); }, 'tiny')]));
+      const opts = {
+        redraw: draw, save: setArc, subLabel: 'Beat',
+        cls: (x) => 'arc-card' + (x.played ? ' played' : '') + (cur === x.id ? ' running' : ''),
+        badges: (x) => el('span', { class: 'arc-badges' }, [cur === x.id ? el('span', { class: 'chip on' }, ['Running']) : null, x.played ? el('span', { class: 'chip' }, ['Played']) : null]),
+        before: (x) => (x.summary ? el('p', { class: 'arc-summary' }, [x.summary]) : el('span')),
+        after: (x) => castRow(x, draw),
+        actions: (x) => el('span', { class: 'chiprow tight' }, [
+          cur !== x.id ? button('Run this scene', () => run(x.id), 'tiny') : null,
+          button(x.played ? 'Not played' : 'Mark played', () => { const l = arc(); const at = l.findIndex((y) => y.id === x.id); l[at].played = !x.played; setArc(l); }, 'ghost tiny'),
+          button('Open on the table', () => { run(x.id); window.open(CFG.pages.table + '?scene=' + encodeURIComponent(x.id), (CFG.channel || 'vtt') + '-table'); }, 'ghost tiny'),
+        ]),
+        fields: (d) => el('div', { class: 'chiprow tight' }, [
+          el('input', { class: 'text', type: 'text', value: d.session || '', placeholder: 'Session (groups the scenes)', 'aria-label': 'Session', oninput: (ev) => (d.session = ev.target.value.trim() || undefined) }),
+          el('input', { class: 'text wide', type: 'text', value: d.summary || '', placeholder: 'One line: what the scene is', 'aria-label': 'Summary', oninput: (ev) => (d.summary = ev.target.value.trim() || undefined) }),
+        ]),
+      };
+      groups.forEach((g) => {
+        const key = g.name || '';
+        const allPlayed = g.items.every(([x]) => x.played);
+        const isOpen = sessionOpen[key] != null ? sessionOpen[key] : !allPlayed;
+        container.appendChild(el('button', { class: 'arc-session' + (allPlayed ? ' played' : ''), type: 'button', 'aria-expanded': isOpen ? 'true' : 'false', onclick: () => { sessionOpen[key] = !isOpen; draw(); } }, [
+          el('span', { class: 'gm-caret', 'aria-hidden': 'true' }, [isOpen ? '▾' : '▸']), ' ', g.name || 'Scenes',
+          el('span', { class: 'muted small' }, [' · ' + g.items.length + (g.items.length === 1 ? ' scene' : ' scenes') + (allPlayed ? ', played' : '')]),
+        ]));
+        if (!isOpen) return;
+        g.items.forEach(([x, i]) => {
+          if (G.open[x.id] == null) G.open[x.id] = cur === x.id;
+          container.appendChild(G.editingId[x.id] ? G.sectionEditor(x, i, list, opts) : G.sectionView(x, opts));
+        });
+      });
+      // a new scene joins the last session unless named otherwise
+      const last = list.length ? list[list.length - 1].session : undefined;
+      const t = el('input', { class: 'text', type: 'text', placeholder: 'Add a scene…', 'aria-label': 'New scene' });
+      container.appendChild(el('div', { class: 'chiprow tight gm-add' }, [t, button('Add', () => {
+        if (!t.value.trim()) return;
+        const x = { id: newId('arc'), title: t.value.trim(), session: last, text: '', played: false };
+        G.editingId[x.id] = true; G.open[x.id] = true;
+        setArc(arc().concat([x]));
+      }, 'tiny')]));
+      // the questions to put to the players, asked or not
+      const qs = Object.assign({ note: '', items: [] }, (S().gm || {}).questions || {});
+      const setQs = (patch) => State.commit('setGm', ['questions', Object.assign({}, qs, patch)]);
+      container.appendChild(el('h4', { 'data-gm-id': 'questions' }, ['Questions for the table', el('span', { class: 'muted small' }, [' · ' + qs.items.filter((x) => !x.asked).length + ' not yet asked'])]));
+      container.appendChild(G.note(() => qs.note, (v) => setQs({ note: v }), 'Add a note on the questions', draw));
+      container.appendChild(el('ul', { class: 'gm-questions' }, qs.items.map((x, i) => el('li', { class: x.asked ? 'asked' : '', 'data-gm-id': x.id }, [
+        el('input', { type: 'checkbox', checked: x.asked || null, title: 'Asked', 'aria-label': 'Asked', onchange: (ev) => { const l = qs.items.slice(); l[i] = Object.assign({}, x, { asked: ev.target.checked }); setQs({ items: l }); } }),
+        el('span', { class: 'gm-q', html: G.inline(x.text || '') }),
+        button('×', () => { if (confirm('Remove this question?')) setQs({ items: qs.items.filter((_, j) => j !== i) }); }, 'ghost tiny'),
+      ]))));
+      const nq = el('input', { class: 'text', type: 'text', placeholder: 'Add a question…', 'aria-label': 'New question' });
+      container.appendChild(el('div', { class: 'chiprow tight gm-add' }, [nq, button('Add', () => { if (nq.value.trim()) setQs({ items: qs.items.concat([{ id: newId('q'), text: nq.value.trim(), asked: false }]) }); }, 'tiny')]));
+      G.reveal(container);
     };
-    ctx.on('state:changed', () => { if (!editing(container)) draw(); });
-    ctx.on('state:remote', () => { if (!editing(container)) draw(); });
+    redrawOn(ctx, container, draw);
     ctx.on('scene:changed', draw);
     draw();
   }
 
-  // ── Threads · Encounters ──────────────────────────────────────────
-  const threads = () => (S().threads || []).map((x) => Object.assign({}, x));
+  // ── Threads: what is in play, and what is held in reserve ───────────
+  // threads = [{ id, title, text, sections, open, notes }] — notes are what happened to it in play
+  const threads = () => JSON.parse(JSON.stringify(S().threads || []));
   const setThreads = (l) => State.commit('setThreads', [l]);
+  function renderThreads(container, ctx) {
+    const draw = () => {
+      container.innerHTML = '';
+      const ts = threads();
+      container.appendChild(el('h4', { 'data-gm-id': 'threads-note' }, ['Threads', el('span', { class: 'muted small' }, [' · ' + ts.filter((x) => x.open !== false).length + ' open, ' + ts.filter((x) => x.open === false).length + ' closed'])]));
+      container.appendChild(G.note(() => (S().gm || {}).threadsNote, (v) => State.commit('setGm', ['threadsNote', v]), 'Add a note on the threads', draw));
+      const upd = (x, patch) => { const l = threads(); const at = l.findIndex((y) => y.id === x.id); l[at] = Object.assign({}, l[at], patch); setThreads(l); };
+      G.sections(container, ts, {
+        redraw: draw, save: setThreads, addLabel: 'Open a thread…', fresh: () => ({ open: true }),
+        cls: (x) => 'thread' + (x.open === false ? ' closed' : ''),
+        badges: (x) => (x.open === false ? el('span', { class: 'chip' }, ['Closed']) : null),
+        after: (x) => el('div', { class: 'thread-notes' }, [
+          el('div', { class: 'prop-k' }, ['In play']),
+          el('textarea', { class: 'text', rows: 2, placeholder: 'What has happened to it at the table…', 'aria-label': 'In play', oninput: debounce((ev) => upd(x, { notes: ev.target.value }), 400) }, [x.notes || '']),
+        ]),
+        actions: (x) => button(x.open === false ? 'Reopen' : 'Close', () => upd(x, { open: x.open === false }), 'ghost tiny'),
+      });
+      G.reveal(container);
+    };
+    redrawOn(ctx, container, draw);
+    draw();
+  }
+
+  // ── Encounters: Battle Points ──────────────────────────────────────
   const encounters = () => JSON.parse(JSON.stringify(S().encounters || []));
   const setEncounters = (l) => State.commit('setEncounters', [l]);
   // an adversary's role as its type's name: "Horde (10/HP)" → Horde
@@ -111,27 +223,10 @@
     return { pts, lines };
   }
   let draft = { name: '', npcs: [], adjust: [] };   // npcs [{ id, count }], adjust [adjustment ids]
-  function renderThreads(container, ctx) {
+  function renderEncounters(container, ctx) {
     let q = '';
     const draw = () => {
       container.innerHTML = '';
-      const ts = threads();
-      container.appendChild(el('h4', {}, ['Threads', el('span', { class: 'muted small' }, [' · ' + ts.filter((x) => x.open !== false).length + ' open'])]));
-      ts.forEach((x, i) => {
-        const upd = (patch) => { const l = threads(); l[i] = Object.assign({}, l[i], patch); setThreads(l); };
-        container.appendChild(el('div', { class: 'thread' + (x.open === false ? ' closed' : '') }, [
-          el('div', { class: 'chiprow tight' }, [
-            el('input', { class: 'text', type: 'text', value: x.title || '', 'aria-label': 'Thread', oninput: debounce((ev) => upd({ title: ev.target.value }), 400) }),
-            button(x.open === false ? 'reopen' : 'close', () => upd({ open: x.open === false }), 'ghost tiny'),
-            button('×', () => { if (confirm('Remove this thread?')) setThreads(threads().filter((_, j) => j !== i)); }, 'ghost tiny'),
-          ]),
-          x.open === false ? null : el('textarea', { class: 'text', rows: 2, placeholder: 'Where it stands…', 'aria-label': 'Where it stands', oninput: debounce((ev) => upd({ text: ev.target.value }), 400) }, [x.text || '']),
-        ]));
-      });
-      const tt = el('input', { class: 'text', type: 'text', placeholder: 'Open a thread…', 'aria-label': 'New thread' });
-      container.appendChild(el('div', { class: 'chiprow tight' }, [tt, button('Add', () => { if (!tt.value.trim()) return; setThreads(threads().concat([{ id: newId('th'), title: tt.value.trim(), text: '', open: true }])); tt.value = ''; draw(); }, 'tiny')]));
-
-      // the encounter: Battle Points
       const pcs = (S().party || []).length;
       const adjs = D.byType('Battle Point Adjustment');
       const base = BATTLE_POINTS(pcs);
@@ -151,7 +246,7 @@
       draft.npcs.forEach((n, i) => {
         const r = D.record(n.id);
         container.appendChild(el('div', { class: 'chiprow tight enc-row' }, [
-          el('button', { class: 'ref', type: 'button', onclick: () => window.DHOpenEntity(n.id) }, [r ? r.name : n.id]),
+          el('button', { class: 'ref', type: 'button', onclick: () => openEntity(n.id) }, [r ? r.name : n.id]),
           el('span', { class: 'muted small' }, [(r ? 'Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || '') : '') + ' ×']),
           button('−', () => { n.count = Math.max(0, n.count - 1); if (!n.count) draft.npcs.splice(i, 1); draw(); }, 'ghost tiny'),
           el('b', { class: 'num' }, [String(n.count)]),
@@ -189,11 +284,62 @@
     };
     ctx.on('state:changed', () => { if (!editing(container)) draw(); });
     ctx.on('state:remote', () => { if (!editing(container)) draw(); });
+    ctx.on('scene:changed', draw);
     draw();
   }
 
-  window.VttPanels.register('notes', { label: 'Notes', render: renderNotes });
-  window.VttPanels.register('scenes', { label: 'Scenes', render: renderScenes });
-  window.VttPanels.register('threads', { label: 'Threads · Encounters', render: renderThreads });
+  // ── People: the campaign's people, and the GM's notes on the characters ─
+  // The engine's People pane (engine/gm-panes.js) has no way to say whom a section is about; here each
+  // section's editor names them — an adversary or environment from the books, or a character in the
+  // party — and the section then shows in the Inspector, the Cast and the Party.
+  function aboutField(d, kind) {
+    d.about = (d.about || []).slice();
+    const box = el('div', { class: 'chiprow tight gm-about-edit' });
+    const draw = () => {
+      box.innerHTML = '';
+      box.appendChild(el('span', { class: 'prop-k' }, ['About']));
+      d.about.forEach((k, i) => {
+        const r = kind === 'pc' ? null : D.record(k);
+        box.appendChild(el('span', { class: 'chip' }, [r ? r.name : k, el('button', { class: 'ref tiny', type: 'button', title: 'remove', onclick: () => { d.about.splice(i, 1); draw(); } }, ['×'])]));
+      });
+      if (kind === 'pc') {
+        const sel = el('select', { class: 'scope tiny', 'aria-label': 'About a character' }, [el('option', { value: '' }, ['+ a character…'])].concat((S().party || []).filter((m) => d.about.indexOf(m.name) === -1).map((m) => el('option', { value: m.name }, [m.name]))));
+        sel.addEventListener('change', () => { if (sel.value) { d.about.push(sel.value); draw(); } });
+        box.appendChild(sel);
+      } else {
+        const q = el('input', { type: 'search', class: 'text', placeholder: '+ an adversary or environment', 'aria-label': 'About someone' });
+        const hits = el('span', { class: 'gm-about-hits' });
+        q.addEventListener('input', debounce(() => {
+          hits.innerHTML = '';
+          const t = q.value.trim().toLowerCase();
+          if (t.length < 2) return;
+          castable().filter((r) => r.name.toLowerCase().indexOf(t) !== -1 && d.about.indexOf(r.id) === -1).slice(0, 8)
+            .forEach((r) => hits.appendChild(button('+ ' + r.name + ' · ' + r.type, () => { d.about.push(r.id); draw(); }, 'ghost tiny')));
+        }, 150));
+        box.appendChild(q);
+        box.appendChild(hits);
+      }
+    };
+    draw();
+    return box;
+  }
+  function renderPeople(container, ctx) {
+    const draw = () => {
+      container.innerHTML = '';
+      container.appendChild(el('h4', { 'data-gm-id': 'people' }, ['The campaign’s people']));
+      G.sections(container, G.list('people'), { redraw: draw, save: (l) => G.setList('people', l), addLabel: 'Add someone…', fields: (d) => aboutField(d, 'people') });
+      container.appendChild(el('h4', { 'data-gm-id': 'pc' }, ['Behind the characters', el('span', { class: 'muted small' }, [' · never sent to players'])]));
+      G.sections(container, G.list('pc'), { redraw: draw, save: (l) => G.setList('pc', l), addLabel: 'Add a note on a character…', fields: (d) => aboutField(d, 'pc') });
+      G.reveal(container);
+    };
+    redrawOn(ctx, container, draw);
+    draw();
+  }
+
+  Panels.register('notes', { label: 'Notes', render: renderNotes });
+  Panels.register('scenes', { label: 'Scenes', render: renderScenes });
+  Panels.register('threads', { label: 'Threads', render: renderThreads });
+  Panels.register('encounters', { label: 'Encounters', render: renderEncounters });
+  Panels.register('people', { label: 'People', render: renderPeople });
   window.DHGmPanes = { spend, BATTLE_POINTS };
 })();
