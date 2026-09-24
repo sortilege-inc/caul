@@ -150,12 +150,37 @@ body.play { display: block; }
   .window-controls, .session-controls { margin: 0; flex-direction: row; }
   .sidebar-foot { margin-left: auto; }
 }
+/* the player's sheet in panes (system/daggerheart/sheet.js): all shown on a wide screen */
+.pane-nav { display: none; }
+.play-menu > summary { display: none; }
+.player-notes textarea { width: 100%; font: 16px var(--sans); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+.last-roll { margin: 8px 0; }
+.rest { margin: 10px 0; }
+.rest .move { margin: 6px 0; }
 @media (max-width: 640px) {
+  body.play { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  body.play .sheet.live[data-show="play"] > [data-pane]:not([data-pane="play"]),
+  body.play .sheet.live[data-show="roll"] > [data-pane]:not([data-pane="roll"]),
+  body.play .sheet.live[data-show="gear"] > [data-pane]:not([data-pane="gear"]) { display: none; }
+  body.play .pane-nav { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: #1c1724; border-top: 3px solid var(--accent); padding-bottom: env(safe-area-inset-bottom); }
+  body.play .pane-nav button { flex: 1; min-height: 56px; background: none; border: 0; color: #cfc4b2; font: 700 .95rem var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+  body.play .pane-nav button.on { color: #fff; box-shadow: inset 0 3px 0 var(--accent); background: #2a2333; }
+  body.play .play-menu > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font: 700 .85rem var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
+  body.play .play-menu .play-bar { display: grid; gap: 8px; }
+  body.play .sheet .roller { padding: 10px; }
+  body.play .sheet .trait-picks { display: grid; grid-template-columns: repeat(3, 1fr); }
+  body.play .sheet .stepper { width: 100%; justify-content: space-between; }
+  body.play .sheet .btn.step { width: 48px; }
+  body.play .sheet .dmg-row .btn { flex: 1; }
+  body.play .sheet .small, body.play .sheet .prop-k, body.play .sheet .step-k, body.play .sheet .track-k { font-size: 13px; }
+  body.play .sheet input, body.play .sheet textarea, body.play .sheet select { font-size: 16px; }
   .play-head { padding: 8px 12px; }
   .play-head .brand-sub, .play-status .room-k { display: none; }
   .play-main { padding: 10px 12px 40px; }
   .play-card { padding: 12px; border: 0; background: none; }
   body.play .sheet .btn, body.play .sheet button { min-height: 44px; }
-  body.play .box { width: 32px; height: 32px; }
-  body.play .stat { flex: 1 1 18%; min-width: 0; }
+  body.play .sheet .box { width: 34px; height: 34px; min-height: 0; }
+  body.play .sheet-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  body.play .stat { min-width: 0; padding: 6px 2px; }
+  body.play .stat-k { font-size: 13px; letter-spacing: .02em; }
 }

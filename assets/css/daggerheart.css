@@ -192,6 +192,28 @@ ul.items.columns { columns: 3 220px; }
 .log-line.fear { border-left-color: var(--fear); }
 .log-line.crit { border-left-color: var(--crit); }
 
+/* ── the creator, and pieces the site shares with the table ─ */
+.sheet-stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.stat { min-width: 64px; text-align: center; background: var(--panel-2); border-radius: 8px; padding: 6px 8px; }
+.stat-k { font: 700 .7rem var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); }
+.stat-v { font: 1.4rem var(--display); }
+.creator .step-text { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 14px; margin: 10px 0; }
+.creator .step-text > summary { cursor: pointer; font: 1.15rem var(--display); }
+.creator .step-controls { margin: 12px 0; }
+.creator input.text, .creator textarea.text { font: 16px var(--sans); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+.creator textarea.text { width: 100%; }
+.creator .chiprow input.text { flex: 1 1 12em; }
+.pick-list { margin: 10px 0; }
+.picks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.btn.pick { text-align: left; }
+.trait-grid { display: grid; gap: 6px; margin: 8px 0; }
+.trait-row { display: grid; grid-template-columns: 7em 1fr; align-items: center; gap: 8px; }
+.qa { margin: 10px 0; }
+.card-pick { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; background: var(--panel); }
+.card-pick.on { border-color: var(--accent); }
+.fcards { display: grid; gap: 6px; margin: 6px 0; }
+.steps .btn { min-width: 36px; }
+
 /* ── a phone ──────────────────────────────────────────────── */
 @media (max-width: 800px) {
   .reader { grid-template-columns: 1fr; }

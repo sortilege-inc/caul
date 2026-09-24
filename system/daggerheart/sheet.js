@@ -153,6 +153,84 @@ window.DHSheet = (function () {
     if (!r.crit && !r.withHope) State().commit('addFear', [1, m.id]);
   }
 
+  // ── resting: the downtime moves, read from their own text ──────────
+  //   REST_MOVES "Each player can swap any domain cards in their loadout for cards in their vault,
+  //              then choose two of the following moves (or choose the same move twice)."
+  //              (core-mechanics.lore, Downtime)
+  // A move's effect is read from its text: "clear a number of Hit Points equal to 1d4 + your tier",
+  // "clear all Stress", "gain a Hope" (2 Hope, "If you choose to Prepare with one or more members of
+  // your party"). A move whose text states none of these (Work on a Project) is logged as taken.
+  const REST_MOVES = 2;
+  const TRACKS = { 'Hit Points': 'markedHp', Stress: 'markedStress', 'Armor Slots': 'markedArmor' };
+  function tierOf(c) {
+    const lv = level(c);
+    const t = D.byType('Tier Of Play').find((x) => lv >= (D.num(x, 'Minimum Level') || 0) && lv <= (D.num(x, 'Maximum Level') || 99));
+    return t ? D.num(t, 'Tier') : 1;
+  }
+  function moveEffect(e) {
+    const t = D.text(e, 'Description') || '';
+    let mm = /clear a number of (Hit Points|Stress|Armor Slots) equal to 1d4 \+ your tier/.exec(t);
+    if (mm) return { kind: 'dice', track: TRACKS[mm[1]], what: mm[1] };
+    mm = /clear all (Hit Points|Stress|Armor Slots)/.exec(t);
+    if (mm) return { kind: 'all', track: TRACKS[mm[1]], what: mm[1] };
+    if (/gain a Hope/.test(t)) return { kind: 'hope', party: /you each gain 2 Hope/.test(t) };
+    return null;
+  }
+  function takeRest(m, restType, picks, withParty) {
+    const c = ch(m);
+    let l = live(m);
+    const p = {};
+    const bits = [restType + ':'];
+    const tier = tierOf(c);
+    picks.forEach((e) => {
+      const fx = moveEffect(e);
+      const cur = (k) => (p[k] != null ? p[k] : l[k]);
+      if (fx && fx.kind === 'dice') {
+        const roll = 1 + Math.floor(Math.random() * 4);
+        const n = roll + tier;
+        const before = cur(fx.track);
+        p[fx.track] = Math.max(0, before - n);
+        bits.push(e.name + ' (1d4 ' + roll + ' + tier ' + tier + ' = ' + n + '): ' + fx.what + ' ' + before + ' → ' + p[fx.track]);
+      } else if (fx && fx.kind === 'all') {
+        bits.push(e.name + ': ' + fx.what + ' ' + cur(fx.track) + ' → 0');
+        p[fx.track] = 0;
+      } else if (fx && fx.kind === 'hope') {
+        const gain = fx.party && withParty ? 2 : 1;
+        const h = Math.min(HOPE_MAX(), cur('hope') + gain);
+        bits.push(e.name + ': Hope ' + cur('hope') + ' → ' + h);
+        p.hope = h;
+      } else bits.push(e.name);
+    });
+    if (p.markedStress != null && p.markedStress < l.markedStress && l.conditions.indexOf('Vulnerable') !== -1 && l.markedStress === stressMax(c)) p.conditions = l.conditions.filter((x) => x !== 'Vulnerable');
+    patch(m, p, bits.join(' · '));
+  }
+  function restBlock(m) {
+    const box = el('div', { class: 'rest' });
+    let type = null;
+    let picks = [];
+    let withParty = false;
+    const draw = () => {
+      box.innerHTML = '';
+      box.appendChild(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Rest']), ['Short Rest', 'Long Rest'].map((t) => button(t, () => { type = type === t ? null : t; picks = []; draw(); }, 'tiny' + (type === t ? ' on' : '')))]));
+      if (!type) return;
+      const moves = D.byType('Downtime Move').filter((e) => D.text(e, 'Rest Type') === type);
+      box.appendChild(el('div', { class: 'muted small' }, ['Choose ' + REST_MOVES + ' (the same one twice is allowed): ' + picks.length + ' chosen']));
+      moves.forEach((e) => {
+        const n = picks.filter((x) => x === e).length;
+        box.appendChild(el('div', { class: 'move' }, [
+          button((n ? n + '× ' : '') + e.name, () => { if (picks.length < REST_MOVES) picks.push(e); draw(); }, 'tiny' + (n ? ' on' : '')),
+          el('div', { class: 'small' }, [E.span(D.text(e, 'Description') || '', e.book)]),
+        ]));
+      });
+      if (moves.some((e) => (moveEffect(e) || {}).party)) box.appendChild(el('label', { class: 'small' }, [el('input', { type: 'checkbox', checked: withParty || null, 'aria-label': 'Prepare with the party', onchange: (ev) => (withParty = ev.target.checked) }), ' Prepare with one or more members of the party']));
+      const go = button('Take the ' + type.toLowerCase(), () => { takeRest(m, type, picks, withParty); type = null; picks = []; draw(); }, 'tiny');
+      go.disabled = picks.length !== REST_MOVES;
+      box.appendChild(el('div', { class: 'chiprow tight' }, [go, picks.length ? button('Clear the choice', () => { picks = []; draw(); }, 'ghost tiny') : null]));
+    };
+    draw();
+    return box;
+  }
+
   // ── building a member ──────────────────────────────────────────────
   const newId = () => (State() ? State().genId('pc') : 'pc-' + Math.random().toString(36).slice(2, 10));
   function blankCharacter(name) {
@@ -253,19 +331,27 @@ window.DHSheet = (function () {
   }
 
   const rollers = {};
+  const PANES = [['play', 'Play'], ['roll', 'Roll'], ['gear', 'Gear']];
+  const panes = {};                    // the player's pane, kept across the redraws a change causes
+  const paneOf = (m) => panes[m.id] || 'play';
+  const notesTimers = {};
+  const debounceNotes = (m) => (ev) => { clearTimeout(notesTimers[m.id]); const v = ev.target.value; notesTimers[m.id] = setTimeout(() => State().commit('setPartyPlayerNotes', [m.id, v]), 400); };
   function liveSheet(m, opts) {
     const o = opts || {};
     const c = ch(m); const l = live(m);
     const tr = traits(c);
     const th = thresholds(c);
-    const box = el('div', { class: 'sheet' + (o.player ? ' player' : '') });
+    const box = el('div', { class: 'sheet live' + (o.player ? ' player' : ''), 'data-show': o.player ? paneOf(m) : null });
+    // each part of the sheet belongs to a pane; on a phone the player's copy shows one at a time
+    // behind a bar at the bottom (L5R5e I11), and a wider screen shows them all
+    const put = (pane, n) => { if (n) { n.setAttribute('data-pane', pane); box.appendChild(n); } return n; };
     // the head
-    box.appendChild(el('div', { class: 'sheet-head' }, [
+    put('play', el('div', { class: 'sheet-head' }, [
       el('div', { class: 'sheet-name' }, [c.Name || m.name, c.Pronouns ? el('span', { class: 'muted small' }, [' (' + c.Pronouns + ')']) : null]),
       el('div', { class: 'muted small' }, [sentence(c)]),
     ]));
     // Evasion, Armor, thresholds
-    box.appendChild(el('div', { class: 'sheet-stats' }, [
+    put('play', el('div', { class: 'sheet-stats' }, [
       el('div', { class: 'stat' }, [el('div', { class: 'stat-k' }, ['Evasion']), el('div', { class: 'stat-v' }, [c.Evasion != null ? String(c.Evasion) : '—'])]),
       el('div', { class: 'stat' }, [el('div', { class: 'stat-k' }, ['Armor']), el('div', { class: 'stat-v' }, [String(armorScore(c))])]),
       el('div', { class: 'stat' }, [el('div', { class: 'stat-k' }, ['Major']), el('div', { class: 'stat-v' }, [String(th.Major)])]),
@@ -273,10 +359,10 @@ window.DHSheet = (function () {
       el('div', { class: 'stat' }, [el('div', { class: 'stat-k' }, ['Proficiency']), el('div', { class: 'stat-v' }, [String(proficiency(c))])]),
     ]));
     // the trackers
-    box.appendChild(track('HP', hpMax(c), l.markedHp, (v) => patch(m, { markedHp: v }, 'HP ' + l.markedHp + ' → ' + v), 'hp'));
-    box.appendChild(track('Stress', stressMax(c), l.markedStress, (v) => (v > l.markedStress ? markStress(m, v - l.markedStress) : clearStress(m, l.markedStress - v)), 'stress'));
-    box.appendChild(track('Hope', HOPE_MAX(), l.hope, (v) => patch(m, { hope: v }, 'Hope ' + l.hope + ' → ' + v), 'hope'));
-    box.appendChild(track('Armor Slots', armorScore(c), l.markedArmor, (v) => patch(m, { markedArmor: v }, 'Armor Slots ' + l.markedArmor + ' → ' + v), 'armor'));
+    put('play', track('HP', hpMax(c), l.markedHp, (v) => patch(m, { markedHp: v }, 'HP ' + l.markedHp + ' → ' + v), 'hp'));
+    put('play', track('Stress', stressMax(c), l.markedStress, (v) => (v > l.markedStress ? markStress(m, v - l.markedStress) : clearStress(m, l.markedStress - v)), 'stress'));
+    put('play', track('Hope', HOPE_MAX(), l.hope, (v) => patch(m, { hope: v }, 'Hope ' + l.hope + ' → ' + v), 'hope'));
+    put('play', track('Armor Slots', armorScore(c), l.markedArmor, (v) => patch(m, { markedArmor: v }, 'Armor Slots ' + l.markedArmor + ' → ' + v), 'armor'));
     // damage: the stepper stays put while its severity reads beside it
     let dmg = 0;
     const sevEl = el('span', { class: 'muted small' });
@@ -288,22 +374,23 @@ window.DHSheet = (function () {
       button('Take it', () => { if (dmg) takeDamage(m, dmg, false); }, 'tiny'),
       withArmor,
     ]);
-    box.appendChild(dmgRow);
+    put('play', dmgRow);
     // conditions
-    box.appendChild(el('div', { class: 'chiprow tight conditions' }, conditions().map((x) => {
+    put('play', el('div', { class: 'chiprow tight conditions' }, conditions().map((x) => {
       const on = l.conditions.indexOf(x.name) !== -1;
       return el('button', { type: 'button', class: 'btn tiny' + (on ? ' on' : ''), title: x.text, onclick: () => patch(m, { conditions: on ? l.conditions.filter((y) => y !== x.name) : l.conditions.concat([x.name]) }, x.name + (on ? ' — cleared' : ' — gained')) }, [x.name]);
     })));
+    put('play', restBlock(m));
     // the roller: the character's traits and Experiences, Hope to spend
     const exps = (c.Experiences || []).map((x) => ({ name: x.Name || x.name, modifier: x.Modifier != null ? x.Modifier : x.modifier }));
-    box.appendChild(el('div', { class: 'prop-k' }, ['Roll']));
-    box.appendChild(Dice.roller({ traits: tr, experiences: exps, hope: l.hope, label: null, onResolve: (r, spent) => resolveRoll(m, r, spent) }));
-    if (lastRolls[m.id]) box.appendChild(el('div', { class: 'last-roll' }, [el('div', { class: 'muted small' }, ['The last roll']), Dice.resultView(lastRolls[m.id])]));
+    put('roll', el('div', { class: 'prop-k' }, ['Roll']));
+    put('roll', Dice.roller({ traits: tr, experiences: exps, hope: l.hope, label: null, onResolve: (r, spent) => resolveRoll(m, r, spent) }));
+    if (lastRolls[m.id]) put('roll', el('div', { class: 'last-roll' }, [el('div', { class: 'muted small' }, ['The last roll']), Dice.resultView(lastRolls[m.id])]));
     // weapons
     const weapons = [['Primary', c['Primary Weapon']], ['Secondary', c['Secondary Weapon']]].map(([k, r]) => [k, refEntity(r)]).filter((x) => x[1]);
     if (weapons.length) {
-      box.appendChild(el('div', { class: 'prop-k' }, ['Active weapons']));
-      box.appendChild(el('div', { class: 'weapons' }, weapons.map(([k, w]) => {
+      put('gear', el('div', { class: 'prop-k' }, ['Active weapons']));
+      put('gear', el('div', { class: 'weapons' }, weapons.map(([k, w]) => {
         const dmgExpr = D.text(w, 'Damage');
         return el('div', { class: 'weapon' }, [
           el('div', {}, [el('b', {}, [w.name]), el('span', { class: 'muted small' }, [' · ' + k + ' · ' + [D.text(w, 'Trait'), D.text(w, 'Range'), dmgExpr, D.text(w, 'Burden')].filter(Boolean).join(' · ')])]),
@@ -316,23 +403,27 @@ window.DHSheet = (function () {
       })));
     }
     // experiences
-    if (exps.length) box.appendChild(el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Experience']), exps.map((x) => el('span', { class: 'chip' }, [x.name + ' ' + Dice.sign(Number(x.modifier) || 0)]))]));
+    if (exps.length) put('roll', el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Experience']), exps.map((x) => el('span', { class: 'chip' }, [x.name + ' ' + Dice.sign(Number(x.modifier) || 0)]))]));
     // features and cards
     const fs = features(c);
     if (fs.length) {
-      box.appendChild(el('div', { class: 'prop-k' }, ['Features']));
-      box.appendChild(el('div', { class: 'fcards' }, fs.map((f) => featureCard(f.e, f.from))));
+      put('play', el('div', { class: 'prop-k' }, ['Features']));
+      put('play', el('div', { class: 'fcards' }, fs.map((f) => featureCard(f.e, f.from))));
     }
     const cards = (c.Loadout || []).map(refEntity).filter(Boolean);
     if (cards.length) {
-      box.appendChild(el('div', { class: 'prop-k' }, ['Loadout']));
-      box.appendChild(el('div', { class: 'fcards' }, cards.map((e) => featureCard(e, [(D.val(e, 'Domain') || {}).name, 'level ' + D.num(e, 'Domain Level'), D.text(e, 'Type')].filter(Boolean).join(' · ')))));
+      put('play', el('div', { class: 'prop-k' }, ['Loadout']));
+      put('play', el('div', { class: 'fcards' }, cards.map((e) => featureCard(e, [(D.val(e, 'Domain') || {}).name, 'level ' + D.num(e, 'Domain Level'), D.text(e, 'Type')].filter(Boolean).join(' · ')))));
     }
     // gold and inventory
     const g = Object.assign(goldDefaults(), l.gold || {});
-    box.appendChild(el('div', { class: 'chiprow tight gold' }, [el('span', { class: 'prop-k' }, ['Gold']), Object.keys(g).map((k) => Dice.stepper(k, () => g[k], (v) => patch(m, { gold: Object.assign({}, g, { [k]: v }) }, 'Gold: ' + k + ' ' + g[k] + ' → ' + v), { min: 0, max: k === 'Chest' ? 99 : 9 }))]));
+    put('gear', el('div', { class: 'chiprow tight gold' }, [el('span', { class: 'prop-k' }, ['Gold']), Object.keys(g).map((k) => Dice.stepper(k, () => g[k], (v) => patch(m, { gold: Object.assign({}, g, { [k]: v }) }, 'Gold: ' + k + ' ' + g[k] + ' → ' + v), { min: 0, max: k === 'Chest' ? 99 : 9 }))]));
     const inv = [].concat(c.Inventory || [], (c['Inventory Weapons'] || []).map((r) => (r && r.name) || r));
-    if (inv.length) box.appendChild(el('div', {}, [el('div', { class: 'prop-k' }, ['Inventory']), el('ul', { class: 'items' }, inv.map((x) => el('li', {}, [String(x)])))]));
+    if (inv.length) put('gear', el('div', {}, [el('div', { class: 'prop-k' }, ['Inventory']), el('ul', { class: 'items' }, inv.map((x) => el('li', {}, [String(x)])))]));
+    if (o.player) {
+      put('gear', el('div', { class: 'player-notes' }, [el('div', { class: 'prop-k' }, ['My notes']), el('textarea', { class: 'text', rows: 4, 'aria-label': 'My notes', oninput: debounceNotes(m) }, [m.playerNotes || ''])]));
+      box.appendChild(el('nav', { class: 'pane-nav' }, PANES.map(([id, label]) => el('button', { type: 'button', class: paneOf(m) === id ? 'on' : null, onclick: () => { panes[m.id] = id; box.setAttribute('data-show', id); box.querySelectorAll('.pane-nav button').forEach((b, i) => b.classList.toggle('on', PANES[i][0] === id)); window.scrollTo(0, 0); } }, [label]))));
+    }
     return box;
   }
 
@@ -376,6 +467,7 @@ window.DHSheet = (function () {
   return {
     ACTOR_ID, spec, conditions, thresholds, armorScore, severity, traits, live, liveSheet, memberFromGuide, readMember, downloadMember,
     sentence, tokenText, blankCharacter, parseTraits, features, featureCard, adversaryBlock, markStress, clearStress, takeDamage, resolveRoll, patch, refEntity,
+    takeRest, moveEffect, tierOf,
     readMemberFile: readMember,
   };
 })();
