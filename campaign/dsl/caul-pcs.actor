@@ -1,0 +1,37 @@
+EXTENSION "Caul_Characters" EXTENDS "Daggerheart_Core_Base" {
+    NAME "The Enduring Lesser Lights - the player characters"
+    VERSION "0.1.0"
+    SPEC_VERSION "0.5"
+    RELEASE_DATE "2026-09-24"
+
+    #caulPCDraz000000000000001 ^"Draz" DEF {
+        EXTENDS #daggerheartCharacter000000001 ^"Character"
+        PROPERTIES {
+            ^"Level" INTEGER 6
+            ^"Traits" DEF { ^"Agility" INTEGER 2 ^"Strength" INTEGER 0 ^"Finesse" INTEGER 1 ^"Instinct" INTEGER 1 ^"Presence" INTEGER -1 ^"Knowledge" INTEGER 0 }
+            ^"Class" #tRB0k15fuD6hX0PITYoqEWOK ^"Ranger"
+            ^"Subclass" #tkK829s5T83ztV8gJcQbGbjM ^"Wayfinder"
+            ^"Second Class" #tfGgwy6oqAiiziuM3mh01oNi ^"Druid"
+            ^"Second Subclass" #tHBKo6s978yq382dTekaVvyP ^"Warden of the Elements"
+            ^"Ancestry" #tWLuZ62pXe9jcp0KCey4cI0D ^"Simiah"
+            ^"Community" #tcBCX7oolhbMNqXBhCNw7bjS ^"Wildborne"
+            ^"Pronouns" STRING "he/him"
+            ^"Evasion" INTEGER 13
+            ^"Hit Points" INTEGER 7
+            ^"Marked HP" INTEGER 2
+            ^"Stress" INTEGER 6
+            ^"Marked Stress" INTEGER 3
+            ^"Hope" INTEGER 2
+            ^"Proficiency" INTEGER 4
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 13 ^"Severe" INTEGER 22 }
+            ^"Armor Score" INTEGER 0
+            ^"Gold" DEF { ^"Handfuls" INTEGER 2 ^"Bags" INTEGER 0 ^"Chest" INTEGER 0 }
+            ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Home in the Trees" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Nature's Friend" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Trickshot" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Sneaky, sneaky" ^"Modifier" INTEGER 2 } ]
+            ^"Loadout" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tGlTCMC033AcZDlySy7NInC8 ^"Nature’s Tongue", #tca1efw5nNHeUCJUtVEWtDi1 ^"Conjure Swarm", #tFKjvaDbg95K5JR34c2MnzQv ^"Boost", #tWSWkKpI9XTjl7vzvpt5INtV ^"Healing Field", #tLoetEZ2WjNmxkgVB0F8LZ12 ^"Wall Walk" ]
+            ^"Vault" LIST OF #daggerheartDomainCard0000001 ^"Domain Card" [ #tSS0xM8yUdIVed5KIHJW78JK ^"Gifted Tracker", #tiltPCrognJUC1gZAPrmg53d ^"Brace", #tvbHCbc260Euiy4AYs04Etbu ^"Recovery" ]
+            ^"Primary Weapon" #ts8WnY7PTIVI5ZzBjr3raaXE ^"Improved Shortbow"
+            ^"Inventory Weapons" LIST OF #daggerheartWeapon00000000001 ^"Weapon" [ #t6l13ESN1eMd8z3E1oysyM4C ^"Shortbow", #tT42JxA6VxEJQlS50jCBIKmZ ^"Whip", #tRh0v3Gubn0qXoEh6qf3Bo8V ^"Blunderbuss", #ty3hkrJM0HINnZ2aRBiQxEw4 ^"Hand Sling" ]
+            ^"Inventory" LIST OF STRING [ "Improved Gambeson Armor", "Broken Compass", "50ft of Rope", "Basic Supplies", "Torch", "Piercing Arrows", "Otheidas Circlet", "Vial of Splendor", "Minor Health Potion", "Unstable Arcane Shard" ]
+        }
+    }
+}
