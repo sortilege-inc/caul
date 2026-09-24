@@ -1,30 +1,15 @@
-# sortilege-vtt-daggerheart
+# caul — The Enduring Lesser Lights
 
-A virtual tabletop for **Daggerheart**, generated from the Titterpig corpus
-`titterpig-dsl-daggerheart/0.5` (the Core Rulebook and *Hope & Fear*): the books to read,
-the Duality Dice, character creation, the GM's table over the campaign frames, and live
-sessions for players on their own devices.
+An **instance** of the Daggerheart VTT (`sortilege-vtt-daggerheart`): the campaign
+**The Enduring Lesser Lights** (Age of Umbra: Caul), live at **caul.sortilege.online**.
 
-- `/` — the site. Writes nothing.
-- `/gm/` — the GM's table: panels over the campaign, the map table (`gm/vtt.html`), the
-  player's page (`gm/play.html`).
+The VTT owns the root — the site at `/`, the GM's table at `/gm/`, the engine, the system
+module, the generated books. This campaign owns `campaign/` and a short list of per-deployment
+root files (`engine/config.js`, `worker/wrangler.jsonc`, `README.md`, `CNAME`, `.gitignore`,
+`.claude/launch.json`, `.gitattributes` — all `merge=ours`).
 
-No build step for the pages; `data/` is generated:
+- Upstream is the VTT: `git fetch upstream && git merge upstream/main` (never rebase). Run
+  `git config merge.ours.driver true` once per clone or `merge=ours` does nothing.
+- `campaign/PLAN.md` holds this instance's plan and decision log.
 
-```bash
-bash build/build.sh
-```
-
-It parses every corpus file, writes `data/`, and gates the result both ways (every string the
-corpus prints reaches the data as often as it is printed, and nothing in the data is not in the
-corpus).
-
-A campaign can run as an **instance** of this VTT — a fork that owns a `campaign/` folder and
-never edits upstream (`~/Sortilege/VTT/INSTANCES.md`). Its homebrew builds as one more book:
-
-```bash
-bash build/build_layer.sh campaign/dsl campaign "<its title>" campaign/data
-```
-
-Local: the launch entries `vtt-daggerheart` (8742) and `vtt-daggerheart-worker` (8796). See
-`PLAN.md` for the milestones, the decisions and the proof of each.
+The Age of Umbra campaign frame (`#t5KkPQAKPBQWhS6w3ZFiQh2x`) is in effect.

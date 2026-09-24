@@ -1,33 +1,29 @@
 // engine/config.js — where things are. The one file a deployment edits.
+// INSTANCE-OWNED (merge=ours): this is the Caul campaign's copy — "The Enduring Lesser
+// Lights", an instance of the Daggerheart VTT. Upstream's copy never overwrites it; after a
+// pull, diff engine/config.js against upstream and carry any new key by hand (INSTANCES.md).
 window.VttConfig = {
   system: 'daggerheart',
-  title: 'Daggerheart',
-  channel: 'sortilege-vtt-daggerheart',        // BroadcastChannel name (same-machine windows)
-  storagePrefix: 'sortilege-vtt-daggerheart',  // localStorage key prefix
-  dataGlobal: 'DAGGERHEART',                   // the global data/*.js registers into
-  // The pages, relative to the site root; the gm/ pages carry <base href="../"> so every
-  // path stays root-relative.
+  title: 'The Enduring Lesser Lights',
+  channel: 'caul-vtt',            // BroadcastChannel name (same-machine windows)
+  storagePrefix: 'caul-vtt',      // localStorage key prefix
+  dataGlobal: 'DAGGERHEART',      // the global data/*.js registers into (must match the VTT)
   pages: { site: './', gm: 'gm/', table: 'gm/vtt.html', play: 'gm/play.html' },
-  // what a fresh browser opens on until a campaign is created or restored: no campaign
-  // frame is picked (the Adventure panel offers them), no book beyond what a view asks for.
-  // An instance may add `seed: 'campaign/pack/seed.json'` — a pack whose keys fill what its
-  // campaign has never had (its arc, its encounters), once (engine/state.js seed).
-  // An instance may also name the Notes pane's document (system/daggerheart/gm-panes.js):
-  //   notes: { src: 'campaign/docs/state.html', title: '…', class: 'pf-doc',
-  //            gate: { title: '…', text: '…', enter: 'Bow & Enter' } }
-  // a .html src is the instance's own fragment, inserted as it is; anything else reads as Markdown.
-  defaultCampaign: { name: 'A new campaign', modules: [], books: [] },
-  // the three panels the GM page opens on (engine/app.js)
+  // The Age of Umbra campaign frame (#t5KkPQAKPBQWhS6w3ZFiQh2x, corpus campaign-frames) is in
+  // effect for this campaign; the party opens on it. Its rules modifications come from the
+  // frame's own mechanics in the data.
+  defaultCampaign: {
+    name: 'The Enduring Lesser Lights',
+    modules: ['#t5KkPQAKPBQWhS6w3ZFiQh2x'],
+    books: [],
+  },
+  // the three panels the GM page opens on (engine/app.js) — revisited at the migration milestone
   defaultSlots: ['frame', 'party', 'inspector'],
-  // The Worker that holds player sessions. Served from localhost the app talks to
-  // `wrangler dev`; deployed, to the URL below. Empty = sessions disabled until the owner
-  // deploys (PLAN.md D3).
-  // An instance (a campaign repo forked from this VTT) declares its own scripts here — its
-  // data layer, site tabs, GM panels and styles — and engine/instance.js loads them at the
-  // stages the upstream pages mark. Upstream declares none. Shape: engine/instance.js.
+  // The campaign's own scripts, loaded by engine/instance.js at the stages the upstream pages
+  // mark. Populated as campaign/ content lands (data layer M2, tabs + GM doc M4). Null until then.
   instance: null,
   worker: {
-    deployed: '',
+    deployed: '',                 // set at deploy (M5): the caul.sortilege.online Worker
     local: 'http://localhost:8796',
   },
 };

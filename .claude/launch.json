@@ -2,35 +2,17 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "vtt-daggerheart",
+      "name": "caul",
       "runtimeExecutable": "python3",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8742"
-      ],
-      "port": 8742
+      "runtimeArgs": ["-m", "http.server", "8142"],
+      "port": 8142
     },
     {
-      "name": "vtt-daggerheart-worker",
+      "name": "caul-worker",
       "runtimeExecutable": "npx",
-      "runtimeArgs": [
-        "wrangler",
-        "dev",
-        "--port",
-        "8796"
-      ],
+      "runtimeArgs": ["wrangler", "dev", "--port", "8796"],
       "port": 8796,
       "cwd": "worker"
-    },
-    {
-      "name": "vtt-daggerheart-two-origins",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": [
-        "-c",
-        "import http.server, threading, functools\nH = functools.partial(http.server.SimpleHTTPRequestHandler, directory='.')\nservers = [http.server.ThreadingHTTPServer(('0.0.0.0', p), H) for p in (8742, 8744)]\n[threading.Thread(target=s.serve_forever, daemon=True).start() for s in servers[1:]]\nservers[0].serve_forever()\n"
-      ],
-      "port": 8742
     }
   ]
 }

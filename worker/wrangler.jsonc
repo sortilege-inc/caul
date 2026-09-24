@@ -1,14 +1,15 @@
 {
+  // INSTANCE-OWNED (merge=ours): the Caul deployment's Worker.
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sortilege-vtt-daggerheart",
+  "name": "caul-vtt",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-08",
   "observability": { "enabled": true, "head_sampling_rate": 1 },
   "vars": {
     // The app's own origins, comma-separated — the only non-localhost origins the Worker
-    // answers to. Until the owner picks the deployment origin (PLAN.md D3) only the github.io
-    // address is listed; localhost / 127.0.0.1 are always admitted for `wrangler dev`.
-    "ALLOWED_ORIGIN": "https://sortilege-inc.github.io"
+    // answers to. The custom domain and the github.io address behind it; localhost / 127.0.0.1
+    // are always admitted for `wrangler dev`.
+    "ALLOWED_ORIGIN": "https://caul.sortilege.online,https://sortilege-inc.github.io"
   },
   "durable_objects": {
     "bindings": [{ "name": "SESSION_ROOM", "class_name": "SessionRoom" }]

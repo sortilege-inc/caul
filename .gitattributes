@@ -1,0 +1,11 @@
+# Per-deployment / per-origin files the instance owns. `merge=ours` keeps the instance's whole
+# copy when an upstream pull also changed the file — so after a pull, diff each against upstream
+# and carry any new key by hand (INSTANCES.md). The driver is NOT stored in the repo; run once
+# per clone or these do nothing:  git config merge.ours.driver true
+engine/config.js      merge=ours
+worker/wrangler.jsonc merge=ours
+README.md             merge=ours
+CNAME                 merge=ours
+.gitignore            merge=ours
+.claude/launch.json   merge=ours
+.gitattributes        merge=ours
