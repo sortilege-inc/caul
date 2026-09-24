@@ -18,7 +18,7 @@ window.VttConfig = {
   // a .html src is the instance's own fragment, inserted as it is; anything else reads as Markdown.
   defaultCampaign: { name: 'A new campaign', modules: [], books: [] },
   // the three panels the GM page opens on (engine/app.js)
-  defaultSlots: ['adventure', 'party', 'inspector'],
+  defaultSlots: ['frame', 'party', 'inspector'],
   // The Worker that holds player sessions. Served from localhost the app talks to
   // `wrangler dev`; deployed, to the URL below. Empty = sessions disabled until the owner
   // deploys (PLAN.md D3).

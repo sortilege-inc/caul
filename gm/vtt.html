@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<link rel="icon" href="assets/art/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/daggerheart.css">
+<link rel="stylesheet" href="assets/css/daggerheart-gm.css">
+<title>Daggerheart — the table</title>
+</head>
+<body class="vtt">
+<div class="vtt-toolbar" id="vtt-toolbar"></div>
+<div class="vtt-stage" id="vtt-stage">
+  <svg id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+  <div class="vtt-hint" id="vtt-hint"></div>
+</div>
+
+<script src="engine/config.js"></script>
+<script src="engine/bus.js"></script>
+<script src="engine/ops.js"></script>
+<script src="system/daggerheart/ops.js"></script>
+<script src="engine/state.js"></script>
+<script src="engine/render.js"></script>
+<script src="engine/panels.js"></script>
+<script src="engine/data.js"></script>
+<script src="data/index.js"></script>
+<script src="data/records.js"></script>
+<script src="engine/instance.js" data-stage="data"></script>
+<script src="system/daggerheart/data.js"></script>
+<script src="system/daggerheart/dice.js"></script>
+<script src="system/daggerheart/entity.js"></script>
+<script src="system/daggerheart/sheet.js"></script>
+<script src="system/daggerheart/table.js"></script>
+<script src="engine/session.js"></script>
+<script src="engine/instance.js" data-stage="table"></script>
+<script src="system/daggerheart/boot.js" data-page="engine/vtt.js"></script>
+</body>
+</html>
