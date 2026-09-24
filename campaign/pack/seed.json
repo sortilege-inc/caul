@@ -1,0 +1,47 @@
+{
+  "kind": "sortilege-vtt-campaign",
+  "version": 1,
+  "campaign": {
+    "name": "The Enduring Lesser Lights"
+  },
+  "arc": [
+    {
+      "id": "caul-s28-open",
+      "title": "Session 28 — The World Above",
+      "text": "The company stands in the World Above, beyond the moon-membrane, where Session 27 left them. The fight is unresolved — the leaping predator (the giant bush-baby), the great cat (unengaged), and the leech-larvae remain. Open leads recovered so far: Amber Reach (glimpsed as a living city) and the mountain waterfall. Talis burns below.",
+      "played": false
+    }
+  ],
+  "threads": [
+    {
+      "id": "caul-thread-1",
+      "title": "Primary Quest: Rekindle the Sacred Pyre",
+      "text": "Progress ☐ Return to Drosven's Gate ☐ Rekindle the Sacred Pyre Complications Sylvie 's transformation and new allegiance to Ygva Party is now involved in Ygva 's plan to bind the gods Sacred Tree destroyed by goblin explosion"
+    },
+    {
+      "id": "caul-thread-2",
+      "title": "Ygva's Divine Binding",
+      "text": "What Ygva Needs Remnants and totems of the gods God-essences from various sources Sylvie 's assistance as a fellow Umbra witch Party's Role Sylvie accepted Ygva as \"sister\" and learned summoning Heyou negotiated for artifacts Party possesses Askavir heart with Splendor magic Trad"
+    },
+    {
+      "id": "caul-thread-3",
+      "title": "The Heretic Marks",
+      "text": "Details Draz : Mark on inner bicep Jamal : Mark on right buttock Both conceal their marks Sylvie made Draz a sweater to help hide his"
+    },
+    {
+      "id": "caul-thread-4",
+      "title": "Heyou's True Nature",
+      "text": "Clues Gathered Sigil on chest indicates specific origins Kelun sensed connection to him Ygva could summon his detached leg Circlet among artifacts matches his sigil Absorbed Askavir heart portion, gained holy power Potential May be key to creating new beings Connected to stone co"
+    },
+    {
+      "id": "caul-thread-5",
+      "title": "Sylvie's Transformation",
+      "text": "Changes Heart removed by Ygva but survived Shifted from Splendor to Dread domain Gained Umbra witch powers Can communicate telepathically Healing magic replaced by essence siphoning Goals Understand her new nature Find her heart Return to her origins Navigate relationship with Yg"
+    },
+    {
+      "id": "caul-thread-6",
+      "title": "Dangling Hooks",
+      "text": "The Dimmers Operations Heyou 's criminal connections Borek 's role in Ulmira's Step Trade in Askavir eggs and other goods Refugees from Dolm's Break Arrived at Verrow's Span Tall katari with eye patch among them (suspected ulterior motives) Settlement crisis from Askavir attack ("
+    }
+  ]
+}

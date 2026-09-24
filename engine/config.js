@@ -16,6 +16,9 @@ window.VttConfig = {
     name: 'The Enduring Lesser Lights',
     modules: ['#t5KkPQAKPBQWhS6w3ZFiQh2x'],
     books: [],
+    // the S28 arc and the open threads, seeded once (campaign/source/build_seed.py); the GM edits
+    // from there and the seed never overwrites a change (engine/state.js seed)
+    seed: 'campaign/pack/seed.json',
   },
   // the three panels the GM page opens on (engine/app.js) — revisited at the migration milestone
   defaultSlots: ['frame', 'party', 'inspector'],
