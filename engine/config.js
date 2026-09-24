@@ -28,7 +28,7 @@ window.VttConfig = {
   instance: null,
   worker: {
     deployed: '',
-    local: 'http://localhost:8794',
+    local: 'http://localhost:8796',
   },
 };
 window.VttConfig.workerUrl = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? window.VttConfig.worker.local : window.VttConfig.worker.deployed;

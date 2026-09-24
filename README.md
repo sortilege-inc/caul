@@ -26,5 +26,5 @@ never edits upstream (`~/Sortilege/VTT/INSTANCES.md`). Its homebrew builds as on
 bash build/build_layer.sh campaign/dsl campaign "<its title>" campaign/data
 ```
 
-Local: the launch entries `vtt-daggerheart` (8742) and `vtt-daggerheart-worker` (8794). See
+Local: the launch entries `vtt-daggerheart` (8742) and `vtt-daggerheart-worker` (8796). See
 `PLAN.md` for the milestones, the decisions and the proof of each.

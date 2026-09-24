@@ -8,6 +8,6 @@ token may do anything; a player token only its claimed character and its own tok
 players the filtered view. Rooms expire after 14 idle days — the campaign pack is the durable record.
 
 ```bash
-cd worker && npm install && npx wrangler dev --port 8794   # local; the app on localhost talks to it
+cd worker && npm install && npx wrangler dev --port 8796   # local; the app on localhost talks to it
 cd worker && npx wrangler deploy                            # then set engine/config.js worker.deployed
 ```

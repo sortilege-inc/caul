@@ -3,9 +3,10 @@
 Open work, newest first. `PLAN.md` holds what landed and why; this file holds what is known and
 not yet done.
 
-## M5 — sessions (blocked: the preview's five-servers-per-folder limit)
+## Deploy — the owner's step (D4, private)
 
-See PLAN.md, *STOPPED HERE*. Deploy stays the owner's step (D4, private).
+`cd worker && npx wrangler deploy`; set `worker.deployed` (engine/config.js) and `ALLOWED_ORIGIN`
+(worker/wrangler.jsonc); make the repo public and turn on Pages only if D4 changes.
 
 ## The sheet — what the book prints that the sheet does not yet do
 
