@@ -21,7 +21,7 @@ once per clone).
 | M0 | Plan + decisions | **done** — this file |
 | M1 | The fork | **done 2026-09-24** — see below |
 | M2 | Homebrew characters & NPCs into `campaign/dsl/` (PCs as `Character`; companions, the bestiary, environments), from Foundry, gated + field-checked | **done 2026-09-24** — 106 statblocks (4 PCs, 5 companions, 13 NPCs, 80 adversaries, 4 environments), all layer-gated + field-checked with planted-failure tests |
-| M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | |
+| M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | **in progress** — data stage wired + sheet render proven (below) |
 | M4 | Migrate the 171 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc | |
 | M5 | Deploy (owner): Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | |
 
@@ -52,6 +52,12 @@ All 150 Foundry actors categorized: **4 PCs, 5 companions, 10 character-NPCs, 4 
 - **13 character-NPCs → `Character`** (`campaign/dsl/caul-npcs.actor`) incl. the Speaker GM PC, reusing the PC converter (`convert_npcs.py`/`check_npcs.py`, Pronouns omitted — records state none). 13/13 field-checked. Askavir (no class) handled; Ygva's homebrew "Umbra Veil" card carried to Inventory (no corpus entry). Variant pairs Mellan/Savel/Sarru each a faithful instance (some variants live in the adversary set, e.g. Umbral Savel).
 - **4 environments → `Environment`** (`campaign/dsl/caul-environments.actor`, `env_extract.py`/`convert_environments.py`/`check_environments.py`). Tier/Description/Difficulty + POTENTIAL_ADVERSARIES (compendium UUIDs resolved to names, cached in `env-adversary-names.json`) + FEATURES (Type parsed from name suffix or description lead). 4/4 field-checked. Category/Impulses absent — the Foundry env schema does not store them.
 - **Converter fix (both PCs and NPCs):** an unresolved (homebrew) domain card is now carried onto the sheet as an Inventory string, not dropped; the field-check compares loadout+vault to the *resolvable* card count.
+
+## M3 progress (2026-09-24)
+- **Data stage wired** (`engine/config.js` `instance.stages.data = ['campaign/data/index.js']`, commit `95017fc`). The 319 campaign records register into the `DAGGERHEART` global (records 2978 → 3297). Verified in the browser.
+- **Upstream `memberFromCharacter`** (VTT `14a81d8`, pushed + merged) — renders a fully built Character instance (not just an appendix Guide) as a live sheet member: class(es)/subclass(es) incl. multiclass, heritage, traits, stats, experiences, loadout/vault, inventory. **Caller must `D.ensureAll()` first** so cross-book refs (core classes, etc.) resolve.
+- **Render proof (browser):** all 4 PCs render on `liveSheet`. Draz shows the multiclass end to end — header "Ranger / Druid · Wayfinder / Warden of the Elements · level 6 · Simiah · Wildborne", **11 features from both classes**, Evasion 13, thresholds 13/22, Proficiency 4, his 4 Experiences as roll modifiers, the Improved Shortbow (4d6+6). Heyou likewise (Rogue/Assassin + both subclasses).
+- **Still to do (M3):** a GM roster/cast UI to add the campaign's PCs/NPCs to the party (calls `memberFromCharacter` after `ensureAll`) so players can claim them; **companion view/control** (decision 5 — needs a Ranger-Companion sheet renderer, likely upstream, since the sheet renders Characters/adversaries but not companions yet); retire the old `campaign/play/` sheets.
 
 ## Decision log (autonomous calls this session)
 - **Companion modeling (owner, 2026-09-24):** the plan's "companions as `Adversary`" (decision 5) was written before the records were seen. Pinchie & the Umbral Raven are Foundry `companion`-type (the Ranger's-Companion sheet), not adversaries. Owner chose to **extend the corpus `Ranger Companion` ACTOR upstream** with optional played-instance fields (Pronouns, Partner, Evasion, Stress, Marked Stress, an Attack DEF, Experiences, Upgrades, Description) rather than force them into `Adversary`. "Player view+control" (decision 5) is an engine/ownership feature (M3), independent of the DSL type. Speaker ×2 are `character`-typed → the `Character` path.
