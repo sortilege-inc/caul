@@ -288,7 +288,9 @@ window.DHSheet = (function () {
   }
   function sentence(c) {
     const heritage = [c.Ancestry && c.Ancestry.name, c.Community && c.Community.name].filter(Boolean).join(' · ');
-    return [c.Class && c.Class.name, c.Subclass && c.Subclass.name, 'level ' + level(c), heritage].filter(Boolean).join(' · ');
+    const classes = [c.Class && c.Class.name, c['Second Class'] && c['Second Class'].name].filter(Boolean).join(' / ');
+    const subs = [c.Subclass && c.Subclass.name, c['Second Subclass'] && c['Second Subclass'].name].filter(Boolean).join(' / ');
+    return [classes, subs, 'level ' + level(c), heritage].filter(Boolean).join(' · ');
   }
   function tokenText(m) {
     const c = ch(m); const l = live(m);
@@ -323,6 +325,11 @@ window.DHSheet = (function () {
     if (cls) D.blockEntities(cls, 'FEATURES').forEach((f) => out.push({ e: f, from: cls.name }));
     const sub = refEntity(c.Subclass);
     if (sub) ['FOUNDATION'].concat(c['Subclass Card'] === 'Mastery' ? ['SPECIALIZATION', 'MASTERY'] : c['Subclass Card'] === 'Specialization' ? ['SPECIALIZATION'] : []).forEach((kw) => D.blockEntities(sub, kw).forEach((f) => out.push({ e: f, from: sub.name + ' · ' + kw.toLowerCase() })));
+    // multiclass: a second class's features, and its subclass foundation
+    const cls2 = refEntity(c['Second Class']);
+    if (cls2) D.blockEntities(cls2, 'FEATURES').forEach((f) => out.push({ e: f, from: cls2.name }));
+    const sub2 = refEntity(c['Second Subclass']);
+    if (sub2) D.blockEntities(sub2, 'FOUNDATION').forEach((f) => out.push({ e: f, from: sub2.name + ' · foundation' }));
     const anc = refEntity(c.Ancestry);
     if (anc) D.blockEntities(anc, 'FEATURES').forEach((f) => out.push({ e: f, from: anc.name }));
     const com = refEntity(c.Community);
