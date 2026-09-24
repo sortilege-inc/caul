@@ -20,8 +20,14 @@ window.VttConfig = {
   // the three panels the GM page opens on (engine/app.js) — revisited at the migration milestone
   defaultSlots: ['frame', 'party', 'inspector'],
   // The campaign's own scripts, loaded by engine/instance.js at the stages the upstream pages
-  // mark. Populated as campaign/ content lands (data layer M2, tabs + GM doc M4). Null until then.
-  instance: null,
+  // mark. The DSL layer (campaign/dsl/ → campaign/data/, via build/build_layer.sh) registers the
+  // campaign's 106 statblocks into the data global at the `data` stage. Site tabs + GM doc land
+  // at M4.
+  instance: {
+    stages: {
+      data: ['campaign/data/index.js'],
+    },
+  },
   worker: {
     deployed: '',                 // set at deploy (M5): the caul.sortilege.online Worker
     local: 'http://localhost:8796',
