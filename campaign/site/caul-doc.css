@@ -1,0 +1,10 @@
+/* campaign/site/caul-doc.css — fits the migrated wiki paper (umbra.css, scoped to .caul-doc) into
+   the VTT's tab frame. Hand-written; the generated umbra.css keeps the old look, this only undoes
+   what a full-page stylesheet assumed (a 100vh body, a fixed background) so it sits in a tab. */
+.caul-doc {
+  min-height: 0;                 /* was body { min-height: 100vh } — the tab sizes to its content */
+  background-attachment: scroll; /* the parchment scrolls with the tab, not the window */
+}
+.caul-doc .wrap {
+  margin-inline: auto;           /* keep the column centred within the tab */
+}

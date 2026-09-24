@@ -24,8 +24,12 @@ window.VttConfig = {
   // campaign's 106 statblocks into the data global at the `data` stage. Site tabs + GM doc land
   // at M4.
   instance: {
+    // the migrated wiki's look, scoped to .caul-doc (campaign/source/scope_css.py) + a fit file
+    styles: ['campaign/site/umbra.css', 'campaign/site/caul-doc.css'],
     stages: {
       data: ['campaign/data/index.js'],
+      // the campaign's site tabs (M4): the docs in campaign/docs/, the interactive atlas map
+      site: ['campaign/site/site.js'],
     },
   },
   worker: {
