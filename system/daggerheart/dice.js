@@ -105,17 +105,33 @@ window.DHDice = (function () {
     if (!m) return null;
     return { count: m[1] ? Number(m[1]) : (proficiency || 1), sides: Number(m[2]), plus: m[4] ? (m[3] === '-' ? -1 : 1) * Number(m[4]) : 0, type: m[5] || null };
   }
-  function damageRoll(expr, proficiency, label) {
+  // opts: { bonus, extra:[sides…] (extra damage dice to add), reroll (reroll any die ≤ this once),
+  // notes:[label] (the abilities the player applied, shown and logged) }
+  function damageRoll(expr, proficiency, label, opts) {
     const p = parseDamage(expr, proficiency);
     if (!p) return null;
-    const dice = Array.from({ length: p.count }, () => d(p.sides));
-    return { kind: 'damage', expr: String(expr), dice, sides: p.sides, plus: p.plus, type: p.type, total: dice.reduce((a, x) => a + x, 0) + p.plus, label: label || null, at: Date.now() };
+    opts = opts || {};
+    const main = Array.from({ length: p.count }, () => ({ sides: p.sides, v: d(p.sides) }));
+    const extra = (opts.extra || []).map((s) => ({ sides: s, v: d(s), extra: true }));
+    const all = main.concat(extra);
+    let rerolled = 0;
+    if (opts.reroll) all.forEach((x) => { if (x.v <= opts.reroll) { x.was = x.v; x.v = d(x.sides); rerolled += 1; } });
+    const bonus = Number(opts.bonus) || 0;
+    const total = all.reduce((a, x) => a + x.v, 0) + p.plus + bonus;
+    return { kind: 'damage', expr: String(expr), dice: all.map((x) => x.v), diceDetail: all, sides: p.sides, plus: p.plus, bonus, type: p.type, reroll: opts.reroll || 0, rerolled, notes: opts.notes || [], total, label: label || null, at: Date.now() };
   }
 
   // ── drawing ────────────────────────────────────────────────────────
   const sign = (n) => (n >= 0 ? '+' : '−') + Math.abs(n);
-  function die(v, cls, title) {
-    return el('span', { class: 'die ' + cls, title }, [String(v)]);
+  // the die's shape is the Daggerheart system's own icon (assets/icons/dice/<cat>/d<sides>.svg,
+  // pulled from the Foundry module), with the rolled value read on top.
+  const SHAPE = { hope: 'hope-d12', fear: 'fear-d12', adv: 'adv-d6', dis: 'disadv-d6' };
+  function die(v, cls, title, sides) {
+    const base = String(cls).split(' ')[0];
+    let shape = SHAPE[base] || null;
+    if (base === 'dmg') shape = 'default-d' + (sides || 6);
+    else if (base === 'd20' || base === 'gm') shape = 'default-d20';
+    return el('span', { class: 'die ' + cls, 'data-shape': shape, title }, [String(v)]);
   }
   function resultView(r) {
     if (!r) return null;
@@ -124,11 +140,18 @@ window.DHDice = (function () {
       el('div', { class: 'roll-total' }, [String(r.total)]),
       el('div', { class: 'muted small' }, ['d20 ' + r.kept + (r.modifier ? ' ' + sign(r.modifier) : '') + (r.difficulty != null ? ' vs ' + r.difficulty + ' — ' + (r.success ? 'hits' : 'misses') : '')]),
     ]);
-    if (r.kind === 'damage') return el('div', { class: 'roll-result dmg' }, [
-      el('div', { class: 'dice-row' }, r.dice.map((x) => die(x, 'dmg', 'd' + r.sides))),
-      el('div', { class: 'roll-total' }, [String(r.total)]),
-      el('div', { class: 'muted small' }, [r.expr]),
-    ]);
+    if (r.kind === 'damage') {
+      const detail = r.diceDetail || r.dice.map((v) => ({ sides: r.sides, v }));
+      const parts = [r.expr];
+      if (r.bonus) parts.push('bonus ' + sign(r.bonus));
+      if (r.rerolled) parts.push('rerolled ' + r.rerolled + ' (≤' + r.reroll + ')');
+      (r.notes || []).forEach((n) => parts.push(n));
+      return el('div', { class: 'roll-result dmg' }, [
+        el('div', { class: 'dice-row' }, detail.map((x) => die(x.v, 'dmg' + (x.extra ? ' extra' : '') + (x.was != null ? ' rerolled' : ''), 'd' + x.sides + (x.was != null ? ' — was ' + x.was : ''), x.sides))),
+        el('div', { class: 'roll-total' }, [String(r.total), r.type ? el('span', { class: 'with' }, [' ' + (r.type === 'phy' ? 'physical' : r.type === 'mag' ? 'magic' : r.type)]) : null]),
+        el('div', { class: 'muted small' }, [parts.join(' · ')]),
+      ]);
+    }
     const parts = ['Hope ' + r.hope, 'Fear ' + r.fear];
     if (r.modifier) parts.push((r.trait || 'modifier') + ' ' + sign(r.modifier));
     r.experiences.forEach((x) => parts.push(x.name + ' ' + sign(Number(x.modifier) || 0)));
@@ -150,7 +173,7 @@ window.DHDice = (function () {
   }
   function logText(r) {
     if (r.kind === 'gm') return (r.label ? r.label + ': ' : '') + 'd20 ' + r.kept + (r.modifier ? ' ' + sign(r.modifier) : '') + ' = ' + r.total + (r.difficulty != null ? ' vs ' + r.difficulty + (r.success ? ' — hits' : ' — misses') : '');
-    if (r.kind === 'damage') return (r.label ? r.label + ': ' : '') + r.expr + ' → ' + r.total + ' (' + r.dice.join(', ') + ')';
+    if (r.kind === 'damage') return (r.label ? r.label + ': ' : '') + r.expr + (r.bonus ? ' ' + sign(r.bonus) : '') + (r.rerolled ? ' (rerolled ' + r.rerolled + ')' : '') + ' → ' + r.total + (r.type ? ' ' + r.type : '') + ' (' + r.dice.join(', ') + ')' + (r.notes && r.notes.length ? ' · ' + r.notes.join(', ') : '');
     return (r.label ? r.label + ': ' : '') + r.total + (r.crit ? ' — critical success' : r.withHope ? ' with Hope' : ' with Fear')
       + ' (Hope ' + r.hope + ', Fear ' + r.fear + (r.modifier ? ', ' + (r.trait || 'modifier') + ' ' + sign(r.modifier) : '')
       + r.experiences.map((x) => ', ' + x.name + ' ' + sign(Number(x.modifier) || 0)).join('') + r.bonus.map((x) => ', ' + x.label + ' ' + sign(Number(x.value) || 0)).join('')
@@ -198,14 +221,21 @@ window.DHDice = (function () {
         } }, [t.name, m != null ? el('span', { class: 'tmod' }, [sign(m)]) : null]);
       })));
       box.appendChild(stepper('Modifier', () => st.modifier, (v) => (st.modifier = v), { show: sign }));
-      (o.experiences || []).forEach((x) => {
-        const on = st.exps.indexOf(x.name) !== -1;
-        const room = (o.hope == null ? Infinity : o.hope) > st.exps.length;
-        box.appendChild(el('button', { type: 'button', class: 'btn exp' + (on ? ' on' : ''), disabled: !on && !room ? true : null, title: 'Spend a Hope to add it', onclick: () => {
-          st.exps = on ? st.exps.filter((n) => n !== x.name) : st.exps.concat([x.name]);
-          draw();
-        } }, [x.name + ' ' + sign(Number(x.modifier) || 0)]));
-      });
+      // Experiences: tapped to add to this roll, one Hope each (the label makes clear these are a choice,
+      // not decoration — a character's own named strengths)
+      if ((o.experiences || []).length) {
+        box.appendChild(el('div', { class: 'roller-k' }, ['Experience', el('span', { class: 'muted small' }, [o.hope != null ? ' · tap to spend a Hope (' + o.hope + ' left)' : ' · tap to add'])]));
+        const row = el('div', { class: 'exp-row' });
+        (o.experiences || []).forEach((x) => {
+          const on = st.exps.indexOf(x.name) !== -1;
+          const room = (o.hope == null ? Infinity : o.hope) > st.exps.length;
+          row.appendChild(el('button', { type: 'button', class: 'btn exp' + (on ? ' on' : ''), disabled: !on && !room ? true : null, title: on ? 'Added — tap to remove' : room ? 'Spend a Hope to add it' : 'No Hope left to spend', onclick: () => {
+            st.exps = on ? st.exps.filter((n) => n !== x.name) : st.exps.concat([x.name]);
+            draw();
+          } }, [x.name + ' ' + sign(Number(x.modifier) || 0)]));
+        });
+        box.appendChild(row);
+      }
       box.appendChild(stepper('Advantage', () => st.adv, (v) => (st.adv = v), { min: 0, max: 9 }));
       box.appendChild(stepper('Disadvantage', () => st.dis, (v) => (st.dis = v), { min: 0, max: 9 }));
       box.appendChild(stepper('Difficulty', () => (st.difficulty == null ? 0 : st.difficulty), (v) => (st.difficulty = v || null), { min: 0, max: 40, show: (v) => (v ? String(v) : 'the GM’s') }));

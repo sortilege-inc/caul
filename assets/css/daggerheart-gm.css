@@ -254,3 +254,17 @@ body.play { display: block; }
 .inst-track { display: inline-flex; align-items: center; gap: 4px; }
 .inst-track .num { min-width: 3ch; text-align: center; font-family: var(--display); }
 .inst-name { font: 700 1rem var(--display); color: var(--accent); margin-bottom: 4px; }
+
+/* ── player sheet: rolling, damage, experiences, costs ─────────────── */
+.roller-k { font: 700 .72rem var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 8px 0 4px; }
+.exp-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn.exp.on { background: var(--hope); color: var(--accent-ink); border-color: var(--hope); }
+.dmg-input { width: 5em; text-align: center; font: 700 1.1rem var(--display); }
+.dmg-panel { margin: 12px 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); }
+.dmg-mods { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 8px 0; }
+.dmg-mods label { display: inline-flex; align-items: center; gap: 4px; }
+.tiny-num { width: 4em; text-align: center; }
+.dmg-panel .roll-out { margin: 8px 0; }
+.dmg-panel .roll-btn { margin-top: 4px; }
+.fcard-costs { margin: 4px 8px 6px; }
+.fcard-costs .btn { background: var(--hope-bg); border-color: var(--hope); color: var(--hope); }

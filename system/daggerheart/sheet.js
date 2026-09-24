@@ -355,7 +355,7 @@ window.DHSheet = (function () {
   }
   // a feature card: its name and type; tapped, it opens to its full text (L5R5e I13)
   const openCards = new Set();
-  function featureCard(e, extra) {
+  function featureCard(e, extra, pay) {
     const key = e.id;
     const body = el('div', { class: 'fcard-body' });
     const card = el('div', { class: 'fcard' + (openCards.has(key) ? ' open' : '') });
@@ -363,6 +363,11 @@ window.DHSheet = (function () {
     card.appendChild(el('button', { type: 'button', class: 'fcard-head', onclick: () => { if (openCards.has(key)) openCards.delete(key); else openCards.add(key); card.classList.toggle('open'); draw(); } }, [
       el('span', { class: 'fcard-name' }, [e.name]), el('span', { class: 'muted small' }, [extra || D.text(e, 'Type') || e.type || '']),
     ]));
+    // a card that costs something the player pays here: its cost buttons, so it is usable in place
+    if (pay) {
+      const costs = parseCosts(featureText(e));
+      if (costs.length) card.appendChild(el('div', { class: 'chiprow tight fcard-costs' }, costs.map((cost) => button((cost.res === 'Hope' ? 'Spend ' : 'Mark ') + cost.n + ' ' + cost.res, () => pay(cost), 'tiny'))));
+    }
     card.appendChild(body);
     draw();
     return card;
@@ -384,6 +389,90 @@ window.DHSheet = (function () {
     const com = refEntity(c.Community);
     if (com) D.blockEntities(com, 'FEATURES').forEach((f) => out.push({ e: f, from: com.name }));
     return out;
+  }
+
+  // a feature/card's text, flattened, for reading its costs and whether it bears on damage
+  function featureText(e) {
+    try { const d = el('div'); d.appendChild(E.render(e, { bare: true })); return d.textContent || ''; } catch (_) { return D.text(e, 'Description') || ''; }
+  }
+  // the costs a card names in its own words: "Spend a/N Hope", "Mark a/N Stress"
+  function parseCosts(text) {
+    const out = [];
+    const t = String(text || '');
+    const num = (s) => (/\d+/.test(s) ? parseInt(s, 10) : 1);
+    let m;
+    const hr = /\bspend\s+(a|an|one|\d+)\s+hope/ig; while ((m = hr.exec(t))) out.push({ res: 'Hope', n: num(m[1]) });
+    const sr = /\bmark(?:ing)?\s+(a|an|one|\d+)\s+stress/ig; while ((m = sr.exec(t))) out.push({ res: 'Stress', n: num(m[1]) });
+    const seen = {};
+    return out.filter((x) => { const k = x.res + x.n; return seen[k] ? false : (seen[k] = 1); });
+  }
+  // the character's features and loadout cards whose text bears on a damage roll
+  function damageAbilities(c) {
+    const seen = {};
+    const all = features(c).map((f) => f.e).concat((c.Loadout || []).map(refEntity).filter(Boolean));
+    return all.filter((e) => { if (seen[e.id]) return false; seen[e.id] = 1; return /\bdamage\b/i.test(featureText(e)); });
+  }
+  // pay a card's cost against the live sheet (Spend Hope, Mark Stress)
+  function payCost(m, cost) {
+    const l = live(m);
+    if (cost.res === 'Hope') {
+      const h = l.hope != null ? l.hope : (ch(m).Hope || 0);
+      if (h < cost.n) { logEvent(m, 'wanted to spend ' + cost.n + ' Hope but had ' + h); return; }
+      patch(m, { hope: h - cost.n }, 'spent ' + cost.n + ' Hope');
+    } else if (cost.res === 'Stress') {
+      markStress(m, cost.n, 'marked ' + cost.n + ' Stress');
+    }
+  }
+
+  // the damage roll: pick a weapon, add the modifiers a character's abilities grant (a flat bonus,
+  // extra dice, rerolling low dice), see the result, and pay for the abilities that cost — the
+  // damage-affecting features and cards are shown right here so they are options at the moment of use.
+  function damagePanel(m) {
+    const c = ch(m);
+    const weapons = [['Primary', c['Primary Weapon']], ['Secondary', c['Secondary Weapon']]]
+      .map(([k, r]) => [k, refEntity(r)]).filter((x) => x[1] && D.text(x[1], 'Damage'));
+    const abilities = damageAbilities(c);
+    if (!weapons.length && !abilities.length) return null;
+    const st = { wi: 0, bonus: 0, extra: [], reroll: 0 };
+    const box = el('div', { class: 'dmg-panel' });
+    const out = el('div', { class: 'roll-out' });
+    const draw = () => {
+      box.innerHTML = '';
+      box.appendChild(el('div', { class: 'prop-k' }, ['Damage']));
+      if (weapons.length) {
+        if (weapons.length > 1) box.appendChild(el('div', { class: 'chiprow tight' }, weapons.map(([k, w], i) => button(w.name, () => { st.wi = i; draw(); }, 'tiny' + (st.wi === i ? ' on' : '')))));
+        const w = weapons[st.wi][1];
+        const prof = proficiency(c);
+        const rolledExpr = D.text(w, 'Damage').replace(/^\d*/, '');   // the character's Proficiency sets the die count
+        box.appendChild(el('div', { class: 'muted small' }, [w.name + ' · ' + prof + rolledExpr]));
+        const bonusIn = el('input', { type: 'number', class: 'text tiny-num', value: st.bonus || '', placeholder: '0', 'aria-label': 'Damage bonus', inputmode: 'numeric', oninput: (e) => (st.bonus = parseInt(e.target.value, 10) || 0) });
+        const rerollSel = el('select', { class: 'scope tiny', 'aria-label': 'Reroll low dice' }, [['0', 'no reroll'], ['1', 'reroll 1s'], ['2', 'reroll 1s & 2s']].map(([v, lb]) => el('option', { value: v, selected: String(st.reroll) === v || null }, [lb])));
+        rerollSel.addEventListener('change', () => (st.reroll = +rerollSel.value));
+        box.appendChild(el('div', { class: 'dmg-mods' }, [
+          el('label', { class: 'small' }, ['Bonus ', bonusIn]),
+          el('span', { class: 'small' }, ['+ die ', [4, 6, 8, 10, 12].map((s) => button('d' + s, () => { st.extra = st.extra.concat([s]); draw(); }, 'ghost tiny'))]),
+          st.extra.length ? el('span', { class: 'chip' }, ['+' + st.extra.map((s) => 'd' + s).join(' +'), el('button', { class: 'ref tiny', type: 'button', title: 'clear', onclick: () => { st.extra = []; draw(); } }, ['×'])]) : null,
+          rerollSel,
+        ]));
+        box.appendChild(button('Roll damage', () => {
+          const notes = st.reroll ? ['reroll ≤' + st.reroll] : [];
+          const r = Dice.damageRoll(rolledExpr, prof, w.name, { bonus: st.bonus, extra: st.extra.slice(), reroll: st.reroll, notes });
+          lastRolls['dmg-' + m.id] = r;
+          out.innerHTML = ''; out.appendChild(Dice.resultView(r));
+          State().commit('appendLog', [Object.assign(Dice.logEntry(r, m.name), { memberId: m.id })]);
+          st.extra = [];
+          draw();
+        }, 'primary roll-btn'));
+      }
+      box.appendChild(out);
+      if (lastRolls['dmg-' + m.id] && !out.firstChild) out.appendChild(Dice.resultView(lastRolls['dmg-' + m.id]));
+      if (abilities.length) {
+        box.appendChild(el('div', { class: 'prop-k' }, ['Abilities that affect damage']));
+        box.appendChild(el('div', { class: 'fcards' }, abilities.map((e) => featureCard(e, null, (cost) => payCost(m, cost)))));
+      }
+    };
+    draw();
+    return box;
   }
 
   const rollers = {};
@@ -456,15 +545,18 @@ window.DHSheet = (function () {
     put('play', track('Stress', stressMax(c), l.markedStress, (v) => (v > l.markedStress ? markStress(m, v - l.markedStress) : clearStress(m, l.markedStress - v)), 'stress'));
     put('play', track('Hope', HOPE_MAX(), l.hope, (v) => patch(m, { hope: v }, 'Hope ' + l.hope + ' → ' + v), 'hope'));
     put('play', track('Armor Slots', armorScore(c), l.markedArmor, (v) => patch(m, { markedArmor: v }, 'Armor Slots ' + l.markedArmor + ' → ' + v), 'armor'));
-    // damage: the stepper stays put while its severity reads beside it
-    let dmg = 0;
+    // damage taken: a number the player types, with its severity read beside it
     const sevEl = el('span', { class: 'muted small' });
-    const withArmor = button('Take it with an Armor Slot', () => { if (dmg) takeDamage(m, dmg, true); }, 'ghost tiny');
+    const dmgInput = el('input', { type: 'number', class: 'text dmg-input', min: '0', max: '999', value: '', placeholder: '0', 'aria-label': 'Damage taken', inputmode: 'numeric' });
+    const readDmg = () => Math.max(0, parseInt(dmgInput.value, 10) || 0);
+    dmgInput.addEventListener('input', () => { const v = readDmg(); sevEl.textContent = v ? SEVERITY[severity(c, v)] : ''; });
+    const withArmor = button('Take it with an Armor Slot', () => { const v = readDmg(); if (v) takeDamage(m, v, true); }, 'ghost tiny');
     withArmor.disabled = l.markedArmor >= armorScore(c);
     const dmgRow = el('div', { class: 'dmg-row' }, [
-      Dice.stepper('Damage', () => dmg, (v) => { dmg = v; sevEl.textContent = v ? SEVERITY[severity(c, v)] : ''; }, { min: 0, max: 99 }),
+      el('span', { class: 'prop-k' }, ['Damage taken']),
+      dmgInput,
       sevEl,
-      button('Take it', () => { if (dmg) takeDamage(m, dmg, false); }, 'tiny'),
+      button('Take it', () => { const v = readDmg(); if (v) takeDamage(m, v, false); }, 'tiny'),
       withArmor,
     ]);
     put('play', dmgRow);
@@ -476,10 +568,12 @@ window.DHSheet = (function () {
     put('play', restBlock(m));
     // the roller: the character's traits and Experiences, Hope to spend
     const exps = (c.Experiences || []).map((x) => ({ name: x.Name || x.name, modifier: x.Modifier != null ? x.Modifier : x.modifier }));
-    put('roll', el('div', { class: 'prop-k' }, ['Roll']));
+    put('roll', el('div', { class: 'prop-k' }, ['Action roll']));
     put('roll', Dice.roller({ traits: tr, experiences: exps, hope: l.hope, label: null, onResolve: (r, spent) => resolveRoll(m, r, spent) }));
     if (lastRolls[m.id]) put('roll', el('div', { class: 'last-roll' }, [el('div', { class: 'muted small' }, ['The last roll']), Dice.resultView(lastRolls[m.id])]));
-    // weapons
+    // the damage roll and the abilities that shape it, together on the Roll pane
+    put('roll', damagePanel(m));
+    // weapons (reference; the damage is rolled in the panel above)
     const weapons = [['Primary', c['Primary Weapon']], ['Secondary', c['Secondary Weapon']]].map(([k, r]) => [k, refEntity(r)]).filter((x) => x[1]);
     if (weapons.length) {
       put('gear', el('div', { class: 'prop-k' }, ['Active weapons']));
@@ -488,25 +582,21 @@ window.DHSheet = (function () {
         return el('div', { class: 'weapon' }, [
           el('div', {}, [el('b', {}, [w.name]), el('span', { class: 'muted small' }, [' · ' + k + ' · ' + [D.text(w, 'Trait'), D.text(w, 'Range'), dmgExpr, D.text(w, 'Burden')].filter(Boolean).join(' · ')])]),
           D.text(w, 'Feature') ? el('div', { class: 'small' }, [E.span(D.text(w, 'Feature'), w.book)]) : null,
-          dmgExpr ? button('Roll damage (' + proficiency(c) + dmgExpr.replace(/^\d*/, '') + ')', () => {
-            const r = Dice.damageRoll(dmgExpr.replace(/^\d*/, ''), proficiency(c), w.name);
-            State().commit('appendLog', [Object.assign(Dice.logEntry(r, m.name), { memberId: m.id })]);
-          }, 'ghost tiny') : null,
         ]);
       })));
     }
-    // experiences
-    if (exps.length) put('roll', el('div', { class: 'chiprow tight' }, [el('span', { class: 'prop-k' }, ['Experience']), exps.map((x) => el('span', { class: 'chip' }, [x.name + ' ' + Dice.sign(Number(x.modifier) || 0)]))]));
-    // features and cards
+    // features and cards — those that name a cost are tapped to spend it (payCost); the Experiences
+    // themselves are chosen in the roller above, so no separate list here
+    const pay = (cost) => payCost(m, cost);
     const fs = features(c);
     if (fs.length) {
       put('play', el('div', { class: 'prop-k' }, ['Features']));
-      put('play', el('div', { class: 'fcards' }, fs.map((f) => featureCard(f.e, f.from))));
+      put('play', el('div', { class: 'fcards' }, fs.map((f) => featureCard(f.e, f.from, pay))));
     }
     const cards = (c.Loadout || []).map(refEntity).filter(Boolean);
     if (cards.length) {
       put('play', el('div', { class: 'prop-k' }, ['Loadout']));
-      put('play', el('div', { class: 'fcards' }, cards.map((e) => featureCard(e, [(D.val(e, 'Domain') || {}).name, 'level ' + D.num(e, 'Domain Level'), D.text(e, 'Type')].filter(Boolean).join(' · ')))));
+      put('play', el('div', { class: 'fcards' }, cards.map((e) => featureCard(e, [(D.val(e, 'Domain') || {}).name, 'level ' + D.num(e, 'Domain Level'), D.text(e, 'Type')].filter(Boolean).join(' · '), pay))));
     }
     // gold and inventory
     const g = Object.assign(goldDefaults(), l.gold || {});
