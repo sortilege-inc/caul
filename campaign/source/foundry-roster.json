@@ -1,970 +1,967 @@
 {
- "VyNy403QUh2yLUtG": {
-  "name": "Lonely Spirit",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Lonely Spirit",
-  "reason": "character dup of adversary"
- },
- "l1FhC53fiB0Hl055": {
-  "name": "Dwarf Captain (Copy)",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Dwarf Captain (Copy)",
-  "reason": "skip the copy"
- },
- "GpLZykIlxatk0zDi": {
-  "name": "Chaos Realm",
-  "subType": "environment",
-  "category": "drop",
-  "canon": "Chaos Realm",
-  "reason": "duplicate"
- },
- "qGVORGxrVIRE06IS": {
-  "name": "Draz",
-  "subType": "character",
-  "category": "pc",
-  "canon": "Draz"
- },
- "y17kz7lqy0SyJizO": {
-  "name": "Heyou",
-  "subType": "character",
-  "category": "pc",
-  "canon": "Heyou"
- },
- "GQmYE1phQfXSlt1X": {
-  "name": "Jamal Jenkins",
-  "subType": "character",
-  "category": "pc",
-  "canon": "Jamal Jenkins"
- },
- "sIpbVC8I1Gbvt7Eb": {
-  "name": "Sylvie Cerridwen",
-  "subType": "character",
-  "category": "pc",
-  "canon": "Sylvie Cerridwen"
- },
- "lw62RlRYfEoHaIdR": {
-  "name": "Pinchie",
-  "subType": "companion",
-  "category": "companion",
-  "canon": "Pinchie",
-  "owner": "Jamal"
- },
- "dMdDGA4LXyPhitEG": {
-  "name": "Umbral Raven",
-  "subType": "companion",
-  "category": "companion",
-  "canon": "Umbral Raven",
-  "owner": "Sylvie"
- },
- "GuTWBGcysdf0rvRT": {
-  "name": "You Bastard",
-  "subType": "companion",
-  "category": "companion",
-  "canon": "You Bastard"
- },
- "Q7MzWtsvOjE5Z99X": {
-  "name": "Bob the Living Fortress",
-  "subType": "companion",
-  "category": "companion",
-  "canon": "Bob the Living Fortress"
- },
- "UduOluhrYi5lzRTi": {
-  "name": "Yuki",
-  "subType": "companion",
-  "category": "companion",
-  "canon": "Yuki"
- },
- "8HTgoylqBuWFD4ZE": {
-  "name": "Askavir",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Askavir"
- },
- "keoGnm7saxaQaEQ6": {
-  "name": "Kelun",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Kelun"
- },
- "fckEiAPJkSer3ZEw": {
-  "name": "Mellan (Revenant)",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Mellan (Revenant)",
-  "variant_group": "Mellan",
-  "variant_role": "revenant"
- },
- "O53fmhhROhana4j0": {
-  "name": "Sarru",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Sarru",
-  "variant_group": "Sarru",
-  "variant_role": "base"
- },
- "ljNlsABRT6FaQQpv": {
-  "name": "Savel",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Savel",
-  "variant_group": "Savel",
-  "variant_role": "base"
- },
- "oFwFD2Mr69AIsKu5": {
-  "name": "Tamber",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Tamber"
- },
- "GHzF740poUZZlH50": {
-  "name": "Tamros",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Tamros"
- },
- "rbMWcooo8GIPgYfD": {
-  "name": "Vaetra",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Vaetra"
- },
- "PeaTQ7hkCEnIxoKU": {
-  "name": "Ygva",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Ygva"
- },
- "HXSQ5zVu0oMNuc6e": {
-  "name": "Zevin",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Zevin"
- },
- "8g0KUqeWFUzS6O1K": {
-  "name": "Abandoned Cathedral",
-  "subType": "environment",
-  "category": "environment",
-  "canon": "Abandoned Cathedral"
- },
- "2Z1mKc65LxNk2PqR": {
-  "name": "Chaos Realm",
-  "subType": "environment",
-  "category": "environment",
-  "canon": "Chaos Realm"
- },
- "ZqT5eW3UAlNuj8vE": {
-  "name": "Crystal Wasteland",
-  "subType": "environment",
-  "category": "environment",
-  "canon": "Crystal Wasteland"
- },
- "0aGAhmWfuIQj7ath": {
-  "name": "Grithmaar Deep",
-  "subType": "environment",
-  "category": "environment",
-  "canon": "Grithmaar Deep"
- },
- "qsqMbzEYTIxRG2QI": {
-  "name": "Adskiy Peyzazh Drakon",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Adskiy Peyzazh Drakon"
- },
- "jjV6FyGX4tNrOraI": {
-  "name": "Ash-begets-Tide, Priest of Ossa-in-Abstentia",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Ash-begets-Tide"
- },
- "THdCUwkE1Dh6AUgI": {
-  "name": "Borek",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Borek"
- },
- "AC3yVXJmoxdcY0Tw": {
-  "name": "Casper tol-Otheidas",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Casper tol-Otheidas"
- },
- "c6coPi2rT2SJGxCe": {
-  "name": "Dagga Brunnvar",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Dagga Brunnvar"
- },
- "RgNJawSv5KuHW55n": {
-  "name": "Inola Wending, Keeper of Splendor",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Inola Wending"
- },
- "ZVQd6RYeFQTG9Oi3": {
-  "name": "Kaelen",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Kaelen"
- },
- "rQgHnR5A8wDybKCB": {
-  "name": "Rhys",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Rhys"
- },
- "d3exQRlHea4xZp91": {
-  "name": "The Runt God",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "The Runt God"
- },
- "gZFFTYHDkotPPhY0": {
-  "name": "Therion Calanthe",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Therion Calanthe"
- },
- "9J5kXY6Bw6EAfgOr": {
-  "name": "Umbral Savel",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Umbral Savel",
-  "variant_group": "Savel",
-  "variant_role": "umbral"
- },
- "Ce0T0sltuXBWhYZm": {
-  "name": "Umbral Sarru",
-  "subType": "adversary",
-  "category": "adversary-named",
-  "canon": "Umbral Sarru",
-  "variant_group": "Sarru",
-  "variant_role": "umbral"
- },
- "DYXJGcFqSzEEwWtx": {
-  "name": "Arch-Necromancer",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Arch-Necromancer"
- },
- "RljuWiwgqjiEgA0E": {
-  "name": "Archer 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Archer"
- },
- "dAPtHYiKycnqInMC": {
-  "name": "Archer 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Archer",
-  "instance_of": "Archer"
- },
- "AvADInGOjVl8tjDq": {
-  "name": "Archer 3",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Archer",
-  "instance_of": "Archer"
- },
- "qSCzutVOchShLfit": {
-  "name": "Archer 4",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Archer",
-  "instance_of": "Archer"
- },
- "xAmANV3ikIDyALJb": {
-  "name": "Archwizard",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Archwizard"
- },
- "knpvIXcGhHeVs5BR": {
-  "name": "Assassin 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Assassin"
- },
- "BUCduzl9t9GKx9Gw": {
-  "name": "Assassin 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Assassin",
-  "instance_of": "Assassin"
- },
- "eHesEO0tg3IJJSqE": {
-  "name": "Assassin 3",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Assassin",
-  "instance_of": "Assassin"
- },
- "Uq8fRxwmvGy6bxYA": {
-  "name": "Astral Assassin",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Astral Assassin"
- },
- "Nc5wCKDK14UpPbK8": {
-  "name": "Avatar of Pride",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Avatar of Pride"
- },
- "f8NA0xsqdGRBrDZe": {
-  "name": "BASE Umbral Townsperson",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "BASE Umbral Townsperson"
- },
- "IZZorcSMUxiu0rlO": {
-  "name": "BASE Umbral Townspeople",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "BASE Umbral Townspeople"
- },
- "QqKe9E8NBByEShdW": {
-  "name": "Bauk Devel",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Bauk Devel"
- },
- "53OBNscU1ajGr8a8": {
-  "name": "Beastmaster",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Beastmaster"
- },
- "4JLKZHRexPLIB7bY": {
-  "name": "Bird",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Bird"
- },
- "Swzdh1UGfIwbA3yI": {
-  "name": "Conscript 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Conscript"
- },
- "vMODCkRR20rqlHz9": {
-  "name": "Conscript 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "3UeB61vARPc28yiK": {
-  "name": "Conscript 3",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "fHUmWOgxP6G3LE2t": {
-  "name": "Conscript 4",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "jf9yR4Xw2r1AU1UQ": {
-  "name": "Conscript 5",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "1j3mWWTAopzaJXmg": {
-  "name": "Conscript 6",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "PLFmAwU8DpQhk7Hg": {
-  "name": "Conscript 7",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "NihI8RllRFIloEkH": {
-  "name": "Conscript 8",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Conscript",
-  "instance_of": "Conscript"
- },
- "JF2lMJn7QAoyreNS": {
-  "name": "Crone",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Crone"
- },
- "vaMnsar8ZbFnSbx6": {
-  "name": "Bloodgorger Tick",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Bloodgorger Tick"
- },
- "tAZorJRIG2wvrGJ8": {
-  "name": "Demon",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Demon"
- },
- "Rn550QJznhymM3EG": {
-  "name": "Dhralghest",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dhralghest"
- },
- "zbRgqY4vOag2kxWg": {
-  "name": "Doppelhünd",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Doppelhünd"
- },
- "QGTbX2Ccleizi8Xi": {
-  "name": "Dragon",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dragon"
- },
- "XWjTjaD7le7ZxV1W": {
-  "name": "Dragon Knight",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dragon Knight"
- },
- "aRz25jAzKGIo7Z0W": {
-  "name": "Dwarf Captain",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dwarf Captain"
- },
- "PaYCi99KaejeUy3p": {
-  "name": "Dwarf Colossus",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dwarf Colossus"
- },
- "d4hD6gujOHLsQQn6": {
-  "name": "Dwarf Ghost 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dwarf Ghost"
- },
- "KnVqWh0O6GClZMbJ": {
-  "name": "Dwarf Ghost 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Dwarf Ghost",
-  "instance_of": "Dwarf Ghost"
- },
- "V4X0jnwyuUgR6lxr": {
-  "name": "Dwarf Ghost 3",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Dwarf Ghost",
-  "instance_of": "Dwarf Ghost"
- },
- "NNAxW93mEhM4pWJU": {
-  "name": "Dwarf Guardian 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dwarf Guardian"
- },
- "SyDuOBiP7W9Vkyza": {
-  "name": "Dwarf Guardian 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Dwarf Guardian",
-  "instance_of": "Dwarf Guardian"
- },
- "KVTus76kcZuD6d8m": {
-  "name": "Dwarf Horde",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Dwarf Horde"
- },
- "4Czn7QKL5DN5Af50": {
-  "name": "Elemental Spark",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Elemental Spark"
- },
- "b3NlaaREPVYhzWTZ": {
-  "name": "Elemental Spark",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Elemental Spark",
-  "instance_of": "Elemental Spark"
- },
- "HzpVCBkqcTWi3ryi": {
-  "name": "Enraged Mountain Troll - Evolution",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Enraged Mountain Troll",
-  "variant_group": "Mountain Troll",
-  "variant_role": "evolution"
- },
- "UMNypqIgTKSPrGsh": {
-  "name": "Ethereal Deathmantis",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Ethereal Deathmantis"
- },
- "Dvs9RnFINYsHTG16": {
-  "name": "Gargoyle",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Gargoyle"
- },
- "YVrjadWzUICAIY2N": {
-  "name": "Gobstalker",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Gobstalker"
- },
- "OAkLjPFYkTzqIzmz": {
-  "name": "God-King",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "God-King"
- },
- "cWgEhYokj3M7bztB": {
-  "name": "Greater Moon Elemental",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Greater Moon Elemental"
- },
- "weIGRL5IU8kG3TlI": {
-  "name": "Grim Pyromancer",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Grim Pyromancer"
- },
- "ufE74NXfN8bNd0Rt": {
-  "name": "Gullet",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Gullet"
- },
- "AlO0SCKoHXsWJuYR": {
-  "name": "Herald of Conquest",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Herald of Conquest"
- },
- "9sj5GkMSOF8hVpYO": {
-  "name": "Hooded Strangler",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Hooded Strangler"
- },
- "yRMog47UPMdQmBTD": {
-  "name": "Imp",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Imp"
- },
- "vhNShKH68cgPPQJ8": {
-  "name": "Ironclad Impaler",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Ironclad Impaler"
- },
- "cfIJmbsHSRUUNxya": {
-  "name": "Junior Seraph",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Junior Seraph"
- },
- "cu6rrp9TayZAzD6n": {
-  "name": "Keranak Gremlin",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Keranak Gremlin"
- },
- "LLa82nQFVZDLoSXd": {
-  "name": "Living Fortress",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Living Fortress"
- },
- "dIg1BYM6golzPXf0": {
-  "name": "Lonely Spirit",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Lonely Spirit"
- },
- "zNlYAfs3TENkLKVu": {
-  "name": "Mirror-Kin Prime",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Mirror-Kin Prime"
- },
- "My2r5VsieDwEocoM": {
-  "name": "Moonshadow Sprite",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Moonshadow Sprite"
- },
- "AAGHJNaixDEJUFD1": {
-  "name": "Moonshadow, the Cast Shadow",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Moonshadow, the Cast Shadow"
- },
- "NqfaykwGhc76M6dx": {
-  "name": "Mote",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Mote"
- },
- "kgDWhRdHLrrfuwaY": {
-  "name": "Mountain Troll",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Mountain Troll",
-  "variant_group": "Mountain Troll",
-  "variant_role": "base"
- },
- "Q2hmQ3jyCDcW7FgL": {
-  "name": "Noble Warlord",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Noble Warlord"
- },
- "57aTKY6Y5Zz9YhER": {
-  "name": "Priest of Decay",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Priest of Decay"
- },
- "NnX2a2Um1zPF1v9u": {
-  "name": "Rabble Mawb",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Rabble Mawb"
- },
- "En6OLjznxPhd7mwG": {
-  "name": "Redcap Butcher",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Redcap Butcher"
- },
- "eONg23EBGb9A5sFY": {
-  "name": "Redcap Candlemaker",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Redcap Candlemaker"
- },
- "1uuTPhHOVaDr3u7x": {
-  "name": "Scartongue Wyrm",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Scartongue Wyrm"
- },
- "SAaAqocUtjpt5sE5": {
-  "name": "Sphinx",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Sphinx"
- },
- "1mTp6vneXJYKcoUL": {
-  "name": "Stonewraith 1",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Stonewraith"
- },
- "nuvgdqHnJ5odpVLc": {
-  "name": "Stonewraith 2",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Stonewraith",
-  "instance_of": "Stonewraith"
- },
- "1EGqcYfgQCWewPNF": {
-  "name": "Strican",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Strican"
- },
- "lxH9jrXdhkNWZt9T": {
-  "name": "The Demon",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "The Demon"
- },
- "e3AqI3U3jrR4ScFW": {
-  "name": "The Helpful Thing",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "The Helpful Thing"
- },
- "uu07od60a1gfjXEm": {
-  "name": "The Kindly Light",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "The Kindly Light"
- },
- "WrGvEpKGiuZE1ELl": {
-  "name": "The Masticator Gate",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "The Masticator Gate"
- },
- "chqLJCpkxBDB7Q9R": {
-  "name": "The Sweet One",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "The Sweet One"
- },
- "4x38AhZTg7zX0Vkh": {
-  "name": "Thistle-Down Swarm",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Thistle-Down Swarm"
- },
- "iP7kWqpwwkeiNrKI": {
-  "name": "Towering Thrall",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Towering Thrall"
- },
- "hYpSmSfJQOqDOia9": {
-  "name": "Treant Sapling",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Treant Sapling"
- },
- "t7F74EqqW0yI0TWa": {
-  "name": "Treant Sapling",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Treant Sapling",
-  "instance_of": "Treant Sapling"
- },
- "LvooAvdAzUDcb5Cf": {
-  "name": "Vault Guardian Gaoler",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Vault Guardian Gaoler"
- },
- "AC9q59GQq51LMBwA": {
-  "name": "Vault Guardian Sentinel",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Vault Guardian Sentinel"
- },
- "IZfM1f9k05nlyjCH": {
-  "name": "Vault Guardian Sentinel",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Vault Guardian Sentinel",
-  "instance_of": "Vault Guardian Sentinel"
- },
- "c3TZDs7Bpp8Jvd4L": {
-  "name": "Vault Guardian Turret",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Vault Guardian Turret"
- },
- "vyKcoAiix8LnVajC": {
-  "name": "Vault Guardian Turret",
-  "subType": "adversary",
-  "category": "adversary-generic-instance",
-  "canon": "Vault Guardian Turret",
-  "instance_of": "Vault Guardian Turret"
- },
- "O72C0F6wwHrseXU9": {
-  "name": "Zombie Horde",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Zombie Horde"
- },
- "2QB6hnbunsB3oNsH": {
-  "name": "Umbral Spirit",
-  "subType": "adversary",
-  "category": "adversary-generic",
-  "canon": "Umbral Spirit"
- },
- "iE5VS53tRptJIzlt": {
-  "name": "Mellan",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Mellan",
-  "reason": "Mellan (plain, not the Revenant)",
-  "variant_group": "Mellan",
-  "variant_role": "base"
- },
- "59pGniiHrDowoz1q": {
-  "name": "Tueri",
-  "subType": "character",
-  "category": "character-npc",
-  "canon": "Tueri"
- },
- "TxIdhXZGY132kZ8o": {
-  "name": "Speaker",
-  "subType": "character",
-  "category": "companion",
-  "canon": "Speaker",
-  "owner": "Sylvie",
-  "variant_group": "Speaker",
-  "variant_role": "base"
- },
- "hTjFVuzmKTIJr41m": {
-  "name": "Speaker",
-  "subType": "character",
-  "category": "companion",
-  "canon": "Speaker",
-  "owner": "Sylvie",
-  "variant_group": "Speaker",
-  "variant_role": "alt"
- },
- "HCnLwtvgUoMuMgmH": {
-  "name": "Clank Leg",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Clank Leg",
-  "reason": "do-not-import / unlisted"
- },
- "3qF0THS9WOiGO1t9": {
-  "name": "Dwarf Horde 2",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Dwarf Horde 2",
-  "reason": "do-not-import / unlisted"
- },
- "DLhPteQMFZAJqrvG": {
-  "name": "fox",
-  "subType": "character",
-  "category": "drop",
-  "canon": "fox",
-  "reason": "do-not-import / unlisted"
- },
- "wryAx1wgyNbExJ4z": {
-  "name": "Hounds",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Hounds",
-  "reason": "do-not-import / unlisted"
- },
- "CIfDbDSBpxqofdN9": {
-  "name": "Oak",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Oak",
-  "reason": "do-not-import / unlisted"
- },
- "1YFqgHo6snRTqmer": {
-  "name": "Simiah 1",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Simiah 1",
-  "reason": "do-not-import / unlisted"
- },
- "DZr8xRwr5QIdl5Oq": {
-  "name": "Simiah 1",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Simiah 1",
-  "reason": "do-not-import / unlisted"
- },
- "nLJqme39JFRGp3wg": {
-  "name": "Simiah 2",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Simiah 2",
-  "reason": "do-not-import / unlisted"
- },
- "fyx5PtUVnsYhrvAh": {
-  "name": "Simiah 3",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Simiah 3",
-  "reason": "do-not-import / unlisted"
- },
- "WclP96zFPO2ttU9t": {
-  "name": "Simiah Refugees",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Simiah Refugees",
-  "reason": "do-not-import / unlisted"
- },
- "tdE1wIEk1kDraaNz": {
-  "name": "Skull",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Skull",
-  "reason": "do-not-import / unlisted"
- },
- "HnKfBP6PpSpKNKjy": {
-  "name": "Stag Knight",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Stag Knight",
-  "reason": "do-not-import / unlisted"
- },
- "QHy88ZdePRjXY1ka": {
-  "name": "Test Name",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Test Name",
-  "reason": "do-not-import / unlisted"
- },
- "KTc0ZoKHeJrQlLmL": {
-  "name": "Umbral Townspeople 1",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townspeople 1",
-  "reason": "do-not-import / unlisted"
- },
- "pnguT9syuBfn5tIR": {
-  "name": "Umbral Townspeople 2",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townspeople 2",
-  "reason": "do-not-import / unlisted"
- },
- "pj1WjsV45LryUjfs": {
-  "name": "Umbral Townsperson 1",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townsperson 1",
-  "reason": "do-not-import / unlisted"
- },
- "Vep4AqXX2Cr4ePBS": {
-  "name": "Umbral Townsperson 2",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townsperson 2",
-  "reason": "do-not-import / unlisted"
- },
- "TknM0pMpu3VHVGUd": {
-  "name": "Umbral Townsperson 3",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townsperson 3",
-  "reason": "do-not-import / unlisted"
- },
- "ciOJcWVCqwSTSgTA": {
-  "name": "Umbral Townsperson 4",
-  "subType": "adversary",
-  "category": "drop",
-  "canon": "Umbral Townsperson 4",
-  "reason": "do-not-import / unlisted"
- },
- "6i9cQOYybSJg6kDy": {
-  "name": "Vampire",
-  "subType": "character",
-  "category": "drop",
-  "canon": "Vampire",
-  "reason": "do-not-import / unlisted"
- }
+  "VyNy403QUh2yLUtG": {
+    "name": "Lonely Spirit",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Lonely Spirit",
+    "reason": "character dup of adversary"
+  },
+  "l1FhC53fiB0Hl055": {
+    "name": "Dwarf Captain (Copy)",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Dwarf Captain (Copy)",
+    "reason": "skip the copy"
+  },
+  "GpLZykIlxatk0zDi": {
+    "name": "Chaos Realm",
+    "subType": "environment",
+    "category": "drop",
+    "canon": "Chaos Realm",
+    "reason": "duplicate"
+  },
+  "qGVORGxrVIRE06IS": {
+    "name": "Draz",
+    "subType": "character",
+    "category": "pc",
+    "canon": "Draz"
+  },
+  "y17kz7lqy0SyJizO": {
+    "name": "Heyou",
+    "subType": "character",
+    "category": "pc",
+    "canon": "Heyou"
+  },
+  "GQmYE1phQfXSlt1X": {
+    "name": "Jamal Jenkins",
+    "subType": "character",
+    "category": "pc",
+    "canon": "Jamal Jenkins"
+  },
+  "sIpbVC8I1Gbvt7Eb": {
+    "name": "Sylvie Cerridwen",
+    "subType": "character",
+    "category": "pc",
+    "canon": "Sylvie Cerridwen"
+  },
+  "lw62RlRYfEoHaIdR": {
+    "name": "Pinchie",
+    "subType": "companion",
+    "category": "companion",
+    "canon": "Pinchie",
+    "owner": "Jamal"
+  },
+  "dMdDGA4LXyPhitEG": {
+    "name": "Umbral Raven",
+    "subType": "companion",
+    "category": "companion",
+    "canon": "Umbral Raven",
+    "owner": "Sylvie"
+  },
+  "GuTWBGcysdf0rvRT": {
+    "name": "You Bastard",
+    "subType": "companion",
+    "category": "companion",
+    "canon": "You Bastard"
+  },
+  "Q7MzWtsvOjE5Z99X": {
+    "name": "Bob the Living Fortress",
+    "subType": "companion",
+    "category": "companion",
+    "canon": "Bob the Living Fortress"
+  },
+  "UduOluhrYi5lzRTi": {
+    "name": "Yuki",
+    "subType": "companion",
+    "category": "companion",
+    "canon": "Yuki"
+  },
+  "8HTgoylqBuWFD4ZE": {
+    "name": "Askavir",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Askavir"
+  },
+  "keoGnm7saxaQaEQ6": {
+    "name": "Kelun",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Kelun"
+  },
+  "fckEiAPJkSer3ZEw": {
+    "name": "Mellan (Revenant)",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Mellan (Revenant)",
+    "variant_group": "Mellan",
+    "variant_role": "revenant"
+  },
+  "O53fmhhROhana4j0": {
+    "name": "Sarru",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Sarru",
+    "variant_group": "Sarru",
+    "variant_role": "base"
+  },
+  "ljNlsABRT6FaQQpv": {
+    "name": "Savel",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Savel",
+    "variant_group": "Savel",
+    "variant_role": "base"
+  },
+  "oFwFD2Mr69AIsKu5": {
+    "name": "Tamber",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Tamber"
+  },
+  "GHzF740poUZZlH50": {
+    "name": "Tamros",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Tamros"
+  },
+  "rbMWcooo8GIPgYfD": {
+    "name": "Vaetra",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Vaetra"
+  },
+  "PeaTQ7hkCEnIxoKU": {
+    "name": "Ygva",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Ygva"
+  },
+  "HXSQ5zVu0oMNuc6e": {
+    "name": "Zevin",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Zevin"
+  },
+  "8g0KUqeWFUzS6O1K": {
+    "name": "Abandoned Cathedral",
+    "subType": "environment",
+    "category": "environment",
+    "canon": "Abandoned Cathedral"
+  },
+  "2Z1mKc65LxNk2PqR": {
+    "name": "Chaos Realm",
+    "subType": "environment",
+    "category": "environment",
+    "canon": "Chaos Realm"
+  },
+  "ZqT5eW3UAlNuj8vE": {
+    "name": "Crystal Wasteland",
+    "subType": "environment",
+    "category": "environment",
+    "canon": "Crystal Wasteland"
+  },
+  "0aGAhmWfuIQj7ath": {
+    "name": "Grithmaar Deep",
+    "subType": "environment",
+    "category": "environment",
+    "canon": "Grithmaar Deep"
+  },
+  "qsqMbzEYTIxRG2QI": {
+    "name": "Adskiy Peyzazh Drakon",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Adskiy Peyzazh Drakon"
+  },
+  "jjV6FyGX4tNrOraI": {
+    "name": "Ash-begets-Tide, Priest of Ossa-in-Abstentia",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Ash-begets-Tide"
+  },
+  "THdCUwkE1Dh6AUgI": {
+    "name": "Borek",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Borek"
+  },
+  "AC3yVXJmoxdcY0Tw": {
+    "name": "Casper tol-Otheidas",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Casper tol-Otheidas"
+  },
+  "c6coPi2rT2SJGxCe": {
+    "name": "Dagga Brunnvar",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Dagga Brunnvar"
+  },
+  "RgNJawSv5KuHW55n": {
+    "name": "Inola Wending, Keeper of Splendor",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Inola Wending"
+  },
+  "ZVQd6RYeFQTG9Oi3": {
+    "name": "Kaelen",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Kaelen"
+  },
+  "rQgHnR5A8wDybKCB": {
+    "name": "Rhys",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Rhys"
+  },
+  "d3exQRlHea4xZp91": {
+    "name": "The Runt God",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "The Runt God"
+  },
+  "gZFFTYHDkotPPhY0": {
+    "name": "Therion Calanthe",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Therion Calanthe"
+  },
+  "9J5kXY6Bw6EAfgOr": {
+    "name": "Umbral Savel",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Umbral Savel",
+    "variant_group": "Savel",
+    "variant_role": "umbral"
+  },
+  "Ce0T0sltuXBWhYZm": {
+    "name": "Umbral Sarru",
+    "subType": "adversary",
+    "category": "adversary-named",
+    "canon": "Umbral Sarru",
+    "variant_group": "Sarru",
+    "variant_role": "umbral"
+  },
+  "DYXJGcFqSzEEwWtx": {
+    "name": "Arch-Necromancer",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Arch-Necromancer"
+  },
+  "RljuWiwgqjiEgA0E": {
+    "name": "Archer 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Archer"
+  },
+  "dAPtHYiKycnqInMC": {
+    "name": "Archer 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Archer",
+    "instance_of": "Archer"
+  },
+  "AvADInGOjVl8tjDq": {
+    "name": "Archer 3",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Archer",
+    "instance_of": "Archer"
+  },
+  "qSCzutVOchShLfit": {
+    "name": "Archer 4",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Archer",
+    "instance_of": "Archer"
+  },
+  "xAmANV3ikIDyALJb": {
+    "name": "Archwizard",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Archwizard"
+  },
+  "knpvIXcGhHeVs5BR": {
+    "name": "Assassin 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Assassin"
+  },
+  "BUCduzl9t9GKx9Gw": {
+    "name": "Assassin 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Assassin",
+    "instance_of": "Assassin"
+  },
+  "eHesEO0tg3IJJSqE": {
+    "name": "Assassin 3",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Assassin",
+    "instance_of": "Assassin"
+  },
+  "Uq8fRxwmvGy6bxYA": {
+    "name": "Astral Assassin",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Astral Assassin"
+  },
+  "Nc5wCKDK14UpPbK8": {
+    "name": "Avatar of Pride",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Avatar of Pride"
+  },
+  "f8NA0xsqdGRBrDZe": {
+    "name": "BASE Umbral Townsperson",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "BASE Umbral Townsperson"
+  },
+  "IZZorcSMUxiu0rlO": {
+    "name": "BASE Umbral Townspeople",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "BASE Umbral Townspeople"
+  },
+  "QqKe9E8NBByEShdW": {
+    "name": "Bauk Devel",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Bauk Devel"
+  },
+  "53OBNscU1ajGr8a8": {
+    "name": "Beastmaster",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Beastmaster"
+  },
+  "4JLKZHRexPLIB7bY": {
+    "name": "Bird",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Bird"
+  },
+  "Swzdh1UGfIwbA3yI": {
+    "name": "Conscript 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Conscript"
+  },
+  "vMODCkRR20rqlHz9": {
+    "name": "Conscript 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "3UeB61vARPc28yiK": {
+    "name": "Conscript 3",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "fHUmWOgxP6G3LE2t": {
+    "name": "Conscript 4",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "jf9yR4Xw2r1AU1UQ": {
+    "name": "Conscript 5",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "1j3mWWTAopzaJXmg": {
+    "name": "Conscript 6",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "PLFmAwU8DpQhk7Hg": {
+    "name": "Conscript 7",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "NihI8RllRFIloEkH": {
+    "name": "Conscript 8",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Conscript",
+    "instance_of": "Conscript"
+  },
+  "JF2lMJn7QAoyreNS": {
+    "name": "Crone",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Crone"
+  },
+  "vaMnsar8ZbFnSbx6": {
+    "name": "Bloodgorger Tick",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Bloodgorger Tick"
+  },
+  "tAZorJRIG2wvrGJ8": {
+    "name": "Demon",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Demon"
+  },
+  "Rn550QJznhymM3EG": {
+    "name": "Dhralghest",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dhralghest"
+  },
+  "zbRgqY4vOag2kxWg": {
+    "name": "Doppelhünd",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Doppelhünd"
+  },
+  "QGTbX2Ccleizi8Xi": {
+    "name": "Dragon",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dragon"
+  },
+  "XWjTjaD7le7ZxV1W": {
+    "name": "Dragon Knight",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dragon Knight"
+  },
+  "aRz25jAzKGIo7Z0W": {
+    "name": "Dwarf Captain",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dwarf Captain"
+  },
+  "PaYCi99KaejeUy3p": {
+    "name": "Dwarf Colossus",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dwarf Colossus"
+  },
+  "d4hD6gujOHLsQQn6": {
+    "name": "Dwarf Ghost 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dwarf Ghost"
+  },
+  "KnVqWh0O6GClZMbJ": {
+    "name": "Dwarf Ghost 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Dwarf Ghost",
+    "instance_of": "Dwarf Ghost"
+  },
+  "V4X0jnwyuUgR6lxr": {
+    "name": "Dwarf Ghost 3",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Dwarf Ghost",
+    "instance_of": "Dwarf Ghost"
+  },
+  "NNAxW93mEhM4pWJU": {
+    "name": "Dwarf Guardian 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dwarf Guardian"
+  },
+  "SyDuOBiP7W9Vkyza": {
+    "name": "Dwarf Guardian 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Dwarf Guardian",
+    "instance_of": "Dwarf Guardian"
+  },
+  "KVTus76kcZuD6d8m": {
+    "name": "Dwarf Horde",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Dwarf Horde"
+  },
+  "4Czn7QKL5DN5Af50": {
+    "name": "Elemental Spark",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Elemental Spark"
+  },
+  "b3NlaaREPVYhzWTZ": {
+    "name": "Elemental Spark",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Elemental Spark",
+    "instance_of": "Elemental Spark"
+  },
+  "HzpVCBkqcTWi3ryi": {
+    "name": "Enraged Mountain Troll - Evolution",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Enraged Mountain Troll",
+    "variant_group": "Mountain Troll",
+    "variant_role": "evolution"
+  },
+  "UMNypqIgTKSPrGsh": {
+    "name": "Ethereal Deathmantis",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Ethereal Deathmantis"
+  },
+  "Dvs9RnFINYsHTG16": {
+    "name": "Gargoyle",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Gargoyle"
+  },
+  "YVrjadWzUICAIY2N": {
+    "name": "Gobstalker",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Gobstalker"
+  },
+  "OAkLjPFYkTzqIzmz": {
+    "name": "God-King",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "God-King"
+  },
+  "cWgEhYokj3M7bztB": {
+    "name": "Greater Moon Elemental",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Greater Moon Elemental"
+  },
+  "weIGRL5IU8kG3TlI": {
+    "name": "Grim Pyromancer",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Grim Pyromancer"
+  },
+  "ufE74NXfN8bNd0Rt": {
+    "name": "Gullet",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Gullet"
+  },
+  "AlO0SCKoHXsWJuYR": {
+    "name": "Herald of Conquest",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Herald of Conquest"
+  },
+  "9sj5GkMSOF8hVpYO": {
+    "name": "Hooded Strangler",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Hooded Strangler"
+  },
+  "yRMog47UPMdQmBTD": {
+    "name": "Imp",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Imp"
+  },
+  "vhNShKH68cgPPQJ8": {
+    "name": "Ironclad Impaler",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Ironclad Impaler"
+  },
+  "cfIJmbsHSRUUNxya": {
+    "name": "Junior Seraph",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Junior Seraph"
+  },
+  "cu6rrp9TayZAzD6n": {
+    "name": "Keranak Gremlin",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Keranak Gremlin"
+  },
+  "LLa82nQFVZDLoSXd": {
+    "name": "Living Fortress",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Living Fortress"
+  },
+  "dIg1BYM6golzPXf0": {
+    "name": "Lonely Spirit",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Lonely Spirit"
+  },
+  "zNlYAfs3TENkLKVu": {
+    "name": "Mirror-Kin Prime",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Mirror-Kin Prime"
+  },
+  "My2r5VsieDwEocoM": {
+    "name": "Moonshadow Sprite",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Moonshadow Sprite"
+  },
+  "AAGHJNaixDEJUFD1": {
+    "name": "Moonshadow, the Cast Shadow",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Moonshadow, the Cast Shadow"
+  },
+  "NqfaykwGhc76M6dx": {
+    "name": "Mote",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Mote"
+  },
+  "kgDWhRdHLrrfuwaY": {
+    "name": "Mountain Troll",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Mountain Troll",
+    "variant_group": "Mountain Troll",
+    "variant_role": "base"
+  },
+  "Q2hmQ3jyCDcW7FgL": {
+    "name": "Noble Warlord",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Noble Warlord"
+  },
+  "57aTKY6Y5Zz9YhER": {
+    "name": "Priest of Decay",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Priest of Decay"
+  },
+  "NnX2a2Um1zPF1v9u": {
+    "name": "Rabble Mawb",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Rabble Mawb"
+  },
+  "En6OLjznxPhd7mwG": {
+    "name": "Redcap Butcher",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Redcap Butcher"
+  },
+  "eONg23EBGb9A5sFY": {
+    "name": "Redcap Candlemaker",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Redcap Candlemaker"
+  },
+  "1uuTPhHOVaDr3u7x": {
+    "name": "Scartongue Wyrm",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Scartongue Wyrm"
+  },
+  "SAaAqocUtjpt5sE5": {
+    "name": "Sphinx",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Sphinx"
+  },
+  "1mTp6vneXJYKcoUL": {
+    "name": "Stonewraith 1",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Stonewraith"
+  },
+  "nuvgdqHnJ5odpVLc": {
+    "name": "Stonewraith 2",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Stonewraith",
+    "instance_of": "Stonewraith"
+  },
+  "1EGqcYfgQCWewPNF": {
+    "name": "Strican",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Strican"
+  },
+  "lxH9jrXdhkNWZt9T": {
+    "name": "The Demon",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "The Demon"
+  },
+  "e3AqI3U3jrR4ScFW": {
+    "name": "The Helpful Thing",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "The Helpful Thing"
+  },
+  "uu07od60a1gfjXEm": {
+    "name": "The Kindly Light",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "The Kindly Light"
+  },
+  "WrGvEpKGiuZE1ELl": {
+    "name": "The Masticator Gate",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "The Masticator Gate"
+  },
+  "chqLJCpkxBDB7Q9R": {
+    "name": "The Sweet One",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "The Sweet One"
+  },
+  "4x38AhZTg7zX0Vkh": {
+    "name": "Thistle-Down Swarm",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Thistle-Down Swarm"
+  },
+  "iP7kWqpwwkeiNrKI": {
+    "name": "Towering Thrall",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Towering Thrall"
+  },
+  "hYpSmSfJQOqDOia9": {
+    "name": "Treant Sapling",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Treant Sapling"
+  },
+  "t7F74EqqW0yI0TWa": {
+    "name": "Treant Sapling",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Treant Sapling",
+    "instance_of": "Treant Sapling"
+  },
+  "LvooAvdAzUDcb5Cf": {
+    "name": "Vault Guardian Gaoler",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Vault Guardian Gaoler"
+  },
+  "AC9q59GQq51LMBwA": {
+    "name": "Vault Guardian Sentinel",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Vault Guardian Sentinel"
+  },
+  "IZfM1f9k05nlyjCH": {
+    "name": "Vault Guardian Sentinel",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Vault Guardian Sentinel",
+    "instance_of": "Vault Guardian Sentinel"
+  },
+  "c3TZDs7Bpp8Jvd4L": {
+    "name": "Vault Guardian Turret",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Vault Guardian Turret"
+  },
+  "vyKcoAiix8LnVajC": {
+    "name": "Vault Guardian Turret",
+    "subType": "adversary",
+    "category": "adversary-generic-instance",
+    "canon": "Vault Guardian Turret",
+    "instance_of": "Vault Guardian Turret"
+  },
+  "O72C0F6wwHrseXU9": {
+    "name": "Zombie Horde",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Zombie Horde"
+  },
+  "2QB6hnbunsB3oNsH": {
+    "name": "Umbral Spirit",
+    "subType": "adversary",
+    "category": "adversary-generic",
+    "canon": "Umbral Spirit"
+  },
+  "iE5VS53tRptJIzlt": {
+    "name": "Mellan",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Mellan",
+    "reason": "Mellan (plain, not the Revenant)",
+    "variant_group": "Mellan",
+    "variant_role": "base"
+  },
+  "59pGniiHrDowoz1q": {
+    "name": "Tueri",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Tueri"
+  },
+  "TxIdhXZGY132kZ8o": {
+    "name": "Speaker",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Speaker",
+    "role": "gm-pc",
+    "reason": "Sylvie's construct, in the PC folder; owner 2026-09-24: model as a GM-run PC (Character path), not a companion"
+  },
+  "hTjFVuzmKTIJr41m": {
+    "name": "Speaker",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Speaker",
+    "reason": "duplicate Speaker (no folder); owner 2026-09-24: use the PC-folder Speaker as the GM PC"
+  },
+  "HCnLwtvgUoMuMgmH": {
+    "name": "Clank Leg",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Clank Leg",
+    "reason": "do-not-import / unlisted"
+  },
+  "3qF0THS9WOiGO1t9": {
+    "name": "Dwarf Horde 2",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Dwarf Horde 2",
+    "reason": "do-not-import / unlisted"
+  },
+  "DLhPteQMFZAJqrvG": {
+    "name": "fox",
+    "subType": "character",
+    "category": "drop",
+    "canon": "fox",
+    "reason": "do-not-import / unlisted"
+  },
+  "wryAx1wgyNbExJ4z": {
+    "name": "Hounds",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Hounds",
+    "reason": "do-not-import / unlisted"
+  },
+  "CIfDbDSBpxqofdN9": {
+    "name": "Oak",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Oak",
+    "reason": "do-not-import / unlisted"
+  },
+  "1YFqgHo6snRTqmer": {
+    "name": "Simiah 1",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Simiah 1",
+    "reason": "do-not-import / unlisted"
+  },
+  "DZr8xRwr5QIdl5Oq": {
+    "name": "Simiah 1",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Simiah 1",
+    "reason": "do-not-import / unlisted"
+  },
+  "nLJqme39JFRGp3wg": {
+    "name": "Simiah 2",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Simiah 2",
+    "reason": "do-not-import / unlisted"
+  },
+  "fyx5PtUVnsYhrvAh": {
+    "name": "Simiah 3",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Simiah 3",
+    "reason": "do-not-import / unlisted"
+  },
+  "WclP96zFPO2ttU9t": {
+    "name": "Simiah Refugees",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Simiah Refugees",
+    "reason": "do-not-import / unlisted"
+  },
+  "tdE1wIEk1kDraaNz": {
+    "name": "Skull",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Skull",
+    "reason": "do-not-import / unlisted"
+  },
+  "HnKfBP6PpSpKNKjy": {
+    "name": "Stag Knight",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Stag Knight",
+    "reason": "do-not-import / unlisted"
+  },
+  "QHy88ZdePRjXY1ka": {
+    "name": "Test Name",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Test Name",
+    "reason": "do-not-import / unlisted"
+  },
+  "KTc0ZoKHeJrQlLmL": {
+    "name": "Umbral Townspeople 1",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townspeople 1",
+    "reason": "do-not-import / unlisted"
+  },
+  "pnguT9syuBfn5tIR": {
+    "name": "Umbral Townspeople 2",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townspeople 2",
+    "reason": "do-not-import / unlisted"
+  },
+  "pj1WjsV45LryUjfs": {
+    "name": "Umbral Townsperson 1",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townsperson 1",
+    "reason": "do-not-import / unlisted"
+  },
+  "Vep4AqXX2Cr4ePBS": {
+    "name": "Umbral Townsperson 2",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townsperson 2",
+    "reason": "do-not-import / unlisted"
+  },
+  "TknM0pMpu3VHVGUd": {
+    "name": "Umbral Townsperson 3",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townsperson 3",
+    "reason": "do-not-import / unlisted"
+  },
+  "ciOJcWVCqwSTSgTA": {
+    "name": "Umbral Townsperson 4",
+    "subType": "adversary",
+    "category": "drop",
+    "canon": "Umbral Townsperson 4",
+    "reason": "do-not-import / unlisted"
+  },
+  "6i9cQOYybSJg6kDy": {
+    "name": "Vampire",
+    "subType": "character",
+    "category": "drop",
+    "canon": "Vampire",
+    "reason": "do-not-import / unlisted"
+  }
 }
