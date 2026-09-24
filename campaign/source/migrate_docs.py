@@ -55,15 +55,18 @@ ONLY = ARGS[ARGS.index("--only") + 1] if "--only" in ARGS else None
 
 
 def pages_of(route):
-    """(old page path relative to campaign/, doc stem) for each page in a section."""
-    d, _ = SECTIONS[route]
+    """(old page path relative to campaign/, doc stem) for each page in a section. After the
+    one-time migration the old pages are retired (they live in git history); the section's docs in
+    campaign/docs/ are the source then, so fall back to listing those."""
+    d, route_dir = SECTIONS[route]
+    old = None if d is None else os.path.join(CAMPAIGN, d)
     if d is None:
         return [("index.html", "index")]
-    out = []
-    for f in sorted(os.listdir(os.path.join(CAMPAIGN, d))):
-        if f.endswith(".html") and (d + "/" + f) not in SKIP:
-            out.append((d + "/" + f, f[:-5]))
-    return out
+    old_html = [f for f in sorted(os.listdir(old)) if f.endswith(".html")] if os.path.isdir(old) else []
+    if old_html:                                          # the old pages are still here
+        return [(d + "/" + f, f[:-5]) for f in old_html if (d + "/" + f) not in SKIP]
+    docdir = os.path.join(DOCS, route_dir)                # retired: the section's docs are the source
+    return [(d + "/" + f, f[:-5]) for f in sorted(os.listdir(docdir)) if f.endswith(".html")] if os.path.isdir(docdir) else []
 
 
 def stems(route):
