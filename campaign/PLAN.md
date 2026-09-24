@@ -23,7 +23,7 @@ once per clone).
 | M2 | Homebrew characters & NPCs into `campaign/dsl/` (PCs as `Character`; companions, the bestiary, environments), from Foundry, gated + field-checked | **done 2026-09-24** — 106 statblocks (4 PCs, 5 companions, 13 NPCs, 80 adversaries, 4 environments), all layer-gated + field-checked with planted-failure tests |
 | M3 | Characters onto the VTT sheet; companion view/control; retire the old `play/` sheets | **done 2026-09-24** — roster pickers, sheet render, companion control all proven in the browser (below) |
 | M4 | Migrate the 167 wiki pages → `campaign/docs/` + tabs; scope `umbra.css`; interactive atlas as a tab; Behind-the-Veil → gated `VttConfig.notes`; seed the S28 arc; Age of Umbra highlighted section | **done 2026-09-24** — all pieces below, each proven in the browser (0 console errors) |
-| M5 | Deploy (owner): Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | |
+| M5 | Deploy: Worker `caul-vtt`, `worker.deployed`, push `main`, Pages, HTTPS, two-browser live proof | **LIVE 2026-09-24** — Worker deployed + published (below); owner to enable Enforce HTTPS + run the two-browser session |
 
 ## M1 — the fork (branch `vtt-instance`, unpushed)
 Three commits, each proven:
@@ -88,6 +88,13 @@ Reviewed the current playbook + Portents' proven M7 tooling before starting. **W
 - **Interactive atlas map** (`build_map.py` → `atlas-data.js`, 21 pins; `map.js` = `window.CaulMap`, pan/zoom/markers/legend/detail/gazetteer, scoped + self-cleaning) — `5ffaa99`.
 - **Seed** the S28 arc + 6 tracked threads (`build_seed.py` → `pack/seed.json`, `defaultCampaign.seed`) — factual recap, no invented plot — `830794c`.
 - **Old top-level pages retired** (166 `.html`, `0be3fb2`); portraits + the map image kept in place; old URLs 404 (decision 3). The migration scripts (`build_veil`/`build_map`/`build_seed`) read the now-retired sources, so they don't re-run — their outputs are committed and were gated at build; the sources live in git history.
+
+## M5 — deploy (LIVE 2026-09-24, owner: "Run steps 1 & 2 now")
+- **Pre-flight:** the Worker bundles clean (21.17 KiB); a local `wrangler dev` session created a room from an allowed origin (200), refused a foreign origin (403), and the room persisted in the Durable Object.
+- **Worker deployed** — `npx wrangler deploy` → `https://caul-vtt.sortilege.workers.dev` (version `f762bbb8`). Verified live: a room created from `caul.sortilege.online` (200) and from `sortilege-inc.github.io` (200), a foreign origin refused (403).
+- **Published** — `main` fast-forwarded to the M4 tip and pushed (`de1d79e..a1be118`); this made the instance + Daggerheart `data/` public (decision 1). Served by **GitHub Pages** at `caul.sortilege.online`.
+- **Live proof (browser):** `https://caul.sortilege.online` renders all 8 campaign tabs, 319 campaign records loaded, `workerUrl` = the deployed Worker, `#chronicle/s26-brathis-burns` draws "Brathis Burns". 0 console errors.
+- **Owner-side remaining:** enable **Enforce HTTPS** in the repo's Pages settings (http still serves 200, no redirect — decision O3); the real **two-browser live session** proof (a player on a second device claims a character and rolls, the GM sees it).
 
 ## Decision log (autonomous calls this session)
 - **Companion modeling (owner, 2026-09-24):** the plan's "companions as `Adversary`" (decision 5) was written before the records were seen. Pinchie & the Umbral Raven are Foundry `companion`-type (the Ranger's-Companion sheet), not adversaries. Owner chose to **extend the corpus `Ranger Companion` ACTOR upstream** with optional played-instance fields (Pronouns, Partner, Evasion, Stress, Marked Stress, an Attack DEF, Experiences, Upgrades, Description) rather than force them into `Adversary`. "Player view+control" (decision 5) is an engine/ownership feature (M3), independent of the DSL type. Speaker ×2 are `character`-typed → the `Character` path.
