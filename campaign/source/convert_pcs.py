@@ -90,7 +90,8 @@ def props(actor, pronouns):
     if len(subs) > 1: add("Second Subclass", "Subclass", subs[1])
     add("Ancestry", "Ancestry", s.get("ancestry"))
     add("Community", "Community", s.get("community"))
-    P.append('^"Pronouns" STRING %s' % q(pronouns))
+    if pronouns:
+        P.append('^"Pronouns" STRING %s' % q(pronouns))
     P.append('^"Evasion" INTEGER %d' % s["evasion"])
     P.append('^"Hit Points" INTEGER %d' % s["hpMax"])
     P.append('^"Marked HP" INTEGER %d' % s["hpMarked"])
@@ -111,7 +112,11 @@ def props(actor, pronouns):
         if it.get("type") != "domainCard": continue
         r = ref("Domain Card", it["name"])
         if not r:
-            unresolved.append(("Domain Card", it["name"])); continue
+            # a homebrew card with no corpus entry (e.g. an Age of Umbra card): carry it onto the
+            # sheet as an Inventory string rather than dropping it
+            unresolved.append(("Domain Card", it["name"]))
+            inventory_extra.append(it["name"])
+            continue
         (vault if (it.get("system", {}).get("inVault")) else loadout).append(r)
     if loadout: P.append('^"Loadout" LIST OF %s [ %s ]' % (T_CARD, ", ".join(loadout)))
     if vault: P.append('^"Vault" LIST OF %s [ %s ]' % (T_CARD, ", ".join(vault)))

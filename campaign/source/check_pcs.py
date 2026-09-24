@@ -23,6 +23,7 @@ def _norm(s):
 HERE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.expanduser("~/Sortilege/Campaigns/2025-2026 Caul/caul-support/scripts"))
 import foundry_sheet
+from convert_pcs import ref as card_ref
 
 PLANT = "--plant" in sys.argv
 PCS = [
@@ -56,7 +57,10 @@ def built(ids):
 
 def expected(pc):
     a = json.load(open(os.path.join(HERE, "campaign/source/foundry", pc + ".json")))
-    a = a.get("data", a)
+    return expected_from_actor(a.get("data", a))
+
+
+def expected_from_actor(a):
     s = foundry_sheet.actor_to_sheet(a)
     subs = s.get("subclasses") or []
     tr = s["traits"]
@@ -70,7 +74,10 @@ def expected(pc):
         "Class": s.get("className"), "Subclass": subs[0] if subs else None,
         "Second Class": s.get("multiclassName"), "Second Subclass": subs[1] if len(subs) > 1 else None,
         "Ancestry": s.get("ancestry"), "Community": s.get("community"),
-        "_loadout_plus_vault": sum(1 for _ in s["cards"]),
+        # loadout+vault in the layer holds only the cards that resolve to a corpus hash; a homebrew
+        # card with no corpus entry is carried to Inventory instead, so the expected count is the
+        # number of resolvable domain cards
+        "_loadout_plus_vault": sum(1 for it in a.get("items", []) if it.get("type") == "domainCard" and card_ref("Domain Card", it["name"])),
         "_experiences": sorted(e["name"] for e in s["experiences"]),
     }
     # drop absent fields: None, and the extractor's empty-string for a non-multiclass PC's

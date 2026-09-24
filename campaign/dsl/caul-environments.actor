@@ -1,0 +1,96 @@
+EXTENSION "Caul_Environments" EXTENDS "Daggerheart_Core_Base" {
+    NAME "The Enduring Lesser Lights - the environments"
+    VERSION "0.1.0"
+    SPEC_VERSION "0.5"
+    RELEASE_DATE "2026-09-24"
+
+    #caulENVAbandonedCathedra1 ^"Abandoned Cathedral" DEF {
+        EXTENDS #daggerheartEnvironment0000001 ^"Environment"
+        PROPERTIES {
+            ^"Tier" INTEGER 1
+            ^"Difficulty" STRING "11"
+        }
+    }
+
+    #caulENVChaosRealm00000002 ^"Chaos Realm" DEF {
+        EXTENDS #daggerheartEnvironment0000001 ^"Environment"
+        PROPERTIES {
+            ^"Tier" INTEGER 4
+            ^"Description" STRING "An otherworldly space where the laws of reality are unstable and dangerous."
+            ^"Difficulty" STRING "20"
+        }
+    POTENTIAL_ADVERSARIES {
+        ^"Outer Realm Monstrosities" LIST [ "Outer Realms Abomination", "Outer Realms Corrupter", "Outer Realms Thrall" ]
+    }
+    FEATURES {
+        #caulEFac7a59c1174ea2fe94 ^"Impossible Architecture" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Description" STRING "Up is down, down is right, right is starward. Gravity and directionality themselves are in flux, and any attempt to move through this realm is an odyssey unto itself, requiring a Progress Countdown (8) . On a failure, a PC must mark a Stress in addition to the roll's other consequences. What does it feel like to move in a space so alien to the Mortal Realm? What landmark or point do you fixate on to maintain your balance? What bizarre landmarks do you traverse on your journey?"
+        }
+        #caulEFb5dfc37baeefd4c070 ^"Everything You Are This Place Will Take from You" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Description" STRING "Countdown (Loop 1d4) . Activate the countdown. When it triggers, all PCs must succeed on a Presence Reaction Roll or their highest trait is temporarily reduced by [[/r 1d4]] unless they mark a number of Stress equal to its value. Any lost trait points are regained if the PC critically succeeds or escapes the Chaos Realm. How does this place try to steal from you that which makes you legendary? What does it feel like to have this power taken from you?"
+        }
+        #caulEF6e7cce78a9ee73c596 ^"Unmaking" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Description" STRING "Spend a Fear to force a PC to make a Strength Reaction Roll. On a failure, they take 4d10 direct magic damage. On a success, they must mark a Stress. What glimpse of other worlds do you catch while this place tries to unmake you? What core facet of your personality does the unmaking try to erase?"
+        }
+        #caulEFb5e443276dc57138b1 ^"Outer Realms Predators" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Description" STRING "Spend a Fear to summon an @UUID[Compendium.daggerheart.adversaries.Actor.A0SeeDzwjvqOsyof]{Outer Realms Abomination}, an@UUID[Compendium.daggerheart.adversaries.Actor.ms6nuOl3NFkhPj1k]{Outer Realms Corrupter}, and [[/r 2d6]] @UUID[Compendium.daggerheart.adversaries.Actor.moJhHgKqTKPS2WYS]{Outer Realms Thrall}, who appear at Close range of a chosen PC in defiance of logic and causality. Immediately spotlight one of these adversaries, and you can spend an additional Fear to automatically succeed on that adversary's standard attack. What halfconsumed remnants of the shattered world do these monstrosities cast aside in pursuit of living flesh? What jagged refl ections of former personhood do you catch between moments of unquestioning malice?"
+        }
+        #caulEFefa49ded72e18ef903 ^"Disorientating Reality" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Description" STRING "On a result with Fear, you can ask the PC to describe which of their fears the Chaos Realm evokes as a vision of reality unmakes and reconstitutes itself to the PC. The PC loses a Hope. If it is their last Hope, you gain a Fear. What moment do they see? If it's a memory how is it warped by this place? How hard will it be to hold on to the real memory?"
+        }
+    }
+    }
+
+    #caulENVCrystalWasteland03 ^"Crystal Wasteland" DEF {
+        EXTENDS #daggerheartEnvironment0000001 ^"Environment"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Description" STRING "A harsh and alien landscape that shines with towers of glittering crystal"
+            ^"Difficulty" STRING "16"
+        }
+    POTENTIAL_ADVERSARIES {
+        ^"Potential Adversaries" LIST [ "Adult Flickerfly", "Construct", "Vault Guardian Gaoler", "Vault Guardian Sentinel", "Vault Guardian Turret", "Elemental Spark", "Whisper Wraith" ]
+    }
+    FEATURES {
+        #caulEFe4fc7dc88817a1bea0 ^"Harmonic Resonance" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Type" STRING "Passive"
+            ^"Description" STRING "The crystals here reverberate with magical energy. A PC can make a downtime move to try and Attune to the environment with a successful Spellcast Roll. Spellcast Rolls made by an Attuned PC inside the Crystal Wasteland have advantage. A PC clears the condition when they leave the wasteland. How does attunement to this place alter your sensory experience of it? What sound or song from your childhood does this place conjure?"
+        }
+        #caulEFf113dedc60e9966f56 ^"Gravitational Anomalies" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Type" STRING "Action"
+            ^"Description" STRING "Strange, localized phenomena dot the landscape, warping distance and direction. Spend a Fear to alter the gravity at a point of your choice. All targets within Close range of that point must make a Knowledge Reaction Roll to calculate their new trajectories. Targets who fail take 3d8+4 physical damage as they are thrown up and away. Targets who succeed must mark a Stress or take half damage. What does it feel like as your body and mind fight to re establish equilibrium? Is there any way to use this to your advantage?"
+        }
+        #caulEF407d71e38968d5d4ea ^"Arcane Reflection" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Type" STRING "Action"
+            ^"Description" STRING "Spend a Fear to have any number of PCs glimpse a reflection in the crystal of who they once were or might become. Each target makes a Fate Roll ([[/r 1d12]]). Targets who succeed see a vision of their better self and can replace one Experience. Targets see a vision of their dark past–or an even darker future–and must mark a Stress, and you gain a fear. Who do the PCs see on the other side of the crystal? How does it make them feel?"
+        }
+        #caulEF0b3e02b14d1257cbff ^"Razor-Sharp Terrain" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Type" STRING "Reaction"
+            ^"Description" STRING "When a PC fails a roll to navigate the wasteland, they make a Finesse Reaction Roll. On a failure, they cut themselves on the sharp edges of the terrain. Shards of magic crystal become embedded in their wound and slowly grow, Crystallizing them. Activate a Crystal Countdown (1) for that PC. Until they remove the condition with a successful Knowledge Roll, a Crystallizing PC ticks up their Crystal Countdown at the start of each rest and has a penalty to their Evasion equal to its value. The countdown ends with the condition is cleared. What does the crystal look like as it grows? What does it feel like?"
+        }
+        #caulEF7ac23d26c31d494dc1 ^"Psychic Shuffle" DEF {
+            EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+            ^"Type" STRING "Reaction"
+            ^"Description" STRING "When the PCs take a long rest you can spend a Fear to swap their psyches. Collect all the players’ character sheets, then shuffle and randomly redistribute them. Each character sheet comes with that PC’s Domain cards and player aids. A PC can regain their psyche with a successful Knowledge Roll, at which point they trade sheets with the player who has their original character sheet. How does it feel being in someone else’s skin? If you could choose to stay like them in one way what would it be? CONVERGENCE, THE CITY OF PORTALS Tier Social A sprawling metropolis at the nexus of creation where influential figures from across the realms gather Impulses: Confront tthem with alien customs dazzle them with infinite variety tempt them with the impossible Difficulty:  Potential Adversaries: Power Players (Monarch Demon Lord Orthrax Fire Giant Warlord ArchNecromancer High Seraph Vampire Lord Oracle of Doom) Travelers and Residents (any) FEATURES Impossibilities Abound Passive: Convergence is a nexus of gods monsters aliens and all manner of dimensionhoppers Because mortal life is generally beneath these beings’ concern PCs have disadvantage on action rolls to influence them unless they have leverage against them or know what the NPC cares about What manner of being currently holds sway in the city? What strange customs do they practice? Which PC is most confused or offended by them and which PC adopts these customs as their own? Into the Multiverse Passive: The city of Convergence has a portal or door to every plane of existence Where (or when) does the party want to go? Where is that portal located and who controls that area? Everything Everywhere All at Once Passive: This city has the solution to any problem if you can find it A PC seeking a particular item with wondrous properties can make an Instinct or Presence Roll to find it in the city’s pandimensional marketplace"
+            ^"Options" LIST [ "When the PCs take a long rest you can spend a Fear to swap their psyches. Collect all the players’ character sheets, then shuffle and randomly redistribute them. Each character sheet comes with that PC’s Domain cards and player aids. A PC can regain their psyche with a successful Knowledge Roll, at which point they trade sheets with the player who has their original character sheet. How does it feel being in someone else’s skin? If you could choose to stay like them in one way what would it be? CONVERGENCE, THE CITY OF PORTALS Tier Social A sprawling metropolis at the nexus of creation where influential figures from across the realms gather Impulses: Confront tthem with alien customs dazzle them with infinite variety tempt them with the impossible Difficulty:  Potential Adversaries: Power Players (Monarch Demon Lord Orthrax Fire Giant Warlord ArchNecromancer High Seraph Vampire Lord Oracle of Doom) Travelers and Residents (any) FEATURES Impossibilities Abound Passive: Convergence is a nexus of gods monsters aliens and all manner of dimensionhoppers Because mortal life is generally beneath these beings’ concern PCs have disadvantage on action rolls to influence them unless they have leverage against them or know what the NPC cares about What manner of being currently holds sway in the city? What strange customs do they practice? Which PC is most confused or offended by them and which PC adopts these customs as their own? Into the Multiverse Passive: The city of Convergence has a portal or door to every plane of existence Where (or when) does the party want to go? Where is that portal located and who controls that area? Everything Everywhere All at Once Passive: This city has the solution to any problem if you can find it A PC seeking a particular item with wondrous properties can make an Instinct or Presence Roll to find it in the city’s pandimensional marketplace", "Critical Success: The PC finds the perfect item and the merchant who has it only wants something the PC considers inconsequential in exchange", "Success with Hope: The PC finds the perfect item and can exchange something of equal value for it", "Success with Fear: The PC finds the perfect item but the merchant who has it will only exchange it for something the party can’t give them yet", "Any Failure: The PC must mark a Stress as they go on a wild goose chase but come up emptyhanded The PC can mark an additional Stress to change this result into a success with Fear Who has the item the party needs? What do they want in return? Don’t Make Waves Passive: Countdown () Because anything is possible in Convergence the city maintains a labyrinthine bureacracy that issues and enforces ordinances regarding all exchanges and interactions between the Realms When the party arrives in Convergence start a Countdown () that ticks down whenever a PC does something that upsets the city’s delicate political equilibrium When it triggers the PCs become Wanted until they clear their names with the authorities When a Wanted PC rolls with Fear you can summon d Temporal Enforcers who appear within Very Close range immediately take the spotlight and try to apprehend the party What has the party done (or what do they plan to do) that draws the attention and ire of the Consortium? How can they fix the problem they caused? An Offer You Can’t Refuse Action: Convergence is home to a tenuous network of rival factions Spend a Fear to have one of them present the party with an easy solution to a difficult problem in exchange for their allegiance If the party refuses each PC must mark a Stress and they can’t return to that faction for help in the future Which faction offers the party their support? Who do they want the party to act against?" ]
+        }
+    }
+    }
+
+    #caulENVGrithmaarDeep00004 ^"Grithmaar Deep" DEF {
+        EXTENDS #daggerheartEnvironment0000001 ^"Environment"
+        PROPERTIES {
+            ^"Tier" INTEGER 2
+            ^"Difficulty" STRING "16"
+        }
+    }
+}
