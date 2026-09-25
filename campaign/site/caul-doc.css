@@ -27,3 +27,10 @@
 .caul-doc .umbra-frame-callout h2 { margin: 0.1rem 0 0.5rem; }
 .caul-doc .umbra-frame-callout p { margin: 0.4rem 0 0; }
 
+
+/* a place's creatures, as a small gallery (atlas/world-above) */
+.caul-doc .creature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 10px 0 18px; }
+.caul-doc .creature-grid figure { margin: 0; }
+.caul-doc .creature-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
+.caul-doc .creature-grid figcaption { font-size: .9rem; margin-top: 4px; }
+.caul-doc .creature-grid figcaption small { display: block; color: var(--ink-2); font-size: .8rem; }

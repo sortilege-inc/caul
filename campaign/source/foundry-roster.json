@@ -963,5 +963,11 @@
     "category": "drop",
     "canon": "Vampire",
     "reason": "do-not-import / unlisted"
+  },
+  "RHuROpYlGqhd87cy": {
+    "name": "Rhys",
+    "subType": "character",
+    "category": "character-npc",
+    "canon": "Rhys"
   }
 }

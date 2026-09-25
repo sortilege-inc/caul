@@ -82,7 +82,10 @@ def props(actor, pronouns):
     def add(prop, kind, name):
         r = ref(kind, name)
         if r: P.append('^"%s" %s' % (prop, r))
-        elif name: unresolved.append((prop, name))
+        elif name:
+            # not in the books (e.g. a third-party class): carried as a note, never dropped
+            unresolved.append((prop, name))
+            inventory_extra.append("%s: %s" % (prop, name))
     add("Class", "Class", s.get("className"))
     subs = s.get("subclasses") or []
     if subs: add("Subclass", "Subclass", subs[0])

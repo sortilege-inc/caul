@@ -10,7 +10,7 @@ EXTENSION "Caul_Companions" EXTENDS "Daggerheart_Core_Base" {
             ^"Partner" STRING "Jamal Jenkins"
             ^"Evasion" INTEGER 6
             ^"Stress" INTEGER 3
-            ^"Marked Stress" INTEGER 2
+            ^"Marked Stress" INTEGER 0
             ^"Attack" DEF { ^"Name" STRING "Charge" ^"Range" STRING "Melee" ^"Damage" STRING "Prof d6 physical" }
             ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Claw Grab" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Unconcerned" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Umbral Resistant" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Trampler" ^"Modifier" INTEGER 2 } ]
             ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tzXktTL7eAepxKSsIAjxcuYZ ^"Vicious", #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient", #tFsQU6UqtNUJD44GmbUGGiL6 ^"Light in the Dark", #tQbT7B8OtKmCxObmZuq7Gjdl ^"Bonded" ]
@@ -26,7 +26,7 @@ EXTENSION "Caul_Companions" EXTENDS "Daggerheart_Core_Base" {
             ^"Marked Stress" INTEGER 0
             ^"Attack" DEF { ^"Name" STRING "Caw" ^"Range" STRING "Self" ^"Damage" STRING "Prof d6 physical" }
             ^"Experiences" LIST OF #daggerheartExperience00000001 ^"Experience" [ DEF { ^"Name" STRING "Omen" ^"Modifier" INTEGER 2 }, DEF { ^"Name" STRING "Bad Weather Coming" ^"Modifier" INTEGER 2 } ]
-            ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient", #tv5AMHlEIoZ3CIX5dlwSP3gT ^"Armored", #t7MjTKl86Qa0iUvA9NwmuVQT ^"Aware" ]
+            ^"Upgrades" LIST OF #daggerheartCompanionUpgrade1 ^"Companion Upgrade" [ #tFVb7qI5WMbooXASiVkeNGDS ^"Resilient", #tv5AMHlEIoZ3CIX5dlwSP3gT ^"Armored", #t7MjTKl86Qa0iUvA9NwmuVQT ^"Aware", #tFsQU6UqtNUJD44GmbUGGiL6 ^"Light in the Dark" ]
         }
     }
 

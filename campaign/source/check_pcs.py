@@ -100,6 +100,9 @@ def main():
         for k, want in exp.items():
             have = got_cmp.get(k)
             match = (_norm(have) == _norm(want)) if k in REF_NAME_FIELDS else (have == want)
+            if not match and k in REF_NAME_FIELDS and have is None and want:
+                # a ref the books can't resolve is carried verbatim as an inventory note (convert_pcs)
+                match = ("%s: %s" % (k, want)) in (got.get("Inventory") or [])
             if not match:
                 print("  MISMATCH %s.%s: built=%r  record=%r" % (name, k, have, want)); fails += 1
         print("  %s: %d field(s) checked" % (name, len(exp)))

@@ -124,6 +124,96 @@ End on the leap, or on Sylvie opening a door to the Reach.
 """),
 ]
 
+S28_PLAYED = beat("caul-s28-b08", "What happened (played 24 Sep)", """
+[NOTE] Played 24 Sep 2026. Chronicle: Session 28, *Between Places*.
+
+**The fight**
+
+- Pinchie killed the bush-baby (Foundry: Jumper), tearing its arms off, and ate one.
+- Draz's swarm and Heyou's cascading arrows destroyed the larvae.
+- Draz killed the parasitized ox (Foundry: Pupae).
+- The lake beast (Cipactli) surfaced. Not used: the second Pupae and Hatched.
+
+**Inola** [SET]: found at a lake past the bridge, parasitized, singing to the thing in the water. Sylvie's Voice of Dread (a crit) broke through and Inola said her name; then the Cipactli swept her into the lake. No one went in after her. She is dead.
+
+**What she took from the vaults** [SET]: a library book holding Plane Gate. She made her door at the Astronomer's Spire, where the telescope showed her the other plane. Sylvie found the book under a bush and learned the working at level 7.
+
+**Speaker** used these, and kept dropping fragments through the rests:
+
+- "A tree grows out of it."
+- "They have been wearing my eyes."
+- "The terms are void."
+- "The little one is crying."
+- "The names are being eaten slowly."
+
+**The Runt God's cry**: Draz heard it (instinct crit; the bond improved), faint, like a dog left alone. He reads it as longing, is jealous that something else answered, and is glad deep down.
+
+**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named it. It passed over the hill and down through the hole into the world below. Sylvie judged it was heading for the cry.
+
+**Level 7** for everyone, Pinchie too (twice his size). Draz took Agility and Instinct and +1 Evasion. Sylvie put hers into Proficiency and took Plane Gate. Heyou kept Efficient; Heyou has new art.
+
+**Now known to the players**
+
+- The waterfall's headwaters were a holy site of Ulmira, said to heal and restore.
+- Splendor and Umbra behave like acid and alkali.
+- Otheidas made himself a god through rituals built on many empowered objects.
+- Asked whether she can hold more Splendor: "how much do you want to have, and what are you willing to give up to keep it?"
+
+**Rhys returned**
+
+- Sylvie charged a Stoneweaver crystal with the loose Splendor and gave up Ygva's Damnation power (the Umbra she kept where her heart had been) to make the working succeed.
+- Rhys walked out of the dead sphinx's chest, covered in honey: solid, not warm, not a corpse. He says he has been "between places."
+- He did not know she had killed him.
+- He can leave the plane with them and bring them back.
+- He is reading her books. S29 opens with his answers.
+- His Foundry sheet is now a level 7 character.
+
+**Draz**
+
+- Wanted to go ahead alone to the Runt God; Sylvie refused.
+- A Fear-planted thought: if anything happens to the Runt God, he will never forgive her.
+- He spent downtime needling her.
+- He strung a new bow with the ox's tendon (tier 3).
+- The hand-sling passed from Draz to Heyou.
+
+**What they hope for now**
+
+- Heyou: save everyone, or Ygva's plan to call the gods back and keep them.
+- Draz: losing the Runt God would crush him.
+- Jamal: found family in the company; drinking less; less ready to die.
+- Sylvie: does the world need saving? Do they want the gods back?
+
+**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to it.
+
+**Next sessions**: 1 Oct, then 29 Oct.
+""")
+
+S29_UPDATE = beat("caul-s29-b00", "After Session 28 — what changed (read first)", """
+[SET 24 Sep] Session 28 changed this plan. Edit or delete the beats below where they no longer hold.
+
+- **Inola is dead.** Drop her stake in the rescue and "Inola, if they saved her."
+- **Rhys is already with them.** The Rhys beat's open question is answered. S29 opens with his answers to Sylvie: the right path forward for them and for the world.
+- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and now has Plane Gate (to planes she has been to). Rhys can bring them back up.
+- **Mollthain** went down through the hole. Sylvie judges it is heading for the Runt God's cry, so the rescue premise stands.
+- **Everyone is level 7**, Pinchie too (twice his size). Scale the countdowns and threats.
+- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.
+- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.
+- **Heyou's conclusion**: the gods are still there, and paying attention.
+- **The players now know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).
+- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.
+
+[OPEN] What Rhys advises. Whether they go straight to the Athenaeum, or first to the Falls or after Mollthain. When Mollthain arrives relative to the party.
+""", collapsed=False)
+
+NEW_THREADS = [
+    {"id": "caul-thread-rhys", "title": "Rhys, back from between places", "open": True,
+     "text": "Sylvie brought him back in S28, giving up Ygva's Damnation power. He travels with the company, can take them off the World Above and back, and is reading her books to advise on the path forward. He did not know she had killed him: \"we should probably talk about all of that sometime.\""},
+    {"id": "caul-thread-mollthain", "title": "Mollthain in the world below", "open": True,
+     "text": "The Rampart went down through the moon in S28. Sylvie judged it was heading toward the Runt God's cry at the Celsian Athenaeum."},
+    {"id": "caul-thread-draz-runt", "title": "Draz, Sylvie and the Runt God", "open": True,
+     "text": "Draz heard the Runt God crying and wants to get back to it. If anything happens to it, he will never forgive Sylvie (a thought planted with Fear in S28)."},
+]
+
 S29 = {
     "id": "caul-s29-rescue",
     "title": "Session 29 — Rescue in the Amber Reach",
@@ -288,8 +378,12 @@ def main():
     s28 = next(s for s in pack["arc"] if s["id"] == "caul-s28-open")
     s28["session"] = "Session 28"
     s28["summary"] = "Finish the fight at the moon's lip; find Inola; the Runt God cries and Mollthain answers. Ends on Mollthain's leap."
-    s28["beats"] = S28_BEATS
-    upsert(pack["arc"], S29, after_id="caul-s28-open")
+    s28["beats"] = S28_BEATS + [S28_PLAYED]
+    s28["played"] = True
+    s29 = dict(S29, beats=[S29_UPDATE] + S29["beats"])
+    upsert(pack["arc"], s29, after_id="caul-s28-open")
+    for th in NEW_THREADS:
+        upsert(pack["threads"], th)
     upsert(pack["gm"]["overview"], RADIO)
     upsert(pack["gm"]["places"], FALLS)
     json.dump(pack, open(SEED, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
@@ -313,13 +407,14 @@ def main():
     dup = sorted({i for i in ids if ids.count(i) > 1})
     if dup:
         bad.append("duplicate ids: %s" % dup)
-    if len(p["threads"]) != before["threads"]:
-        bad.append("threads changed")
+    kept = [t for t in p["threads"] if not t["id"].startswith(("caul-thread-rhys", "caul-thread-mollthain", "caul-thread-draz"))]
+    if len(kept) != len([t for t in json.load(open(SEED + ".bak", encoding="utf-8"))["threads"] if not t["id"].startswith(("caul-thread-rhys", "caul-thread-mollthain", "caul-thread-draz"))]) if os.path.exists(SEED + ".bak") else False:
+        bad.append("original threads changed")
     veil_ids = [x["id"] for k in ("overview", "places", "people", "pc") for x in p["gm"].get(k, []) if x["id"].startswith("veil-")]
     if len(veil_ids) != veil_before:
         bad.append("veil entries %d → %d" % (veil_before, len(veil_ids)))
     print("seed_prep: arc %d scene(s) (S28 %d beats, S29 %d beats); overview %d, places %d; veil entries kept %d; threads %d; %s"
-          % (len(p["arc"]), len(p["arc"][0]["beats"]), len(S29["beats"]), len(p["gm"]["overview"]), len(p["gm"]["places"]),
+          % (len(p["arc"]), len(p["arc"][0]["beats"]), len(p["arc"][1]["beats"]), len(p["gm"]["overview"]), len(p["gm"]["places"]),
              len(veil_ids), len(p["threads"]), "OK" if not bad else "FAILED: " + "; ".join(bad)))
     sys.exit(1 if bad else 0)
 

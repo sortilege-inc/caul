@@ -13,8 +13,8 @@ SRC = os.path.join(HERE, "campaign/source")
 sys.path.insert(0, SRC)
 import convert_pcs as C
 
-SNAP = os.path.expanduser(
-    "~/Sortilege/Campaigns/2025-2026 Caul/caul-support/archive/foundry-export/2026-09-24/actors")
+SNAPS = [os.path.expanduser("~/Sortilege/Campaigns/2025-2026 Caul/caul-support/archive/foundry-export/" + d)
+         for d in ("2026-09-24/actors", "2026-09-24-post-s28/actors")]   # a later pull wins for the same actor
 
 
 def npc_id(name, seq):
@@ -23,7 +23,10 @@ def npc_id(name, seq):
 
 
 def by_foundry_id():
-    return {os.path.basename(f).rsplit("-", 1)[1][:-5]: f for f in glob.glob(os.path.join(SNAP, "*.json"))}
+    out = {}
+    for snap in SNAPS:
+        out.update({os.path.basename(f).rsplit("-", 1)[1][:-5]: f for f in glob.glob(os.path.join(snap, "*.json"))})
+    return out
 
 
 def main():

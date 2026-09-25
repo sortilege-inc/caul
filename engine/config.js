@@ -1,6 +1,6 @@
 // engine/config.js — where things are. The one file a deployment edits.
-// INSTANCE-OWNED (merge=ours): this is the Caul campaign's copy — "The Enduring Lesser
-// Lights", an instance of the Daggerheart VTT. Upstream's copy never overwrites it; after a
+// INSTANCE-OWNED (merge=ours): this is the Caul campaign's copy, an instance of the
+// Daggerheart VTT. Upstream's copy never overwrites it; after a
 // pull, diff engine/config.js against upstream and carry any new key by hand (INSTANCES.md).
 window.VttConfig = {
   system: 'daggerheart',

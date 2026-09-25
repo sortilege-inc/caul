@@ -9,7 +9,7 @@
       "id": "caul-s28-open",
       "title": "Session 28 — The World Above",
       "text": "The company stands in the World Above, beyond the moon-membrane, where Session 27 left them. The fight is unresolved — the leaping predator (the giant bush-baby), the great cat (unengaged), and the leech-larvae remain. Open leads recovered so far: Amber Reach (glimpsed as a living city) and the mountain waterfall. Talis burns below.",
-      "played": false,
+      "played": true,
       "session": "Session 28",
       "summary": "Finish the fight at the moon's lip; find Inola; the Runt God cries and Mollthain answers. Ends on Mollthain's leap.",
       "beats": [
@@ -62,6 +62,13 @@
           "title": "Optional: Ulmira's Falls before going down",
           "text": "[MINE] If they want an edge before the rescue, Sylvie has the lead: the high-country waterfall from the vault map. Its water destroys Umbral things on contact, which matters if the Athenaeum's pyre fails and the dead rise. Details in Places › Ulmira's Falls. Skip it if the table wants to go straight down.",
           "collapsed": true
+        },
+        {
+          "id": "caul-s28-b08",
+          "kind": "note",
+          "title": "What happened (played 24 Sep)",
+          "text": "[NOTE] Played 24 Sep 2026. Chronicle: Session 28, *Between Places*.\n\n**The fight**\n\n- Pinchie killed the bush-baby (Foundry: Jumper), tearing its arms off, and ate one.\n- Draz's swarm and Heyou's cascading arrows destroyed the larvae.\n- Draz killed the parasitized ox (Foundry: Pupae).\n- The lake beast (Cipactli) surfaced. Not used: the second Pupae and Hatched.\n\n**Inola** [SET]: found at a lake past the bridge, parasitized, singing to the thing in the water. Sylvie's Voice of Dread (a crit) broke through and Inola said her name; then the Cipactli swept her into the lake. No one went in after her. She is dead.\n\n**What she took from the vaults** [SET]: a library book holding Plane Gate. She made her door at the Astronomer's Spire, where the telescope showed her the other plane. Sylvie found the book under a bush and learned the working at level 7.\n\n**Speaker** used these, and kept dropping fragments through the rests:\n\n- \"A tree grows out of it.\"\n- \"They have been wearing my eyes.\"\n- \"The terms are void.\"\n- \"The little one is crying.\"\n- \"The names are being eaten slowly.\"\n\n**The Runt God's cry**: Draz heard it (instinct crit; the bond improved), faint, like a dog left alone. He reads it as longing, is jealous that something else answered, and is glad deep down.\n\n**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named it. It passed over the hill and down through the hole into the world below. Sylvie judged it was heading for the cry.\n\n**Level 7** for everyone, Pinchie too (twice his size). Draz took Agility and Instinct and +1 Evasion. Sylvie put hers into Proficiency and took Plane Gate. Heyou kept Efficient; Heyou has new art.\n\n**Now known to the players**\n\n- The waterfall's headwaters were a holy site of Ulmira, said to heal and restore.\n- Splendor and Umbra behave like acid and alkali.\n- Otheidas made himself a god through rituals built on many empowered objects.\n- Asked whether she can hold more Splendor: \"how much do you want to have, and what are you willing to give up to keep it?\"\n\n**Rhys returned**\n\n- Sylvie charged a Stoneweaver crystal with the loose Splendor and gave up Ygva's Damnation power (the Umbra she kept where her heart had been) to make the working succeed.\n- Rhys walked out of the dead sphinx's chest, covered in honey: solid, not warm, not a corpse. He says he has been \"between places.\"\n- He did not know she had killed him.\n- He can leave the plane with them and bring them back.\n- He is reading her books. S29 opens with his answers.\n- His Foundry sheet is now a level 7 character.\n\n**Draz**\n\n- Wanted to go ahead alone to the Runt God; Sylvie refused.\n- A Fear-planted thought: if anything happens to the Runt God, he will never forgive her.\n- He spent downtime needling her.\n- He strung a new bow with the ox's tendon (tier 3).\n- The hand-sling passed from Draz to Heyou.\n\n**What they hope for now**\n\n- Heyou: save everyone, or Ygva's plan to call the gods back and keep them.\n- Draz: losing the Runt God would crush him.\n- Jamal: found family in the company; drinking less; less ready to die.\n- Sylvie: does the world need saving? Do they want the gods back?\n\n**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to it.\n\n**Next sessions**: 1 Oct, then 29 Oct.",
+          "collapsed": true
         }
       ]
     },
@@ -73,6 +80,13 @@
       "text": "[SET 24 Sep] The plan for Session 29. Settle the details after Session 28 is played.",
       "played": false,
       "beats": [
+        {
+          "id": "caul-s29-b00",
+          "kind": "note",
+          "title": "After Session 28 — what changed (read first)",
+          "text": "[SET 24 Sep] Session 28 changed this plan. Edit or delete the beats below where they no longer hold.\n\n- **Inola is dead.** Drop her stake in the rescue and \"Inola, if they saved her.\"\n- **Rhys is already with them.** The Rhys beat's open question is answered. S29 opens with his answers to Sylvie: the right path forward for them and for the world.\n- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and now has Plane Gate (to planes she has been to). Rhys can bring them back up.\n- **Mollthain** went down through the hole. Sylvie judges it is heading for the Runt God's cry, so the rescue premise stands.\n- **Everyone is level 7**, Pinchie too (twice his size). Scale the countdowns and threats.\n- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.\n- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.\n- **Heyou's conclusion**: the gods are still there, and paying attention.\n- **The players now know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).\n- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.\n\n[OPEN] What Rhys advises. Whether they go straight to the Athenaeum, or first to the Falls or after Mollthain. When Mollthain arrives relative to the party.",
+          "collapsed": false
+        },
         {
           "id": "caul-s29-b01",
           "kind": "note",
@@ -148,6 +162,24 @@
       "id": "caul-thread-6",
       "title": "Dangling Hooks",
       "text": "The Dimmers Operations Heyou 's criminal connections Borek 's role in Ulmira's Step Trade in Askavir eggs and other goods Refugees from Dolm's Break Arrived at Verrow's Span Tall katari with eye patch among them (suspected ulterior motives) Settlement crisis from Askavir attack ("
+    },
+    {
+      "id": "caul-thread-rhys",
+      "title": "Rhys, back from between places",
+      "open": true,
+      "text": "Sylvie brought him back in S28, giving up Ygva's Damnation power. He travels with the company, can take them off the World Above and back, and is reading her books to advise on the path forward. He did not know she had killed him: \"we should probably talk about all of that sometime.\""
+    },
+    {
+      "id": "caul-thread-mollthain",
+      "title": "Mollthain in the world below",
+      "open": true,
+      "text": "The Rampart went down through the moon in S28. Sylvie judged it was heading toward the Runt God's cry at the Celsian Athenaeum."
+    },
+    {
+      "id": "caul-thread-draz-runt",
+      "title": "Draz, Sylvie and the Runt God",
+      "open": true,
+      "text": "Draz heard the Runt God crying and wants to get back to it. If anything happens to it, he will never forgive Sylvie (a thought planted with Fear in S28)."
     }
   ],
   "gm": {

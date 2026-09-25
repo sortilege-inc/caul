@@ -14,8 +14,8 @@ sys.path.insert(0, SRC)
 from check_pcs import expected_from_actor, REF_NAME_FIELDS, _norm
 
 PLANT = "--plant" in sys.argv
-SNAP = os.path.expanduser(
-    "~/Sortilege/Campaigns/2025-2026 Caul/caul-support/archive/foundry-export/2026-09-24/actors")
+SNAPS = [os.path.expanduser("~/Sortilege/Campaigns/2025-2026 Caul/caul-support/archive/foundry-export/" + d)
+         for d in ("2026-09-24/actors", "2026-09-24-post-s28/actors")]   # a later pull wins for the same actor
 
 DUMP_JS = r'''
 const fs=require("fs");
@@ -44,7 +44,10 @@ def built():
 
 
 def by_foundry_id():
-    return {os.path.basename(f).rsplit("-", 1)[1][:-5]: f for f in glob.glob(os.path.join(SNAP, "*.json"))}
+    out = {}
+    for snap in SNAPS:
+        out.update({os.path.basename(f).rsplit("-", 1)[1][:-5]: f for f in glob.glob(os.path.join(snap, "*.json"))})
+    return out
 
 
 def main():
@@ -71,6 +74,9 @@ def main():
         for k, want in exp.items():
             have = got_cmp.get(k)
             match = (_norm(have) == _norm(want)) if k in REF_NAME_FIELDS else (have == want)
+            if not match and k in REF_NAME_FIELDS and have is None and want:
+                # a ref the books can't resolve is carried verbatim as an inventory note (convert_pcs)
+                match = ("%s: %s" % (k, want)) in (got.get("Inventory") or [])
             if not match:
                 print("  MISMATCH %s.%s: built=%r record=%r" % (e["name"], k, have, want)); fails += 1
     print("%d NPC(s) checked, %d field mismatch(es)" % (checked, fails))
