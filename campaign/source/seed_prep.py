@@ -163,6 +163,54 @@ He can't be fought. Run him as an Environment and a countdown, not an adversary.
 
 [OPEN] Write him up as a Daggerheart Environment.
 """),
+        beat("caul-s29-b06", "Rhys", """
+[NOTE] Last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.
+
+- Undead. A fellow Stoneweaver from the Sundering, sent up to the World Above with the Runt God when Sylvie thrust the Heart of Stone skyward.
+- He and Kaelyn drew their power from it up there. Kaelyn held its leash; Rhys says he doesn't have the rapport.
+- Last seen wanting to find and wrangle the Runt God, and ascend again.
+
+**In his own words** [NOTE] From the S18 transcript, lightly tidied.
+
+On following Kaelyn:
+
+> "Honestly, I didn't know what his intent was. I assumed he had cause, and so I followed blindly, I admit."
+
+To Sylvie, about the Sundering:
+
+> "What you did in response was so powerful, and transformative. I don't know how you did it. I would be very interested to learn about your arts and your power, because whatever you had back then dwarfed ours."
+
+The Runt God:
+
+> "We've been blessed by being in the world above. And we've been blessed again, because unbeknownst, I think, to us all, the Heart of Stone was in fact the Runt God, that had been too small and too weak to abandon this world with the others — until you thrust it up above. We've been drawing power from it, developing our arts with its power."
+
+> "We believe that the other gods are preparing for their next Ascent, but we have no way of ascending with them. But perhaps with you, we could ascend again."
+
+The argument:
+
+> "Do you not understand that your world is a caul? Like afterbirth. You've been discarded. If you want to survive, we need to keep ascending with the gods."
+
+> **Sylvie:** "This was your world too, right, Rhys?"
+> **Rhys:** "It was. Past tense."
+
+> "Look, I'm not arguing that I deserve it, or that you don't deserve it. But if you want a continued and flourishing existence, I suggest we get back up to the upper."
+
+> "Well, for one, it's not plagued by the Umbra. And you have all the benefits of new civilizations that are starting, that are basking in the glory of the gods above. They're going to ascend again soon. That's what Kaelyn said."
+
+> **Rhys:** "Look, would you rather save some or not?"
+> **Sylvie:** "I think what you really want is to save yourself."
+> **Rhys:** "I would like to be part of the 'some.' That's true."
+
+**Why he matters now**
+
+- [MINE] The Runt God's wail that brought Mollthain could bring Rhys too. He wants the Runt God, and it is at the Athenaeum.
+- He has lived in the World Above. He knows what the company has just seen.
+- His claims, checked against S27: no Umbra up there is true; they've seen it. "The gods are preparing for their next Ascent" fits Kreth going to fetch something, and Sylvie's pull forward and up. "New civilizations basking in the glory of the gods" hasn't been seen yet.
+- [NOTE] The campaign's name comes from this scene: "your world is a caul."
+- The last word between them was Sylvie's curse.
+
+[OPEN] Does he show up in S29? If he does: a rival for the Runt God, a reluctant ally against Mollthain, or both.
+"""),
         beat("caul-s29-b05", "What they might bring", """
 - Ulmira's water, if they went to the Falls: it destroys Umbral things on contact (the risen dead, whatever comes in when the pyre fails). Sylvie is scalded by it.
 - Sylvie's doors: anywhere she has seen.
