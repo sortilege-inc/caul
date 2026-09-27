@@ -106,9 +106,12 @@
     const focused = region != null && focusRegion() === region;
     const slot = el('section', { class: 'slot slot-' + id + (focused ? ' slot--focus' : ''), 'data-region': region == null ? null : String(region) }, [head, body]);
     // clicking into a region selects it: a nav choice then opens here (engine/app.js open()). The
-    // outline moves without a re-render, so the panel keeps its state and scroll.
+    // outline moves without a re-render, so the panel keeps its state and scroll. On `click`, not
+    // `mousedown`: saving the choice emits state:changed and the panels redraw, and on mousedown
+    // that swapped the button out from under the pointer, so the first click into an unselected
+    // region did nothing (found in sortilege-vtt-coyotecrow at M3, eacafd5).
     if (region != null) {
-      slot.addEventListener('mousedown', () => {
+      slot.addEventListener('click', () => {
         if (focusRegion() === region) return;
         State.ui('focus', region);
         const prev = main.querySelector('.slot--focus');
