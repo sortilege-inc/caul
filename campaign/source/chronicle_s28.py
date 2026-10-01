@@ -155,3 +155,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    import chronicle_index      # the index card and the date line, in their final form
+    chronicle_index.main()

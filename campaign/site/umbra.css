@@ -251,8 +251,9 @@
 .caul-doc .chron a:hover{ background:rgba(179,154,99,0.05); padding-left:0.9rem; }
 .caul-doc .chron .no{ font-family:var(--black); font-size:1.8rem; color:var(--gilt); min-width:2.4ch; text-align:right; }
 .caul-doc .chron .body h3{ font-family:var(--caps); color:var(--pewter); margin:0 0 0.25rem; font-size:1.06rem; letter-spacing:0.03em; }
-.caul-doc .chron .body .dt{ font-family:var(--caps); font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ash); }
+.caul-doc .chron .body .dt{ display:block; font-family:var(--caps); font-size:0.72rem; letter-spacing:0.08em; color:var(--ash); }
 .caul-doc .chron .body p{ margin:0.35rem 0 0; color:var(--ash); font-size:0.92rem; }
+.caul-doc .chron .body p.quote{ margin-top:0.5rem; font-style:italic; color:var(--pewter); line-height:1.55; }
 .caul-doc .pager{ display:flex; justify-content:space-between; gap:1rem; margin-top:3rem; padding-top:1.4rem; border-top:1px solid var(--edge-soft); }
 .caul-doc .pager a{ text-decoration:none; color:var(--moon); max-width:46%; }
 .caul-doc .pager a:hover{ color:var(--moon-lit); }
