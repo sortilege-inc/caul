@@ -183,11 +183,14 @@ window.DHEntity = (function () {
   const STAT_PROPS = ['Tier', 'Role', 'Category', 'Description', 'Motives & Tactics', 'Impulses', 'Difficulty', 'Damage Thresholds', 'Hit Points', 'Stress', 'Attack Modifier'];
   const signed = (n) => (n >= 0 ? '+' : '−') + Math.abs(n);
   function statBlock(e) {
-    if (e.type !== 'Adversary' && e.type !== 'Environment') return null;
+    if (!D.isAdversary(e) && e.type !== 'Environment') return null;
     const bid = e.book;
-    const tier = D.num(e, 'Tier');
-    const kind = D.text(e, 'Role') || D.text(e, 'Category');
-    const th = D.defFields(D.prop(e, 'Damage Thresholds'));
+    // a segment fights with its colossus's damage thresholds and is of its colossus's tier (core p.319)
+    const cp = e.type === 'Colossus Segment' ? D.prop(e, 'Colossus') : null;
+    const col = cp && cp.ref ? D.entity(cp.ref.hash) : null;
+    const tier = D.num(e, 'Tier') != null ? D.num(e, 'Tier') : col ? D.num(col, 'Tier') : null;
+    const kind = D.text(e, 'Role') || D.text(e, 'Category') || (e.type === 'Colossus Segment' ? 'Colossus Segment' : null);
+    const th = D.defFields(D.prop(col || e, 'Damage Thresholds'));
     const atk = D.block(e, 'ATTACK');
     const attack = atk && atk.body && atk.body[0] && atk.body[0].vk === 'def' ? atk.body[0] : null;
     const af = attack ? D.defFields(attack) : {};
@@ -198,10 +201,10 @@ window.DHEntity = (function () {
     return el('div', { class: 'statblock ' + e.type.toLowerCase() }, [
       el('div', { class: 'sb-tier' }, [[tier != null ? 'Tier ' + tier : null, kind].filter(Boolean).join(' ')]),
       D.text(e, 'Description') ? el('div', { class: 'sb-desc' }, [span(D.text(e, 'Description'), bid)]) : null,
-      mt && mt.length ? el('div', { class: 'sb-line' }, [el('b', {}, [e.type === 'Adversary' ? 'Motives & Tactics: ' : 'Impulses: ']), mt.join(', ')]) : null,
+      mt && mt.length ? el('div', { class: 'sb-line' }, [el('b', {}, [D.isAdversary(e) ? 'Motives & Tactics: ' : 'Impulses: ']), mt.join(', ')]) : null,
       el('div', { class: 'sb-stats' }, [
         cell('Difficulty', D.val(e, 'Difficulty')),
-        e.type === 'Adversary' ? cell('Thresholds', hasTh ? th.Major + '/' + th.Severe : 'None') : null,
+        D.isAdversary(e) ? cell('Thresholds', hasTh ? th.Major + '/' + th.Severe : 'None') : null,
         cell('HP', D.val(e, 'Hit Points')),
         cell('Stress', D.val(e, 'Stress')),
       ]),
@@ -234,7 +237,7 @@ window.DHEntity = (function () {
     if (e.form === 'ACTOR') bits.push('actor type' + (e.type ? ', a kind of ' + e.type : ''));
     else if (e.type) bits.push(e.type);
     const tier = D.num(e, 'Tier');
-    if (tier != null && e.type !== 'Adversary' && e.type !== 'Environment') bits.push('Tier ' + tier);
+    if (tier != null && !D.isAdversary(e) && e.type !== 'Environment') bits.push('Tier ' + tier);
     const dom = D.val(e, 'Domain');
     if (dom && dom.name) bits.push(dom.name + ' ' + (D.num(e, 'Domain Level') != null ? 'level ' + D.num(e, 'Domain Level') : ''));
     return bits;

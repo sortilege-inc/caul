@@ -41,7 +41,17 @@
   const openEntity = (id) => window.DHOpenEntity && window.DHOpenEntity(id);
   const BATTLE_POINTS = (pcs) => 3 * pcs + 2;
   // who can stand in a scene or be the subject of a note: the books' adversaries and environments
-  const castable = () => D.recordsOf('Adversary').concat(D.recordsOf('Environment'));
+  const castable = () => D.adversaryRecords().concat(D.recordsOf('Environment'));
+  // "Tier 3 Bruiser" — a segment takes its colossus's tier and is named for what it is
+  const rankOf = (r) => 'Tier ' + (D.tierOf(r) || '—') + ' ' + (F(r, 'Role') || (r.type === 'Colossus Segment' ? 'Colossus Segment' : ''));
+  // add one adversary to an encounter's [{ id, count }]: a colossus comes with every one of its
+  // segments, each at its printed count (core p.319)
+  function addAdversary(list, r) {
+    const add = (id, n) => { const f = list.find((x) => x.id === id); if (f) f.count += n; else list.push({ id, count: n }); };
+    add(r.id, 1);
+    if (r.type === 'Colossus') D.segmentsOf(r.id).forEach((s) => add(s.id, F(s, 'Count') || 1));
+    return list;
+  }
 
   const redrawOn = (ctx, container, draw) => {
     ctx.on('state:changed', () => { if (!editing(container)) draw(); });
@@ -225,7 +235,7 @@
       const r = D.record(n.id);
       box.appendChild(el('div', { class: 'chiprow tight enc-row' }, [
         el('button', { class: 'ref', type: 'button', onclick: () => openEntity(n.id) }, [r ? r.name : n.id]),
-        el('span', { class: 'muted small' }, [(r ? 'Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || '') : '') + ' ×']),
+        el('span', { class: 'muted small' }, [(r ? rankOf(r) : '') + ' ×']),
         button('−', () => { const b = npcs.map((x) => Object.assign({}, x)); b[i].count = Math.max(0, b[i].count - 1); if (!b[i].count) b.splice(i, 1); editBeat(scene.id, beat.id, { npcs: b }); }, 'ghost tiny'),
         el('b', { class: 'num' }, [String(n.count)]),
         button('+', () => { const b = npcs.map((x) => Object.assign({}, x)); b[i].count += 1; editBeat(scene.id, beat.id, { npcs: b }); }, 'ghost tiny'),
@@ -238,8 +248,8 @@
       const q = search.value.trim().toLowerCase();
       hits.innerHTML = '';
       if (q.length < 2) return;
-      D.recordsOf('Adversary').filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 10).forEach((r) => hits.appendChild(button('+ ' + r.name + ' · Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || ''), () => {
-        const b = npcs.map((x) => Object.assign({}, x)); const f = b.find((x) => x.id === r.id); if (f) f.count += 1; else b.push({ id: r.id, count: 1 }); editBeat(scene.id, beat.id, { npcs: b });
+      D.adversaryRecords().filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 10).forEach((r) => hits.appendChild(button('+ ' + r.name + ' · ' + rankOf(r), () => {
+        editBeat(scene.id, beat.id, { npcs: addAdversary(npcs.map((x) => Object.assign({}, x)), r) });
       }, 'ghost tiny')));
     }, 150));
     box.appendChild(search);
@@ -411,6 +421,8 @@
     const minions = npcs.filter((n) => roleOf(D.record(n.id) || {}) === 'Minion').reduce((a, n) => a + n.count, 0);
     npcs.forEach((n) => {
       const r = D.record(n.id);
+      if (r && r.type === 'Colossus Segment') return;          // a segment is part of its colossus, not an adversary of its own
+      if (r && r.type === 'Colossus') { lines.push(n.count + ' × ' + r.name + ' (Colossus): no Battle Point cost printed'); return; }
       const role = roleOf(r || {});
       if (role === 'Minion') return;
       const c = typeCost(role);
@@ -445,7 +457,7 @@
         const r = D.record(n.id);
         container.appendChild(el('div', { class: 'chiprow tight enc-row' }, [
           el('button', { class: 'ref', type: 'button', onclick: () => openEntity(n.id) }, [r ? r.name : n.id]),
-          el('span', { class: 'muted small' }, [(r ? 'Tier ' + F(r, 'Tier') + ' ' + (F(r, 'Role') || '') : '') + ' ×']),
+          el('span', { class: 'muted small' }, [(r ? rankOf(r) : '') + ' ×']),
           button('−', () => { n.count = Math.max(0, n.count - 1); if (!n.count) draft.npcs.splice(i, 1); draw(); }, 'ghost tiny'),
           el('b', { class: 'num' }, [String(n.count)]),
           button('+', () => { n.count++; draw(); }, 'ghost tiny'),
@@ -456,9 +468,9 @@
       const drawHits = () => {
         hits.innerHTML = '';
         if (q.length < 2) return;
-        D.recordsOf('Adversary').filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 12).forEach((r) => hits.appendChild(el('div', { class: 'small' }, [
-          button('+ ' + r.name, () => { const f = draft.npcs.find((x) => x.id === r.id); if (f) f.count++; else draft.npcs.push({ id: r.id, count: 1 }); q = ''; draw(); }, 'ghost tiny'),
-          el('span', { class: 'muted' }, [' Tier ' + F(r, 'Tier') + ' · ' + (F(r, 'Role') || '') + ' · ' + D.label(r.book)]),
+        D.adversaryRecords().filter((r) => r.name.toLowerCase().indexOf(q) !== -1).slice(0, 12).forEach((r) => hits.appendChild(el('div', { class: 'small' }, [
+          button('+ ' + r.name, () => { addAdversary(draft.npcs, r); q = ''; draw(); }, 'ghost tiny'),
+          el('span', { class: 'muted' }, [' ' + rankOf(r) + ' · ' + D.label(r.book)]),
         ])));
       };
       search.addEventListener('input', debounce(() => { q = search.value.trim().toLowerCase(); drawHits(); }, 150));

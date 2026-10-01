@@ -68,9 +68,9 @@ PAGE_RE = re.compile(r"\((?:pages?|pp\.)\s+(\d+)")
 # The scalar fields a list shows (keys only, never values):
 # a reference a list view needs: an archived sheet names the character it is a version of (an
 # instance's layer — the sheet gathers them; the pregen list leaves them out)
-REF_RECORD_FIELDS = {"Version Of": "versionOf"}
+REF_RECORD_FIELDS = {"Version Of": "versionOf", "Colossus": "colossus"}   # a colossus segment names its framework
 RECORD_FIELDS = ["Tier", "Role", "Category", "Type", "Kind", "Domain Level", "Recall Cost", "Trait", "Range",
-                 "Damage", "Damage Type", "Burden", "Difficulty", "Complexity Rating", "Roll", "Spellcast Trait"]
+                 "Damage", "Damage Type", "Burden", "Difficulty", "Complexity Rating", "Roll", "Spellcast Trait", "Count"]
 # a reference a list view shows by the NAME it prints (a domain card's Domain, a subclass's Class)
 REF_NAME_FIELDS = ["Domain", "Class"]
 
