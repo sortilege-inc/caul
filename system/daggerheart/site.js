@@ -247,7 +247,7 @@ window.VttSiteTabs = (function () {
   function renderAdversaries(container, path, ctx) {
     const p = page(container);
     p.appendChild(el('h1', {}, ['Adversaries']));
-    recordList(p, D.recordsOf('Adversary'), {
+    recordList(p, D.adversaryRecords(), {
       state: advState, placeholder: 'Find an adversary…',
       text: (r) => r.name + ' ' + (F(r, 'Role') || ''),
       filters: [tierFilter, { key: 'role', all: 'Every role', values: (rs) => uniq(rs.map((r) => String(F(r, 'Role') || '').replace(/ \(.*$/, ''))), get: (r) => String(F(r, 'Role') || '').replace(/ \(.*$/, '') }, bookFilter],

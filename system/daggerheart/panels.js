@@ -163,7 +163,7 @@
         if (!e) return container.appendChild(el('div', { class: 'empty' }, ['Not loaded: ' + sel.id]));
         const sid = Sys().currentSceneId();
         const sc = Sys().scene(sid);
-        const castable = e.type === 'Adversary' || e.type === 'Environment';
+        const castable = D.isAdversary(e) || e.type === 'Environment';
         container.appendChild(el('div', { class: 'chiprow tight' }, [
           sc && castable ? button('Put in ' + sc.name, () => put(sid, e.id), 'tiny') : null,
           el('a', { class: 'btn ghost tiny', href: './#book/' + encodeURIComponent(e.book) + '/' + encodeURIComponent(e.id), target: '_blank' }, ['In the reader']),
@@ -171,7 +171,7 @@
         // the GM's notes on this one (the People pane's sections "about" it)
         const about = window.VttGmText && window.VttGmText.aboutSections('people', e.id, draw);
         if (about) container.appendChild(about);
-        if (e.type === 'Adversary') {
+        if (D.isAdversary(e)) {
           const inst = { iid: sel.iid || e.id, label: sel.label || e.name };
           if (inst.label !== e.name) container.appendChild(el('div', { class: 'inst-name' }, [inst.label]));
           container.appendChild(Sheet.adversaryBlock(e, inst));
@@ -221,12 +221,12 @@
       ((S().gm || {}).people || []).forEach((x) => (x.about || []).forEach((id) => { noted[id] = (noted[id] || 0) + 1; }));
       const drawList = () => {
         list.innerHTML = '';
-        const rows = D.recordsOf(castState.kind).filter((r) => (!castState.q || r.name.toLowerCase().indexOf(castState.q) !== -1) && (!castState.tier || String(F(r, 'Tier')) === castState.tier))
-          .sort((a, b) => (F(a, 'Tier') || 0) - (F(b, 'Tier') || 0) || a.name.localeCompare(b.name));
+        const rows = (castState.kind === 'Adversary' ? D.adversaryRecords() : D.recordsOf(castState.kind)).filter((r) => (!castState.q || r.name.toLowerCase().indexOf(castState.q) !== -1) && (!castState.tier || String(D.tierOf(r)) === castState.tier))
+          .sort((a, b) => (D.tierOf(a) || 0) - (D.tierOf(b) || 0) || a.name.localeCompare(b.name));
         list.appendChild(el('div', { class: 'muted small' }, [rows.length + (sc ? ' · + puts one in ' + sc.name : ' · no scene: the Scenes pane builds the arc')]));
         list.appendChild(el('ul', { class: 'items toc' }, rows.slice(0, 200).map((r) => el('li', {}, [
           el('button', { class: 'ref', type: 'button', onclick: () => window.DHOpenEntity(r.id) }, [r.name]),
-          el('span', { class: 'muted small' }, [' · ' + ['Tier ' + (F(r, 'Tier') || '—'), F(r, 'Role') || F(r, 'Category'), D.label(r.book)].filter(Boolean).join(' · ')]),
+          el('span', { class: 'muted small' }, [' · ' + ['Tier ' + (D.tierOf(r) || '—'), F(r, 'Role') || F(r, 'Category') || (r.type === 'Colossus Segment' ? 'Colossus Segment' : null), D.label(r.book)].filter(Boolean).join(' · ')]),
           noted[r.id] ? el('button', { class: 'chip gm-noted', type: 'button', title: 'the GM’s notes on ' + r.name, onclick: () => Panels.select({ kind: 'entity', id: r.id }) }, ['GM notes']) : null,
           sc ? el('button', { class: 'ref tiny', type: 'button', title: 'put in ' + sc.name, 'aria-label': 'put ' + r.name + ' in ' + sc.name, onclick: () => put(sid, r.id) }, ['+']) : null,
         ]))));

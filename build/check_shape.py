@@ -112,6 +112,12 @@ def main():
     for ty in sorted(set(raw) | set(got)):
         check("entities of type %s" % ty, got.get(ty, 0), raw.get(ty, 0))
     check("records (every typed entity)", sum(1 for r in records if r.get("type")), sum(raw.values()))
+    # a colossus segment names its framework (core p.319): every segment's record carries the id of a
+    # Colossus record, so an encounter can bring a colossus in with all of its segments
+    colossi = {r["id"] for r in records if r.get("type") == "Colossus"}
+    segs = [r for r in records if r.get("type") == "Colossus Segment"]
+    check("colossus segments whose record names a Colossus", sum(1 for r in segs if r.get("colossus") in colossi),
+          len(re.findall(r'EXTENDS #daggerheartColossusSegment1 \^"Colossus Segment"', "\n".join(texts(corpus)))))
 
     # ── the actors ──
     for actor in ("Entity", "Character", "Adversary", "Environment"):
@@ -162,7 +168,7 @@ def main():
     ld = next((x for x in E.values() if x["name"] == "Lurking Darkness"), None)
     rt = blocks(ld, "ROLL_TABLE") if ld else []
     check("Lurking Darkness ROLL_TABLE rows", len(rt[0]["body"]) if rt else 0,
-          len(re.findall(r'^\s*"[^"]+"\s+"', block_body("\n".join(texts(corpus)), 'ROLL_TABLE "1d12"'), re.M)))
+          len(re.findall(r'^\s*"[^"]+"\s+"', block_body(block_body("\n".join(texts(corpus)), '^"Lurking Darkness" DEF'), 'ROLL_TABLE "1d12"'), re.M)))
 
     # ── .lore ──
     check(".lore chapters", sum(1 for c in chapters if c["kind"] == "lore"), len(glob.glob(os.path.join(corpus, "*.lore"))))

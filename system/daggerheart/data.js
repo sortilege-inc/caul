@@ -287,6 +287,16 @@ window.DHData = (function () {
   const recordsOf = (type) => records().filter((r) => r.type === type);
   const f = (r, k) => (r.fields || {})[k];
 
+  // The adversary family (core p.319): a plain Adversary, a Colossus (the framework that holds what
+  // applies to the whole) and each Colossus Segment, spotlighted as its own adversary. Anywhere the
+  // GM picks or tracks an adversary, the family counts. A segment prints no Tier of its own: its
+  // colossus's is its tier.
+  const ADVERSARY_TYPES = ['Adversary', 'Colossus', 'Colossus Segment'];
+  const isAdversary = (x) => !!x && ADVERSARY_TYPES.indexOf(x.type) !== -1;
+  const adversaryRecords = () => records().filter(isAdversary);
+  const segmentsOf = (colossusId) => records().filter((r) => r.type === 'Colossus Segment' && r.colossus === colossusId);
+  const tierOf = (r) => { const t = f(r, 'Tier'); if (t != null) return t; const c = r && r.colossus && record(r.colossus); return c ? f(c, 'Tier') : null; };
+
   // ── the campaign frames: the table's modules ───────────────────────
   // A frame is a `^"Campaign Frame"` (its card) with its narrative in its book's frames lore,
   // under a level-1 heading of the frame's own name in capitals (`# THE WITHERWILD`).
@@ -364,5 +374,6 @@ window.DHData = (function () {
     guidanceFor, guidanceLoose, correctionsFor, modified, reindex,
     chapterTitle, shortTitle, chapters, chapter, loreFile, slug, loreSections, loreSection,
     recordsOf, f, frames, frameLore, search, excerpt, searchLore, label,
+    ADVERSARY_TYPES, isAdversary, adversaryRecords, segmentsOf, tierOf,
   };
 })();
