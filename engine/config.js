@@ -26,6 +26,15 @@ window.VttConfig = {
   // seed's `gm` (campaign/source/absorb_veil.py), edited in Overview, Places and People; the Notes
   // pane, which showed the old document, is left out (its free notes are in Overview).
   hidePanes: ['notes'],
+  // the table's "maps in the repo…" picker; every map is ungridded art on a 140px square
+  // (each side divides evenly: 28×48 and 17×22 squares)
+  maps: [
+    { label: 'Ruined Courtyard — Blossom Night', image: 'campaign/maps/ruined-courtyard-blossom-night.webp', grid: { size: 140, ox: 0, oy: 0 } },
+    { label: 'Ruined Courtyard — Glowing Crystal', image: 'campaign/maps/ruined-courtyard-glowing-crystal.webp', grid: { size: 140, ox: 0, oy: 0 } },
+    { label: 'Wizard’s Waterfall — Night', image: 'campaign/maps/wizard-waterfall-night.webp', grid: { size: 140, ox: 0, oy: 0 } },
+    { label: 'Jungle Treasure Trove — Radiant Waters', image: 'campaign/maps/jungle-treasure-trove-radiant-waters.webp', grid: { size: 140, ox: 0, oy: 0 } },
+    { label: 'Jungle Lava Flow — Arcane Runoff', image: 'campaign/maps/jungle-lava-flow-arcane-runoff.webp', grid: { size: 140, ox: 0, oy: 0 } },
+  ],
   // The campaign's own scripts, loaded by engine/instance.js at the stages the upstream pages
   // mark. The DSL layer (campaign/dsl/ → campaign/data/, via build/build_layer.sh) registers the
   // campaign's 106 statblocks into the data global at the `data` stage. Site tabs + GM doc land
