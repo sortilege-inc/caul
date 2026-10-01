@@ -53,7 +53,7 @@
           "id": "caul-s28-b06",
           "kind": "note",
           "title": "The wail and the leap",
-          "text": "[SET 24 Sep] The Runt God cries out, wanting them back, and Mollthain answers.\n\n- The Runt God is at the Celsian Athenaeum's pyre in the Amber Reach, where it was left with Ash-begets-Tide in S25 as the pyre's leash and fuel.\n- Draz hears it first, through his bond.\n- [MINE] The great cat is Mollthain. Valghast, the winged lion, is tied to Mollthain, and the sphinx carcass is lion-bodied. It stops watching and goes past them, down through the moon.\n- Mollthain's idea of rescue is a wall around the little one. At a god's size that tears the compound apart: Session 29.\n- Jamal: this is the god whose creature destroyed his village in Grithmaar Deep.\n\nEnd on the leap, or on Sylvie opening a door to the Reach.",
+          "text": "[SET 24 Sep] The Runt God cries out, wanting them back, and Mollthain answers.\n\n- The Runt God is at the Celsian Athenaeum's pyre in the Amber Reach, where it was left with Ash-begets-Tide in S25 as the pyre's leash and fuel.\n- Draz hears it first, through his bond.\n- [MINE] The great cat is Mollthain. Valghast, the winged lion, is tied to Mollthain, and the sphinx carcass is lion-bodied. He stops watching and goes past them, down through the moon.\n- Mollthain's idea of rescue is a wall around the little one. At a god's size that tears the compound apart: Session 29.\n- Jamal: this is the god whose creature destroyed his village in Grithmaar Deep.\n\nEnd on the leap, or on Sylvie opening a door to the Reach.",
           "collapsed": true
         },
         {
@@ -67,66 +67,133 @@
           "id": "caul-s28-b08",
           "kind": "note",
           "title": "What happened (played 24 Sep)",
-          "text": "[NOTE] Played 24 Sep 2026. Chronicle: Session 28, *Between Places*.\n\n**The fight**\n\n- Pinchie killed the bush-baby (Foundry: Jumper), tearing its arms off, and ate one.\n- Draz's swarm and Heyou's cascading arrows destroyed the larvae.\n- Draz killed the parasitized ox (Foundry: Pupae).\n- The lake beast (Cipactli) surfaced. Not used: the second Pupae and Hatched.\n\n**Inola** [SET]: found at a lake past the bridge, parasitized, singing to the thing in the water. Sylvie's Voice of Dread (a crit) broke through and Inola said her name; then the Cipactli swept her into the lake. No one went in after her. She is dead.\n\n**What she took from the vaults** [SET]: a library book holding Plane Gate. She made her door at the Astronomer's Spire, where the telescope showed her the other plane. Sylvie found the book under a bush and learned the working at level 7.\n\n**Speaker** used these, and kept dropping fragments through the rests:\n\n- \"A tree grows out of it.\"\n- \"They have been wearing my eyes.\"\n- \"The terms are void.\"\n- \"The little one is crying.\"\n- \"The names are being eaten slowly.\"\n\n**The Runt God's cry**: Draz heard it (instinct crit; the bond improved), faint, like a dog left alone. He reads it as longing, is jealous that something else answered, and is glad deep down.\n\n**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named it. It passed over the hill and down through the hole into the world below. Sylvie judged it was heading for the cry.\n\n**Level 7** for everyone, Pinchie too (twice his size). Draz took Agility and Instinct and +1 Evasion. Sylvie put hers into Proficiency and took Plane Gate. Heyou kept Efficient; Heyou has new art.\n\n**Now known to the players**\n\n- The waterfall's headwaters were a holy site of Ulmira, said to heal and restore.\n- Splendor and Umbra behave like acid and alkali.\n- Otheidas made himself a god through rituals built on many empowered objects.\n- Asked whether she can hold more Splendor: \"how much do you want to have, and what are you willing to give up to keep it?\"\n\n**Rhys returned**\n\n- Sylvie charged a Stoneweaver crystal with the loose Splendor and gave up Ygva's Damnation power (the Umbra she kept where her heart had been) to make the working succeed.\n- Rhys walked out of the dead sphinx's chest, covered in honey: solid, not warm, not a corpse. He says he has been \"between places.\"\n- He did not know she had killed him.\n- He can leave the plane with them and bring them back.\n- He is reading her books. S29 opens with his answers.\n- His Foundry sheet is now a level 7 character.\n\n**Draz**\n\n- Wanted to go ahead alone to the Runt God; Sylvie refused.\n- A Fear-planted thought: if anything happens to the Runt God, he will never forgive her.\n- He spent downtime needling her.\n- He strung a new bow with the ox's tendon (tier 3).\n- The hand-sling passed from Draz to Heyou.\n\n**What they hope for now**\n\n- Heyou: save everyone, or Ygva's plan to call the gods back and keep them.\n- Draz: losing the Runt God would crush him.\n- Jamal: found family in the company; drinking less; less ready to die.\n- Sylvie: does the world need saving? Do they want the gods back?\n\n**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to it.\n\n**Next sessions**: 1 Oct, then 29 Oct.",
+          "text": "[NOTE] Played 24 Sep 2026. Chronicle: Session 28, *Between Places*.\n\n**The fight**\n\n- Pinchie killed the bush-baby (Foundry: Jumper), tearing its arms off, and ate one.\n- Draz's swarm and Heyou's cascading arrows destroyed the larvae.\n- Draz killed the parasitized ox (Foundry: Pupae).\n- The lake beast (Cipactli) surfaced. Not used: the second Pupae and Hatched.\n\n**Inola** [SET]: found at a lake past the bridge, parasitized, singing to the thing in the water. Sylvie's Voice of Dread (a crit) broke through and Inola said her name; then the Cipactli swept her into the lake. No one went in after her. She is dead.\n\n**What she took from the vaults** [SET]: a library book holding Plane Gate. She made her door at the Astronomer's Spire, where the telescope showed her the other plane. Sylvie found the book under a bush and learned the working at level 7.\n\n**Speaker** used these, and kept dropping fragments through the rests:\n\n- \"A tree grows out of it.\"\n- \"They have been wearing my eyes.\"\n- \"The terms are void.\"\n- \"The little one is crying.\"\n- \"The names are being eaten slowly.\"\n\n**The Runt God's cry**: Draz heard it (instinct crit; the bond improved), faint, like a dog left alone. He reads it as longing, is jealous that something else answered, and is glad deep down.\n\n**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named him. He passed over the hill and down through the hole into the world below. Sylvie judged he was heading for the cry.\n\n**Level 7** for everyone, Pinchie too (twice his size). Draz took Agility and Instinct and +1 Evasion. Sylvie put hers into Proficiency and took Plane Gate. Heyou kept Efficient; Heyou has new art.\n\n**Now known to the players**\n\n- The waterfall's headwaters were a holy site of Ulmira, said to heal and restore.\n- Splendor and Umbra behave like acid and alkali.\n- Otheidas made himself a god through rituals built on many empowered objects.\n- Asked whether she can hold more Splendor: \"how much do you want to have, and what are you willing to give up to keep it?\"\n\n**Rhys returned**\n\n- Sylvie charged a Stoneweaver crystal with the loose Splendor and gave up Ygva's Damnation power (the Umbra she kept where her heart had been) to make the working succeed.\n- Rhys walked out of the dead sphinx's chest, covered in honey: solid, not warm, not a corpse. He says he has been \"between places.\"\n- He did not know she had killed him.\n- He can leave the plane with them and bring them back.\n- He is reading her books. S29 opens with his answers.\n- His Foundry sheet is now a level 7 character.\n\n**Draz**\n\n- Wanted to go ahead alone to the Runt God; Sylvie refused.\n- A Fear-planted thought: if anything happens to the Runt God, he will never forgive her.\n- He spent downtime needling her.\n- He strung a new bow with the ox's tendon (tier 3).\n- The hand-sling passed from Draz to Heyou.\n\n**What they hope for now**\n\n- Heyou: save everyone, or Ygva's plan to call the gods back and keep them.\n- Draz: losing the Runt God would crush him.\n- Jamal: found family in the company; drinking less; less ready to die.\n- Sylvie: does the world need saving? Do they want the gods back?\n\n**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to him.\n\n**Next sessions**: 1 Oct, then 29 Oct.",
           "collapsed": true
         }
       ]
     },
     {
-      "id": "caul-s29-rescue",
+      "id": "caul-s29-amber-reach",
       "title": "Session 29 — Rescue in the Amber Reach",
       "session": "Session 29",
-      "summary": "Mollthain has come down on the Celsian Athenaeum to shelter the Runt God. Get the people out, keep the pyre alive, turn the god aside.",
-      "text": "[SET 24 Sep] The plan for Session 29. Settle the details after Session 28 is played.",
+      "summary": "Mollthain has come down on the Celsian Athenaeum to shelter the Runt God. Get the people out, keep the pyre alive, turn the god aside. The players choose where to go first: the Athenaeum or Ulmira's Falls.",
+      "text": "[SET 1 Oct] The players choose where they go first, the Athenaeum or Ulmira's Falls; both are prepped.",
       "played": false,
       "beats": [
         {
-          "id": "caul-s29-b00",
+          "id": "caul-s29r-b00",
           "kind": "note",
-          "title": "After Session 28 — what changed (read first)",
-          "text": "[SET 24 Sep] Session 28 changed this plan. Edit or delete the beats below where they no longer hold.\n\n- **Inola is dead.** Drop her stake in the rescue and \"Inola, if they saved her.\"\n- **Rhys is already with them.** The Rhys beat's open question is answered. S29 opens with his answers to Sylvie: the right path forward for them and for the world.\n- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and now has Plane Gate (to planes she has been to). Rhys can bring them back up.\n- **Mollthain** went down through the hole. Sylvie judges it is heading for the Runt God's cry, so the rescue premise stands.\n- **Everyone is level 7**, Pinchie too (twice his size). Scale the countdowns and threats.\n- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.\n- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.\n- **Heyou's conclusion**: the gods are still there, and paying attention.\n- **The players now know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).\n- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.\n\n[OPEN] What Rhys advises. Whether they go straight to the Athenaeum, or first to the Falls or after Mollthain. When Mollthain arrives relative to the party.",
+          "title": "Where they stand",
+          "text": "- **Inola is dead** (S28), taken into the lake in the World Above. Sylvie learned Plane Gate from her book.\n- **Rhys is with them**, reading Sylvie's books. He can bring them back up from the world below.\n- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and has Plane Gate (to planes she has been to).\n- **Mollthain** went down through the hole. Sylvie judges he is heading for the Runt God's cry.\n- **Everyone is level 7**, Pinchie too (twice his size).\n- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.\n- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.\n- **Heyou's conclusion**: the gods are still there, and paying attention.\n- **The players know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).\n- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.\n\n[OPEN] What Rhys advises. When Mollthain arrives relative to the party.",
           "collapsed": false
         },
         {
-          "id": "caul-s29-b01",
+          "id": "caul-s29r-b01",
           "kind": "note",
           "title": "The situation",
           "text": "The Athenaeum was already weak. The scepter that fed its pyre was pulled in S21, the pyre-tower fell and the pyre sputters in the plaza, and the Runt God has been its leash and its fuel since.\n\nMollthain arrives to shelter the Runt God, and the Rampart shelters by walling in. Walls come up out of the Reach around the little god and cut the compound apart.",
           "collapsed": false
         },
         {
-          "id": "caul-s29-b02",
+          "id": "caul-s29r-b02",
           "kind": "note",
           "title": "Who needs saving",
-          "text": "- Dagga\n- Ash-begets-Tide, the priest of Ossa-in-absence who kept the Runt God company\n- The remaining Celsians, students, and anyone sheltering in the compound\n- The Runt God itself, depending on what the party wants\n- [OPEN] Draz's father and twin siblings went west to the Amber Reach. Are they here?\n- Inola has a stake: it is her home.",
+          "text": "- Dagga\n- Ash-begets-Tide, the priest of Ossa-in-absence who kept the Runt God company\n- The remaining Celsians, students, and anyone sheltering in the compound\n- The Runt God itself, depending on what the party wants\n- [OPEN] Draz's father and twin siblings went west to the Amber Reach. Are they here?",
           "collapsed": true
         },
         {
-          "id": "caul-s29-b03",
+          "id": "caul-s29r-b03",
           "kind": "note",
           "title": "Countdowns",
-          "text": "[MINE]\n\n- **The Rampart**: Mollthain's walls closing around the Runt God. When it fills, the compound is split and whoever is on the wrong side is cut off.\n- **The pyre**: if the Runt God is walled off or taken, the pyre loses its fuel. When it fills, the Umbra comes in and the dead start to rise.\n- **The Stacks**: the world's salvaged knowledge lies in the walls' path. Saving the books or saving the people.\n\n[OPEN] Sizes. Speaker's reception of Mollthain gets louder as he closes, and can stand in for the Rampart clock.",
+          "text": "[SET 1 Oct]\n\n- **The Rampart (6)**: Mollthain's walls closing around the Runt God. It ticks when the Mollthain Wall raises a wall, and can't tick while the Wall is *Broken* or *Destroyed*. When it fills, the compound is split and whoever is on the wrong side is cut off.\n- **The pyre (8)**: if the Runt God is walled off or taken, the pyre loses its fuel. When it fills, the Umbra comes in and the dead start to rise.\n- **The Stacks (4)**: the world's salvaged knowledge lies in the walls' path. Saving the books or saving the people.",
           "collapsed": true
         },
         {
-          "id": "caul-s29-b04",
+          "id": "caul-s29r-b04",
           "kind": "note",
           "title": "Mollthain",
-          "text": "He can't be fought. Run him as an Environment and a countdown, not an adversary.\n\n- Wants: to hold the little one safe. Nothing else.\n- Voice: slow, few words, parental; walls and holding.\n- Ways to turn him: Draz's bond with the Runt God; Jamal's grievance; Speaker, if someone finds a way to talk back; the Runt God quieting.\n\n[OPEN] Write him up as a Daggerheart Environment.",
+          "text": "He can't be killed: his stat blocks buy time and make him listen.\n\n- Wants: to hold the little one safe. Nothing else.\n- Voice: slow, few words, parental; walls and holding.\n- Ways to turn him: Draz's bond with the Runt God; Jamal's grievance; Speaker, if someone finds a way to talk back; the Runt God quieting.\n\n[SET 1 Oct] A tier-3 colossus on the core rulebook's Colossus of the Drylands rules (pp. 319–328): the framework **Mollthain, the Rampart** and five segments by function, **Wall**, **Guard**, **Embrace**, **Voice** and **Wound**. When the Heed chain (Wall, Guard, Voice) is all *Broken* or *Destroyed*, he Heeds: he stops, the Rampart freezes, and he hears one plea. The Wound is his weak point: his warden's wound from Grithmaar Deep (Jamal knows where to strike) and his tenderness for the Runt God (easier to hit while it cries).",
           "collapsed": true
         },
         {
-          "id": "caul-s29-b06",
+          "id": "caul-s29r-b05",
+          "kind": "encounter",
+          "title": "Encounter: Mollthain",
+          "collapsed": true,
+          "text": "One of each segment, plus the framework (spotlight it for its own actions). A colossus has no Battle Point cost.",
+          "npcs": [
+            {
+              "id": "#caulCOLMollthainFramewk01",
+              "count": 1
+            },
+            {
+              "id": "#caulCOLMollthainWall00002",
+              "count": 1
+            },
+            {
+              "id": "#caulCOLMollthainGuard0003",
+              "count": 1
+            },
+            {
+              "id": "#caulCOLMollthainEmbrace04",
+              "count": 1
+            },
+            {
+              "id": "#caulCOLMollthainVoice0005",
+              "count": 1
+            },
+            {
+              "id": "#caulCOLMollthainWound0006",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": "caul-s29r-b06",
+          "kind": "encounter",
+          "title": "Encounter: when the pyre fails",
+          "collapsed": true,
+          "text": "[SET 1 Oct] The risen dead are the Athenaeum's own Vault Guardians (S22), unbound when the pyre countdown fills.\n\n[MINE] 2 Sentinels, 2 Gaolers, 2 Turrets: 14 Battle Points, the budget for four PCs.",
+          "npcs": [
+            {
+              "id": "#caulADVVaultGuardianSent7",
+              "count": 2
+            },
+            {
+              "id": "#caulADVVaultGuardianGaol6",
+              "count": 2
+            },
+            {
+              "id": "#caulADVVaultGuardianTurr8",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "id": "caul-s29r-b08",
+          "kind": "encounter",
+          "title": "Ulmira's Falls",
+          "collapsed": true,
+          "text": "[SET 1 Oct] If they go to the Falls first: the Environment **Ulmira's Falls** (tier 3). The water destroys Umbral things on contact and scalds Sylvie; the blessing ends at the water's edge; bathing or drinking at the source heals once per long rest.",
+          "npcs": [
+            {
+              "id": "#caulENVUlmirasFalls000001",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": "caul-s29r-b07",
           "kind": "note",
           "title": "Rhys",
-          "text": "[NOTE] Last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.\n\n- Undead. A fellow Stoneweaver from the Sundering, sent up to the World Above with the Runt God when Sylvie thrust the Heart of Stone skyward.\n- He and Kaelyn drew their power from it up there. Kaelyn held its leash; Rhys says he doesn't have the rapport.\n- Last seen wanting to find and wrangle the Runt God, and ascend again.\n\n**In his own words** [NOTE] From the S18 transcript, lightly tidied.\n\nOn following Kaelyn:\n\n> \"Honestly, I didn't know what his intent was. I assumed he had cause, and so I followed blindly, I admit.\"\n\nTo Sylvie, about the Sundering:\n\n> \"What you did in response was so powerful, and transformative. I don't know how you did it. I would be very interested to learn about your arts and your power, because whatever you had back then dwarfed ours.\"\n\nThe Runt God:\n\n> \"We've been blessed by being in the world above. And we've been blessed again, because unbeknownst, I think, to us all, the Heart of Stone was in fact the Runt God, that had been too small and too weak to abandon this world with the others — until you thrust it up above. We've been drawing power from it, developing our arts with its power.\"\n\n> \"We believe that the other gods are preparing for their next Ascent, but we have no way of ascending with them. But perhaps with you, we could ascend again.\"\n\nThe argument:\n\n> \"Do you not understand that your world is a caul? Like afterbirth. You've been discarded. If you want to survive, we need to keep ascending with the gods.\"\n\n> **Sylvie:** \"This was your world too, right, Rhys?\"\n> **Rhys:** \"It was. Past tense.\"\n\n> \"Look, I'm not arguing that I deserve it, or that you don't deserve it. But if you want a continued and flourishing existence, I suggest we get back up to the upper.\"\n\n> \"Well, for one, it's not plagued by the Umbra. And you have all the benefits of new civilizations that are starting, that are basking in the glory of the gods above. They're going to ascend again soon. That's what Kaelyn said.\"\n\n> **Rhys:** \"Look, would you rather save some or not?\"\n> **Sylvie:** \"I think what you really want is to save yourself.\"\n> **Rhys:** \"I would like to be part of the 'some.' That's true.\"\n\n**Why he matters now**\n\n- [MINE] The Runt God's wail that brought Mollthain could bring Rhys too. He wants the Runt God, and it is at the Athenaeum.\n- He has lived in the World Above. He knows what the company has just seen.\n- His claims, checked against S27: no Umbra up there is true; they've seen it. \"The gods are preparing for their next Ascent\" fits Kreth going to fetch something, and Sylvie's pull forward and up. \"New civilizations basking in the glory of the gods\" hasn't been seen yet.\n- [NOTE] The campaign's name comes from this scene: \"your world is a caul.\"\n- The last word between them was Sylvie's curse.\n\n[OPEN] Does he show up in S29? If he does: a rival for the Runt God, a reluctant ally against Mollthain, or both.",
+          "text": "[NOTE] Before S28, last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.\n\n- Undead. A fellow Stoneweaver from the Sundering, sent up to the World Above with the Runt God when Sylvie thrust the Heart of Stone skyward.\n- He and Kaelyn drew their power from it up there. Kaelyn held its leash; Rhys says he doesn't have the rapport.\n- Last seen wanting to find and wrangle the Runt God, and ascend again.\n\n**In his own words** [NOTE] From the S18 transcript, lightly tidied.\n\nOn following Kaelyn:\n\n> \"Honestly, I didn't know what his intent was. I assumed he had cause, and so I followed blindly, I admit.\"\n\nTo Sylvie, about the Sundering:\n\n> \"What you did in response was so powerful, and transformative. I don't know how you did it. I would be very interested to learn about your arts and your power, because whatever you had back then dwarfed ours.\"\n\nThe Runt God:\n\n> \"We've been blessed by being in the world above. And we've been blessed again, because unbeknownst, I think, to us all, the Heart of Stone was in fact the Runt God, that had been too small and too weak to abandon this world with the others — until you thrust it up above. We've been drawing power from it, developing our arts with its power.\"\n\n> \"We believe that the other gods are preparing for their next Ascent, but we have no way of ascending with them. But perhaps with you, we could ascend again.\"\n\nThe argument:\n\n> \"Do you not understand that your world is a caul? Like afterbirth. You've been discarded. If you want to survive, we need to keep ascending with the gods.\"\n\n> **Sylvie:** \"This was your world too, right, Rhys?\"\n> **Rhys:** \"It was. Past tense.\"\n\n> \"Look, I'm not arguing that I deserve it, or that you don't deserve it. But if you want a continued and flourishing existence, I suggest we get back up to the upper.\"\n\n> \"Well, for one, it's not plagued by the Umbra. And you have all the benefits of new civilizations that are starting, that are basking in the glory of the gods above. They're going to ascend again soon. That's what Kaelyn said.\"\n\n> **Rhys:** \"Look, would you rather save some or not?\"\n> **Sylvie:** \"I think what you really want is to save yourself.\"\n> **Rhys:** \"I would like to be part of the 'some.' That's true.\"\n\n**Why he matters now**\n\n- He has lived in the World Above. He knows what the company has just seen.\n- His claims, checked against S27: no Umbra up there is true; they've seen it. \"The gods are preparing for their next Ascent\" fits Kreth going to fetch something, and Sylvie's pull forward and up. \"New civilizations basking in the glory of the gods\" hasn't been seen yet.\n- [NOTE] The campaign's name comes from this scene: \"your world is a caul.\"\n\n[OPEN] What he advises when S29 opens.",
           "collapsed": true
         },
         {
-          "id": "caul-s29-b05",
+          "id": "caul-s29r-b09",
           "kind": "note",
           "title": "What they might bring",
-          "text": "- Ulmira's water, if they went to the Falls: it destroys Umbral things on contact (the risen dead, whatever comes in when the pyre fails). Sylvie is scalded by it.\n- Sylvie's doors: anywhere she has seen.\n- Inola, if they saved her.\n- Speaker.",
+          "text": "- Ulmira's water, if they went to the Falls: it destroys Umbral things on contact (the risen dead, whatever comes in when the pyre fails). Sylvie is scalded by it. Whether carried water keeps its power is open (Places › Ulmira's Falls).\n- Sylvie's doors: anywhere she has seen.\n- Speaker.",
           "collapsed": true
         }
       ]
@@ -173,7 +240,7 @@
       "id": "caul-thread-mollthain",
       "title": "Mollthain in the world below",
       "open": true,
-      "text": "The Rampart went down through the moon in S28. Sylvie judged it was heading toward the Runt God's cry at the Celsian Athenaeum."
+      "text": "The Rampart went down through the moon in S28. Sylvie judged he was heading toward the Runt God's cry at the Celsian Athenaeum."
     },
     {
       "id": "caul-thread-draz-runt",

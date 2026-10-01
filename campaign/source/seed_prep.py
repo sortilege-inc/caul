@@ -112,7 +112,7 @@ Hold back "…who is listening?" for a later session.
 
 - The Runt God is at the Celsian Athenaeum's pyre in the Amber Reach, where it was left with Ash-begets-Tide in S25 as the pyre's leash and fuel.
 - Draz hears it first, through his bond.
-- [MINE] The great cat is Mollthain. Valghast, the winged lion, is tied to Mollthain, and the sphinx carcass is lion-bodied. It stops watching and goes past them, down through the moon.
+- [MINE] The great cat is Mollthain. Valghast, the winged lion, is tied to Mollthain, and the sphinx carcass is lion-bodied. He stops watching and goes past them, down through the moon.
 - Mollthain's idea of rescue is a wall around the little one. At a god's size that tears the compound apart: Session 29.
 - Jamal: this is the god whose creature destroyed his village in Grithmaar Deep.
 
@@ -148,7 +148,7 @@ S28_PLAYED = beat("caul-s28-b08", "What happened (played 24 Sep)", """
 
 **The Runt God's cry**: Draz heard it (instinct crit; the bond improved), faint, like a dog left alone. He reads it as longing, is jealous that something else answered, and is glad deep down.
 
-**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named it. It passed over the hill and down through the hole into the world below. Sylvie judged it was heading for the cry.
+**Mollthain**: appeared in the sky as three winged obelisk-forms; Jamal named him. He passed over the hill and down through the hole into the world below. Sylvie judged he was heading for the cry.
 
 **Level 7** for everyone, Pinchie too (twice his size). Draz took Agility and Instinct and +1 Evasion. Sylvie put hers into Proficiency and took Plane Gate. Heyou kept Efficient; Heyou has new art.
 
@@ -183,78 +183,84 @@ S28_PLAYED = beat("caul-s28-b08", "What happened (played 24 Sep)", """
 - Jamal: found family in the company; drinking less; less ready to die.
 - Sylvie: does the world need saving? Do they want the gods back?
 
-**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to it.
+**Leaning**: take Rhys's suggestion unless it's hostile; or go and find out how Mollthain got back down, and talk to him.
 
 **Next sessions**: 1 Oct, then 29 Oct.
 """)
-
-S29_UPDATE = beat("caul-s29-b00", "After Session 28 — what changed (read first)", """
-[SET 24 Sep] Session 28 changed this plan. Edit or delete the beats below where they no longer hold.
-
-- **Inola is dead.** Drop her stake in the rescue and "Inola, if they saved her."
-- **Rhys is already with them.** The Rhys beat's open question is answered. S29 opens with his answers to Sylvie: the right path forward for them and for the world.
-- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and now has Plane Gate (to planes she has been to). Rhys can bring them back up.
-- **Mollthain** went down through the hole. Sylvie judges it is heading for the Runt God's cry, so the rescue premise stands.
-- **Everyone is level 7**, Pinchie too (twice his size). Scale the countdowns and threats.
-- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.
-- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.
-- **Heyou's conclusion**: the gods are still there, and paying attention.
-- **The players now know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).
-- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.
-
-[OPEN] What Rhys advises. Whether they go straight to the Athenaeum, or first to the Falls or after Mollthain. When Mollthain arrives relative to the party.
-""", collapsed=False)
 
 NEW_THREADS = [
     {"id": "caul-thread-rhys", "title": "Rhys, back from between places", "open": True,
      "text": "Sylvie brought him back in S28, giving up Ygva's Damnation power. He travels with the company, can take them off the World Above and back, and is reading her books to advise on the path forward. He did not know she had killed him: \"we should probably talk about all of that sometime.\""},
     {"id": "caul-thread-mollthain", "title": "Mollthain in the world below", "open": True,
-     "text": "The Rampart went down through the moon in S28. Sylvie judged it was heading toward the Runt God's cry at the Celsian Athenaeum."},
+     "text": "The Rampart went down through the moon in S28. Sylvie judged he was heading toward the Runt God's cry at the Celsian Athenaeum."},
     {"id": "caul-thread-draz-runt", "title": "Draz, Sylvie and the Runt God", "open": True,
      "text": "Draz heard the Runt God crying and wants to get back to it. If anything happens to it, he will never forgive Sylvie (a thought planted with Fear in S28)."},
 ]
 
 S29 = {
-    "id": "caul-s29-rescue",
+    "id": "caul-s29-amber-reach",
     "title": "Session 29 — Rescue in the Amber Reach",
     "session": "Session 29",
-    "summary": "Mollthain has come down on the Celsian Athenaeum to shelter the Runt God. Get the people out, keep the pyre alive, turn the god aside.",
-    "text": "[SET 24 Sep] The plan for Session 29. Settle the details after Session 28 is played.",
+    "summary": "Mollthain has come down on the Celsian Athenaeum to shelter the Runt God. Get the people out, keep the pyre alive, turn the god aside. The players choose where to go first: the Athenaeum or Ulmira's Falls.",
+    "text": "[SET 1 Oct] The players choose where they go first, the Athenaeum or Ulmira's Falls; both are prepped.",
     "played": False,
     "beats": [
-        beat("caul-s29-b01", "The situation", """
+        beat("caul-s29r-b00", "Where they stand", """
+- **Inola is dead** (S28), taken into the lake in the World Above. Sylvie learned Plane Gate from her book.
+- **Rhys is with them**, reading Sylvie's books. He can bring them back up from the world below.
+- **Getting down**: Sylvie can set a door anywhere on the world below that she saw from the moon's lip, and has Plane Gate (to planes she has been to).
+- **Mollthain** went down through the hole. Sylvie judges he is heading for the Runt God's cry.
+- **Everyone is level 7**, Pinchie too (twice his size).
+- **Draz**: jealous of Mollthain answering the Runt God, and carrying the thought that if anything happens to it he will never forgive Sylvie. Play it at the Athenaeum.
+- **Sylvie** gave up the Damnation power. She holds Splendor and Umbra apart, and wonders whether the world needs saving at all.
+- **Heyou's conclusion**: the gods are still there, and paying attention.
+- **The players know the waterfall** as Ulmira's holy headwaters, healing and restorative (Places › Ulmira's Falls).
+- **Unused World Above creatures**: the second Pupae and Hatched are still in Foundry.
+
+[OPEN] What Rhys advises. When Mollthain arrives relative to the party.
+""", collapsed=False),
+        beat("caul-s29r-b01", "The situation", """
 The Athenaeum was already weak. The scepter that fed its pyre was pulled in S21, the pyre-tower fell and the pyre sputters in the plaza, and the Runt God has been its leash and its fuel since.
 
 Mollthain arrives to shelter the Runt God, and the Rampart shelters by walling in. Walls come up out of the Reach around the little god and cut the compound apart.
 """, collapsed=False),
-        beat("caul-s29-b02", "Who needs saving", """
+        beat("caul-s29r-b02", "Who needs saving", """
 - Dagga
 - Ash-begets-Tide, the priest of Ossa-in-absence who kept the Runt God company
 - The remaining Celsians, students, and anyone sheltering in the compound
 - The Runt God itself, depending on what the party wants
 - [OPEN] Draz's father and twin siblings went west to the Amber Reach. Are they here?
-- Inola has a stake: it is her home.
 """),
-        beat("caul-s29-b03", "Countdowns", """
-[MINE]
+        beat("caul-s29r-b03", "Countdowns", """
+[SET 1 Oct]
 
-- **The Rampart**: Mollthain's walls closing around the Runt God. When it fills, the compound is split and whoever is on the wrong side is cut off.
-- **The pyre**: if the Runt God is walled off or taken, the pyre loses its fuel. When it fills, the Umbra comes in and the dead start to rise.
-- **The Stacks**: the world's salvaged knowledge lies in the walls' path. Saving the books or saving the people.
-
-[OPEN] Sizes. Speaker's reception of Mollthain gets louder as he closes, and can stand in for the Rampart clock.
+- **The Rampart (6)**: Mollthain's walls closing around the Runt God. It ticks when the Mollthain Wall raises a wall, and can't tick while the Wall is *Broken* or *Destroyed*. When it fills, the compound is split and whoever is on the wrong side is cut off.
+- **The pyre (8)**: if the Runt God is walled off or taken, the pyre loses its fuel. When it fills, the Umbra comes in and the dead start to rise.
+- **The Stacks (4)**: the world's salvaged knowledge lies in the walls' path. Saving the books or saving the people.
 """),
-        beat("caul-s29-b04", "Mollthain", """
-He can't be fought. Run him as an Environment and a countdown, not an adversary.
+        beat("caul-s29r-b04", "Mollthain", """
+He can't be killed: his stat blocks buy time and make him listen.
 
 - Wants: to hold the little one safe. Nothing else.
 - Voice: slow, few words, parental; walls and holding.
 - Ways to turn him: Draz's bond with the Runt God; Jamal's grievance; Speaker, if someone finds a way to talk back; the Runt God quieting.
 
-[OPEN] Write him up as a Daggerheart Environment.
+[SET 1 Oct] A tier-3 colossus on the core rulebook's Colossus of the Drylands rules (pp. 319–328): the framework **Mollthain, the Rampart** and five segments by function, **Wall**, **Guard**, **Embrace**, **Voice** and **Wound**. When the Heed chain (Wall, Guard, Voice) is all *Broken* or *Destroyed*, he Heeds: he stops, the Rampart freezes, and he hears one plea. The Wound is his weak point: his warden's wound from Grithmaar Deep (Jamal knows where to strike) and his tenderness for the Runt God (easier to hit while it cries).
 """),
-        beat("caul-s29-b06", "Rhys", """
-[NOTE] Last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.
+        {"id": "caul-s29r-b05", "kind": "encounter", "title": "Encounter: Mollthain", "collapsed": True,
+         "text": "One of each segment, plus the framework (spotlight it for its own actions). A colossus has no Battle Point cost.",
+         "npcs": [{"id": "#caulCOLMollthainFramewk01", "count": 1}, {"id": "#caulCOLMollthainWall00002", "count": 1},
+                  {"id": "#caulCOLMollthainGuard0003", "count": 1}, {"id": "#caulCOLMollthainEmbrace04", "count": 1},
+                  {"id": "#caulCOLMollthainVoice0005", "count": 1}, {"id": "#caulCOLMollthainWound0006", "count": 1}]},
+        {"id": "caul-s29r-b06", "kind": "encounter", "title": "Encounter: when the pyre fails", "collapsed": True,
+         "text": "[SET 1 Oct] The risen dead are the Athenaeum's own Vault Guardians (S22), unbound when the pyre countdown fills.\n\n[MINE] 2 Sentinels, 2 Gaolers, 2 Turrets: 14 Battle Points, the budget for four PCs.",
+         "npcs": [{"id": "#caulADVVaultGuardianSent7", "count": 2}, {"id": "#caulADVVaultGuardianGaol6", "count": 2},
+                  {"id": "#caulADVVaultGuardianTurr8", "count": 2}]},
+        {"id": "caul-s29r-b08", "kind": "encounter", "title": "Ulmira's Falls", "collapsed": True,
+         "text": "[SET 1 Oct] If they go to the Falls first: the Environment **Ulmira's Falls** (tier 3). The water destroys Umbral things on contact and scalds Sylvie; the blessing ends at the water's edge; bathing or drinking at the source heals once per long rest.",
+         "npcs": [{"id": "#caulENVUlmirasFalls000001", "count": 1}]},
+        beat("caul-s29r-b07", "Rhys", """
+[NOTE] Before S28, last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.
 
 - Undead. A fellow Stoneweaver from the Sundering, sent up to the World Above with the Runt God when Sylvie thrust the Heart of Stone skyward.
 - He and Kaelyn drew their power from it up there. Kaelyn held its leash; Rhys says he doesn't have the rapport.
@@ -293,18 +299,15 @@ The argument:
 
 **Why he matters now**
 
-- [MINE] The Runt God's wail that brought Mollthain could bring Rhys too. He wants the Runt God, and it is at the Athenaeum.
 - He has lived in the World Above. He knows what the company has just seen.
 - His claims, checked against S27: no Umbra up there is true; they've seen it. "The gods are preparing for their next Ascent" fits Kreth going to fetch something, and Sylvie's pull forward and up. "New civilizations basking in the glory of the gods" hasn't been seen yet.
 - [NOTE] The campaign's name comes from this scene: "your world is a caul."
-- The last word between them was Sylvie's curse.
 
-[OPEN] Does he show up in S29? If he does: a rival for the Runt God, a reluctant ally against Mollthain, or both.
+[OPEN] What he advises when S29 opens.
 """),
-        beat("caul-s29-b05", "What they might bring", """
-- Ulmira's water, if they went to the Falls: it destroys Umbral things on contact (the risen dead, whatever comes in when the pyre fails). Sylvie is scalded by it.
+        beat("caul-s29r-b09", "What they might bring", """
+- Ulmira's water, if they went to the Falls: it destroys Umbral things on contact (the risen dead, whatever comes in when the pyre fails). Sylvie is scalded by it. Whether carried water keeps its power is open (Places › Ulmira's Falls).
 - Sylvie's doors: anywhere she has seen.
-- Inola, if they saved her.
 - Speaker.
 """),
     ],
@@ -380,8 +383,8 @@ def main():
     s28["summary"] = "Finish the fight at the moon's lip; find Inola; the Runt God cries and Mollthain answers. Ends on Mollthain's leap."
     s28["beats"] = S28_BEATS + [S28_PLAYED]
     s28["played"] = True
-    s29 = dict(S29, beats=[S29_UPDATE] + S29["beats"])
-    upsert(pack["arc"], s29, after_id="caul-s28-open")
+    pack["arc"] = [s for s in pack["arc"] if s["id"] != "caul-s29-rescue"]   # replaced by the clean card
+    upsert(pack["arc"], S29, after_id="caul-s28-open")
     for th in NEW_THREADS:
         upsert(pack["threads"], th)
     upsert(pack["gm"]["overview"], RADIO)

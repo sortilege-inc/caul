@@ -48,10 +48,10 @@ BLOCKS = {
     ],
     "personae/mollthain": [
         '<figure class="portrait-frame"><img src="campaign/dramatis-personae/img/mollthain.webp" alt="The sign of Mollthain" loading="lazy"><figcaption>The sign of Mollthain: three standing stones</figcaption></figure>',
-        "In [S28] the company saw Mollthain itself: three tall winged forms standing together like obelisks, moving through the sky of the {World Above}, far larger than anything they had met. {Jamal} knew it — the warden they broke in {Grithmaar Deep} was Mollthain's, and his people had worshipped it before his village was destroyed. It did not come for them. It passed over a nearby hill and went down through the hole in the sky into the world below — toward, {Sylvie} judged, the crying of the {Runt God}.",
+        "In [S28] the company saw Mollthain itself: three tall winged forms standing together like obelisks, moving through the sky of the {World Above}, far larger than anything they had met. {Jamal} knew him — the warden they broke in {Grithmaar Deep} was Mollthain's, and Jamal's people had worshipped him before his village was destroyed. He did not come for them. He passed over a nearby hill and went down through the hole in the sky into the world below — toward, {Sylvie} judged, the crying of the {Runt God}.",
     ],
     "personae/runt-god": [
-        "Since Session 25 it has stayed at the {Celsian Athenaeum}'s pyre with Ash-begets-Tide, as the fire's leash and some of its fuel. In [S28], in the {World Above}, {Draz} heard it crying — faint, far off, an echo of an echo, like a dog left alone when its owner goes out; to him it sounded like longing. {Mollthain}, the Rampart, went down through the hole in the sky soon after; {Sylvie} judged it was going toward the crying.",
+        "Since Session 25 it has stayed at the {Celsian Athenaeum}'s pyre with Ash-begets-Tide, as the fire's leash and some of its fuel. In [S28], in the {World Above}, {Draz} heard it crying — faint, far off, an echo of an echo, like a dog left alone when its owner goes out; to him it sounded like longing. {Mollthain}, the Rampart, went down through the hole in the sky soon after; {Sylvie} judged he was going toward the crying.",
     ],
     "personae/pinchie": [
         "In [S28], in the {World Above}, Pinchie helped {Jamal} break the grip of the leaping bush-baby, then took the creature's two long arms in his claws and pulled them out of its body, and ate one. The place grew him: he came out of it twice his former size.",
@@ -73,7 +73,7 @@ BLOCKS = {
 # the World Above: what the company now knows, and what they met there (art from Foundry's World Above folder)
 WORLD_ABOVE = [
     "Reached through the rupture the company had always called the moon ({S27}). Standing at its lip you can look down through it and see the whole world below. There is no Umbra there; Splendor hangs loose in the air like light with no sun to cast it. It is a younger world than theirs, at an earlier stage of itself, running on far more power — and everything in it is vast and dangerous. Being there made the company stronger ([S28]).",
-    "{Inola} came here through Plane Gate and died here, taken into a lake. {Mollthain} passed through it on its way down to the world below.",
+    "{Inola} came here through Plane Gate and died here, taken into a lake. {Mollthain} passed through it on his way down to the world below.",
 ]
 CREATURES = [
     ("adversaries/jumper.png", "The leaping predator", "the bush-baby; killed by Pinchie"),

@@ -1,0 +1,255 @@
+EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
+    NAME "Caul - the GM's own stat blocks"
+    VERSION "0.1.0"
+    SPEC_VERSION "0.5"
+    RELEASE_DATE "2026-10-01"
+
+    // Hand-authored for Session 29 (not from Foundry, so convert_adversaries.py never touches this
+    // file). Mollthain is a colossus built on the Colossus of the Drylands rules in the core rulebook
+    // (pp. 319-328): a framework stat block plus one stat block per segment, tier-3 numbers taken from
+    // Poy. Features the book prints are quoted as printed (with the colossus's name, as the book's own
+    // stat blocks do); the rest is Caul's own. The owner's rulings: his segments are functions, not
+    // anatomy; breaking them buys time and makes him listen, never kills him (a Chain that ends in Heeds).
+
+    #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus"
+            ^"Description" STRING "The god of the rampart, come down through the hole in the sky to shelter the Runt God. He shelters by walling in. Homebrew for Caul, built on the Colossus of the Drylands rules (core rulebook pp. 319-328)."
+            ^"Motives & Tactics" LIST [ "Shelter the little one", "wall in", "hold", "endure" ]
+            ^"Segments" STRING "1 Wall, 1 Guard, 1 Embrace, 1 Voice, 1 Wound"
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
+            ^"Stress" INTEGER 6
+        }
+        EXPERIENCES {
+            ^"Huge" INTEGER 3
+            ^"Shelter" INTEGER 3
+            ^"Patient as Stone" INTEGER 2
+        }
+        FEATURES {
+            #caulCFMollHeeds0000000001 ^"Heeds" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "Mollthain can't be defeated. When every segment in the Heed chain (the Wall, the Guard and the Voice) is *Broken* or *Destroyed* at the same time, Mollthain Heeds instead: he stops, the Rampart countdown freezes, and he will hear one plea before he acts again. What he does then is the GM's call, made from what is said to him."
+            }
+            #caulCFMollFalter000000001 ^"Faltering" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "When a segment takes Severe damage, place a token on it. It is *Broken* until all tokens are cleared."
+            }
+            #caulCFMollRecover00000001 ^"Slow Recovery" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Clear a token from one *Broken* or *Collapsed* segment."
+            }
+            #caulCFMollColPower0000001 ^"Colossal Power" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Reaction"
+                ^"Description" STRING "When Mollthain fails an attack, you gain a Fear."
+            }
+        }
+    }
+
+    #caulCOLMollthainWall00002 ^"Mollthain Wall" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus Segment"
+            ^"Description" STRING "What raises the Rampart."
+            ^"Adjacent Segments" STRING "Guard, Embrace"
+            ^"Difficulty" INTEGER 16
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
+            ^"Hit Points" INTEGER 6
+        }
+        FEATURES {
+            #caulCFMollWallChain000001 ^"Chain (Heed)" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "When all segments in the Heed chain are *Broken* or *Destroyed*, Mollthain Heeds (see the framework)."
+            }
+            #caulCFMollWallArmor000001 ^"Armored" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "When this segment marks HP from an attack, it marks 1 fewer HP."
+            }
+            #caulCFMollWallRaise000001 ^"Raise the Rampart" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Tick the Rampart countdown. A wall rises out of the ground anywhere within Far range of the Embrace and cuts the area in two; creatures on either side are cut off from each other until someone breaches it (a Strength Roll (16), or dealing Severe damage to it). The Rampart countdown can't tick while this segment is *Broken* or *Destroyed*."
+            }
+            #caulCFMollWallShelter0001 ^"Wall Off" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Reaction"
+                ^"Description" STRING "When a PC within Close range of the Embrace makes an attack, spend a Fear to raise a wall in its path. The attack is made with disadvantage."
+            }
+        }
+    }
+
+    #caulCOLMollthainGuard0003 ^"Mollthain Guard" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus Segment"
+            ^"Description" STRING "What strikes at anything that comes near the little one."
+            ^"Adjacent Segments" STRING "Wall, Embrace, Wound"
+            ^"Difficulty" INTEGER 15
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
+            ^"Hit Points" INTEGER 5
+            ^"Attack Modifier" INTEGER 3
+        }
+        ATTACK {
+            ^"Strike" DEF { ^"Range" STRING "Close" ^"Damage" STRING "3d10+7 phy" }
+        }
+        FEATURES {
+            #caulCFMollGuardChain00001 ^"Chain (Heed)" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "When all segments in the Heed chain are *Broken* or *Destroyed*, Mollthain Heeds (see the framework)."
+            }
+            #caulCFMollGuardHold000001 ^"Hold Back" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Spend a Fear to make an attack against all targets within Close range of the Embrace. Targets Mollthain succeeds against take **3d8+5** physical damage and are pushed back to Far range of the Embrace."
+            }
+            #caulCFMollGuardNear000001 ^"Nothing Comes Near" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Reaction"
+                ^"Description" STRING "When a creature moves within Very Close range of the Embrace, make a standard attack against it."
+            }
+        }
+    }
+
+    #caulCOLMollthainEmbrace04 ^"Mollthain Embrace" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus Segment"
+            ^"Description" STRING "What holds the Runt God."
+            ^"Adjacent Segments" STRING "Wall, Guard"
+            ^"Difficulty" INTEGER 15
+        }
+        FEATURES {
+            #caulCFMollEmbInvuln000001 ^"Invulnerable" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "This segment is immune to all damage."
+            }
+            #caulCFMollEmbHeld00000001 ^"Held" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "The Runt God is held within the Embrace. A PC can reach it only while the Guard is *Broken* or *Destroyed*."
+            }
+            #caulCFMollEmbDrawIn000001 ^"Draw In" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Mark a Stress to draw one creature within Close range of the Embrace into it, sheltered beside the Runt God. A sheltered creature is *Restrained* and can't be harmed while it is held, and is released when Mollthain Heeds or the Embrace lets it go."
+            }
+        }
+    }
+
+    #caulCOLMollthainVoice0005 ^"Mollthain Voice" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus Segment"
+            ^"Description" STRING "What speaks: slow, few words, parental. Speaker picks it up, louder as he closes."
+            ^"Adjacent Segments" STRING "Wound"
+            ^"Difficulty" INTEGER 14
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
+            ^"Hit Points" INTEGER 4
+            ^"Attack Modifier" INTEGER 2
+        }
+        ATTACK {
+            ^"Command" DEF { ^"Range" STRING "Very Far" ^"Damage" STRING "3d8+2 mag" }
+        }
+        FEATURES {
+            #caulCFMollVoiceChain00001 ^"Chain (Heed)" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "When all segments in the Heed chain are *Broken* or *Destroyed*, Mollthain Heeds (see the framework)."
+            }
+            #caulCFMollVoiceReply00001 ^"Answer It" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "A PC holding Speaker can answer the Voice from any range: a Presence Roll against this segment's Difficulty, in place of an attack. On a success, this segment marks 1 HP."
+            }
+            #caulCFMollVoiceHush000001 ^"Hush" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Spend 2 Fear to force all PCs within Very Far range to succeed on a Presence Reaction Roll or become *Shaken*. While *Shaken*, they don't gain Hope on a result with Hope and instead clear the *Shaken* condition."
+            }
+        }
+    }
+
+    #caulCOLMollthainWound0006 ^"Mollthain Wound" DEF {
+        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Role" STRING "Colossus Segment"
+            ^"Description" STRING "Where he still aches: the place his warden at Grithmaar Deep was bound to him, and his tenderness for the little one."
+            ^"Adjacent Segments" STRING "Guard, Voice"
+            ^"Difficulty" INTEGER 13
+            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
+            ^"Hit Points" INTEGER 3
+        }
+        FEATURES {
+            #caulCFMollWoundWeak000001 ^"Weak Point" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "The colossus has a weak point on this segment. When this segment marks HP from an attack made within Melee range, it marks an additional HP."
+            }
+            #caulCFMollWoundWarden0001 ^"The Warden's Wound" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "A PC who knows what was broken at Grithmaar Deep (Jamal) knows where to strike, and has advantage on attacks against this segment."
+            }
+            #caulCFMollWoundTender0001 ^"Tenderness" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "While the Runt God is crying, this segment's Difficulty is reduced by 3."
+            }
+            #caulCFMollWoundCascade001 ^"Cascade" DEF {
+                EXTENDS #daggerheartAdvFeature00000001 ^"Adversary Feature"
+                ^"Type" STRING "Reaction"
+                ^"Description" STRING "When this segment is *Destroyed*, the Wall and the Guard must each mark 2 HP."
+            }
+        }
+    }
+
+    #caulENVUlmirasFalls000001 ^"Ulmira's Falls" DEF {
+        EXTENDS #daggerheartEnvironment0000001 ^"Environment"
+        PROPERTIES {
+            ^"Tier" INTEGER 3
+            ^"Category" STRING "Exploration"
+            ^"Description" STRING "The headwaters of the great waterfall in the World Below: a holy site of Ulmira, whose waters heal and restore, and destroy Umbral things on contact. The blessing is in the water only, with no aura beyond it, so no one has ever been able to live here."
+            ^"Impulses" LIST [ "Wash the Umbra away", "restore the worn", "draw the desperate and what hunts them" ]
+            ^"Difficulty" STRING "15"
+        }
+        POTENTIAL_ADVERSARIES {
+            ^"On the banks" LIST [ "BASE Umbral Townsperson", "BASE Umbral Townspeople" ]
+        }
+        FEATURES {
+            #caulEFFallsBlessed0000001 ^"Blessed Waters" DEF {
+                EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "An Umbral creature that touches the water is destroyed. A creature who carries Umbra within them but isn't of it (Sylvie) is scalded instead: they take **3d6** magic damage and mark a Stress each time the water touches them."
+            }
+            #caulEFFallsNoAura00000001 ^"Only the Water" DEF {
+                EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "The blessing ends at the water's edge. The banks, the spray and the dark beyond are as dangerous as anywhere in the World Below."
+            }
+            #caulEFFallsMercy000000001 ^"Ulmira's Mercy" DEF {
+                EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+                ^"Type" STRING "Passive"
+                ^"Description" STRING "A PC who bathes in or drinks from the source can clear 2 Hit Points or 2 Stress. The source gives this once to each PC per long rest."
+            }
+            #caulEFFallsWaiting0000001 ^"Waiting on the Banks" DEF {
+                EXTENDS #daggerheartEnvFeature00000001 ^"Environment Feature"
+                ^"Type" STRING "Action"
+                ^"Description" STRING "Spend a Fear: Umbral things gather at Far range on the banks, just out of the spray, and wait for someone to leave the water. *What have they followed here, and how long will they wait?*"
+            }
+        }
+    }
+}
