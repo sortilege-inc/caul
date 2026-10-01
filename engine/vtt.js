@@ -668,6 +668,7 @@
         map.h = probe.naturalHeight;
         if (grid) Object.assign(map.grid, grid);
         persist();
+        if (grid) buildToolbar();           // the grid fields show the picked map's grid
         renderAll();
         fit();
       };
