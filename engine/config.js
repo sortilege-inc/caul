@@ -16,6 +16,8 @@ window.VttConfig = {
   //   notes: { src: 'campaign/docs/state.html', title: '…', class: 'pf-doc',
   //            gate: { title: '…', text: '…', enter: 'Bow & Enter' } }
   // a .html src is the instance's own fragment, inserted as it is; anything else reads as Markdown.
+  // An instance may list its own map images for the table's "maps in the repo…" picker:
+  //   maps: [{ label: '…', image: 'campaign/maps/….webp', grid: { size: 140, ox: 0, oy: 0 } }]
   defaultCampaign: { name: 'A new campaign', modules: [], books: [] },
   // the three panels the GM page opens on (engine/app.js)
   defaultSlots: ['frame', 'party', 'inspector'],

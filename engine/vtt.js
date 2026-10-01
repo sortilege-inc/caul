@@ -650,6 +650,7 @@
 
     const img = el('input', { type: 'text', class: 'vtt-url', placeholder: 'map image (assets/maps/…)', value: map.image || '' });
     const setImg = el('button', { class: 'btn ghost' }, ['Set map']);
+    let pickedGrid = null;                 // a picked map asset's own grid, applied once its image loads
     setImg.addEventListener('click', () => {
       const url = img.value.trim();
       if (!url) {
@@ -659,10 +660,13 @@
         return;
       }
       const probe = new Image();
+      const grid = pickedGrid;
+      pickedGrid = null;
       probe.onload = () => {
         map.image = url;
         map.w = probe.naturalWidth;
         map.h = probe.naturalHeight;
+        if (grid) Object.assign(map.grid, grid);
         persist();
         renderAll();
         fit();
@@ -671,10 +675,12 @@
       probe.src = url;
     });
     const pickMap = el('select', { class: 'vtt-select' }, [el('option', { value: '' }, ['maps in the repo…'])]);
-    Sys.mapAssets().forEach((a) => pickMap.appendChild(el('option', { value: a.image }, [a.label])));
+    const assets = Sys.mapAssets();
+    assets.forEach((a) => pickMap.appendChild(el('option', { value: a.image }, [a.label])));
     pickMap.addEventListener('change', () => {
       if (!pickMap.value) return;
       img.value = pickMap.value;
+      pickedGrid = (assets.find((a) => a.image === pickMap.value) || {}).grid || null;
       setImg.click();
       pickMap.value = '';
     });
