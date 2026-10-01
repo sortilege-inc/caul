@@ -44,7 +44,7 @@ BLOCKS = {
     ],
     "personae/rhys": [
         "In [S28], in the {World Above}, {Sylvie} brought him back. She charged an old Stoneweaver crystal with the loose Splendor there and reached for him as she reaches for others in sleep; the working went through only when she gave up the power of damnation {Ygva} had given her. Rhys walked out of the chest of a dead sphinx, covered in honey, and took her hands as if he did not believe she was real. He is solid; not warm, but not a corpse. <em>I knew you would make it up here,</em> he told her. Where had he been? <em>Between places.</em>",
-        "He did not know that {Sylvie} had killed him, and took the news calmly: <em>you appear to have remedied that mistake. We should probably talk about all of that sometime.</em> He believes he can leave the World Above with the company and bring them back to it, and will come with them. For now he travels with them and is reading {Sylvie}'s books, to help her think through the right path forward for them and for the world.",
+        "He did not know that {Sylvie} had left him to die, and took the news calmly: <em>you appear to have remedied that mistake. We should probably talk about all of that sometime.</em> He believes he can leave the World Above with the company and bring them back to it, and will come with them. For now he travels with them and is reading {Sylvie}'s books, to help her think through the right path forward for them and for the world.",
     ],
     "personae/mollthain": [
         '<figure class="portrait-frame"><img src="campaign/dramatis-personae/img/mollthain.webp" alt="The sign of Mollthain" loading="lazy"><figcaption>The sign of Mollthain: three standing stones</figcaption></figure>',

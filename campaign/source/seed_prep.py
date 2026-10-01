@@ -163,7 +163,7 @@ S28_PLAYED = beat("caul-s28-b08", "What happened (played 24 Sep)", """
 
 - Sylvie charged a Stoneweaver crystal with the loose Splendor and gave up Ygva's Damnation power (the Umbra she kept where her heart had been) to make the working succeed.
 - Rhys walked out of the dead sphinx's chest, covered in honey: solid, not warm, not a corpse. He says he has been "between places."
-- He did not know she had killed him.
+- He did not know she had left him to die.
 - He can leave the plane with them and bring them back.
 - He is reading her books. S29 opens with his answers.
 - His Foundry sheet is now a level 7 character.
@@ -190,7 +190,7 @@ S28_PLAYED = beat("caul-s28-b08", "What happened (played 24 Sep)", """
 
 NEW_THREADS = [
     {"id": "caul-thread-rhys", "title": "Rhys, back from between places", "open": True,
-     "text": "Sylvie brought him back in S28, giving up Ygva's Damnation power. He travels with the company, can take them off the World Above and back, and is reading her books to advise on the path forward. He did not know she had killed him: \"we should probably talk about all of that sometime.\""},
+     "text": "Sylvie brought him back in S28, giving up Ygva's Damnation power. He travels with the company, can take them off the World Above and back, and is reading her books to advise on the path forward. He did not know she had left him to die: \"we should probably talk about all of that sometime.\""},
     {"id": "caul-thread-mollthain", "title": "Mollthain in the world below", "open": True,
      "text": "The Rampart went down through the moon in S28. Sylvie judged he was heading toward the Runt God's cry at the Celsian Athenaeum."},
     {"id": "caul-thread-draz-runt", "title": "Draz, Sylvie and the Runt God", "open": True,
