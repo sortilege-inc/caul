@@ -6,21 +6,28 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
 
     // Hand-authored for Session 29 (not from Foundry, so convert_adversaries.py never touches this
     // file). Mollthain is a colossus built on the Colossus of the Drylands rules in the core rulebook
-    // (pp. 319-328): a framework stat block plus one stat block per segment, tier-3 numbers taken from
-    // Poy. Features the book prints are quoted as printed (with the colossus's name, as the book's own
+    // (pp. 319-328): a ^"Colossus" framework plus one ^"Colossus Segment" per segment, shaped like the
+    // corpus's Poy (whose tier-3 numbers it takes); a segment fights with its colossus's tier and
+    // damage thresholds. Features the book prints are quoted as printed (with the colossus's name, as the book's own
     // stat blocks do); the rest is Caul's own. The owner's rulings: his segments are functions, not
     // anatomy; breaking them buys time and makes him listen, never kills him (a Chain that ends in Heeds).
 
     #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossus00000001 ^"Colossus"
         PROPERTIES {
             ^"Tier" INTEGER 3
             ^"Role" STRING "Colossus"
             ^"Description" STRING "The god of the rampart, come down through the hole in the sky to shelter the Runt God. He shelters by walling in. Homebrew for Caul, built on the Colossus of the Drylands rules (core rulebook pp. 319-328)."
             ^"Motives & Tactics" LIST [ "Shelter the little one", "wall in", "hold", "endure" ]
-            ^"Segments" STRING "1 Wall, 1 Guard, 1 Embrace, 1 Voice, 1 Wound"
             ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
             ^"Stress" INTEGER 6
+        }
+        SEGMENTS {
+            ^"Wall" INTEGER 1
+            ^"Guard" INTEGER 1
+            ^"Embrace" INTEGER 1
+            ^"Voice" INTEGER 1
+            ^"Wound" INTEGER 1
         }
         EXPERIENCES {
             ^"Huge" INTEGER 3
@@ -52,14 +59,13 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
     }
 
     #caulCOLMollthainWall00002 ^"Mollthain Wall" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossusSegment1 ^"Colossus Segment"
         PROPERTIES {
-            ^"Tier" INTEGER 3
-            ^"Role" STRING "Colossus Segment"
+            ^"Colossus" #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart"
+            ^"Count" INTEGER 1
             ^"Description" STRING "What raises the Rampart."
-            ^"Adjacent Segments" STRING "Guard, Embrace"
+            ^"Adjacent Segments" LIST ["Guard", "Embrace"]
             ^"Difficulty" INTEGER 16
-            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
             ^"Hit Points" INTEGER 6
         }
         FEATURES {
@@ -87,14 +93,13 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
     }
 
     #caulCOLMollthainGuard0003 ^"Mollthain Guard" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossusSegment1 ^"Colossus Segment"
         PROPERTIES {
-            ^"Tier" INTEGER 3
-            ^"Role" STRING "Colossus Segment"
+            ^"Colossus" #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart"
+            ^"Count" INTEGER 1
             ^"Description" STRING "What strikes at anything that comes near the little one."
-            ^"Adjacent Segments" STRING "Wall, Embrace, Wound"
+            ^"Adjacent Segments" LIST ["Wall", "Embrace", "Wound"]
             ^"Difficulty" INTEGER 15
-            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
             ^"Hit Points" INTEGER 5
             ^"Attack Modifier" INTEGER 3
         }
@@ -121,12 +126,12 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
     }
 
     #caulCOLMollthainEmbrace04 ^"Mollthain Embrace" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossusSegment1 ^"Colossus Segment"
         PROPERTIES {
-            ^"Tier" INTEGER 3
-            ^"Role" STRING "Colossus Segment"
+            ^"Colossus" #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart"
+            ^"Count" INTEGER 1
             ^"Description" STRING "What holds the Runt God."
-            ^"Adjacent Segments" STRING "Wall, Guard"
+            ^"Adjacent Segments" LIST ["Wall", "Guard"]
             ^"Difficulty" INTEGER 15
         }
         FEATURES {
@@ -149,14 +154,13 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
     }
 
     #caulCOLMollthainVoice0005 ^"Mollthain Voice" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossusSegment1 ^"Colossus Segment"
         PROPERTIES {
-            ^"Tier" INTEGER 3
-            ^"Role" STRING "Colossus Segment"
+            ^"Colossus" #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart"
+            ^"Count" INTEGER 1
             ^"Description" STRING "What speaks: slow, few words, parental. Speaker picks it up, louder as he closes."
-            ^"Adjacent Segments" STRING "Wound"
+            ^"Adjacent Segments" LIST ["Wound"]
             ^"Difficulty" INTEGER 14
-            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
             ^"Hit Points" INTEGER 4
             ^"Attack Modifier" INTEGER 2
         }
@@ -183,14 +187,13 @@ EXTENSION "Caul_Homebrew" EXTENDS "Daggerheart_Core_Base" {
     }
 
     #caulCOLMollthainWound0006 ^"Mollthain Wound" DEF {
-        EXTENDS #daggerheartAdversary000000001 ^"Adversary"
+        EXTENDS #daggerheartColossusSegment1 ^"Colossus Segment"
         PROPERTIES {
-            ^"Tier" INTEGER 3
-            ^"Role" STRING "Colossus Segment"
+            ^"Colossus" #caulCOLMollthainFramewk01 ^"Mollthain, the Rampart"
+            ^"Count" INTEGER 1
             ^"Description" STRING "Where he still aches: the place his warden at Grithmaar Deep was bound to him, and his tenderness for the little one."
-            ^"Adjacent Segments" STRING "Guard, Voice"
+            ^"Adjacent Segments" LIST ["Guard", "Voice"]
             ^"Difficulty" INTEGER 13
-            ^"Damage Thresholds" DEF { ^"Major" INTEGER 25 ^"Severe" INTEGER 48 }
             ^"Hit Points" INTEGER 3
         }
         FEATURES {
