@@ -21,8 +21,21 @@ window.DHData = (function () {
   const books = () => (index().books || []).slice();
   const indexBook = (id) => (index().books || []).find((b) => b.id === id) || null;
   const book = (id) => T().books[id] || null;
-  const entity = (id) => T().entities[id] || null;
-  const records = () => T().records || [];
+  // The GM's own colossi (colossi.js, saved in the campaign's state) read as entities and records in
+  // the build's own shape, beside the books', so every list, the Inspector and the table take them.
+  let gmc = { src: null, base: null, entities: {}, records: [], all: [] };
+  function gmColossi() {
+    const src = (window.VttState && window.VttState.state && window.VttState.state.colossi) || null;
+    const base = T().records || [];
+    if (src !== gmc.src) {
+      const d = src && src.length && window.DHColossi ? window.DHColossi.toData(src) : { entities: {}, records: [] };
+      gmc = { src, base: null, entities: d.entities, records: d.records, all: [] };
+    }
+    if (gmc.base !== base) { gmc.base = base; gmc.all = gmc.records.length ? base.concat(gmc.records) : base; }
+    return gmc;
+  }
+  const entity = (id) => T().entities[id] || gmColossi().entities[id] || null;
+  const records = () => gmColossi().all;
   const record = (id) => records().find((r) => r.id === id) || null;
   const loaded = (id) => !!book(id);
 
@@ -365,7 +378,7 @@ window.DHData = (function () {
     return out;
   }
 
-  const label = (bid) => (indexBook(bid) || {}).label || bid;
+  const label = (bid) => (indexBook(bid) || {}).label || (window.DHColossi && bid === window.DHColossi.BOOK ? window.DHColossi.LABEL : bid);
 
   return {
     T, index, books, indexBook, book, entity, records, record, loaded, ensure, ensureAll, coreFirst,

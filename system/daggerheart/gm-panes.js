@@ -490,6 +490,7 @@
         el('span', { class: 'muted small' }, [' · ' + x.npcs.reduce((a, n) => a + n.count, 0) + ' adversaries']),
         button('×', () => setEncounters(encounters().filter((_, j) => j !== i)), 'ghost tiny'),
       ]))));
+      if (window.DHColossi) window.DHColossi.section(container, { onAdd: (r) => { addAdversary(draft.npcs, r); draw(); } });
       container.appendChild(el('details', { class: 'small' }, [el('summary', { class: 'muted' }, ['What each role costs']), D.byType('Adversary Type').map((t) => el('div', {}, [el('b', {}, [t.name + ' ' + D.num(t, 'Battle Point Cost')]), ' — ', D.text(t, 'Battle Point Rule') || ''] ))]));
     };
     ctx.on('state:changed', () => { if (!editing(container)) draw(); });

@@ -166,7 +166,7 @@
         const castable = D.isAdversary(e) || e.type === 'Environment';
         container.appendChild(el('div', { class: 'chiprow tight' }, [
           sc && castable ? button('Put in ' + sc.name, () => put(sid, e.id), 'tiny') : null,
-          el('a', { class: 'btn ghost tiny', href: './#book/' + encodeURIComponent(e.book) + '/' + encodeURIComponent(e.id), target: '_blank' }, ['In the reader']),
+          D.indexBook(e.book) ? el('a', { class: 'btn ghost tiny', href: './#book/' + encodeURIComponent(e.book) + '/' + encodeURIComponent(e.id), target: '_blank' }, ['In the reader']) : null,
         ]));
         // the GM's notes on this one (the People pane's sections "about" it)
         const about = window.VttGmText && window.VttGmText.aboutSections('people', e.id, draw);
