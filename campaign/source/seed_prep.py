@@ -259,6 +259,35 @@ He can't be killed: his stat blocks buy time and make him listen.
         {"id": "caul-s29r-b08", "kind": "encounter", "title": "Ulmira's Falls", "collapsed": True,
          "text": "[SET 1 Oct] If they go to the Falls first: the Environment **Ulmira's Falls** (tier 3). The water destroys Umbral things on contact and scalds Sylvie; the blessing ends at the water's edge; bathing or drinking at the source heals once per long rest.",
          "npcs": [{"id": "#caulENVUlmirasFalls000001", "count": 1}]},
+        beat("caul-s29r-b10", "Investigation: Ulmira's Falls", """
+[SET 1 Oct] Run the Falls as an investigation, toward three conclusions:
+
+1. **Ulmira outgrew her carapace.** The shed shell lies at the bottom of the mountain lake the falls pour from.
+2. **God-King Otheidas became a god through the same kind of moult.**
+3. **The World Above has a civilization**: sphinx-folk who have tamed, or work with, the giant beasts and the pupae.
+
+[NOTE] Sylvie already has from S28: the headwaters were a holy site of Ulmira, said to heal and restore; and Otheidas made himself a god through rituals built on many empowered objects.
+
+**Clues** [MINE] Three to each conclusion, so one missed clue never closes it.
+
+*The carapace*
+
+- The blessing is strongest at the lake and thins downstream: Umbral things come apart faster the nearer they are to the source.
+- The painting from the library shows the lake with a pale, segmented shape beneath its surface, long read as a shrine.
+- Under the water, to a diver, a scry or Pinchie: something vast, hollow and jointed, split down its back.
+
+*Otheidas's moult*
+
+- Sylvie's own finding, read again: the empowered objects were not a source of power but a shell he built to grow out of.
+- Speaker: the gods call Otheidas "the thief." A fragment: "He wore what we shed."
+- Pinchie: twice his size since the World Above. Crabs grow by shedding, and his old shell may turn up.
+
+*The sphinx-folk*
+
+- Lion-pawed tracks and offerings on the lakeshore: sphinx pilgrims still come down to the shell.
+- The dead sphinx of S28, full of honey: stores laid up by someone, not a wild thing.
+- Rhys has lived in the World Above. Asked, he can describe them (in S18 he spoke of "new civilizations that are starting, that are basking in the glory of the gods above").
+"""),
         beat("caul-s29r-b07", "Rhys", """
 [NOTE] Before S28, last spoke with the company in S18 (12 Mar), by the fire during the long rest after the eldritch thing went into the ground. Kaelyn was dead. At the start of S19 Sylvie told him to f*** off and die and blinked the company to the Athenaeum, leaving him on the mountain. There was no reply.
 
