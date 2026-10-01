@@ -65,6 +65,8 @@
   Ops.register('setArc', (s, list) => { s.arc = copy(list || []); }, null, gmOnly, LOCAL);
   Ops.register('setThreads', (s, list) => { s.threads = copy(list || []); }, null, gmOnly, LOCAL);
   Ops.register('setEncounters', (s, list) => { s.encounters = copy(list || []); }, null, gmOnly, LOCAL);
+  // the GM's own colossi (system/daggerheart/colossi.js — the Encounters pane's builder)
+  Ops.register('setColossi', (s, list) => { s.colossi = copy(list || []); }, null, gmOnly, LOCAL);
 
   return Ops;
 });

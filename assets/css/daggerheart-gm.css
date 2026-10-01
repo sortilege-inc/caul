@@ -276,3 +276,39 @@ body.play { display: block; }
 .note-field .gm-text ul { margin: 4px 0 4px 18px; padding: 0; }
 .note-field .note-edit { margin-top: 2px; }
 .note-area { width: 100%; font: 14px/1.45 var(--sans); }
+
+/* ── the colossus builder (system/daggerheart/colossi.js; the Encounters pane) ── */
+.colossus-builder { margin: 10px 0; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; background: var(--panel); }
+.colossus-builder > summary { cursor: pointer; font-family: var(--sans); padding: 2px 0; }
+.cz-body { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.cz-list li { margin: 2px 0; }
+.cz-editor { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+.cz-bar { position: sticky; top: 0; z-index: 2; background: var(--panel); padding: 4px 0; }
+.cz-editor fieldset { border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px 8px; margin: 0; min-width: 0; }
+.cz-editor legend { font-family: var(--display); font-size: .95em; padding: 0 4px; color: var(--ink); }
+.cz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px 8px; }
+.cz-f { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cz-f.wide { grid-column: 1 / -1; }
+.cz-f .text, .cz-f select { width: 100%; box-sizing: border-box; }
+.cz-segs { display: flex; flex-direction: column; gap: 8px; }
+.cz-adj label { white-space: nowrap; }
+.cz-feats { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+.cz-feat { border-left: 2px solid var(--line); padding-left: 6px; }
+.cz-feat textarea { width: 100%; box-sizing: border-box; }
+.cz-feat .text[type="text"] { flex: 1 1 140px; min-width: 0; }
+.cz-ref { background: var(--panel-2); border-radius: 6px; padding: 6px 8px; }
+.cz-export textarea.mono { width: 100%; box-sizing: border-box; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+.cz-map { width: 100%; height: auto; background: var(--panel-2); border-radius: 6px; touch-action: none; }
+.cz-map .cz-edge { stroke: var(--ink-2); stroke-width: 2; }
+.cz-map .cz-edge.oneway { stroke: var(--danger); stroke-dasharray: 6 4; }
+.cz-map .cz-card { cursor: grab; }
+.cz-map .cz-card:active { cursor: grabbing; }
+.cz-map .cz-card rect { fill: var(--panel); stroke: var(--accent); stroke-width: 1.5; }
+.cz-map .cz-card:focus rect { stroke-width: 3; }
+.cz-map text { text-anchor: middle; font-family: var(--sans); fill: var(--ink); }
+.cz-map .cz-name { font-size: 13px; font-weight: 600; }
+.cz-map .cz-sub { font-size: 10px; fill: var(--ink-2); }
+.cz-checks { display: flex; flex-direction: column; gap: 2px; font-size: .9em; }
+.cz-check.warn { color: var(--danger); }
+.cz-check.note { color: var(--ink-2); }
+.cz-check.ok { color: var(--ink-2); }
