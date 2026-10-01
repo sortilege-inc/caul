@@ -44,7 +44,9 @@ window.VttSystem = (function () {
   const mapDef = () => null;
   const defaultMapId = (sceneId) => sceneId;
   const legend = () => null;
-  const mapAssets = () => [];
+  // the instance's own map images (VttConfig.maps: [{ label, image, grid? }]), offered in the table's
+  // "maps in the repo…" picker; a grid ({ size, ox, oy }) is applied when the map is picked.
+  const mapAssets = () => (((window.VttConfig || {}).maps) || []).filter((m) => m && m.image).map((m) => ({ label: m.label || m.image, image: m.image, grid: m.grid || null }));
 
   // ── tokens: the party, and the current scene's cast ────────────────
   function tokenSources() {
